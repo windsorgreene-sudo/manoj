@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "Learn. Practice. Understand.",
   description:
     "Practical tutorials, notes, assignments, lab work, programming concepts and examination resources for computer science and programming students.",
-  url: "https://www.codevidya.in",
+  url: "https://codevidya.vercel.app",
   locale: "en_IN",
   author: "Manoj Purohit",
   founded: 2017,
