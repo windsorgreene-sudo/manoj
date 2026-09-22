@@ -16,8 +16,10 @@ import { Breadcrumbs, BreadcrumbSchema, type Crumb } from "@/components/Breadcru
 import { ArticleBody } from "@/components/ArticleBody";
 import { TableOfContents, type TocItem } from "@/components/TableOfContents";
 import { BookmarkButton } from "@/components/BookmarkButton";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { SidebarCard } from "@/components/Sidebar";
 import { CompactArticleLink } from "@/components/ArticleListItem";
+import { SubjectIcon } from "@/components/SubjectIcon";
 import { TypeBadge, DifficultyLabel } from "@/components/Badge";
 import { ArrowLeft, ArrowRight, ClockIcon } from "@/components/icons";
 
@@ -95,6 +97,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
 
   return (
     <div className="mx-auto max-w-[1240px] px-4 py-6">
+      <ReadingProgress />
       <BreadcrumbSchema items={crumbs} />
       <script
         type="application/ld+json"
@@ -105,16 +108,26 @@ export default async function ArticlePage({ params }: { params: Params }) {
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
         {/* Main content */}
         <article className="min-w-0">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <TypeBadge type={article.contentType} />
-            <Link href={`/${cat.slug}`} className="text-sm font-medium text-primary hover:underline">
-              {cat.name}
-            </Link>
+          <div className="flex items-start gap-3">
+            <div className="hidden sm:block">
+              <SubjectIcon slug={article.category} size="lg" />
+            </div>
+            <div className="min-w-0">
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <TypeBadge type={article.contentType} />
+                <Link
+                  href={`/${cat.slug}`}
+                  className="text-sm font-medium text-primary hover:underline"
+                >
+                  {cat.name}
+                </Link>
+              </div>
+              <h1 className="text-[28px] font-bold leading-tight text-text sm:text-[34px]">
+                {article.title}
+              </h1>
+            </div>
           </div>
-          <h1 className="text-[28px] font-bold leading-tight text-text sm:text-[32px]">
-            {article.title}
-          </h1>
-          <p className="mt-2 text-[15px] text-text-muted">{article.description}</p>
+          <p className="mt-3 text-[16px] leading-relaxed text-text-muted">{article.description}</p>
 
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-4 text-[13px] text-text-muted">
             <span>By {author?.name ?? SITE.author}</span>
@@ -176,12 +189,12 @@ export default async function ArticlePage({ params }: { params: Params }) {
             {prev ? (
               <Link
                 href={`/${prev.category}/${prev.slug}`}
-                className="group flex flex-col rounded-md border border-border p-3 hover:border-primary"
+                className="group flex flex-col rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-surface-2"
               >
-                <span className="inline-flex items-center gap-1 text-xs text-text-faint">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-text-faint">
                   <ArrowLeft className="h-3.5 w-3.5" /> Previous
                 </span>
-                <span className="mt-1 text-sm font-medium text-text group-hover:text-primary">
+                <span className="mt-1 text-sm font-semibold text-text group-hover:text-primary">
                   {prev.title}
                 </span>
               </Link>
@@ -191,12 +204,12 @@ export default async function ArticlePage({ params }: { params: Params }) {
             {next && (
               <Link
                 href={`/${next.category}/${next.slug}`}
-                className="group flex flex-col rounded-md border border-border p-3 text-right hover:border-primary sm:items-end"
+                className="group flex flex-col rounded-lg border border-border p-4 text-right transition-colors hover:border-primary hover:bg-surface-2 sm:items-end"
               >
-                <span className="inline-flex items-center gap-1 text-xs text-text-faint">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-text-faint">
                   Next <ArrowRight className="h-3.5 w-3.5" />
                 </span>
-                <span className="mt-1 text-sm font-medium text-text group-hover:text-primary">
+                <span className="mt-1 text-sm font-semibold text-text group-hover:text-primary">
                   {next.title}
                 </span>
               </Link>
@@ -207,21 +220,26 @@ export default async function ArticlePage({ params }: { params: Params }) {
           {related.length > 0 && (
             <section className="mt-10">
               <h2 className="mb-4 border-b-2 border-primary/70 pb-2 text-lg font-bold text-text">
-                Related Articles
+                Keep learning — related topics
               </h2>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {related.map((r) => (
-                  <li key={r.slug} className="rounded-md border border-border p-3">
-                    <div className="mb-1">
-                      <TypeBadge type={r.contentType} />
-                    </div>
+                  <li key={r.slug}>
                     <Link
                       href={`/${r.category}/${r.slug}`}
-                      className="text-sm font-semibold text-text hover:text-primary"
+                      className="group flex h-full gap-3 rounded-lg border border-border p-3 transition-colors hover:border-primary hover:bg-surface-2"
                     >
-                      {r.title}
+                      <SubjectIcon slug={r.category} size="sm" />
+                      <div className="min-w-0">
+                        <div className="mb-1">
+                          <TypeBadge type={r.contentType} />
+                        </div>
+                        <span className="block text-sm font-semibold text-text group-hover:text-primary">
+                          {r.title}
+                        </span>
+                        <p className="clamp-2 mt-1 text-[13px] text-text-muted">{r.description}</p>
+                      </div>
                     </Link>
-                    <p className="clamp-2 mt-1 text-[13px] text-text-muted">{r.description}</p>
                   </li>
                 ))}
               </ul>

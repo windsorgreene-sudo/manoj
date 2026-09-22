@@ -12,6 +12,8 @@ import { SITE } from "@/lib/site";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { ArticleListItem, CompactArticleLink } from "@/components/ArticleListItem";
 import { SidebarCard } from "@/components/Sidebar";
+import { SubjectIcon } from "@/components/SubjectIcon";
+import { subjectTheme } from "@/lib/subjectTheme";
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
@@ -79,18 +81,56 @@ export default async function CategoryPage({ params }: { params: Params }) {
       />
       <Breadcrumbs items={[{ label: cat.name }]} />
 
-      <header className="mt-4 border-b border-border pb-5">
-        <h1 className="text-[26px] font-bold leading-tight text-text sm:text-[30px]">{cat.name}</h1>
-        <p className="mt-2 max-w-3xl text-[15px] text-text-muted">{cat.description}</p>
+      <header
+        className="mt-4 flex items-start gap-4 rounded-xl border border-border bg-surface p-5"
+        style={{ borderLeft: `4px solid ${subjectTheme(cat.slug).color}` }}
+      >
+        <div className="hidden sm:block">
+          <SubjectIcon slug={cat.slug} size="lg" />
+        </div>
+        <div className="min-w-0">
+          <h1 className="text-[26px] font-bold leading-tight text-text sm:text-[30px]">
+            {cat.name}
+          </h1>
+          <p className="mt-2 max-w-3xl text-[15px] text-text-muted">{cat.description}</p>
+          <p className="mt-3 text-sm text-text-faint">
+            {all.length} {all.length === 1 ? "resource" : "resources"} available
+          </p>
+        </div>
       </header>
+
+      {/* Jump-to chips help students go straight to what they need */}
+      {sectionsWithContent.length > 1 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {sectionsWithContent.map((s) => (
+            <a
+              key={s.type}
+              href={`#${s.type}`}
+              className="rounded-full border border-border-strong bg-surface px-3 py-1 text-[13px] font-medium text-text-muted transition-colors hover:border-primary hover:text-primary"
+            >
+              {s.heading} ({s.items.length})
+            </a>
+          ))}
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">
           {sectionsWithContent.length === 0 && (
-            <p className="text-sm text-text-muted">Content for this category is being added.</p>
+            <div className="rounded-xl border border-dashed border-border-strong bg-surface p-8 text-center">
+              <p className="text-sm text-text-muted">
+                New {cat.shortName} material is being added here. Meanwhile, explore other subjects.
+              </p>
+              <Link
+                href="/tutorials"
+                className="mt-3 inline-block text-sm font-medium text-primary hover:underline"
+              >
+                Browse all subjects →
+              </Link>
+            </div>
           )}
           {sectionsWithContent.map((s) => (
-            <section key={s.type} className="mb-8">
+            <section key={s.type} id={s.type} className="mb-8 scroll-mt-24">
               <h2 className="mb-3 border-b-2 border-primary/70 pb-2 text-lg font-bold text-text">
                 {s.heading}
               </h2>

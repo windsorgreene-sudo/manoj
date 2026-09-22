@@ -68,6 +68,23 @@ export function getAllArticleParams(): { category: string; slug: string }[] {
   return articles.map((a) => ({ category: a.category, slug: a.slug }));
 }
 
+/** Number of articles in a category (for card counts). */
+export function countByCategory(categorySlug: string): number {
+  return articles.filter((a) => a.category === categorySlug).length;
+}
+
+/** A short beginner-friendly starting path: earliest beginner tutorials. */
+export function getStartHereArticles(limit = 4): Article[] {
+  const beginner = articles.filter(
+    (a) => a.difficulty === "beginner" && (a.contentType === "tutorial" || a.contentType === "article"),
+  );
+  const pool = beginner.length >= limit ? beginner : articles.filter((a) => a.contentType === "tutorial");
+  return pool
+    .slice()
+    .sort((a, b) => a.readingMinutes - b.readingMinutes)
+    .slice(0, limit);
+}
+
 export const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
   tutorial: "Tutorial",
   article: "Article",

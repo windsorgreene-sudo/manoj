@@ -2,12 +2,18 @@ import type { ContentNode } from "@/content/types";
 import { CodeBlock } from "./CodeBlock";
 
 const NOTE_STYLE = {
-  info: "border-primary/40 bg-primary-soft",
-  tip: "border-emerald-400/40 bg-emerald-50 dark:bg-emerald-950/30",
-  warning: "border-amber-400/50 bg-amber-50 dark:bg-amber-950/30",
+  info: "border-primary bg-primary-soft",
+  tip: "border-ok bg-ok-soft",
+  warning: "border-warn bg-warn-soft",
 } as const;
 
-const NOTE_LABEL = { info: "Note", tip: "Tip", warning: "Caution" } as const;
+const NOTE_LABEL_STYLE = {
+  info: "text-primary",
+  tip: "text-ok",
+  warning: "text-warn",
+} as const;
+
+const NOTE_LABEL = { info: "Note", tip: "Tip", warning: "Watch out" } as const;
 
 export function ArticleBody({ nodes }: { nodes: ContentNode[] }) {
   return (
@@ -46,9 +52,11 @@ export function ArticleBody({ nodes }: { nodes: ContentNode[] }) {
             return (
               <div
                 key={i}
-                className={`my-5 rounded-md border-l-4 px-4 py-3 text-[15px] ${NOTE_STYLE[node.variant]}`}
+                className={`my-5 rounded-lg border-l-4 px-4 py-3 text-[15px] ${NOTE_STYLE[node.variant]}`}
               >
-                <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-text-muted">
+                <span
+                  className={`mb-1 block text-xs font-bold uppercase tracking-wide ${NOTE_LABEL_STYLE[node.variant]}`}
+                >
                   {NOTE_LABEL[node.variant]}
                 </span>
                 {node.text}
