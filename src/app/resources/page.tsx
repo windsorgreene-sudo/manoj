@@ -29,7 +29,7 @@ export default function ResourcesPage() {
       <header className="mt-4 border-b border-border pb-5">
         <h1 className="text-[26px] font-bold text-text sm:text-[30px]">Study Resources</h1>
         <p className="mt-2 max-w-3xl text-[15px] text-text-muted">
-          Assignments, lab files, syllabus, question banks, MCQs and reference material — organised
+          Assignments, lab files, syllabus, question banks, MCQs and reference material, organised
           so students can find what they need quickly.
         </p>
       </header>

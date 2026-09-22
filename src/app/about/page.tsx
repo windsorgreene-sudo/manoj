@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${SITE.name} — a reference portal of programming and computer science study material.`,
+  description: `About ${SITE.name}, a reference portal of programming and computer science study material.`,
   alternates: { canonical: "/about" },
 };
 

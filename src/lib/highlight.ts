@@ -1,7 +1,7 @@
 // A tiny, dependency-free syntax highlighter for code samples.
 // It highlights per-line (so it composes with line numbers) and only handles
 // the common token classes: comments, strings, numbers and keywords.
-// Deliberately minimal — avoids shipping a heavy highlighting library.
+// Deliberately minimal, avoids shipping a heavy highlighting library.
 
 const KEYWORDS: Record<string, string[]> = {
   python: [

@@ -1,4 +1,4 @@
-// Small inline SVG icon set. Kept minimal — stroke icons only where they aid
+// Small inline SVG icon set. Kept minimal, stroke icons only where they aid
 // usability (search, menu, theme, copy, navigation). No decorative icons.
 import type { SVGProps } from "react";
 

@@ -22,7 +22,7 @@ export const categories: Category[] = [
     name: "Python Programming",
     shortName: "Python",
     description:
-      "Learn Python from the ground up — syntax, data types, functions, object-oriented programming, file handling and standard-library tools. Includes tutorials, lab programs, assignments and practice questions.",
+      "Learn Python from the ground up, syntax, data types, functions, object-oriented programming, file handling and standard-library tools. Includes tutorials, lab programs, assignments and practice questions.",
     group: "programming",
     order: 1,
     subcategories: [
@@ -111,7 +111,7 @@ export const categories: Category[] = [
     name: "SQL & Databases",
     shortName: "SQL",
     description:
-      "Structured Query Language and relational database concepts — queries, joins, aggregate functions, normalization, indexes and transactions.",
+      "Structured Query Language and relational database concepts, queries, joins, aggregate functions, normalization, indexes and transactions.",
     group: "computer-science",
     order: 5,
     subcategories: [
@@ -133,7 +133,7 @@ export const categories: Category[] = [
     name: "Data Structures & Algorithms",
     shortName: "Data Structures",
     description:
-      "Data structures and algorithm design — arrays, linked lists, stacks, queues, trees, graphs, sorting and searching, with complexity analysis.",
+      "Data structures and algorithm design, arrays, linked lists, stacks, queues, trees, graphs, sorting and searching, with complexity analysis.",
     group: "computer-science",
     order: 6,
     subcategories: [
@@ -155,7 +155,7 @@ export const categories: Category[] = [
     name: "Computer Science",
     shortName: "Computer Science",
     description:
-      "Foundational computer science topics — operating systems, computer networks, number systems, and core theory needed across the curriculum.",
+      "Foundational computer science topics, operating systems, computer networks, number systems, and core theory needed across the curriculum.",
     group: "computer-science",
     order: 7,
     subcategories: [
@@ -175,7 +175,7 @@ export const categories: Category[] = [
     name: "Cyber Security",
     shortName: "Cyber Security",
     description:
-      "Cyber security fundamentals and cyber law — threats, cryptography basics, network security, secure practices and the legal framework governing them.",
+      "Cyber security fundamentals and cyber law, threats, cryptography basics, network security, secure practices and the legal framework governing them.",
     group: "cyber-security",
     order: 8,
     subcategories: [
@@ -196,7 +196,7 @@ export const categories: Category[] = [
     name: "Software Engineering",
     shortName: "Software Engineering",
     description:
-      "Software engineering principles — the software development life cycle, process models, requirements engineering, design, testing and project management.",
+      "Software engineering principles, the software development life cycle, process models, requirements engineering, design, testing and project management.",
     group: "software-engineering",
     order: 9,
     subcategories: [
@@ -218,7 +218,7 @@ export const categories: Category[] = [
     name: "Object-Oriented Software Engineering",
     shortName: "OOSE",
     description:
-      "Object-Oriented Software Engineering — analysis and design using UML, use cases, design patterns and object-oriented methodologies.",
+      "Object-Oriented Software Engineering, analysis and design using UML, use cases, design patterns and object-oriented methodologies.",
     group: "software-engineering",
     order: 10,
     subcategories: [
@@ -238,7 +238,7 @@ export const categories: Category[] = [
     name: "Object-Oriented Programming with Java",
     shortName: "OOPJ",
     description:
-      "Object-Oriented Programming with Java (OOPJ) — the university course covering classes, inheritance, polymorphism, abstraction, interfaces and packages with lab work and assignments.",
+      "Object-Oriented Programming with Java (OOPJ), the university course covering classes, inheritance, polymorphism, abstraction, interfaces and packages with lab work and assignments.",
     group: "programming",
     order: 11,
     subcategories: [

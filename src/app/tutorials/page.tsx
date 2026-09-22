@@ -4,7 +4,7 @@ import { GroupPage } from "@/components/GroupPage";
 export const metadata: Metadata = {
   title: "Tutorials",
   description:
-    "Browse all tutorial categories on CodeVidya — programming languages, computer science, databases, software engineering and cyber security.",
+    "Browse all tutorial categories on CodeVidya, programming languages, computer science, databases, software engineering and cyber security.",
   alternates: { canonical: "/tutorials" },
 };
 

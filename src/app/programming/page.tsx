@@ -4,7 +4,7 @@ import { GroupPage } from "@/components/GroupPage";
 export const metadata: Metadata = {
   title: "Programming",
   description:
-    "Programming language tutorials — Python, Core Java, C++, C# and object-oriented programming with lab work and assignments.",
+    "Programming language tutorials, Python, Core Java, C++, C# and object-oriented programming with lab work and assignments.",
   alternates: { canonical: "/programming" },
 };
 

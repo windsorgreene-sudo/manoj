@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "./LanguageProvider";
 
 export interface TocItem {
   id: string;
   text: string;
+  textHi?: string;
   level: 2 | 3;
 }
 
 export function TableOfContents({ items }: { items: TocItem[] }) {
+  const { lang } = useLanguage();
   const [active, setActive] = useState<string>(items[0]?.id ?? "");
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export function TableOfContents({ items }: { items: TocItem[] }) {
                   : "border-transparent text-text-muted hover:text-text"
               }`}
             >
-              {it.text}
+              {lang === "hi" && it.textHi ? it.textHi : it.text}
             </a>
           </li>
         ))}

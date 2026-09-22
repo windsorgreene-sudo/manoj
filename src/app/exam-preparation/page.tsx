@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 export const metadata: Metadata = {
   title: "Exam Preparation",
   description:
-    "Exam preparation material — MCQs, test series, question papers, syllabus and revision notes for computer science examinations.",
+    "Exam preparation material, MCQs, test series, question papers, syllabus and revision notes for computer science examinations.",
   alternates: { canonical: "/exam-preparation" },
 };
 

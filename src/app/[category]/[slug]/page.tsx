@@ -17,6 +17,7 @@ import { ArticleBody } from "@/components/ArticleBody";
 import { TableOfContents, type TocItem } from "@/components/TableOfContents";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { ArticleTitle, ArticleDescription } from "@/components/ArticleHeading";
 import { SidebarCard } from "@/components/Sidebar";
 import { CompactArticleLink } from "@/components/ArticleListItem";
 import { SubjectIcon } from "@/components/SubjectIcon";
@@ -70,7 +71,9 @@ export default async function ArticlePage({ params }: { params: Params }) {
     .filter((n) => n.type === "heading")
     .map((n) => {
       const h = n as Extract<typeof n, { type: "heading" }>;
-      return { id: h.id, text: h.text, level: h.level };
+      const text = typeof h.text === "string" ? h.text : h.text.en;
+      const textHi = typeof h.text === "string" ? undefined : h.text.hi;
+      return { id: h.id, text, textHi, level: h.level };
     });
 
   const crumbs: Crumb[] = [
@@ -122,12 +125,10 @@ export default async function ArticlePage({ params }: { params: Params }) {
                   {cat.name}
                 </Link>
               </div>
-              <h1 className="text-[28px] font-bold leading-tight text-text sm:text-[34px]">
-                {article.title}
-              </h1>
+              <ArticleTitle en={article.title} hi={article.titleHi} />
             </div>
           </div>
-          <p className="mt-3 text-[16px] leading-relaxed text-text-muted">{article.description}</p>
+          <ArticleDescription en={article.description} hi={article.descriptionHi} />
 
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-4 text-[13px] text-text-muted">
             <span>By {author?.name ?? SITE.author}</span>
@@ -220,7 +221,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
           {related.length > 0 && (
             <section className="mt-10">
               <h2 className="mb-4 border-b-2 border-primary/70 pb-2 text-lg font-bold text-text">
-                Keep learning — related topics
+                Keep learning: related topics
               </h2>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {related.map((r) => (

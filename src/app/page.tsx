@@ -54,17 +54,17 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Intro / hero — friendly and clear, still content-first */}
+      {/* Intro / hero: friendly and clear, still content-first */}
       <section className="border-b border-border bg-gradient-to-b from-primary-soft to-bg">
         <div className="mx-auto max-w-[1240px] px-4 py-10 sm:py-14">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-primary">
             Free study portal for students
           </p>
           <h1 className="max-w-3xl text-3xl font-bold leading-tight text-text sm:text-4xl">
-            Learn Computer Science &amp; Programming — the simple way
+            Learn Computer Science &amp; Programming, the simple way
           </h1>
           <p className="mt-3 max-w-2xl text-base text-text-muted">
-            Clear tutorials, ready notes, solved lab programs, assignments and exam practice — all
+            Clear tutorials, ready notes, solved lab programs, assignments and exam practice, all
             organised subject-wise so you always know what to study next.
           </p>
           <div className="mt-5 max-w-2xl">
@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       <div className="mx-auto max-w-[1240px] px-4 py-8">
-        {/* Choose a subject — colorful, scannable tiles */}
+        {/* Choose a subject: colorful, scannable tiles */}
         <section className="mb-12">
           <SectionHeading title="Choose a Subject" href="/tutorials" linkLabel="All subjects" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -115,7 +115,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Start here — helps beginners know where to begin */}
+        {/* Start here: helps beginners know where to begin */}
         {startHere.length > 0 && (
           <section className="mb-12 rounded-xl border border-border bg-surface p-5">
             <div className="mb-4 flex items-center gap-2">

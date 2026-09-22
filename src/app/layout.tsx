@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeScript } from "@/components/ThemeScript";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import { buildSearchIndex } from "@/content";
 import { SITE } from "@/lib/site";
 
@@ -22,7 +23,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
+    default: `${SITE.name}: ${SITE.tagline}`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -43,14 +44,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}: ${SITE.tagline}`,
     description: SITE.description,
     locale: SITE.locale,
     url: SITE.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}: ${SITE.tagline}`,
     description: SITE.description,
   },
   robots: { index: true, follow: true },
@@ -71,9 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Header searchIndex={searchIndex} />
-        <main id="main">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Header searchIndex={searchIndex} />
+          <main id="main">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

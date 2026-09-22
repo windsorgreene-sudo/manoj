@@ -16,6 +16,23 @@ export type ContentType =
 
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 
+/** Supported reading languages. "hi" here means Hinglish (Roman-script Hindi). */
+export type Lang = "en" | "hi";
+
+/**
+ * A piece of text that may be available in more than one language.
+ * A plain string means English-only (Hinglish falls back to it).
+ * An object provides English plus an optional Hinglish version.
+ */
+export type Localized = string | { en: string; hi?: string };
+
+/** Read a Localized value for the requested language, falling back to English. */
+export function t(value: Localized, lang: Lang): string {
+  if (typeof value === "string") return value;
+  if (lang === "hi" && value.hi) return value.hi;
+  return value.en;
+}
+
 export interface Author {
   id: string;
   name: string;
@@ -64,18 +81,24 @@ export interface CodeBlock {
 }
 
 export type ContentNode =
-  | { type: "heading"; level: 2 | 3; id: string; text: string }
-  | { type: "paragraph"; text: string }
-  | { type: "list"; ordered?: boolean; items: string[] }
+  | { type: "heading"; level: 2 | 3; id: string; text: Localized }
+  | { type: "paragraph"; text: Localized }
+  | { type: "list"; ordered?: boolean; items: Localized[] }
   | { type: "code"; block: CodeBlock }
-  | { type: "note"; variant: "info" | "warning" | "tip"; text: string }
-  | { type: "table"; headers: string[]; rows: string[][] };
+  | { type: "note"; variant: "info" | "warning" | "tip"; text: Localized }
+  | { type: "table"; headers: Localized[]; rows: Localized[][] }
+  /** A highlighted key-points / summary box, great for quick revision. */
+  | { type: "keypoints"; title?: Localized; items: Localized[] };
 
 export interface Article {
   slug: string;
   title: string;
+  /** Optional Hinglish version of the title, shown when Hinglish is selected. */
+  titleHi?: string;
   /** SEO/meta description and listing summary. */
   description: string;
+  /** Optional Hinglish version of the description. */
+  descriptionHi?: string;
   category: string; // Category slug
   subcategory?: string; // Subcategory slug
   contentType: ContentType;

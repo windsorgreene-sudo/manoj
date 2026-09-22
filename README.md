@@ -3,7 +3,7 @@
 **Learn. Practice. Understand.**
 
 CodeVidya is an educational reference portal for computer science and programming
-students — tutorials, notes, assignments, lab programs, MCQs and examination
+students, tutorials, notes, assignments, lab programs, MCQs and examination
 material, organised into clear subject categories.
 
 It is built as a modern, independent replacement for a Blogger-based content
@@ -12,7 +12,7 @@ can be migrated into a proper content model with clean, SEO-friendly URLs.
 
 ## Tech stack
 
-- **Next.js 16** (App Router) — statically generated pages for fast loads and SEO
+- **Next.js 16** (App Router), statically generated pages for fast loads and SEO
 - **React 19 + TypeScript**
 - **Tailwind CSS v4** (CSS-based theme tokens)
 - No heavy runtime dependencies; the syntax highlighter and search index are
@@ -54,14 +54,14 @@ All content lives in `src/content/` and is fully typed (`types.ts`). This mirror
 a real CMS schema so the layer can later be swapped for a database or headless CMS
 without touching the rendering components.
 
-- `categories.ts` — categories, subcategories, nav groups, popular topics
-- `authors.ts` — author records
-- `articles.ts` — articles (each with title, slug, description, body, category,
+- `categories.ts`, categories, subcategories, nav groups, popular topics
+- `authors.ts`, author records
+- `articles.ts`, articles (each with title, slug, description, body, category,
   subcategory, tags, author, published/updated dates, difficulty, reading time,
   SEO fields, and an optional `legacyUrl`)
-- `index.ts` — derived queries: latest, popular, recently updated, related,
+- `index.ts`, derived queries: latest, popular, recently updated, related,
   previous/next, and the client search index
-- `redirects.ts` — builds 301 redirects from old Blogger permalinks
+- `redirects.ts`, builds 301 redirects from old Blogger permalinks
 
 An article `body` is an array of typed `ContentNode`s (headings, paragraphs,
 lists, code blocks, notes, tables). This keeps content structured and portable

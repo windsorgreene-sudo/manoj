@@ -6,6 +6,7 @@ import type { SearchDoc } from "@/content";
 import { NAV_GROUPS, categories } from "@/content";
 import { SITE } from "@/lib/site";
 import { SearchDialog } from "./SearchDialog";
+import { LanguageToggle } from "./LanguageToggle";
 import {
   SearchIcon,
   MenuIcon,
@@ -91,6 +92,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           >
             <SearchIcon className="h-5 w-5" />
           </button>
+          <LanguageToggle className="hidden sm:inline-flex" />
           <Link
             href="/bookmarks"
             aria-label="Bookmarks"
@@ -173,13 +175,16 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           <div className="absolute right-0 top-0 h-full w-80 max-w-[85vw] overflow-y-auto border-l border-border bg-surface">
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <span className="font-bold text-text">Menu</span>
-              <button
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close menu"
-                className="rounded p-1 text-text-muted hover:bg-surface-2"
-              >
-                <CloseIcon className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <LanguageToggle />
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
+                  className="rounded p-1 text-text-muted hover:bg-surface-2"
+                >
+                  <CloseIcon className="h-5 w-5" />
+                </button>
+              </div>
             </div>
             <nav className="px-2 py-2">
               {NAV_GROUPS.map((g) => (
