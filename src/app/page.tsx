@@ -13,6 +13,7 @@ import { HomeSearch } from "@/components/HomeSearch";
 import { ArticleListItem } from "@/components/ArticleListItem";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SubjectIcon } from "@/components/SubjectIcon";
+import { Reveal } from "@/components/Reveal";
 import { formatDate } from "@/lib/site";
 import { subjectTheme } from "@/lib/subjectTheme";
 import { TypeBadge } from "@/components/Badge";
@@ -55,28 +56,54 @@ export default function HomePage() {
   return (
     <>
       {/* Intro / hero: friendly and clear, still content-first */}
-      <section className="border-b border-border bg-gradient-to-b from-primary-soft to-bg">
-        <div className="mx-auto max-w-[1240px] px-4 py-10 sm:py-14">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-primary">
+      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-primary-soft via-bg to-bg">
+        {/* Soft decorative glows for depth (subtle, not flashy) */}
+        <div
+          className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -bottom-32 -left-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-[1240px] px-4 py-12 sm:py-16">
+          <p className="animate-fade-up mb-2 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden />
             Free study portal for students
           </p>
-          <h1 className="max-w-3xl text-3xl font-bold leading-tight text-text sm:text-4xl">
-            Learn Computer Science &amp; Programming, the simple way
+          <h1
+            className="animate-fade-up max-w-3xl text-3xl font-bold leading-tight tracking-tight text-text sm:text-5xl"
+            style={{ animationDelay: "60ms" }}
+          >
+            Learn Computer Science &amp;{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Programming
+            </span>
+            , the simple way
           </h1>
-          <p className="mt-3 max-w-2xl text-base text-text-muted">
+          <p
+            className="animate-fade-up mt-4 max-w-2xl text-base text-text-muted sm:text-lg"
+            style={{ animationDelay: "120ms" }}
+          >
             Clear tutorials, ready notes, solved lab programs, assignments and exam practice, all
             organised subject-wise so you always know what to study next.
           </p>
-          <div className="mt-5 max-w-2xl">
+          <div
+            className="animate-fade-up mt-6 max-w-2xl"
+            style={{ animationDelay: "180ms" }}
+          >
             <HomeSearch index={index} />
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div
+            className="animate-fade-up mt-4 flex flex-wrap items-center gap-2"
+            style={{ animationDelay: "240ms" }}
+          >
             <span className="text-sm text-text-muted">Quick access:</span>
             {QUICK_LINKS.map((q) => (
               <Link
                 key={q.href}
                 href={q.href}
-                className="rounded-full border border-border-strong bg-surface px-3 py-1 text-[13px] font-medium text-text transition-colors hover:border-primary hover:text-primary"
+                className="rounded-full border border-border-strong bg-surface px-3 py-1 text-[13px] font-medium text-text transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-[var(--shadow-sm)]"
               >
                 {q.label}
               </Link>
@@ -90,26 +117,30 @@ export default function HomePage() {
         <section className="mb-12">
           <SectionHeading title="Choose a Subject" href="/tutorials" linkLabel="All subjects" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {popularCats.map((c) => {
+            {popularCats.map((c, i) => {
               const theme = subjectTheme(c.slug);
               const count = countByCategory(c.slug);
               return (
-                <Link
-                  key={c.slug}
-                  href={`/${c.slug}`}
-                  className="group flex items-start gap-3 rounded-xl border border-border bg-surface p-4 transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-sm"
-                  style={{ borderLeft: `3px solid ${theme.color}` }}
-                >
-                  <SubjectIcon slug={c.slug} />
-                  <div className="min-w-0">
-                    <span className="block font-semibold text-text group-hover:text-primary">
-                      {c.shortName}
+                <Reveal key={c.slug} delay={i * 45}>
+                  <Link
+                    href={`/${c.slug}`}
+                    className="hover-lift group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
+                    style={{ borderLeft: `3px solid ${theme.color}` }}
+                  >
+                    <span className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                      <SubjectIcon slug={c.slug} />
                     </span>
-                    <span className="text-xs text-text-faint">
-                      {count} {count === 1 ? "article" : "articles"}
-                    </span>
-                  </div>
-                </Link>
+                    <div className="min-w-0">
+                      <span className="block font-semibold text-text transition-colors group-hover:text-primary">
+                        {c.shortName}
+                      </span>
+                      <span className="text-xs text-text-faint">
+                        {count} {count === 1 ? "article" : "articles"}
+                      </span>
+                    </div>
+                    <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-text-faint opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary group-hover:opacity-100" />
+                  </Link>
+                </Reveal>
               );
             })}
           </div>
@@ -117,7 +148,10 @@ export default function HomePage() {
 
         {/* Start here: helps beginners know where to begin */}
         {startHere.length > 0 && (
-          <section className="mb-12 rounded-xl border border-border bg-surface p-5">
+          <Reveal
+            as="section"
+            className="mb-12 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-surface to-primary-soft/40 p-5 shadow-[var(--shadow-sm)] sm:p-6"
+          >
             <div className="mb-4 flex items-center gap-2">
               <span className="rounded-md bg-ok-soft px-2 py-1 text-xs font-semibold uppercase tracking-wide text-ok">
                 New to coding?
@@ -129,12 +163,12 @@ export default function HomePage() {
                 <Link
                   key={a.slug}
                   href={`/${a.category}/${a.slug}`}
-                  className="group flex flex-col rounded-lg border border-border p-3 transition-colors hover:border-primary"
+                  className="hover-lift group flex flex-col rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
                 >
-                  <span className="mb-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-soft text-xs font-bold text-primary">
+                  <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-contrast shadow-[var(--shadow-sm)] transition-transform duration-300 group-hover:scale-110">
                     {i + 1}
                   </span>
-                  <span className="text-sm font-semibold text-text group-hover:text-primary">
+                  <span className="text-sm font-semibold text-text transition-colors group-hover:text-primary">
                     {a.title}
                   </span>
                   <span className="mt-2 inline-flex items-center gap-1 text-xs text-text-faint">
@@ -144,29 +178,29 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-          </section>
+          </Reveal>
         )}
 
         {/* Two column: latest + sidebar sections */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0">
-            <section className="mb-10">
+            <Reveal as="section" className="mb-10">
               <SectionHeading title="Latest Articles" href="/tutorials" />
               <div>
                 {latest.map((a) => (
                   <ArticleListItem key={a.slug} article={a} />
                 ))}
               </div>
-            </section>
+            </Reveal>
 
-            <section>
+            <Reveal as="section">
               <SectionHeading title="Popular Tutorials" href="/tutorials" />
               <div>
                 {popular.map((a) => (
                   <ArticleListItem key={a.slug} article={a} />
                 ))}
               </div>
-            </section>
+            </Reveal>
           </div>
 
           {/* Sidebar */}
@@ -211,7 +245,7 @@ export default function HomePage() {
 
             <Link
               href="/resources"
-              className="flex items-center justify-between rounded-xl border border-border bg-accent-soft p-4 transition-colors hover:border-accent"
+              className="hover-lift group flex items-center justify-between rounded-xl border border-accent/30 bg-accent-soft p-4 hover:border-accent"
             >
               <span>
                 <span className="block font-semibold text-text">Study Resources</span>
@@ -219,7 +253,7 @@ export default function HomePage() {
                   Assignments, labs, syllabus &amp; more
                 </span>
               </span>
-              <ArrowRight className="h-5 w-5 text-accent" />
+              <ArrowRight className="h-5 w-5 text-accent transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </aside>
         </div>

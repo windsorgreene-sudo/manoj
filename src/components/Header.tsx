@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { SearchDoc } from "@/content";
 import { NAV_GROUPS, categories } from "@/content";
 import { SITE } from "@/lib/site";
@@ -27,6 +28,11 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href !== "/" && (pathname === href || pathname.startsWith(href + "/"));
 
   useEffect(() => {
     // Sync toggle state from the DOM class set by the pre-hydration ThemeScript.
@@ -45,6 +51,22 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  // Add a subtle shadow once the page is scrolled.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Lock body scroll while the mobile drawer is open.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const toggleTheme = () => {
     const el = document.documentElement;
     const next = !el.classList.contains("dark");
@@ -56,12 +78,20 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
+    <header
+      className={`sticky top-0 z-50 border-b bg-surface/90 backdrop-blur transition-shadow duration-300 supports-[backdrop-filter]:bg-surface/75 ${
+        scrolled ? "border-border shadow-[var(--shadow-sm)]" : "border-transparent"
+      }`}
+    >
       {/* Primary row */}
       <div className="mx-auto flex h-16 max-w-[1240px] items-center gap-3 px-4">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-baseline gap-1.5" aria-label={SITE.name}>
-          <span className="font-mono text-xl font-bold tracking-tight text-primary">
+        <Link
+          href="/"
+          className="group flex shrink-0 items-baseline gap-1.5"
+          aria-label={SITE.name}
+        >
+          <span className="font-mono text-xl font-bold tracking-tight text-primary transition-transform duration-300 group-hover:-rotate-6">
             &lt;/&gt;
           </span>
           <span className="text-xl font-bold tracking-tight text-text">
@@ -73,7 +103,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
         <div className="mx-auto hidden w-full max-w-xl md:block">
           <button
             onClick={() => setSearchOpen(true)}
-            className="flex w-full items-center gap-2 rounded-md border border-border-strong bg-surface-2 px-3 py-2 text-left text-sm text-text-faint transition-colors hover:border-primary"
+            className="flex w-full items-center gap-2 rounded-lg border border-border-strong bg-surface-2 px-3 py-2 text-left text-sm text-text-faint transition-all hover:border-primary hover:shadow-[var(--shadow-sm)]"
           >
             <SearchIcon className="h-4 w-4" />
             <span className="flex-1">Search tutorials, topics, notes, assignments...</span>
@@ -109,7 +139,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           </button>
           <Link
             href="/login"
-            className="hidden rounded-md border border-border-strong px-3 py-1.5 text-sm font-medium text-text hover:border-primary sm:inline-flex"
+            className="hidden rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
           >
             Login
           </Link>
@@ -125,31 +155,41 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
 
       {/* Category nav (desktop) */}
       <nav className="hidden border-t border-border lg:block" aria-label="Categories">
-        <div className="mx-auto flex max-w-[1240px] items-stretch px-4">
+        <div className="no-scrollbar mx-auto flex max-w-[1240px] items-stretch overflow-x-auto px-4">
           {NAV_GROUPS.map((g) => {
             const items = dropdownFor(g.group);
             const hasDropdown = items.length > 0;
             return (
               <div
                 key={g.group}
-                className="relative"
+                className="relative shrink-0"
                 onMouseEnter={() => hasDropdown && setOpenDropdown(g.group)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <Link
                   href={g.href}
-                  className="flex items-center gap-1 px-3 py-2.5 text-sm font-medium text-text-muted hover:text-primary"
+                  className={`relative flex items-center gap-1 px-3 py-2.5 text-sm font-medium transition-colors after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-primary hover:after:scale-x-100 ${
+                    isActive(g.href)
+                      ? "text-primary after:scale-x-100"
+                      : "text-text-muted"
+                  }`}
                 >
                   {g.label}
-                  {hasDropdown && <ChevronDown className="h-3.5 w-3.5" />}
+                  {hasDropdown && (
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                        openDropdown === g.group ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
                 </Link>
                 {hasDropdown && openDropdown === g.group && (
-                  <div className="absolute left-0 top-full z-50 min-w-56 border border-border bg-surface py-1 shadow-lg">
+                  <div className="animate-slide-down absolute left-0 top-full z-50 min-w-56 overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-[var(--shadow-lg)]">
                     {items.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/${c.slug}`}
-                        className="block px-4 py-2 text-sm text-text-muted hover:bg-surface-2 hover:text-primary"
+                        className="block px-4 py-2 text-sm text-text-muted transition-colors hover:bg-surface-2 hover:pl-5 hover:text-primary"
                       >
                         {c.name}
                       </Link>
@@ -161,68 +201,80 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           })}
           <Link
             href="/resources"
-            className="ml-auto flex items-center px-3 py-2.5 text-sm font-medium text-text-muted hover:text-primary"
+            className="ml-auto flex shrink-0 items-center gap-1 whitespace-nowrap px-3 py-2.5 text-sm font-semibold text-primary hover:text-primary-hover"
           >
             Study Resources
           </Link>
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-[70] lg:hidden">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setMenuOpen(false)} />
-          <div className="absolute right-0 top-0 h-full w-80 max-w-[85vw] overflow-y-auto border-l border-border bg-surface">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <span className="font-bold text-text">Menu</span>
-              <div className="flex items-center gap-2">
-                <LanguageToggle />
-                <button
-                  onClick={() => setMenuOpen(false)}
-                  aria-label="Close menu"
-                  className="rounded p-1 text-text-muted hover:bg-surface-2"
-                >
-                  <CloseIcon className="h-5 w-5" />
-                </button>
-              </div>
+      {/* Mobile drawer */}
+      <div
+        className={`fixed inset-0 z-[70] lg:hidden ${menuOpen ? "" : "pointer-events-none"}`}
+        aria-hidden={!menuOpen}
+      >
+        <div
+          className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setMenuOpen(false)}
+        />
+        <div
+          className={`absolute right-0 top-0 flex h-full w-80 max-w-[85vw] flex-col overflow-y-auto border-l border-border bg-surface shadow-[var(--shadow-lg)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            menuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b border-border px-4 py-3">
+            <span className="font-bold text-text">Menu</span>
+            <div className="flex items-center gap-2">
+              <LanguageToggle />
+              <button
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                className="rounded-md p-1.5 text-text-muted hover:bg-surface-2"
+              >
+                <CloseIcon className="h-5 w-5" />
+              </button>
             </div>
-            <nav className="px-2 py-2">
-              {NAV_GROUPS.map((g) => (
-                <Link
-                  key={g.group}
-                  href={g.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded px-3 py-2.5 text-sm font-medium text-text hover:bg-surface-2"
-                >
-                  {g.label}
-                </Link>
-              ))}
-              <Link
-                href="/resources"
-                onClick={() => setMenuOpen(false)}
-                className="block rounded px-3 py-2.5 text-sm font-medium text-text hover:bg-surface-2"
-              >
-                Study Resources
-              </Link>
-              <div className="my-2 border-t border-border" />
-              <Link
-                href="/login"
-                onClick={() => setMenuOpen(false)}
-                className="block rounded px-3 py-2.5 text-sm font-medium text-text hover:bg-surface-2"
-              >
-                Login
-              </Link>
-              <Link
-                href="/bookmarks"
-                onClick={() => setMenuOpen(false)}
-                className="block rounded px-3 py-2.5 text-sm font-medium text-text hover:bg-surface-2"
-              >
-                Bookmarks
-              </Link>
-            </nav>
           </div>
+          <nav className="px-2 py-2">
+            {NAV_GROUPS.map((g) => (
+              <Link
+                key={g.group}
+                href={g.href}
+                onClick={() => setMenuOpen(false)}
+                className={`block rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors hover:bg-surface-2 ${
+                  isActive(g.href) ? "bg-primary-soft text-primary" : "text-text"
+                }`}
+              >
+                {g.label}
+              </Link>
+            ))}
+            <Link
+              href="/resources"
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
+            >
+              Study Resources
+            </Link>
+            <div className="my-2 border-t border-border" />
+            <Link
+              href="/login"
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
+            >
+              Login
+            </Link>
+            <Link
+              href="/bookmarks"
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
+            >
+              Bookmarks
+            </Link>
+          </nav>
         </div>
-      )}
+      </div>
 
       <SearchDialog index={searchIndex} open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>

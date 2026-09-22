@@ -31,14 +31,23 @@ export function CodeBlock({ block, showLineNumbers = true }: { block: CodeBlockD
   };
 
   return (
-    <figure className="my-5 overflow-hidden rounded-md border border-[#2b323c]">
-      <div className="flex items-center justify-between bg-[#232833] px-3 py-1.5">
-        <span className="text-[11px] font-medium uppercase tracking-wide text-[#9aa4b2]">
-          {label}
-        </span>
+    <figure className="my-6 overflow-hidden rounded-xl border border-[#2b323c] shadow-[var(--shadow-md)]">
+      <div className="flex items-center justify-between border-b border-white/5 bg-[#232833] px-3 py-2">
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-1.5" aria-hidden>
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          </span>
+          <span className="ml-1 text-[11px] font-semibold uppercase tracking-wide text-[#9aa4b2]">
+            {label}
+          </span>
+        </div>
         <button
           onClick={copy}
-          className="inline-flex items-center gap-1 rounded px-2 py-1 text-[12px] text-[#c2cad4] hover:bg-white/10"
+          className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-[12px] transition-colors ${
+            copied ? "bg-emerald-500/15 text-emerald-300" : "text-[#c2cad4] hover:bg-white/10"
+          }`}
           aria-label="Copy code"
         >
           {copied ? <CheckIcon className="h-3.5 w-3.5" /> : <CopyIcon className="h-3.5 w-3.5" />}

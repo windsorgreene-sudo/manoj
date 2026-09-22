@@ -63,7 +63,10 @@ export function Footer() {
               <ul className="space-y-2">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="text-[13px] text-text-muted hover:text-primary">
+                    <Link
+                      href={l.href}
+                      className="inline-block text-[13px] text-text-muted transition-all duration-200 hover:translate-x-0.5 hover:text-primary"
+                    >
                       {l.label}
                     </Link>
                   </li>

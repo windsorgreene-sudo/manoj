@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeScript } from "@/components/ThemeScript";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { buildSearchIndex } from "@/content";
 import { SITE } from "@/lib/site";
 
@@ -58,6 +59,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f9fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#12161d" },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const searchIndex = buildSearchIndex();
   return (
@@ -76,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header searchIndex={searchIndex} />
           <main id="main">{children}</main>
           <Footer />
+          <ScrollToTop />
         </LanguageProvider>
       </body>
     </html>

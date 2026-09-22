@@ -9,7 +9,7 @@ export function SidebarCard({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-md border border-border bg-surface p-4">
+    <section className="rounded-xl border border-border bg-surface p-4 shadow-[var(--shadow-xs)] transition-shadow duration-200 hover:shadow-[var(--shadow-sm)]">
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-text-muted">
         {title}
       </h2>

@@ -19,8 +19,8 @@ export function ArticleListItem({
   const href = `/${article.category}/${article.slug}`;
   return (
     <article className="border-b border-border last:border-b-0">
-      <div className="group relative -mx-2 flex gap-3 rounded-lg px-2 py-4 transition-colors hover:bg-surface-2">
-        <div className="pt-0.5">
+      <div className="group relative -mx-2 flex gap-3 rounded-xl px-3 py-4 transition-all duration-200 hover:bg-surface-2 hover:shadow-[var(--shadow-sm)]">
+        <div className="pt-0.5 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
           <SubjectIcon slug={article.category} size="sm" />
         </div>
         <div className="min-w-0 flex-1">
@@ -31,7 +31,7 @@ export function ArticleListItem({
             )}
           </div>
           <h3 className="text-[17px] font-semibold leading-snug">
-            <Link href={href} className="text-text group-hover:text-primary">
+            <Link href={href} className="text-text transition-colors group-hover:text-primary">
               <span className="absolute inset-0" aria-hidden />
               {article.title}
             </Link>

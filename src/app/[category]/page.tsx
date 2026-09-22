@@ -13,6 +13,7 @@ import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { ArticleListItem, CompactArticleLink } from "@/components/ArticleListItem";
 import { SidebarCard } from "@/components/Sidebar";
 import { SubjectIcon } from "@/components/SubjectIcon";
+import { Reveal } from "@/components/Reveal";
 import { subjectTheme } from "@/lib/subjectTheme";
 
 export function generateStaticParams() {
@@ -82,7 +83,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
       <Breadcrumbs items={[{ label: cat.name }]} />
 
       <header
-        className="mt-4 flex items-start gap-4 rounded-xl border border-border bg-surface p-5"
+        className="animate-fade-up mt-4 flex items-start gap-4 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-surface to-surface-2 p-5 shadow-[var(--shadow-sm)] sm:p-6"
         style={{ borderLeft: `4px solid ${subjectTheme(cat.slug).color}` }}
       >
         <div className="hidden sm:block">
@@ -130,16 +131,19 @@ export default async function CategoryPage({ params }: { params: Params }) {
             </div>
           )}
           {sectionsWithContent.map((s) => (
-            <section key={s.type} id={s.type} className="mb-8 scroll-mt-24">
-              <h2 className="mb-3 border-b-2 border-primary/70 pb-2 text-lg font-bold text-text">
-                {s.heading}
-              </h2>
-              <div>
-                {s.items.map((a: Article) => (
-                  <ArticleListItem key={a.slug} article={a} showCategory={false} />
-                ))}
+            <Reveal as="section" key={s.type} className="mb-8 scroll-mt-24">
+              <div id={s.type}>
+                <h2 className="mb-3 flex items-center gap-2 border-b border-border pb-2 text-lg font-bold text-text">
+                  <span className="h-5 w-1 rounded-full bg-gradient-to-b from-primary to-accent" aria-hidden />
+                  {s.heading}
+                </h2>
+                <div>
+                  {s.items.map((a: Article) => (
+                    <ArticleListItem key={a.slug} article={a} showCategory={false} />
+                  ))}
+                </div>
               </div>
-            </section>
+            </Reveal>
           ))}
         </div>
 

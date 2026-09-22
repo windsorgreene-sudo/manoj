@@ -18,6 +18,7 @@ import { TableOfContents, type TocItem } from "@/components/TableOfContents";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { ArticleTitle, ArticleDescription } from "@/components/ArticleHeading";
+import { Reveal } from "@/components/Reveal";
 import { SidebarCard } from "@/components/Sidebar";
 import { CompactArticleLink } from "@/components/ArticleListItem";
 import { SubjectIcon } from "@/components/SubjectIcon";
@@ -111,7 +112,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
         {/* Main content */}
         <article className="min-w-0">
-          <div className="flex items-start gap-3">
+          <div className="animate-fade-up flex items-start gap-3">
             <div className="hidden sm:block">
               <SubjectIcon slug={article.category} size="lg" />
             </div>
@@ -219,8 +220,9 @@ export default async function ArticlePage({ params }: { params: Params }) {
 
           {/* Related articles */}
           {related.length > 0 && (
-            <section className="mt-10">
-              <h2 className="mb-4 border-b-2 border-primary/70 pb-2 text-lg font-bold text-text">
+            <Reveal as="section" className="mt-10">
+              <h2 className="mb-4 flex items-center gap-2 border-b border-border pb-2 text-lg font-bold text-text">
+                <span className="h-5 w-1 rounded-full bg-gradient-to-b from-primary to-accent" aria-hidden />
                 Keep learning: related topics
               </h2>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -228,14 +230,16 @@ export default async function ArticlePage({ params }: { params: Params }) {
                   <li key={r.slug}>
                     <Link
                       href={`/${r.category}/${r.slug}`}
-                      className="group flex h-full gap-3 rounded-lg border border-border p-3 transition-colors hover:border-primary hover:bg-surface-2"
+                      className="hover-lift group flex h-full gap-3 rounded-xl border border-border bg-surface p-3.5 hover:border-primary/50"
                     >
-                      <SubjectIcon slug={r.category} size="sm" />
+                      <span className="transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
+                        <SubjectIcon slug={r.category} size="sm" />
+                      </span>
                       <div className="min-w-0">
                         <div className="mb-1">
                           <TypeBadge type={r.contentType} />
                         </div>
-                        <span className="block text-sm font-semibold text-text group-hover:text-primary">
+                        <span className="block text-sm font-semibold text-text transition-colors group-hover:text-primary">
                           {r.title}
                         </span>
                         <p className="clamp-2 mt-1 text-[13px] text-text-muted">{r.description}</p>
@@ -244,7 +248,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
                   </li>
                 ))}
               </ul>
-            </section>
+            </Reveal>
           )}
         </article>
 
