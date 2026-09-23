@@ -9,7 +9,7 @@ export function TypeBadge({ type }: { type: ContentType }) {
   const isPractice = PRACTICE.includes(type);
   return (
     <span
-      className={`inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wider ${
         isPractice
           ? "bg-accent-soft text-accent"
           : "bg-tag-bg text-tag-text"

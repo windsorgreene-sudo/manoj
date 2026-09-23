@@ -92,11 +92,11 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
         <div className="mx-auto hidden w-full max-w-xl md:block">
           <button
             onClick={() => setSearchOpen(true)}
-            className="flex w-full items-center gap-2 rounded-lg border border-border-strong bg-surface-2 px-3 py-2 text-left text-sm text-text-faint transition-all hover:border-primary hover:shadow-[var(--shadow-sm)]"
+            className="flex w-full items-center gap-2 rounded-full border border-border-strong bg-surface-2 px-4 py-2 text-left text-sm text-text-faint transition-all hover:border-primary hover:bg-surface hover:shadow-[var(--shadow-sm)]"
           >
             <SearchIcon className="h-4 w-4" />
             <span className="flex-1">Search tutorials, topics, notes, assignments...</span>
-            <kbd className="hidden rounded border border-border px-1.5 py-0.5 text-[11px] text-text-muted lg:inline">
+            <kbd className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 text-[11px] text-text-muted lg:inline">
               Ctrl K
             </kbd>
           </button>
@@ -107,7 +107,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           <button
             onClick={() => setSearchOpen(true)}
             aria-label="Search"
-            className="rounded-md p-2 text-text-muted hover:bg-surface-2 md:hidden"
+            className="rounded-full p-2 text-text-muted hover:bg-surface-2 md:hidden"
           >
             <SearchIcon className="h-5 w-5" />
           </button>
@@ -115,27 +115,27 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           <Link
             href="/student"
             aria-label="My dashboard and bookmarks"
-            className="hidden rounded-md p-2 text-text-muted hover:bg-surface-2 sm:inline-flex"
+            className="hidden rounded-full p-2 text-text-muted hover:bg-surface-2 sm:inline-flex"
           >
             <BookmarkIcon className="h-5 w-5" />
           </Link>
           <button
             onClick={toggleTheme}
             aria-label="Toggle dark mode"
-            className="rounded-md p-2 text-text-muted hover:bg-surface-2"
+            className="rounded-full p-2 text-text-muted hover:bg-surface-2"
           >
             {dark ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
           </button>
           <Link
             href="/student"
-            className="sheen hidden rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
+            className="sheen hidden rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
           >
             My Dashboard
           </Link>
           <button
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
-            className="rounded-md p-2 text-text-muted hover:bg-surface-2 lg:hidden"
+            className="rounded-full p-2 text-text-muted hover:bg-surface-2 lg:hidden"
           >
             <MenuIcon className="h-5 w-5" />
           </button>
@@ -173,12 +173,12 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
                   )}
                 </Link>
                 {hasDropdown && openDropdown === g.group && (
-                  <div className="animate-slide-down absolute left-0 top-full z-50 min-w-56 overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-[var(--shadow-lg)]">
+                  <div className="animate-slide-down absolute left-0 top-full z-50 mt-1 min-w-60 overflow-hidden rounded-xl border border-border bg-surface p-1.5 shadow-[var(--shadow-lg)]">
                     {items.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/${c.slug}`}
-                        className="block px-4 py-2 text-sm text-text-muted transition-colors hover:bg-surface-2 hover:pl-5 hover:text-primary"
+                        className="block rounded-lg px-3 py-2 text-sm text-text-muted transition-colors hover:bg-surface-2 hover:text-primary"
                       >
                         {c.name}
                       </Link>

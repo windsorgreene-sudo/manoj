@@ -186,8 +186,8 @@ export default function HomePage() {
                 <Reveal key={c.slug} delay={i * 45}>
                   <Link
                     href={`/${c.slug}`}
-                    className="sheen hover-lift group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
-                    style={{ borderLeft: `3px solid ${theme.color}` }}
+                    className="sheen hover-lift group flex h-full items-center gap-3 rounded-2xl border border-border bg-surface p-4 hover:border-primary/50"
+                    style={{ borderTop: `3px solid ${theme.color}` }}
                   >
                     <span className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
                       <SubjectIcon slug={c.slug} />
