@@ -88,13 +88,13 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
         {/* Logo */}
         <Link
           href="/"
-          className="group flex shrink-0 items-baseline gap-1.5"
+          className="group flex shrink-0 items-center gap-2"
           aria-label={SITE.name}
         >
-          <span className="font-mono text-xl font-bold tracking-tight text-primary transition-transform duration-300 group-hover:-rotate-6">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-white shadow-[var(--shadow-primary)] transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
             &lt;/&gt;
           </span>
-          <span className="text-xl font-bold tracking-tight text-text">
+          <span className="font-display text-xl font-bold tracking-tight text-text">
             Code<span className="text-primary">Vidya</span>
           </span>
         </Link>

@@ -45,9 +45,11 @@ export function Footer() {
       <div className="mx-auto max-w-[1240px] px-4 py-10">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-mono text-lg font-bold text-primary">&lt;/&gt;</span>
-              <span className="text-lg font-bold text-text">
+            <div className="flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent font-mono text-xs font-bold text-white">
+                &lt;/&gt;
+              </span>
+              <span className="font-display text-lg font-bold text-text">
                 Code<span className="text-primary">Vidya</span>
               </span>
             </div>

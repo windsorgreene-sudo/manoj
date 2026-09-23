@@ -16,23 +16,23 @@ export interface SubjectTheme {
 }
 
 const THEMES: Record<string, SubjectTheme> = {
-  python: { color: "#2f6fb0", tint: "#eaf1f9", tintDark: "#16283a", label: "Py" },
-  java: { color: "#c05a2a", tint: "#fbeee5", tintDark: "#331f13", label: "J" },
-  cpp: { color: "#7a54c0", tint: "#f0eafa", tintDark: "#241834", label: "C++" },
-  csharp: { color: "#118a6f", tint: "#e4f5f0", tintDark: "#0f2f28", label: "C#" },
-  sql: { color: "#b07d17", tint: "#faf1dc", tintDark: "#2f2510", label: "SQL" },
-  "data-structures": { color: "#1668a8", tint: "#e6f0fa", tintDark: "#132c3f", label: "DS" },
-  "computer-science": { color: "#4a5aa8", tint: "#ebedf8", tintDark: "#1b2038", label: "CS" },
-  "cyber-security": { color: "#b03a4a", tint: "#fbe9ec", tintDark: "#331519", label: "Sec" },
-  "software-engineering": { color: "#2b7d8a", tint: "#e4f2f4", tintDark: "#122b2f", label: "SE" },
-  oose: { color: "#8a5a2b", tint: "#f6ede3", tintDark: "#2b2013", label: "OO" },
-  oopj: { color: "#a34b8a", tint: "#f8e9f3", tintDark: "#301b2a", label: "OOPJ" },
+  python: { color: "#2563eb", tint: "#e8effd", tintDark: "#16233f", label: "Py" },
+  java: { color: "#d1621f", tint: "#fbeee1", tintDark: "#331f10", label: "J" },
+  cpp: { color: "#7c3aed", tint: "#f0eafd", tintDark: "#241740", label: "C++" },
+  csharp: { color: "#0d9488", tint: "#e0f5f2", tintDark: "#0d2f2b", label: "C#" },
+  sql: { color: "#ca8a04", tint: "#faf1d8", tintDark: "#2f2510", label: "SQL" },
+  "data-structures": { color: "#4f46e5", tint: "#ecebfd", tintDark: "#1e1c3c", label: "DS" },
+  "computer-science": { color: "#4338ca", tint: "#e9e9fb", tintDark: "#1b1a38", label: "CS" },
+  "cyber-security": { color: "#e11d48", tint: "#fce7ec", tintDark: "#33131c", label: "Sec" },
+  "software-engineering": { color: "#0891b2", tint: "#e0f3f8", tintDark: "#0f2c33", label: "SE" },
+  oose: { color: "#b45309", tint: "#f8ecdc", tintDark: "#2b1f10", label: "OO" },
+  oopj: { color: "#c026a6", tint: "#fae7f5", tintDark: "#301a2c", label: "OOPJ" },
 };
 
 const FALLBACK: SubjectTheme = {
-  color: "#1668a8",
-  tint: "#e6f0fa",
-  tintDark: "#132c3f",
+  color: "#4f46e5",
+  tint: "#ecebfd",
+  tintDark: "#1e1c3c",
   label: "CV",
 };
 
