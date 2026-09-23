@@ -1,23 +1,20 @@
 export const SITE = {
-  name: "CodeVidya",
-  tagline: "Learn. Practice. Understand.",
+  name: "EduLearn",
+  tagline: "Learn. Code. Build.",
   description:
-    "Study material for GGSIPU (IP University) students: semester-wise notes, tutorials, lab programs, assignments, previous year questions and exam preparation for BCA, B.Tech and MCA computer subjects.",
+    "Animated tutorials, a live code editor, and expert-crafted courses for developers at every level. Learn web development, Python, data structures, databases and more, for free.",
   url: "https://codevidya.vercel.app",
-  locale: "en_IN",
-  author: "Manoj Purohit",
-  founded: 2017,
-  university: "Guru Gobind Singh Indraprastha University (GGSIPU)",
-  universityShort: "GGSIPU",
+  locale: "en",
+  author: "EduLearn",
+  founded: 2024,
 };
 
-// Programmes CodeVidya organises material around. Used for quick-picks and
-// framing content by course. These are the common IPU computer programmes.
+// Top-level learning tracks used for the homepage roadmap and quick-picks.
 export const PROGRAMMES = [
-  { code: "BCA", name: "Bachelor of Computer Applications", href: "/tutorials" },
-  { code: "B.Tech CSE/IT", name: "B.Tech (CSE / IT)", href: "/tutorials" },
-  { code: "MCA", name: "Master of Computer Applications", href: "/tutorials" },
-  { code: "B.Sc CS", name: "B.Sc (Computer Science)", href: "/tutorials" },
+  { code: "Web Dev", name: "Web Development Path", href: "/courses" },
+  { code: "Python", name: "Python & Data", href: "/courses" },
+  { code: "DSA", name: "Data Structures & Algorithms", href: "/courses" },
+  { code: "Backend", name: "Backend & Databases", href: "/courses" },
 ];
 
 export function formatDate(iso: string): string {

@@ -10,84 +10,88 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Neutrals: soft warm-paper for an editorial, premium reading surface */
-  --bg: #f7f6f3;
+  /* Neutrals: clean cool slate (EduLearn light mode) */
+  --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-2: #f0eeea;
-  --border: #e6e2db;
-  --border-strong: #d5cfc4;
+  --surface-2: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
 
-  /* Text: warm near-black ink for strong, comfortable readability */
-  --text: #1a1723;
-  --text-muted: #575163;
-  --text-faint: #8b8496;
+  /* Text: deep slate ink */
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-faint: #7c8aa0;
 
-  /* Brand: a refined royal indigo. Distinctive, premium, confident. */
-  --primary: #5b4bd6;
-  --primary-hover: #4a3ac2;
+  /* Brand: electric blue with a deep-blue hover */
+  --primary: #2f7bec;
+  --primary-hover: #2563eb;
   --primary-contrast: #ffffff;
-  --primary-soft: #ecebfb;
+  --primary-soft: #e5effd;
 
-  /* Secondary accent: warm apricot for highlights and CTAs */
-  --accent: #e0743a;
-  --accent-soft: #fbeadf;
+  /* Secondary accent: deep violet */
+  --accent: #7c3aed;
+  --accent-soft: #efe8fd;
 
   /* Semantic (difficulty / callouts) */
-  --ok: #12916a;
-  --ok-soft: #dff3ec;
-  --warn: #c07d16;
-  --warn-soft: #f8eecf;
+  --ok: #10b981;
+  --ok-soft: #dcfaef;
+  --warn: #d97706;
+  --warn-soft: #fbeecf;
+  --danger: #f43f5e;
+  --danger-soft: #fde3e8;
 
   /* Links */
-  --link: #5b4bd6;
+  --link: #2563eb;
 
-  /* Code surfaces: deep indigo-ink for a premium editor feel */
-  --code-bg: #1b1830;
-  --code-text: #eae7f5;
+  /* Code surfaces: GitHub-dark style */
+  --code-bg: #0d1117;
+  --code-text: #e6edf3;
 
   /* Content-type label colors (subtle) */
-  --tag-bg: #efedf9;
-  --tag-text: #504a66;
+  --tag-bg: #eef2f7;
+  --tag-text: #465267;
 }
 
 .dark {
-  /* Deep midnight-indigo, rich but not pure black */
-  --bg: #0f0d1a;
-  --surface: #181528;
-  --surface-2: #211d36;
-  --border: #302a48;
-  --border-strong: #423a60;
+  /* GitHub-dark inspired surfaces */
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-2: #1c232d;
+  --border: #2a313c;
+  --border-strong: #3a434f;
 
-  --text: #ece9f6;
-  --text-muted: #aba4c4;
-  --text-faint: #807a98;
+  --text: #e6edf3;
+  --text-muted: #9fb0c3;
+  --text-faint: #71809a;
 
-  --primary: #a99bff;
-  --primary-hover: #bcb1ff;
-  --primary-contrast: #120e26;
-  --primary-soft: #241f42;
+  --primary: #4f9cf9;
+  --primary-hover: #6fb0fb;
+  --primary-contrast: #071322;
+  --primary-soft: #16283f;
 
-  --accent: #f2925a;
-  --accent-soft: #38251a;
+  --accent: #a78bfa;
+  --accent-soft: #241a3d;
 
   --ok: #34d399;
-  --ok-soft: #123028;
+  --ok-soft: #10322b;
   --warn: #e6b152;
-  --warn-soft: #332711;
+  --warn-soft: #33280f;
+  --danger: #fb7185;
+  --danger-soft: #3a1620;
 
-  --link: #bcb1ff;
+  --link: #6fb0fb;
 
-  --code-bg: #14111f;
-  --code-text: #ece9f6;
+  --code-bg: #010409;
+  --code-text: #e6edf3;
 
-  --tag-bg: #26213c;
-  --tag-text: #c3bcd9;
+  --tag-bg: #21272f;
+  --tag-text: #b8c4d2;
 
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.6);
-  --shadow-primary: 0 8px 26px rgba(169, 155, 255, 0.28);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.65);
+  --shadow-primary: 0 8px 26px rgba(79, 156, 249, 0.3);
 }
 
 @theme inline {
@@ -109,6 +113,8 @@
   --color-ok-soft: var(--ok-soft);
   --color-warn: var(--warn);
   --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
   --color-link: var(--link);
   --color-tag-bg: var(--tag-bg);
   --color-tag-text: var(--tag-text);
@@ -125,7 +131,7 @@
   --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
   --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 2px 4px rgba(16, 24, 40, 0.04);
   --shadow-lg: 0 12px 28px rgba(16, 24, 40, 0.12), 0 4px 10px rgba(16, 24, 40, 0.05);
-  --shadow-primary: 0 8px 24px rgba(91, 75, 214, 0.26);
+  --shadow-primary: 0 8px 24px rgba(47, 123, 236, 0.28);
 
   /* Map shadow tokens onto Tailwind's shadow utilities */
   --shadow-card: var(--shadow-sm);

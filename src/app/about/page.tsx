@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${SITE.name}, a reference portal of programming and computer science study material.`,
+  description: `About ${SITE.name}, an animated learning platform with tutorials, a live code editor and expert-crafted courses.`,
   alternates: { canonical: "/about" },
 };
 
@@ -12,29 +12,26 @@ export default function AboutPage() {
   return (
     <StaticPage title={`About ${SITE.name}`}>
       <p>
-        {SITE.name} is a study portal for students of {SITE.university}. It brings together
-        tutorials, notes, assignments, lab programs and examination material for the computer
-        subjects in the BCA, B.Tech (CSE / IT) and MCA programmes. The content is compiled from
-        teaching material and coursework maintained over several years and is organised into clear
-        subject categories for easy reference.
+        {SITE.name} is a modern learning platform for developers at every level. It brings together
+        animated tutorials, a live code editor and structured courses so you can learn a concept,
+        practise it immediately, and test yourself, all in one place.
       </p>
       <p>
-        The goal is simple: help IPU students understand concepts quickly, revise from concise
-        notes, practise with solved programs, and prepare confidently for internal and external
-        examinations.
+        Our goal is simple: make learning to code clear, hands-on and enjoyable. Read a lesson, run
+        the example in the playground, take a quick quiz, and track your progress as you go.
       </p>
       <h2 id="what-you-find">What you will find here</h2>
       <ul>
-        <li>Step-by-step tutorials for Python, Java, C++, C# and SQL.</li>
+        <li>Structured courses for HTML, CSS, JavaScript, Python, React and more.</li>
         <li>Data structures, algorithms and core computer science topics.</li>
-        <li>Software engineering, OOSE and OOPJ course material.</li>
-        <li>Cyber security and cyber law notes.</li>
-        <li>Assignments, lab programs, MCQs, question papers and syllabus.</li>
+        <li>SQL, databases, Git, Node.js and system design.</li>
+        <li>A live code playground to run and experiment with code.</li>
+        <li>Quizzes, progress tracking, XP and achievement badges.</li>
       </ul>
-      <h2 id="editorial">Editorial note</h2>
+      <h2 id="approach">Our approach</h2>
       <p>
-        Material is written and reviewed with a focus on accuracy and clarity for students. Articles
-        are updated periodically as syllabi and best practices change.
+        Every lesson is written to be practical and easy to follow, with real code examples and
+        clear explanations. Content is reviewed for accuracy and updated as technologies evolve.
       </p>
     </StaticPage>
   );

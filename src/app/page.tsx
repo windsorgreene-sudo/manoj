@@ -84,7 +84,7 @@ export default function HomePage() {
           <div>
             <p className="animate-fade-up mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden />
-              Built for {SITE.universityShort} students
+              Free for every learner
             </p>
             <h1
               className="font-display animate-fade-up text-3xl font-extrabold leading-[1.1] text-text sm:text-5xl"

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Sora, JetBrains_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeScript } from "@/components/ThemeScript";
 import { Header } from "@/components/Header";
@@ -9,15 +9,15 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { buildSearchIndex } from "@/content";
 import { SITE } from "@/lib/site";
 
-// Body: DM Sans is friendly and highly readable for long study content.
-const dmSans = DM_Sans({
+// Body: Inter, highly readable for long tutorial content.
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Display: Sora gives headings a modern, confident, student-friendly voice.
-const sora = Sora({
+// Display: Plus Jakarta Sans for confident, modern headings.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -39,16 +39,16 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   authors: [{ name: SITE.author }],
   keywords: [
+    "learn to code",
     "programming tutorials",
+    "web development",
+    "javascript",
     "python",
-    "java",
-    "c++",
-    "data structures",
-    "software engineering",
-    "cyber security",
-    "computer science notes",
-    "assignments",
-    "lab programs",
+    "react",
+    "data structures and algorithms",
+    "sql",
+    "code playground",
+    "online coding courses",
   ],
   openGraph: {
     type: "website",
@@ -71,8 +71,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0d1a" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d1117" },
   ],
 };
 
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ThemeScript />
       </head>
-      <body className={`${dmSans.variable} ${sora.variable} ${mono.variable} min-h-screen`}>
+      <body className={`${inter.variable} ${jakarta.variable} ${mono.variable} min-h-screen`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-contrast"
