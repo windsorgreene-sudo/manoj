@@ -10,84 +10,84 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Neutrals: cool slate for a clean, premium, sophisticated surface */
-  --bg: #f7f8fb;
+  /* Neutrals: clean warm-grey for a calm, premium surface */
+  --bg: #f7f9f7;
   --surface: #ffffff;
-  --surface-2: #eef1f6;
-  --border: #e4e7ef;
-  --border-strong: #d0d5e0;
+  --surface-2: #eef2ef;
+  --border: #e3e8e4;
+  --border-strong: #cfd6d0;
 
-  /* Text: deep slate ink */
-  --text: #171c2b;
-  --text-muted: #545c72;
-  --text-faint: #838ba1;
+  /* Text: deep green-tinted charcoal */
+  --text: #17211c;
+  --text-muted: #526059;
+  --text-faint: #83918a;
 
-  /* Brand: a premium indigo/violet. Modern and confident. */
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  /* Brand: a premium emerald green. Fresh, calm and trustworthy. */
+  --primary: #0f8a5f;
+  --primary-hover: #0b6f4c;
   --primary-contrast: #ffffff;
-  --primary-soft: #ecebfd;
+  --primary-soft: #e2f5ec;
 
-  /* Secondary accent: refined amber/gold for highlights and CTAs */
-  --accent: #d97706;
-  --accent-soft: #fcf0dc;
+  /* Secondary accent: warm coral/amber for highlights and CTAs */
+  --accent: #e2683b;
+  --accent-soft: #fceee7;
 
   /* Semantic (difficulty / callouts) */
-  --ok: #0f9d6b;
-  --ok-soft: #e3f6ee;
+  --ok: #0f8a5f;
+  --ok-soft: #e2f5ec;
   --warn: #c2740e;
   --warn-soft: #fbeed6;
 
   /* Links */
-  --link: #4f46e5;
+  --link: #0f8a5f;
 
-  /* Code surfaces: deep indigo-slate for a premium editor feel */
-  --code-bg: #1a1c2e;
-  --code-text: #e7e9f5;
+  /* Code surfaces: deep green-slate for a premium editor feel */
+  --code-bg: #16211d;
+  --code-text: #e6ede9;
 
   /* Content-type label colors (subtle) */
-  --tag-bg: #eef0f6;
-  --tag-text: #4a5268;
+  --tag-bg: #eef1f0;
+  --tag-text: #47554e;
 }
 
 .dark {
-  /* Rich indigo-slate, deep but not pure black */
-  --bg: #0e0f1a;
-  --surface: #171827;
-  --surface-2: #1f2133;
-  --border: #2a2c42;
-  --border-strong: #3a3d5a;
+  /* Rich green-slate, deep but not pure black */
+  --bg: #0d1310;
+  --surface: #15201b;
+  --surface-2: #1c2822;
+  --border: #263630;
+  --border-strong: #34473f;
 
-  --text: #e9eaf5;
-  --text-muted: #a7abc4;
-  --text-faint: #797e9b;
+  --text: #e7efe9;
+  --text-muted: #a3b3aa;
+  --text-faint: #77877e;
 
-  --primary: #8b85f5;
-  --primary-hover: #a29bff;
-  --primary-contrast: #0c0d18;
-  --primary-soft: #211f3d;
+  --primary: #3ecf8e;
+  --primary-hover: #57dc9f;
+  --primary-contrast: #06120c;
+  --primary-soft: #123123;
 
-  --accent: #f2a13a;
-  --accent-soft: #3a2a12;
+  --accent: #f2894f;
+  --accent-soft: #33200f;
 
-  --ok: #34d399;
-  --ok-soft: #123227;
+  --ok: #3ecf8e;
+  --ok-soft: #123123;
   --warn: #e0a94a;
   --warn-soft: #33260f;
 
-  --link: #a29bff;
+  --link: #57dc9f;
 
-  --code-bg: #12131f;
-  --code-text: #e9eaf5;
+  --code-bg: #101a15;
+  --code-text: #e7efe9;
 
-  --tag-bg: #24263a;
-  --tag-text: #bfc4dc;
+  --tag-bg: #22302a;
+  --tag-text: #bdccc4;
 
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.6);
-  --shadow-primary: 0 8px 26px rgba(139, 133, 245, 0.28);
+  --shadow-primary: 0 8px 26px rgba(62, 207, 142, 0.28);
 }
 
 @theme inline {
@@ -125,7 +125,7 @@
   --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
   --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 2px 4px rgba(16, 24, 40, 0.04);
   --shadow-lg: 0 12px 28px rgba(16, 24, 40, 0.12), 0 4px 10px rgba(16, 24, 40, 0.05);
-  --shadow-primary: 0 8px 24px rgba(79, 70, 229, 0.22);
+  --shadow-primary: 0 8px 24px rgba(15, 138, 95, 0.22);
 
   /* Map shadow tokens onto Tailwind's shadow utilities */
   --shadow-card: var(--shadow-sm);
