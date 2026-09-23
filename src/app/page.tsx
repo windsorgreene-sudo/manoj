@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { courses, totalLessons } from "@/content/courses";
-import { HomeSearch } from "@/components/HomeSearch";
-import { buildSearchIndex } from "@/content";
+import { HeroSearchButton } from "@/components/HeroSearchButton";
 import { CourseCard } from "@/components/course/CourseCard";
 import { FloatingCodeCard } from "@/components/home/FloatingCodeCard";
 import { Roadmap } from "@/components/home/Roadmap";
@@ -27,7 +26,6 @@ const HOW_IT_WORKS = [
 ];
 
 export default function HomePage() {
-  const index = buildSearchIndex();
   const featured = courses.slice(0, 6);
 
   return (
@@ -89,7 +87,7 @@ export default function HomePage() {
               className="animate-fade-up mt-6 max-w-md"
               style={{ animationDelay: "340ms" }}
             >
-              <HomeSearch index={index} />
+              <HeroSearchButton />
             </div>
           </div>
 

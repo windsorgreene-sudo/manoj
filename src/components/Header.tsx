@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { SearchDoc } from "@/content";
+import type { SearchDoc } from "@/content/courses/search";
 import { courses } from "@/content/courses";
 import { SearchDialog } from "./SearchDialog";
 import { Logo } from "./Logo";
@@ -53,8 +53,13 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
         setSearchOpen(true);
       }
     };
+    const onOpen = () => setSearchOpen(true);
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    window.addEventListener("cv-open-search", onOpen);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("cv-open-search", onOpen);
+    };
   }, []);
 
   // Add a subtle shadow once the page is scrolled.
@@ -101,7 +106,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
             className="flex w-full items-center gap-2 rounded-full border border-border-strong bg-surface-2 px-4 py-2 text-left text-sm text-text-faint transition-all hover:border-primary hover:bg-surface hover:shadow-[var(--shadow-sm)]"
           >
             <SearchIcon className="h-4 w-4" />
-            <span className="flex-1">Search tutorials, topics, notes, assignments...</span>
+            <span className="flex-1">Search subjects and lessons...</span>
             <kbd className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 text-[11px] text-text-muted lg:inline">
               Ctrl K
             </kbd>

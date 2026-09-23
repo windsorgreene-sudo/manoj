@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const SUGGESTED = [
-  { label: "Python", href: "/python" },
-  { label: "Java", href: "/java" },
-  { label: "Data Structures", href: "/data-structures" },
-  { label: "Study Resources", href: "/resources" },
+  { label: "C Programming", href: "/courses/c-programming" },
+  { label: "Python", href: "/courses/python-programming" },
+  { label: "Data Structures", href: "/courses/data-structures" },
+  { label: "All subjects", href: "/courses" },
 ];
 
 export default function NotFound() {
@@ -27,7 +27,7 @@ export default function NotFound() {
           Go to homepage
         </Link>
         <Link
-          href="/tutorials"
+          href="/courses"
           className="rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary"
         >
           Browse tutorials

@@ -3,18 +3,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { SearchDoc } from "@/content";
+import type { SearchDoc } from "@/content/courses/search";
 import { SearchIcon, CloseIcon, ClockIcon } from "./icons";
-import { formatDate } from "@/lib/site";
 
 const RECENT_KEY = "cv-recent-searches";
-const TYPE_FILTERS = [
+const KIND_FILTERS = [
   { value: "all", label: "All" },
-  { value: "tutorial", label: "Tutorials" },
-  { value: "assignment", label: "Assignments" },
-  { value: "lab", label: "Lab" },
-  { value: "notes", label: "Notes" },
-  { value: "mcq", label: "MCQ" },
+  { value: "Course", label: "Subjects" },
+  { value: "Lesson", label: "Lessons" },
 ];
 
 function score(doc: SearchDoc, q: string): number {
@@ -24,10 +20,9 @@ function score(doc: SearchDoc, q: string): number {
   if (title === query) s += 100;
   if (title.startsWith(query)) s += 40;
   if (title.includes(query)) s += 20;
-  if (doc.categoryName.toLowerCase().includes(query)) s += 8;
+  if (doc.courseTitle.toLowerCase().includes(query)) s += 8;
   if (doc.tags.some((t) => t.toLowerCase().includes(query))) s += 6;
   if (doc.description.toLowerCase().includes(query)) s += 3;
-  if (doc.contentTypeLabel.toLowerCase().includes(query)) s += 2;
   return s;
 }
 
@@ -41,27 +36,17 @@ export function SearchDialog({
   onClose: () => void;
 }) {
   const [query, setQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [kindFilter, setKindFilter] = useState("all");
   const [recent, setRecent] = useState<string[]>([]);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
 
-  const categories = useMemo(() => {
-    const map = new Map<string, string>();
-    index.forEach((d) => map.set(d.category, d.categoryName));
-    return Array.from(map, ([value, label]) => ({ value, label })).sort((a, b) =>
-      a.label.localeCompare(b.label),
-    );
-  }, [index]);
-
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 30);
       try {
-        // Read persisted recent searches from localStorage on open.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setRecent(JSON.parse(localStorage.getItem(RECENT_KEY) || "[]"));
       } catch {
@@ -70,7 +55,6 @@ export function SearchDialog({
     }
   }, [open]);
 
-  // Lock background scroll while the dialog is open.
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -80,13 +64,11 @@ export function SearchDialog({
     };
   }, [open]);
 
-  // Reset the highlighted result whenever the query or filters change.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setActive(0);
-  }, [query, typeFilter, categoryFilter]);
+  }, [query, kindFilter]);
 
-  // Keep the highlighted result scrolled into view during keyboard navigation.
   useEffect(() => {
     const el = listRef.current?.children[active] as HTMLElement | undefined;
     el?.scrollIntoView({ block: "nearest" });
@@ -111,6 +93,21 @@ export function SearchDialog({
     } catch {}
   }, []);
 
+  const results = useMemo(() => {
+    let pool = index;
+    if (kindFilter !== "all") pool = pool.filter((d) => d.kind === kindFilter);
+    if (!query.trim()) {
+      // Show subjects first when there is no query.
+      return [...pool].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "Course" ? -1 : 1)).slice(0, 9);
+    }
+    return pool
+      .map((d) => ({ d, s: score(d, query) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 12)
+      .map((x) => x.d);
+  }, [index, query, kindFilter]);
+
   const openResult = useCallback(
     (doc: SearchDoc) => {
       commitRecent(query);
@@ -119,23 +116,6 @@ export function SearchDialog({
     },
     [commitRecent, query, onClose, router],
   );
-
-  const results = useMemo(() => {
-    let pool = index;
-    if (typeFilter !== "all") pool = pool.filter((d) => d.contentType === typeFilter);
-    if (categoryFilter !== "all") pool = pool.filter((d) => d.category === categoryFilter);
-    if (!query.trim()) {
-      return [...pool]
-        .sort((a, b) => +new Date(b.updatedDate) - +new Date(a.updatedDate))
-        .slice(0, 8);
-    }
-    return pool
-      .map((d) => ({ d, s: score(d, query) }))
-      .filter((x) => x.s > 0)
-      .sort((a, b) => b.s - a.s)
-      .slice(0, 12)
-      .map((x) => x.d);
-  }, [index, query, typeFilter, categoryFilter]);
 
   const suggestions = useMemo(() => {
     if (!query.trim()) return [];
@@ -153,8 +133,8 @@ export function SearchDialog({
 
   return (
     <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Search">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative mx-auto mt-0 sm:mt-20 flex h-full sm:h-auto max-h-full sm:max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden border border-border bg-surface sm:rounded-lg shadow-xl">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative mx-auto mt-0 flex h-full w-full max-w-2xl flex-col overflow-hidden border border-border bg-surface shadow-xl sm:mt-20 sm:h-auto sm:max-h-[80vh] sm:rounded-2xl">
         {/* Input row */}
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
           <SearchIcon className="h-5 w-5 shrink-0 text-text-faint" />
@@ -181,49 +161,33 @@ export function SearchDialog({
             role="combobox"
             aria-expanded={results.length > 0}
             aria-controls="cv-search-results"
-            aria-activedescendant={results[active] ? `cv-result-${results[active].slug}` : undefined}
-            placeholder="Search tutorials, topics, notes, assignments..."
+            placeholder="Search subjects and lessons..."
             className="min-w-0 flex-1 bg-transparent text-[15px] text-text placeholder:text-text-faint focus:outline-none"
           />
           <button
             onClick={onClose}
             aria-label="Close search"
-            className="rounded p-1 text-text-muted hover:bg-surface-2"
+            className="rounded-full p-1 text-text-muted hover:bg-surface-2"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-2">
-          <div className="flex flex-wrap gap-1">
-            {TYPE_FILTERS.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => setTypeFilter(f.value)}
-                className={`rounded-sm px-2 py-1 text-xs font-medium ${
-                  typeFilter === f.value
-                    ? "bg-primary text-primary-contrast"
-                    : "bg-surface-2 text-text-muted hover:text-text"
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="ml-auto rounded-sm border border-border bg-surface px-2 py-1 text-xs text-text-muted"
-            aria-label="Filter by category"
-          >
-            <option value="all">All categories</option>
-            {categories.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-wrap items-center gap-1 border-b border-border px-4 py-2">
+          {KIND_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => setKindFilter(f.value)}
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                kindFilter === f.value
+                  ? "bg-primary text-primary-contrast"
+                  : "bg-surface-2 text-text-muted hover:text-text"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -237,7 +201,7 @@ export function SearchDialog({
                     <button
                       key={s}
                       onClick={() => setQuery(s)}
-                      className="rounded-sm bg-primary-soft px-2 py-0.5 text-xs text-primary"
+                      className="rounded-full bg-primary-soft px-2 py-0.5 text-xs text-primary"
                     >
                       {s}
                     </button>
@@ -253,7 +217,7 @@ export function SearchDialog({
                     <button
                       key={r}
                       onClick={() => setQuery(r)}
-                      className="rounded-sm bg-surface-2 px-2 py-0.5 text-xs text-text-muted hover:text-text"
+                      className="rounded-full bg-surface-2 px-2 py-0.5 text-xs text-text-muted hover:text-text"
                     >
                       {r}
                     </button>
@@ -272,7 +236,7 @@ export function SearchDialog({
           {/* Results */}
           <ul id="cv-search-results" ref={listRef} role="listbox" className="divide-y divide-border">
             {results.map((d, i) => (
-              <li key={d.slug} id={`cv-result-${d.slug}`} role="option" aria-selected={i === active}>
+              <li key={d.href} role="option" aria-selected={i === active}>
                 <Link
                   href={d.href}
                   onMouseEnter={() => setActive(i)}
@@ -284,14 +248,19 @@ export function SearchDialog({
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-[15px] font-semibold text-text">{d.title}</span>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                        d.kind === "Course"
+                          ? "bg-primary-soft text-primary"
+                          : "bg-accent-soft text-accent"
+                      }`}
+                    >
+                      {d.kind === "Course" ? "Subject" : "Lesson"}
+                    </span>
                   </div>
-                  <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-muted">
-                    <span className="text-primary">{d.categoryName}</span>
-                    <span className="text-text-faint">·</span>
-                    <span>{d.contentTypeLabel}</span>
-                    <span className="text-text-faint">·</span>
-                    <span>Updated {formatDate(d.updatedDate)}</span>
-                  </div>
+                  {d.kind === "Lesson" && (
+                    <div className="mt-0.5 text-xs text-text-muted">{d.courseTitle}</div>
+                  )}
                   <p className="clamp-2 mt-1 text-[13px] text-text-muted">{d.description}</p>
                 </Link>
               </li>
@@ -302,14 +271,14 @@ export function SearchDialog({
                   No results for &ldquo;{query.trim()}&rdquo;
                 </p>
                 <p className="mt-1 text-[13px] text-text-muted">
-                  Try a different keyword, or clear the filters above.
+                  Try a different keyword, like &ldquo;pointers&rdquo; or &ldquo;SQL&rdquo;.
                 </p>
               </li>
             )}
           </ul>
         </div>
 
-        {/* Footer: result count + keyboard hints */}
+        {/* Footer */}
         <div className="flex items-center justify-between gap-3 border-t border-border px-4 py-2 text-[11px] text-text-faint">
           <span>
             {query.trim()

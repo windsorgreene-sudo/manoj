@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Course } from "@/content/courses";
 import { lessonCount, totalMinutes } from "@/content/courses";
 import { courseCompletedCount } from "@/lib/learning";
+import { CourseArt } from "./CourseArt";
 import { ClockIcon } from "@/components/icons";
 
 const DIFF_LABEL: Record<string, string> = {
@@ -33,15 +34,16 @@ export function CourseCard({ course }: { course: Course }) {
     >
       {/* Gradient header */}
       <div
-        className="relative flex h-24 items-center justify-between px-5"
+        className="relative flex h-24 items-center justify-between overflow-hidden px-5"
         style={{
           background: `linear-gradient(135deg, ${course.color}, ${course.color}cc)`,
         }}
       >
-        <span className="text-4xl drop-shadow-sm transition-transform duration-300 group-hover:scale-110">
+        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
+        <span className="relative text-4xl drop-shadow-sm transition-transform duration-300 group-hover:scale-110">
           {course.icon}
         </span>
-        <span className="rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
+        <span className="relative rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
           {DIFF_LABEL[course.difficulty]}
         </span>
       </div>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { categories, CONTENT_TYPE_LABELS } from "@/content";
+import { courses } from "@/content/courses";
 import {
   isLoggedIn,
   getDraft,
@@ -13,14 +13,14 @@ import {
   type DraftArticle,
 } from "./adminStore";
 
-const CONTENT_TYPES = Object.keys(CONTENT_TYPE_LABELS);
+const CONTENT_TYPES = ["lesson", "notes", "mcq", "assignment"];
 const DIFFICULTIES = ["beginner", "intermediate", "advanced"];
 
 const empty = (): DraftArticle => ({
   id: newId(),
   title: "",
-  category: "python",
-  contentType: "tutorial",
+  category: courses[0]?.slug ?? "c-programming",
+  contentType: "lesson",
   difficulty: "beginner",
   description: "",
   body: "",
@@ -97,10 +97,10 @@ export function ArticleEditor({ id }: { id?: string }) {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div>
-            <label className="mb-1 block text-sm font-medium text-text">Category</label>
+            <label className="mb-1 block text-sm font-medium text-text">Subject</label>
             <select value={draft.category} onChange={(e) => set({ category: e.target.value })} className={field}>
-              {categories.map((c) => (
-                <option key={c.slug} value={c.slug}>{c.name}</option>
+              {courses.map((c) => (
+                <option key={c.slug} value={c.slug}>{c.title}</option>
               ))}
             </select>
           </div>
@@ -108,7 +108,7 @@ export function ArticleEditor({ id }: { id?: string }) {
             <label className="mb-1 block text-sm font-medium text-text">Type</label>
             <select value={draft.contentType} onChange={(e) => set({ contentType: e.target.value })} className={field}>
               {CONTENT_TYPES.map((t) => (
-                <option key={t} value={t}>{CONTENT_TYPE_LABELS[t as keyof typeof CONTENT_TYPE_LABELS]}</option>
+                <option key={t} value={t} className="capitalize">{t}</option>
               ))}
             </select>
           </div>

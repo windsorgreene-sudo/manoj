@@ -12,6 +12,7 @@ import { SITE } from "@/lib/site";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { CourseChapters } from "./CourseChapters";
 import { TrackCourse } from "@/components/content/TrackCourse";
+import { CourseArt } from "@/components/course/CourseArt";
 import { ClockIcon } from "@/components/icons";
 
 export function generateStaticParams() {
@@ -67,6 +68,7 @@ export default async function CoursePage({ params }: { params: Params }) {
         className="animate-fade-up relative mt-4 overflow-hidden rounded-3xl border border-border p-6 text-white shadow-[var(--shadow-md)] sm:p-8"
         style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}bb)` }}
       >
+        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center">
           <span className="text-6xl drop-shadow">{course.icon}</span>
           <div>
