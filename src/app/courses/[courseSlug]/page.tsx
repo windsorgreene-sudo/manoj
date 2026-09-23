@@ -12,7 +12,6 @@ import { SITE } from "@/lib/site";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { CourseChapters } from "./CourseChapters";
 import { TrackCourse } from "@/components/content/TrackCourse";
-import { CourseArt } from "@/components/course/CourseArt";
 import { ClockIcon } from "@/components/icons";
 
 export function generateStaticParams() {
@@ -65,38 +64,41 @@ export default async function CoursePage({ params }: { params: Params }) {
 
       {/* Course header */}
       <header
-        className="animate-fade-up relative mt-4 overflow-hidden rounded-3xl border border-border p-6 text-white shadow-[var(--shadow-md)] sm:p-8"
-        style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}bb)` }}
+        className="mt-4 rounded-lg border border-border bg-surface p-5 sm:p-6"
+        style={{ borderLeft: `3px solid ${course.color}` }}
       >
-        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
-        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center">
-          <span className="text-6xl drop-shadow">{course.icon}</span>
-          <div>
-            <span className="rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur">
-              {DIFF_LABEL[course.difficulty]}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+          <span
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg text-3xl"
+            style={{ backgroundColor: `${course.color}1a` }}
+          >
+            {course.icon}
+          </span>
+          <div className="min-w-0">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-text-faint">
+              {DIFF_LABEL[course.difficulty]} · {course.category}
             </span>
-            <h1 className="font-display mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h1 className="font-display mt-1 text-2xl font-bold tracking-tight text-text sm:text-3xl">
               {course.title}
             </h1>
-            <p className="mt-2 max-w-2xl text-white/90">{course.longDescription}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/90">
+            <p className="mt-2 max-w-2xl text-[15px] text-text-muted">{course.longDescription}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-text-faint">
               <span>{total} lessons</span>
               <span className="inline-flex items-center gap-1">
                 <ClockIcon className="h-4 w-4" />
                 {Math.max(1, Math.round(mins / 60))} hours
               </span>
-              <span>{course.category}</span>
             </div>
+            {first && (
+              <Link
+                href={`/courses/${course.slug}/${first.lesson.slug}`}
+                className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-contrast transition-colors hover:bg-primary-hover"
+              >
+                Start course →
+              </Link>
+            )}
           </div>
         </div>
-        {first && (
-          <Link
-            href={`/courses/${course.slug}/${first.lesson.slug}`}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-slate-900 shadow-lg transition-transform hover:-translate-y-0.5"
-          >
-            Start course →
-          </Link>
-        )}
       </header>
 
       {/* Curriculum */}

@@ -84,7 +84,7 @@ export function ArticleEditor({ id }: { id?: string }) {
         </Link>
       </div>
 
-      <div className="mt-5 space-y-4 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-sm)]">
+      <div className="mt-5 space-y-4 rounded-lg border border-border bg-surface p-5 shadow-[var(--shadow-sm)]">
         <div>
           <label className="mb-1 block text-sm font-medium text-text">Title</label>
           <input

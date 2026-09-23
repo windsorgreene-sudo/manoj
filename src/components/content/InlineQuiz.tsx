@@ -27,7 +27,7 @@ export function InlineQuiz({ questions }: { questions: QuizQuestion[] }) {
   const correct = answers.filter((a, i) => a === questions[i].correct).length;
 
   return (
-    <div className="not-prose my-8 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <div className="not-prose my-8 rounded-lg border border-border bg-surface p-5 sm:p-6">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg font-bold text-text">Quick quiz</h3>
         <span className="text-sm text-text-muted">

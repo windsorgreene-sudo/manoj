@@ -17,7 +17,7 @@ export function CourseChapters({ course }: { course: Course }) {
   return (
     <div className="space-y-4">
       {course.chapters.map((chapter, ci) => (
-        <div key={ci} className="overflow-hidden rounded-2xl border border-border bg-surface">
+        <div key={ci} className="overflow-hidden rounded-lg border border-border bg-surface">
           <div className="flex items-center justify-between border-b border-border bg-surface-2 px-5 py-3">
             <h3 className="font-display font-bold text-text">
               <span className="mr-2 text-text-faint">{ci + 1}.</span>
