@@ -1,7 +1,13 @@
-import { courses } from "./data";
+import { courses as baseCourses } from "./data";
+import { extraChapters } from "./extra";
 import type { Course, LessonRef } from "./types";
 
-export { courses };
+// Merge any additional chapters onto their course so course files stay small.
+export const courses: Course[] = baseCourses.map((c) =>
+  extraChapters[c.slug]
+    ? { ...c, chapters: [...c.chapters, ...extraChapters[c.slug]] }
+    : c,
+);
 export type { Course, Lesson, Chapter, QuizQuestion, LessonRef } from "./types";
 
 export function getCourse(slug: string): Course | undefined {

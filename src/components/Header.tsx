@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import type { SearchDoc } from "@/content";
 import { courses } from "@/content/courses";
 import { SearchDialog } from "./SearchDialog";
-import { LanguageToggle } from "./LanguageToggle";
 import { Logo } from "./Logo";
 import {
   SearchIcon,
@@ -118,7 +117,6 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           >
             <SearchIcon className="h-5 w-5" />
           </button>
-          <LanguageToggle className="hidden sm:inline-flex" />
           <Link
             href="/student"
             aria-label="My dashboard and bookmarks"
@@ -217,7 +215,6 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <span className="font-bold text-text">Menu</span>
             <div className="flex items-center gap-2">
-              <LanguageToggle />
               <button
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close menu"

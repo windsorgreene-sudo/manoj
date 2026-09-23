@@ -22,7 +22,7 @@ export function LessonPlayground({ code, language }: { code: string; language: s
     setOutput("Running...");
     setIsError(false);
     const res = await runCode(language, value);
-    setOutput(res.output + (res.timeMs ? `\n\n— finished in ${res.timeMs} ms` : ""));
+    setOutput(res.output + (res.timeMs ? `\n\n,  finished in ${res.timeMs} ms` : ""));
     setIsError(res.error);
     setRunning(false);
   };
