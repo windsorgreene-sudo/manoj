@@ -1163,6 +1163,267 @@ export const articles: Article[] = [
       },
     ],
   },
+
+  // ------------------------------------------------------- ADDED CONCEPTS
+  {
+    slug: "python-dictionaries",
+    title: "Dictionaries in Python",
+    titleHi: "Python mein Dictionaries",
+    description:
+      "Python dictionary samjho: key-value pairs, creating, accessing, updating aur common methods with examples.",
+    category: "python",
+    subcategory: "basics",
+    contentType: "tutorial",
+    tags: ["python", "dictionary", "data structures", "key value"],
+    authorId: "manoj-purohit",
+    publishedDate: "2020-06-20",
+    updatedDate: "2026-09-16",
+    difficulty: "beginner",
+    readingMinutes: 6,
+    popular: true,
+    body: [
+      {
+        type: "keypoints",
+        title: { en: "Quick summary", hi: "Ek line mein" },
+        items: [
+          {
+            en: "A dictionary stores data as key-value pairs and is unordered by design.",
+            hi: "Dictionary data ko key-value pairs mein rakhti hai aur design se unordered hoti hai.",
+          },
+          {
+            en: "Keys must be unique and immutable; values can be anything.",
+            hi: "Keys unique aur immutable honi chahiye; values kuch bhi ho sakti hain.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: {
+          en: "A dictionary is a built-in Python data type that stores a collection of key-value pairs. Each key maps to a value, and you look up values by their key rather than by position.",
+          hi: "Dictionary Python ka ek built-in data type hai jo key-value pairs ka collection rakhta hai. Har key ek value se judti hai, aur aap value ko position se nahi, uski key se dhoondhte ho.",
+        },
+      },
+      { type: "heading", level: 2, id: "creating", text: { en: "Creating a dictionary", hi: "Dictionary banana" } },
+      {
+        type: "code",
+        block: {
+          language: "python",
+          code: "student = {\n    'name': 'Amit',\n    'roll': 101,\n    'branch': 'BCA'\n}\nprint(student['name'])  # Amit",
+        },
+      },
+      { type: "heading", level: 2, id: "methods", text: { en: "Common methods", hi: "Common methods" } },
+      {
+        type: "list",
+        items: [
+          { en: "keys(): returns all keys.", hi: "keys(): saari keys deta hai." },
+          { en: "values(): returns all values.", hi: "values(): saari values deta hai." },
+          { en: "items(): returns key-value pairs.", hi: "items(): key-value pairs deta hai." },
+          { en: "get(key): safe access without KeyError.", hi: "get(key): bina KeyError ke safe access." },
+        ],
+      },
+      {
+        type: "note",
+        variant: "tip",
+        text: {
+          en: "Use dict.get('key', default) to avoid a KeyError when a key may be missing.",
+          hi: "Jab key na ho sakti ho tab KeyError se bachne ke liye dict.get('key', default) use karo.",
+        },
+      },
+    ],
+  },
+  {
+    slug: "c-programming-basics",
+    title: "C Programming Basics",
+    titleHi: "C Programming ki Basics",
+    description:
+      "C language ki shuruaat: structure of a C program, variables, data types, input/output aur operators. IPU first semester ke liye.",
+    category: "cpp",
+    subcategory: "basics",
+    contentType: "tutorial",
+    tags: ["c", "programming", "basics", "variables"],
+    authorId: "manoj-purohit",
+    publishedDate: "2019-08-10",
+    updatedDate: "2026-09-14",
+    difficulty: "beginner",
+    readingMinutes: 7,
+    popular: true,
+    body: [
+      {
+        type: "keypoints",
+        title: { en: "Quick summary", hi: "Ek line mein" },
+        items: [
+          {
+            en: "Every C program starts running from the main() function.",
+            hi: "Har C program main() function se chalna shuru hota hai.",
+          },
+          {
+            en: "Declare variables with a type before using them.",
+            hi: "Variables ko use karne se pehle unka type declare karo.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: {
+          en: "C is a general-purpose procedural language and the foundation for many others. A C program is made of functions, and execution begins at main().",
+          hi: "C ek general-purpose procedural language hai aur kai doosri languages ka base hai. C program functions se banta hai, aur execution main() se shuru hota hai.",
+        },
+      },
+      { type: "heading", level: 2, id: "structure", text: { en: "Structure of a C program", hi: "C program ka structure" } },
+      {
+        type: "code",
+        block: {
+          language: "c",
+          code: "#include <stdio.h>\n\nint main() {\n    int a = 5, b = 3;\n    printf(\"Sum = %d\\n\", a + b);\n    return 0;\n}",
+        },
+      },
+      { type: "heading", level: 2, id: "data-types", text: { en: "Basic data types", hi: "Basic data types" } },
+      {
+        type: "table",
+        headers: [
+          { en: "Type", hi: "Type" },
+          { en: "Use", hi: "Use" },
+        ],
+        rows: [
+          ["int", { en: "Whole numbers", hi: "Poore numbers" }],
+          ["float", { en: "Decimal numbers", hi: "Decimal numbers" }],
+          ["char", { en: "A single character", hi: "Ek single character" }],
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dbms-introduction",
+    title: "Introduction to DBMS",
+    titleHi: "DBMS ka Introduction",
+    description:
+      "Database Management System kya hai, uske advantages, DBMS vs file system, aur three-schema architecture. IPU DBMS paper ke liye.",
+    category: "sql",
+    subcategory: "design",
+    contentType: "notes",
+    tags: ["dbms", "database", "sql", "architecture"],
+    authorId: "manoj-purohit",
+    publishedDate: "2020-09-01",
+    updatedDate: "2026-09-11",
+    difficulty: "beginner",
+    readingMinutes: 6,
+    popular: true,
+    body: [
+      {
+        type: "keypoints",
+        title: { en: "Quick summary", hi: "Ek line mein" },
+        items: [
+          {
+            en: "A DBMS is software that lets you store, manage and query data efficiently.",
+            hi: "DBMS ek software hai jo data ko efficiently store, manage aur query karne deta hai.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: {
+          en: "A Database Management System (DBMS) is software that interacts with users, applications and the database itself to capture and analyse data. It removes the redundancy and inconsistency common in file-based systems.",
+          hi: "Database Management System (DBMS) ek software hai jo users, applications aur database ke beech kaam karke data capture aur analyse karta hai. Ye file-based systems mein aane wali redundancy aur inconsistency hata deta hai.",
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "advantages",
+        text: { en: "Advantages of DBMS", hi: "DBMS ke faayde" },
+      },
+      {
+        type: "list",
+        items: [
+          { en: "Controls data redundancy.", hi: "Data redundancy control karta hai." },
+          { en: "Ensures data consistency and integrity.", hi: "Data consistency aur integrity rakhta hai." },
+          { en: "Provides security and controlled access.", hi: "Security aur controlled access deta hai." },
+          { en: "Supports concurrent access by many users.", hi: "Kai users ke saath concurrent access support karta hai." },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "polymorphism-java",
+    title: "Polymorphism in Java",
+    titleHi: "Java mein Polymorphism",
+    description:
+      "Compile-time (overloading) aur runtime (overriding) polymorphism Java mein, examples ke saath. OOPJ ka core topic.",
+    category: "oopj",
+    subcategory: "concepts",
+    contentType: "tutorial",
+    tags: ["java", "oopj", "polymorphism", "overloading", "overriding"],
+    authorId: "manoj-purohit",
+    publishedDate: "2021-03-20",
+    updatedDate: "2026-09-13",
+    difficulty: "intermediate",
+    readingMinutes: 7,
+    popular: true,
+    body: [
+      {
+        type: "keypoints",
+        title: { en: "Quick summary", hi: "Ek line mein" },
+        items: [
+          {
+            en: "Polymorphism means one name behaving in many forms.",
+            hi: "Polymorphism ka matlab ek naam ka kai roop mein kaam karna.",
+          },
+          {
+            en: "Overloading is compile-time; overriding is runtime.",
+            hi: "Overloading compile-time hai; overriding runtime hai.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        text: {
+          en: "Polymorphism lets the same method name behave differently based on the context. Java supports compile-time polymorphism through method overloading and runtime polymorphism through method overriding.",
+          hi: "Polymorphism ek hi method name ko context ke hisaab se alag-alag behave karne deta hai. Java method overloading se compile-time aur method overriding se runtime polymorphism deta hai.",
+        },
+      },
+      {
+        type: "code",
+        block: {
+          language: "java",
+          code: "class Calc {\n    int add(int a, int b) { return a + b; }\n    double add(double a, double b) { return a + b; }\n}\n// Overloading: same name, different parameters",
+        },
+      },
+    ],
+  },
+  {
+    slug: "os-introduction",
+    title: "Introduction to Operating Systems",
+    titleHi: "Operating Systems ka Introduction",
+    description:
+      "Operating system kya hai, uske functions aur types (batch, time-sharing, distributed, real-time). IPU OS paper notes.",
+    category: "computer-science",
+    subcategory: "os",
+    contentType: "notes",
+    tags: ["operating systems", "os", "computer science"],
+    authorId: "manoj-purohit",
+    publishedDate: "2020-03-01",
+    updatedDate: "2026-09-06",
+    difficulty: "beginner",
+    readingMinutes: 6,
+    body: [
+      {
+        type: "paragraph",
+        text: {
+          en: "An operating system is system software that manages computer hardware and software resources and provides common services for programs. It acts as a bridge between the user and the hardware.",
+          hi: "Operating system ek system software hai jo computer ke hardware aur software resources ko manage karta hai aur programs ke liye common services deta hai. Ye user aur hardware ke beech ek pul ki tarah kaam karta hai.",
+        },
+      },
+      {
+        type: "list",
+        items: [
+          { en: "Process management", hi: "Process management" },
+          { en: "Memory management", hi: "Memory management" },
+          { en: "File system management", hi: "File system management" },
+          { en: "Device and I/O management", hi: "Device aur I/O management" },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {

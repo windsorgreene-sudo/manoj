@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getArticlesByType, CONTENT_TYPE_LABELS } from "@/content";
 import type { ContentType } from "@/content/types";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
-import { ArticleListItem } from "@/components/ArticleListItem";
+import { SortableArticles } from "@/components/SortableArticles";
 
 const TYPES: ContentType[] = [
   "tutorial",
@@ -78,7 +78,7 @@ export default async function TypePage({ params }: { params: Params }) {
         {items.length === 0 ? (
           <p className="text-sm text-text-muted">No items yet.</p>
         ) : (
-          items.map((a) => <ArticleListItem key={a.slug} article={a} />)
+          <SortableArticles articles={items} showCategory />
         )}
       </div>
     </div>

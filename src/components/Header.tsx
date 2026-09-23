@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { SearchDoc } from "@/content";
 import { NAV_GROUPS, categories } from "@/content";
-import { SITE } from "@/lib/site";
 import { SearchDialog } from "./SearchDialog";
 import { LanguageToggle } from "./LanguageToggle";
 import { Logo } from "./Logo";
