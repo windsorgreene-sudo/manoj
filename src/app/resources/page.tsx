@@ -26,11 +26,14 @@ export default function ResourcesPage() {
     <div className="mx-auto max-w-[1240px] px-4 py-6">
       <BreadcrumbSchema items={[{ label: "Study Resources" }]} />
       <Breadcrumbs items={[{ label: "Study Resources" }]} />
-      <header className="mt-4 border-b border-border pb-5">
-        <h1 className="text-[26px] font-bold text-text sm:text-[30px]">Study Resources</h1>
+      <header className="animate-fade-up mt-4 border-b border-border pb-5">
+        <h1 className="font-display text-[26px] font-bold text-text sm:text-[32px]">
+          Study Resources
+        </h1>
         <p className="mt-2 max-w-3xl text-[15px] text-text-muted">
-          Assignments, lab files, syllabus, question banks, MCQs and reference material, organised
-          so students can find what they need quickly.
+          Everything you need for IPU exams in one place: assignments, lab files, syllabus, question
+          banks, MCQs, previous year questions and reference material, organised so you can find
+          what you need quickly.
         </p>
       </header>
 

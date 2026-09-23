@@ -14,10 +14,19 @@ import { ArticleListItem } from "@/components/ArticleListItem";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SubjectIcon } from "@/components/SubjectIcon";
 import { Reveal } from "@/components/Reveal";
-import { formatDate } from "@/lib/site";
+import { HeroArt } from "@/components/art/HeroArt";
+import { DotGrid } from "@/components/art/Decor";
+import { formatDate, PROGRAMMES, SITE } from "@/lib/site";
 import { subjectTheme } from "@/lib/subjectTheme";
 import { TypeBadge } from "@/components/Badge";
 import { ArrowRight, ClockIcon } from "@/components/icons";
+
+const HIGHLIGHTS = [
+  { label: "Subjects covered", value: "11+" },
+  { label: "Tutorials & notes", value: "20+" },
+  { label: "Languages", value: "EN + Hinglish" },
+  { label: "Always free", value: "100%" },
+];
 
 // Compact popular-category order (matches brief).
 const POPULAR_ORDER = [
@@ -55,9 +64,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Intro / hero: friendly and clear, still content-first */}
+      {/* Illustrated hero with IPU context */}
       <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-primary-soft via-bg to-bg">
-        {/* Soft decorative glows for depth (subtle, not flashy) */}
+        {/* Decorative layers: dot grid + soft color glows */}
+        <DotGrid className="pointer-events-none absolute inset-0 text-primary/10" />
         <div
           className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
           aria-hidden
@@ -66,46 +76,84 @@ export default function HomePage() {
           className="pointer-events-none absolute -bottom-32 -left-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-[1240px] px-4 py-12 sm:py-16">
-          <p className="animate-fade-up mb-2 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden />
-            Free study portal for students
-          </p>
-          <h1
-            className="animate-fade-up max-w-3xl text-3xl font-bold leading-tight tracking-tight text-text sm:text-5xl"
-            style={{ animationDelay: "60ms" }}
-          >
-            Learn Computer Science &amp;{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Programming
-            </span>
-            , the simple way
-          </h1>
-          <p
-            className="animate-fade-up mt-4 max-w-2xl text-base text-text-muted sm:text-lg"
-            style={{ animationDelay: "120ms" }}
-          >
-            Clear tutorials, ready notes, solved lab programs, assignments and exam practice, all
-            organised subject-wise so you always know what to study next.
-          </p>
-          <div
-            className="animate-fade-up mt-6 max-w-2xl"
-            style={{ animationDelay: "180ms" }}
-          >
-            <HomeSearch index={index} />
+        <div className="relative mx-auto grid max-w-[1240px] items-center gap-8 px-4 py-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="animate-fade-up mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden />
+              Built for {SITE.universityShort} students
+            </p>
+            <h1
+              className="font-display animate-fade-up text-3xl font-extrabold leading-[1.1] text-text sm:text-5xl"
+              style={{ animationDelay: "60ms" }}
+            >
+              Ace your IPU exams with{" "}
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                clear notes
+              </span>{" "}
+              and solved programs
+            </h1>
+            <p
+              className="animate-fade-up mt-4 max-w-xl text-base text-text-muted sm:text-lg"
+              style={{ animationDelay: "120ms" }}
+            >
+              Semester-wise notes, tutorials, lab programs, assignments and previous year questions
+              for BCA, B.Tech and MCA, organised subject-wise and written in simple language.
+            </p>
+            <div className="animate-fade-up mt-6 max-w-xl" style={{ animationDelay: "180ms" }}>
+              <HomeSearch index={index} />
+            </div>
+            <div
+              className="animate-fade-up mt-4 flex flex-wrap items-center gap-2"
+              style={{ animationDelay: "240ms" }}
+            >
+              <span className="text-sm text-text-muted">Quick access:</span>
+              {QUICK_LINKS.map((q) => (
+                <Link
+                  key={q.href}
+                  href={q.href}
+                  className="rounded-full border border-border-strong bg-surface px-3 py-1 text-[13px] font-medium text-text transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-[var(--shadow-sm)]"
+                >
+                  {q.label}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div
-            className="animate-fade-up mt-4 flex flex-wrap items-center gap-2"
-            style={{ animationDelay: "240ms" }}
-          >
-            <span className="text-sm text-text-muted">Quick access:</span>
-            {QUICK_LINKS.map((q) => (
+
+          {/* Hero illustration */}
+          <div className="animate-fade-in hidden justify-self-center lg:block" style={{ animationDelay: "200ms" }}>
+            <HeroArt className="w-full max-w-[460px]" />
+          </div>
+        </div>
+
+        {/* Highlights strip */}
+        <div className="relative border-t border-border/70 bg-surface/50 backdrop-blur">
+          <div className="mx-auto grid max-w-[1240px] grid-cols-2 divide-x divide-border/70 px-4 sm:grid-cols-4">
+            {HIGHLIGHTS.map((h) => (
+              <div key={h.label} className="px-3 py-4 text-center">
+                <div className="font-display text-xl font-bold text-primary sm:text-2xl">
+                  {h.value}
+                </div>
+                <div className="mt-0.5 text-xs text-text-muted">{h.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Programme quick-picks */}
+      <section className="border-b border-border bg-surface-2/40">
+        <div className="mx-auto max-w-[1240px] px-4 py-6">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span className="text-sm font-semibold text-text">Studying for:</span>
+            {PROGRAMMES.map((p) => (
               <Link
-                key={q.href}
-                href={q.href}
-                className="rounded-full border border-border-strong bg-surface px-3 py-1 text-[13px] font-medium text-text transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-[var(--shadow-sm)]"
+                key={p.code}
+                href={p.href}
+                title={p.name}
+                className="group inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-[var(--shadow-sm)]"
               >
-                {q.label}
+                {p.code}
+                <ArrowRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
               </Link>
             ))}
           </div>

@@ -8,7 +8,9 @@ export function ArticleTitle({ en, hi }: { en: string; hi?: string }) {
   const { lang } = useLanguage();
   const text = lang === "hi" && hi ? hi : en;
   return (
-    <h1 className="text-[28px] font-bold leading-tight text-text sm:text-[34px]">{text}</h1>
+    <h1 className="font-display text-[28px] font-bold leading-tight text-text sm:text-[36px]">
+      {text}
+    </h1>
   );
 }
 

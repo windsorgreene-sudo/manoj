@@ -22,7 +22,7 @@ export const categories: Category[] = [
     name: "Python Programming",
     shortName: "Python",
     description:
-      "Learn Python from the ground up, syntax, data types, functions, object-oriented programming, file handling and standard-library tools. Includes tutorials, lab programs, assignments and practice questions.",
+      "Python from the ground up for GGSIPU BCA and B.Tech students: syntax, data types, functions, OOP, file handling and libraries. Includes semester notes, lab programs, assignments and practice questions.",
     group: "programming",
     order: 1,
     subcategories: [
@@ -45,7 +45,7 @@ export const categories: Category[] = [
     name: "Core Java",
     shortName: "Java",
     description:
-      "Core Java concepts covering the language fundamentals, object-oriented programming, exception handling, collections and multithreading. Structured for university coursework and interviews.",
+      "Core Java for IPU coursework: language fundamentals, object-oriented programming, exception handling, collections and multithreading. Aligned to BCA and B.Tech syllabus with notes, labs and exam questions.",
     group: "programming",
     order: 2,
     subcategories: [
@@ -133,7 +133,7 @@ export const categories: Category[] = [
     name: "Data Structures & Algorithms",
     shortName: "Data Structures",
     description:
-      "Data structures and algorithm design, arrays, linked lists, stacks, queues, trees, graphs, sorting and searching, with complexity analysis.",
+      "Data Structures for IPU BCA and B.Tech: arrays, linked lists, stacks, queues, trees, graphs, sorting and searching, with complexity analysis. A high-weightage exam subject with labs and PYQs.",
     group: "computer-science",
     order: 6,
     subcategories: [
@@ -196,7 +196,7 @@ export const categories: Category[] = [
     name: "Software Engineering",
     shortName: "Software Engineering",
     description:
-      "Software engineering principles, the software development life cycle, process models, requirements engineering, design, testing and project management.",
+      "Software Engineering for IPU students: the software development life cycle, process models, requirements engineering, design, testing and project management. Theory-heavy paper, ideal for note-based revision.",
     group: "software-engineering",
     order: 9,
     subcategories: [

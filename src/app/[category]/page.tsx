@@ -14,6 +14,7 @@ import { ArticleListItem, CompactArticleLink } from "@/components/ArticleListIte
 import { SidebarCard } from "@/components/Sidebar";
 import { SubjectIcon } from "@/components/SubjectIcon";
 import { Reveal } from "@/components/Reveal";
+import { DotGrid } from "@/components/art/Decor";
 import { subjectTheme } from "@/lib/subjectTheme";
 
 export function generateStaticParams() {
@@ -83,14 +84,15 @@ export default async function CategoryPage({ params }: { params: Params }) {
       <Breadcrumbs items={[{ label: cat.name }]} />
 
       <header
-        className="animate-fade-up mt-4 flex items-start gap-4 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-surface to-surface-2 p-5 shadow-[var(--shadow-sm)] sm:p-6"
+        className="animate-fade-up relative mt-4 flex items-start gap-4 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-surface to-surface-2 p-5 shadow-[var(--shadow-sm)] sm:p-6"
         style={{ borderLeft: `4px solid ${subjectTheme(cat.slug).color}` }}
       >
-        <div className="hidden sm:block">
+        <DotGrid className="pointer-events-none absolute inset-0 text-primary/[0.06]" />
+        <div className="relative hidden sm:block">
           <SubjectIcon slug={cat.slug} size="lg" />
         </div>
-        <div className="min-w-0">
-          <h1 className="text-[26px] font-bold leading-tight text-text sm:text-[30px]">
+        <div className="relative min-w-0">
+          <h1 className="font-display text-[26px] font-bold leading-tight text-text sm:text-[32px]">
             {cat.name}
           </h1>
           <p className="mt-2 max-w-3xl text-[15px] text-text-muted">{cat.description}</p>

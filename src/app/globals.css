@@ -115,6 +115,8 @@
 
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-display), var(--font-sans), ui-sans-serif,
+    system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", Menlo,
     Consolas, "Liberation Mono", monospace;
 
@@ -145,6 +147,17 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.006em;
+}
+
+/* Display font for hero and section headings via a helper class */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+h1.font-display,
+h2.font-display {
+  letter-spacing: -0.025em;
 }
 
 /* Focus ring for keyboard users */
@@ -164,7 +177,9 @@ body {
   margin: 0 0 1.2rem;
 }
 .prose h2 {
-  font-size: 1.55rem;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.3;
   margin: 2.4rem 0 1rem;
@@ -175,7 +190,9 @@ body {
   scroll-margin-top: 6rem;
 }
 .prose h3 {
-  font-size: 1.22rem;
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+  font-size: 1.25rem;
   font-weight: 600;
   margin: 1.85rem 0 0.6rem;
   scroll-margin-top: 6rem;
@@ -315,6 +332,26 @@ select,
   100% {
     transform: translateX(100%);
   }
+}
+@keyframes cv-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Gentle floating motion for illustration layers */
+.cv-float {
+  animation: cv-float 5.5s ease-in-out infinite;
+}
+.cv-float-slow {
+  animation: cv-float 7s ease-in-out infinite;
+}
+.cv-float-fast {
+  animation: cv-float 4s ease-in-out infinite;
 }
 
 /* Scroll reveal: starts hidden, `.is-visible` (added by the Reveal component)

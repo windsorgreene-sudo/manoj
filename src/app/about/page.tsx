@@ -12,10 +12,16 @@ export default function AboutPage() {
   return (
     <StaticPage title={`About ${SITE.name}`}>
       <p>
-        {SITE.name} is a reference portal of tutorials, notes, assignments, lab programs and
-        examination material for computer science and programming students. The content is compiled
-        from teaching material and coursework maintained over several years and is organised into
-        clear subject categories for easy reference.
+        {SITE.name} is a study portal for students of {SITE.university}. It brings together
+        tutorials, notes, assignments, lab programs and examination material for the computer
+        subjects in the BCA, B.Tech (CSE / IT) and MCA programmes. The content is compiled from
+        teaching material and coursework maintained over several years and is organised into clear
+        subject categories for easy reference.
+      </p>
+      <p>
+        The goal is simple: help IPU students understand concepts quickly, revise from concise
+        notes, practise with solved programs, and prepare confidently for internal and external
+        examinations.
       </p>
       <h2 id="what-you-find">What you will find here</h2>
       <ul>

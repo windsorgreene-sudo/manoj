@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeScript } from "@/components/ThemeScript";
 import { Header } from "@/components/Header";
@@ -9,9 +9,17 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { buildSearchIndex } from "@/content";
 import { SITE } from "@/lib/site";
 
-const inter = Inter({
+// Body: DM Sans is friendly and highly readable for long study content.
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+// Display: Sora gives headings a modern, confident, student-friendly voice.
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -75,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ThemeScript />
       </head>
-      <body className={`${inter.variable} ${mono.variable} min-h-screen`}>
+      <body className={`${dmSans.variable} ${sora.variable} ${mono.variable} min-h-screen`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-contrast"
