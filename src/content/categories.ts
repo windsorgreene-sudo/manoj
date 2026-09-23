@@ -4,7 +4,6 @@ import type { Category, NavGroup } from "./types";
 export const NAV_GROUPS: { group: NavGroup; label: string; href: string }[] = [
   { group: "tutorials", label: "Tutorials", href: "/tutorials" },
   { group: "programming", label: "Programming", href: "/programming" },
-  { group: "web-development", label: "Web Development", href: "/web-development" },
   { group: "computer-science", label: "Computer Science", href: "/computer-science" },
   { group: "cyber-security", label: "Cyber Security", href: "/cyber-security" },
   { group: "software-engineering", label: "Software Engineering", href: "/software-engineering" },

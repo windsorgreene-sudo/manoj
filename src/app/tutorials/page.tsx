@@ -13,7 +13,6 @@ export default function TutorialsPage() {
     <GroupPage
       group={[
         "programming",
-        "web-development",
         "computer-science",
         "cyber-security",
         "software-engineering",

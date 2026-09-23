@@ -127,10 +127,10 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
             {dark ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
           </button>
           <Link
-            href="/login"
+            href="/student"
             className="hidden rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
           >
-            Login
+            My Dashboard
           </Link>
           <button
             onClick={() => setMenuOpen(true)}
@@ -253,13 +253,6 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
               className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
             >
               My Dashboard
-            </Link>
-            <Link
-              href="/bookmarks"
-              onClick={() => setMenuOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
-            >
-              Bookmarks
             </Link>
             <Link
               href="/admin"
