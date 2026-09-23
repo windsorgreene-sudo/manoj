@@ -21,8 +21,8 @@ const THEMES: Record<string, SubjectTheme> = {
   cpp: { color: "#7c3aed", tint: "#f0eafd", tintDark: "#241740", label: "C++" },
   csharp: { color: "#0d9488", tint: "#e0f5f2", tintDark: "#0d2f2b", label: "C#" },
   sql: { color: "#ca8a04", tint: "#faf1d8", tintDark: "#2f2510", label: "SQL" },
-  "data-structures": { color: "#0f8a5f", tint: "#e2f5ec", tintDark: "#123123", label: "DS" },
-  "computer-science": { color: "#158a6f", tint: "#e2f4f0", tintDark: "#0f2d28", label: "CS" },
+  "data-structures": { color: "#0d7d68", tint: "#dcf3ee", tintDark: "#10322b", label: "DS" },
+  "computer-science": { color: "#0e6f7d", tint: "#dcf0f3", tintDark: "#0c2a30", label: "CS" },
   "cyber-security": { color: "#e11d48", tint: "#fce7ec", tintDark: "#33131c", label: "Sec" },
   "software-engineering": { color: "#0891b2", tint: "#e0f3f8", tintDark: "#0f2c33", label: "SE" },
   oose: { color: "#b45309", tint: "#f8ecdc", tintDark: "#2b1f10", label: "OO" },
@@ -30,9 +30,9 @@ const THEMES: Record<string, SubjectTheme> = {
 };
 
 const FALLBACK: SubjectTheme = {
-  color: "#0f8a5f",
-  tint: "#e2f5ec",
-  tintDark: "#123123",
+  color: "#0d7d68",
+  tint: "#dcf3ee",
+  tintDark: "#10322b",
   label: "CV",
 };
 

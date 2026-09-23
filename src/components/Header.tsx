@@ -8,6 +8,7 @@ import { NAV_GROUPS, categories } from "@/content";
 import { SITE } from "@/lib/site";
 import { SearchDialog } from "./SearchDialog";
 import { LanguageToggle } from "./LanguageToggle";
+import { Logo } from "./Logo";
 import {
   SearchIcon,
   MenuIcon,
@@ -86,18 +87,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
       {/* Primary row */}
       <div className="mx-auto flex h-16 max-w-[1240px] items-center gap-3 px-4">
         {/* Logo */}
-        <Link
-          href="/"
-          className="group flex shrink-0 items-center gap-2"
-          aria-label={SITE.name}
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-white shadow-[var(--shadow-primary)] transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
-            &lt;/&gt;
-          </span>
-          <span className="font-display text-xl font-bold tracking-tight text-text">
-            Code<span className="text-primary">Vidya</span>
-          </span>
-        </Link>
+        <Logo />
 
         {/* Center search (desktop) */}
         <div className="mx-auto hidden w-full max-w-xl md:block">

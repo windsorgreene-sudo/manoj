@@ -31,8 +31,8 @@ export function CodeBlock({ block, showLineNumbers = true }: { block: CodeBlockD
   };
 
   return (
-    <figure className="my-6 overflow-hidden rounded-xl border border-[#263630] shadow-[var(--shadow-md)]">
-      <div className="flex items-center justify-between border-b border-white/5 bg-[#1c2822] px-3 py-2">
+    <figure className="my-6 overflow-hidden rounded-xl border border-[#2a3450] shadow-[var(--shadow-md)]">
+      <div className="flex items-center justify-between border-b border-white/5 bg-[#1c2438] px-3 py-2">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5" aria-hidden>
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -72,7 +72,7 @@ export function CodeBlock({ block, showLineNumbers = true }: { block: CodeBlockD
         </pre>
       </div>
       {block.caption && (
-        <figcaption className="border-t border-[#263630] bg-[#1c2822] px-3 py-1.5 text-[12px] text-[#9aa4b2]">
+        <figcaption className="border-t border-[#2a3450] bg-[#1c2438] px-3 py-1.5 text-[12px] text-[#9aa4b2]">
           {block.caption}
         </figcaption>
       )}
