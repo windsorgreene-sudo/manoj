@@ -3,113 +3,156 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { SubjectIcon } from "@/components/SubjectIcon";
-import { BookmarkIcon, ClockIcon, ArrowRight } from "@/components/icons";
+import {
+  completedLessons,
+  getXP,
+  levelForXP,
+  recentCourses,
+  type RecentCourse,
+} from "@/lib/learning";
+import { ArrowRight } from "@/components/icons";
 
 interface Bookmark {
   slug: string;
   title: string;
   href: string;
 }
-interface Viewed {
-  slug: string;
-  title: string;
-  href: string;
-  category: string;
-  categoryName: string;
-  viewedAt: number;
-}
 
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  const min = Math.floor(diff / 60000);
-  if (min < 1) return "just now";
-  if (min < 60) return `${min} min ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `${hr} hr ago`;
-  const d = Math.floor(hr / 24);
-  return `${d} day${d === 1 ? "" : "s"} ago`;
-}
+const BADGES = [
+  { icon: "🔥", name: "First Flame", need: 1, desc: "Complete your first lesson" },
+  { icon: "📚", name: "Bookworm", need: 10, desc: "Complete 10 lessons" },
+  { icon: "🎯", name: "Focused", need: 20, desc: "Complete 20 lessons" },
+  { icon: "🏆", name: "Champion", need: 40, desc: "Complete 40 lessons" },
+];
 
 export default function StudentDashboard() {
+  const [xp, setXp] = useState(0);
+  const [doneCount, setDoneCount] = useState(0);
+  const [recent, setRecent] = useState<RecentCourse[]>([]);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [viewed, setViewed] = useState<Viewed[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setXp(getXP());
+    setDoneCount(completedLessons().length);
+    setRecent(recentCourses());
     try {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBookmarks(JSON.parse(localStorage.getItem("cv-bookmarks") || "[]"));
-      setViewed(JSON.parse(localStorage.getItem("cv-recently-viewed") || "[]"));
     } catch {}
     setLoaded(true);
   }, []);
 
-  const continueItem = viewed[0];
+  const { level, next, progress } = levelForXP(xp);
+  const continueCourse = recent[0];
+
+  const stats = [
+    { label: "Lessons done", value: doneCount },
+    { label: "Total XP", value: xp },
+    { label: "Level", value: `${level.icon} ${level.name}` },
+    { label: "Courses touched", value: recent.length },
+  ];
 
   return (
     <div className="mx-auto max-w-[1100px] px-4 py-6">
-      <Breadcrumbs items={[{ label: "My Dashboard" }]} />
+      <Breadcrumbs items={[{ label: "Dashboard" }]} />
 
-      <header className="animate-fade-up mt-4 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary-soft to-surface p-6 shadow-[var(--shadow-sm)]">
-        <p className="text-xs font-semibold uppercase tracking-wide text-primary">Student portal</p>
-        <h1 className="font-display mt-1 text-2xl font-bold text-text sm:text-3xl">My Dashboard</h1>
-        <p className="mt-2 max-w-2xl text-[15px] text-text-muted">
-          Your bookmarks, recently viewed lessons and quick access to study material. Everything is
-          saved on this device.
-        </p>
+      {/* Welcome + level */}
+      <header className="animate-fade-up mt-4 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary-soft to-surface p-6 shadow-[var(--shadow-sm)]">
+        <p className="text-xs font-semibold uppercase tracking-wide text-primary">Your dashboard</p>
+        <h1 className="font-display mt-1 text-2xl font-extrabold text-text sm:text-3xl">
+          Welcome back, learner {level.icon}
+        </h1>
+        <div className="mt-4 max-w-md">
+          <div className="mb-1 flex items-center justify-between text-sm">
+            <span className="font-semibold text-text">
+              {level.name} · {xp} XP
+            </span>
+            {next && <span className="text-text-muted">Next: {next.icon} {next.name}</span>}
+          </div>
+          <div className="h-2.5 overflow-hidden rounded-full bg-surface-2">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-[width] duration-700"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
       </header>
 
       {/* Stats */}
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {[
-          { label: "Bookmarks", value: bookmarks.length },
-          { label: "Lessons viewed", value: viewed.length },
-          { label: "Subjects touched", value: new Set(viewed.map((v) => v.category)).size },
-          { label: "Streak", value: viewed.length > 0 ? "Active" : "-" },
-        ].map((s) => (
-          <div key={s.label} className="rounded-xl border border-border bg-surface p-4 text-center shadow-[var(--shadow-xs)]">
-            <div className="font-display text-2xl font-bold text-primary">{s.value}</div>
+        {stats.map((s) => (
+          <div key={s.label} className="rounded-2xl border border-border bg-surface p-4 text-center shadow-[var(--shadow-xs)]">
+            <div className="font-display text-xl font-bold text-primary">{s.value}</div>
             <div className="mt-0.5 text-xs text-text-muted">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Continue learning */}
-      {loaded && continueItem && (
+      {loaded && continueCourse && (
         <Link
-          href={continueItem.href}
+          href={`/courses/${continueCourse.slug}`}
           className="hover-lift group mt-6 flex items-center gap-4 rounded-2xl border border-primary/30 bg-primary-soft p-5"
         >
-          <SubjectIcon slug={continueItem.category} size="lg" />
+          <span
+            className="flex h-14 w-14 items-center justify-center rounded-2xl text-3xl text-white"
+            style={{ background: continueCourse.color }}
+          >
+            {continueCourse.icon}
+          </span>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold uppercase tracking-wide text-primary">Continue learning</p>
-            <p className="mt-0.5 truncate text-lg font-bold text-text">{continueItem.title}</p>
-            <p className="text-[13px] text-text-muted">{continueItem.categoryName}</p>
+            <p className="mt-0.5 truncate text-lg font-bold text-text">{continueCourse.title}</p>
           </div>
           <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       )}
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* Badges */}
+        <section>
+          <h2 className="font-display mb-3 border-b border-border pb-2 text-lg font-bold text-text">
+            Achievements
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2">
+            {BADGES.map((b) => {
+              const earned = doneCount >= b.need;
+              return (
+                <div
+                  key={b.name}
+                  className={`rounded-2xl border p-4 text-center transition-all ${
+                    earned
+                      ? "border-primary/40 bg-surface animate-pop"
+                      : "border-border bg-surface-2 opacity-60"
+                  }`}
+                  title={b.desc}
+                >
+                  <div className={`text-3xl ${earned ? "" : "grayscale"}`}>{earned ? b.icon : "🔒"}</div>
+                  <div className="mt-1 text-sm font-semibold text-text">{b.name}</div>
+                  <div className="text-[11px] text-text-faint">{b.desc}</div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Bookmarks */}
         <section>
-          <h2 className="mb-3 flex items-center gap-2 border-b border-border pb-2 text-lg font-bold text-text">
-            <BookmarkIcon className="h-4 w-4 text-primary" /> Your Bookmarks
+          <h2 className="font-display mb-3 border-b border-border pb-2 text-lg font-bold text-text">
+            Bookmarks
           </h2>
           {loaded && bookmarks.length === 0 ? (
-            <EmptyState
-              text="No bookmarks yet. Tap the Bookmark button on any lesson to save it here."
-              href="/tutorials"
-              cta="Browse tutorials"
-            />
+            <div className="rounded-2xl border border-dashed border-border-strong bg-surface p-6 text-center text-sm text-text-muted">
+              No bookmarks yet. Save lessons to find them here.
+            </div>
           ) : (
             <ul className="space-y-2">
               {bookmarks.map((b) => (
                 <li key={b.slug}>
                   <Link
                     href={b.href}
-                    className="block rounded-lg border border-border bg-surface px-3 py-2.5 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary"
+                    className="block rounded-xl border border-border bg-surface px-3 py-2.5 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary"
                   >
                     {b.title}
                   </Link>
@@ -118,51 +161,7 @@ export default function StudentDashboard() {
             </ul>
           )}
         </section>
-
-        {/* Recently viewed */}
-        <section>
-          <h2 className="mb-3 flex items-center gap-2 border-b border-border pb-2 text-lg font-bold text-text">
-            <ClockIcon className="h-4 w-4 text-primary" /> Recently Viewed
-          </h2>
-          {loaded && viewed.length === 0 ? (
-            <EmptyState
-              text="Lessons you open will appear here so you can pick up where you left off."
-              href="/tutorials"
-              cta="Start learning"
-            />
-          ) : (
-            <ul className="space-y-2">
-              {viewed.map((v) => (
-                <li key={v.slug}>
-                  <Link
-                    href={v.href}
-                    className="flex items-center gap-3 rounded-lg border border-border bg-surface px-3 py-2.5 transition-colors hover:border-primary"
-                  >
-                    <SubjectIcon slug={v.category} size="sm" />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-medium text-text">{v.title}</span>
-                      <span className="text-xs text-text-faint">
-                        {v.categoryName} · {timeAgo(v.viewedAt)}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
       </div>
-    </div>
-  );
-}
-
-function EmptyState({ text, href, cta }: { text: string; href: string; cta: string }) {
-  return (
-    <div className="rounded-xl border border-dashed border-border-strong bg-surface p-6 text-center">
-      <p className="text-sm text-text-muted">{text}</p>
-      <Link href={href} className="mt-3 inline-block text-sm font-medium text-primary hover:underline">
-        {cta} →
-      </Link>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
 import { SITE } from "@/lib/site";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { CourseChapters } from "./CourseChapters";
+import { TrackCourse } from "@/components/content/TrackCourse";
 import { ClockIcon } from "@/components/icons";
 
 export function generateStaticParams() {
@@ -59,6 +60,7 @@ export default async function CoursePage({ params }: { params: Params }) {
       <BreadcrumbSchema items={[{ label: "Courses", href: "/courses" }, { label: course.title }]} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <Breadcrumbs items={[{ label: "Courses", href: "/courses" }, { label: course.title }]} />
+      <TrackCourse slug={course.slug} title={course.title} icon={course.icon} color={course.color} />
 
       {/* Course header */}
       <header
