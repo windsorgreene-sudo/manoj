@@ -1,0 +1,155 @@
+// EduLearn database schema (backend-ready reference).
+//
+// The site currently runs on static seed content (src/content/courses) with
+// client-side progress in localStorage. When a database is connected, this
+// schema and the seed script (prisma/seed.ts) provide the persistence layer:
+// point DATABASE_URL at Postgres (Supabase/Neon), run `prisma migrate` and
+// `prisma db seed`, then swap the content queries for Prisma queries.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  image        String?
+  role         Role          @default(STUDENT)
+  createdAt    DateTime      @default(now())
+  progress     Progress[]
+  bookmarks    Bookmark[]
+  quizAttempts QuizAttempt[]
+  streak       Int           @default(0)
+  lastActiveAt DateTime?
+  xp           Int           @default(0)
+  badges       UserBadge[]
+}
+
+model Course {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  title       String
+  description String
+  icon        String
+  color       String
+  difficulty  Difficulty
+  category    String
+  tags        String[]
+  published   Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  chapters    Chapter[]
+}
+
+model Chapter {
+  id       String   @id @default(cuid())
+  courseId String
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title    String
+  order    Int
+  lessons  Lesson[]
+}
+
+model Lesson {
+  id          String     @id @default(cuid())
+  chapterId   String
+  chapter     Chapter    @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  slug        String
+  title       String
+  content     String
+  codeExample String?
+  order       Int
+  duration    Int?
+  hasQuiz     Boolean    @default(false)
+  quiz        Quiz?
+  progress    Progress[]
+
+  @@unique([chapterId, slug])
+}
+
+model Progress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+}
+
+model Quiz {
+  id        String         @id @default(cuid())
+  lessonId  String         @unique
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  attempts  QuizAttempt[]
+}
+
+model QuizQuestion {
+  id       String  @id @default(cuid())
+  quizId   String
+  question String
+  options  String[]
+  correct  Int
+  explain  String?
+  quiz     Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
+
+model QuizAttempt {
+  id        String   @id @default(cuid())
+  userId    String
+  quizId    String
+  score     Int
+  total     Int
+  answers   Int[]
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
+
+model Bookmark {
+  id       String @id @default(cuid())
+  userId   String
+  lessonId String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+}
+
+model Badge {
+  id      String      @id @default(cuid())
+  slug    String      @unique
+  name    String
+  icon    String
+  users   UserBadge[]
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  badgeId  String
+  awardedAt DateTime @default(now())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
