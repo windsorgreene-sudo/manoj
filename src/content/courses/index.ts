@@ -1,5 +1,5 @@
 import { courses } from "./data";
-import type { Course, Lesson, LessonRef } from "./types";
+import type { Course, LessonRef } from "./types";
 
 export { courses };
 export type { Course, Lesson, Chapter, QuizQuestion, LessonRef } from "./types";

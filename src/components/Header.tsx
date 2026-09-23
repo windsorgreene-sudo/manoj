@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { SearchDoc } from "@/content";
-import { NAV_GROUPS, categories } from "@/content";
+import { courses } from "@/content/courses";
 import { SearchDialog } from "./SearchDialog";
 import { LanguageToggle } from "./LanguageToggle";
 import { Logo } from "./Logo";
@@ -18,9 +18,16 @@ import {
   ChevronDown,
 } from "./icons";
 
-// Which nav groups get dropdowns, and the categories shown in each.
-function dropdownFor(group: string) {
-  return categories.filter((c) => c.group === group);
+// EduLearn primary navigation. "Courses" opens a dropdown of the catalog.
+const NAV = [
+  { key: "courses", label: "Courses", href: "/courses", dropdown: true },
+  { key: "playground", label: "Playground", href: "/playground", dropdown: false },
+  { key: "paths", label: "Learning Paths", href: "/#paths", dropdown: false },
+  { key: "dashboard", label: "Dashboard", href: "/student", dropdown: false },
+];
+
+function courseDropdown() {
+  return courses.map((c) => ({ slug: c.slug, name: `${c.icon} ${c.title}` }));
 }
 
 export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
@@ -142,57 +149,51 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
         </div>
       </div>
 
-      {/* Category nav (desktop) */}
-      <nav className="hidden border-t border-border lg:block" aria-label="Categories">
-        <div className="no-scrollbar mx-auto flex max-w-[1240px] items-stretch overflow-x-auto px-4">
-          {NAV_GROUPS.map((g) => {
-            const items = dropdownFor(g.group);
-            const hasDropdown = items.length > 0;
-            return (
-              <div
-                key={g.group}
-                className="relative shrink-0"
-                onMouseEnter={() => hasDropdown && setOpenDropdown(g.group)}
-                onMouseLeave={() => setOpenDropdown(null)}
+      {/* Primary nav (desktop) */}
+      <nav className="hidden border-t border-border lg:block" aria-label="Primary">
+        <div className="no-scrollbar mx-auto flex max-w-[1280px] items-stretch overflow-x-auto px-4">
+          {NAV.map((g) => (
+            <div
+              key={g.key}
+              className="relative shrink-0"
+              onMouseEnter={() => g.dropdown && setOpenDropdown(g.key)}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <Link
+                href={g.href}
+                className={`relative flex items-center gap-1 px-3 py-2.5 text-sm font-medium transition-colors after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-primary hover:after:scale-x-100 ${
+                  isActive(g.href) ? "text-primary after:scale-x-100" : "text-text-muted"
+                }`}
               >
-                <Link
-                  href={g.href}
-                  className={`relative flex items-center gap-1 px-3 py-2.5 text-sm font-medium transition-colors after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-primary hover:after:scale-x-100 ${
-                    isActive(g.href)
-                      ? "text-primary after:scale-x-100"
-                      : "text-text-muted"
-                  }`}
-                >
-                  {g.label}
-                  {hasDropdown && (
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                        openDropdown === g.group ? "rotate-180" : ""
-                      }`}
-                    />
-                  )}
-                </Link>
-                {hasDropdown && openDropdown === g.group && (
-                  <div className="animate-slide-down absolute left-0 top-full z-50 mt-1 min-w-60 overflow-hidden rounded-xl border border-border bg-surface p-1.5 shadow-[var(--shadow-lg)]">
-                    {items.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/${c.slug}`}
-                        className="block rounded-lg px-3 py-2 text-sm text-text-muted transition-colors hover:bg-surface-2 hover:text-primary"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
-                  </div>
+                {g.label}
+                {g.dropdown && (
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                      openDropdown === g.key ? "rotate-180" : ""
+                    }`}
+                  />
                 )}
-              </div>
-            );
-          })}
+              </Link>
+              {g.dropdown && openDropdown === g.key && (
+                <div className="animate-slide-down absolute left-0 top-full z-50 mt-1 grid max-h-[70vh] min-w-64 grid-cols-1 gap-0.5 overflow-y-auto rounded-xl border border-border bg-surface p-1.5 shadow-[var(--shadow-lg)]">
+                  {courseDropdown().map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/courses/${c.slug}`}
+                      className="block rounded-lg px-3 py-2 text-sm text-text-muted transition-colors hover:bg-surface-2 hover:text-primary"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
           <Link
-            href="/resources"
+            href="/courses"
             className="ml-auto flex shrink-0 items-center gap-1 whitespace-nowrap px-3 py-2.5 text-sm font-semibold text-primary hover:text-primary-hover"
           >
-            Study Resources
+            All Courses →
           </Link>
         </div>
       </nav>
@@ -227,9 +228,9 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
             </div>
           </div>
           <nav className="px-2 py-2">
-            {NAV_GROUPS.map((g) => (
+            {NAV.map((g) => (
               <Link
-                key={g.group}
+                key={g.key}
                 href={g.href}
                 onClick={() => setMenuOpen(false)}
                 className={`block rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors hover:bg-surface-2 ${
@@ -239,13 +240,6 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
                 {g.label}
               </Link>
             ))}
-            <Link
-              href="/resources"
-              onClick={() => setMenuOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
-            >
-              Study Resources
-            </Link>
             <div className="my-2 border-t border-border" />
             <Link
               href="/student"
