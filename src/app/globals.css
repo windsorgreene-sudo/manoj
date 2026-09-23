@@ -449,4 +449,80 @@ select,
   }
 }
 
+/* ---------------------------------------------------------- Responsive aids */
+
+/* Avoid accidental horizontal scroll from any stray wide child */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Long unbroken tokens (URLs, code words) wrap instead of overflowing */
+.prose p,
+.prose li {
+  overflow-wrap: anywhere;
+}
+
+/* Comfortable minimum tap targets on touch devices */
+@media (pointer: coarse) {
+  a,
+  button,
+  select,
+  summary,
+  [role="button"] {
+    min-height: 40px;
+  }
+  /* Keep dense inline text links from being over-tall */
+  .prose a,
+  nav a,
+  li > a {
+    min-height: 0;
+  }
+}
+
+/* Respect iOS safe areas on the floating controls / drawer */
+@supports (padding: max(0px)) {
+  .safe-b {
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------------------------------------------------------------- Print */
+@media print {
+  header,
+  footer,
+  aside,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  .prose {
+    font-size: 12pt;
+    color: #000;
+  }
+  .prose h2,
+  .prose h3 {
+    border: none;
+    padding-left: 0;
+  }
+  figure,
+  pre,
+  table,
+  .reveal {
+    break-inside: avoid;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  body {
+    background: #fff;
+  }
+}
+
 /* Prevent theme flash: applied inline before hydration */

@@ -10,21 +10,27 @@ export interface Crumb {
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   const all: Crumb[] = [{ label: "Home", href: "/" }, ...items];
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-[13px]">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex flex-nowrap items-center gap-1 overflow-x-auto whitespace-nowrap text-[13px] sm:flex-wrap sm:whitespace-normal no-scrollbar"
+    >
       {all.map((c, i) => {
         const last = i === all.length - 1;
         return (
-          <span key={i} className="flex items-center gap-1">
+          <span key={i} className="flex min-w-0 items-center gap-1">
             {c.href && !last ? (
-              <Link href={c.href} className="text-text-muted hover:text-primary">
+              <Link href={c.href} className="shrink-0 text-text-muted hover:text-primary">
                 {c.label}
               </Link>
             ) : (
-              <span className={last ? "text-text" : "text-text-muted"} aria-current={last ? "page" : undefined}>
+              <span
+                className={`max-w-[60vw] truncate sm:max-w-none ${last ? "text-text" : "text-text-muted"}`}
+                aria-current={last ? "page" : undefined}
+              >
                 {c.label}
               </span>
             )}
-            {!last && <ChevronRight className="h-3.5 w-3.5 text-text-faint" />}
+            {!last && <ChevronRight className="h-3.5 w-3.5 shrink-0 text-text-faint" />}
           </span>
         );
       })}

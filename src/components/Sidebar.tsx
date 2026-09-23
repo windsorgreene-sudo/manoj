@@ -4,12 +4,16 @@ import type { ReactNode } from "react";
 export function SidebarCard({
   title,
   children,
+  className = "",
 }: {
   title: string;
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <section className="rounded-xl border border-border bg-surface p-4 shadow-[var(--shadow-xs)] transition-shadow duration-200 hover:shadow-[var(--shadow-sm)]">
+    <section
+      className={`rounded-xl border border-border bg-surface p-4 shadow-[var(--shadow-xs)] transition-shadow duration-200 hover:shadow-[var(--shadow-sm)] ${className}`}
+    >
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-text-muted">
         {title}
       </h2>

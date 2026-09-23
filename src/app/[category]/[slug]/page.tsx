@@ -16,6 +16,7 @@ import { Breadcrumbs, BreadcrumbSchema, type Crumb } from "@/components/Breadcru
 import { ArticleBody } from "@/components/ArticleBody";
 import { TableOfContents, type TocItem } from "@/components/TableOfContents";
 import { BookmarkButton } from "@/components/BookmarkButton";
+import { PrintButton } from "@/components/PrintButton";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { ArticleTitle, ArticleDescription } from "@/components/ArticleHeading";
 import { Reveal } from "@/components/Reveal";
@@ -139,7 +140,8 @@ export default async function ArticlePage({ params }: { params: Params }) {
               {article.readingMinutes} min read
             </span>
             {article.difficulty && <DifficultyLabel level={article.difficulty} />}
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-2">
+              <PrintButton />
               <BookmarkButton slug={article.slug} title={article.title} href={href} />
             </div>
           </div>
@@ -252,11 +254,11 @@ export default async function ArticlePage({ params }: { params: Params }) {
           )}
         </article>
 
-        {/* Right sidebar */}
-        <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-6">
+        {/* Sidebar: below content on mobile/tablet, sticky beside it on desktop */}
+        <aside>
+          <div className="space-y-6 lg:sticky lg:top-24">
             {toc.length > 0 && (
-              <SidebarCard title="On this page">
+              <SidebarCard title="On this page" className="hidden lg:block">
                 <TableOfContents items={toc} />
               </SidebarCard>
             )}
