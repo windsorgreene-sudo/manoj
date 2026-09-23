@@ -113,8 +113,8 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           </button>
           <LanguageToggle className="hidden sm:inline-flex" />
           <Link
-            href="/bookmarks"
-            aria-label="Bookmarks"
+            href="/student"
+            aria-label="My dashboard and bookmarks"
             className="hidden rounded-md p-2 text-text-muted hover:bg-surface-2 sm:inline-flex"
           >
             <BookmarkIcon className="h-5 w-5" />
@@ -248,11 +248,11 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
             </Link>
             <div className="my-2 border-t border-border" />
             <Link
-              href="/login"
+              href="/student"
               onClick={() => setMenuOpen(false)}
               className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
             >
-              Login
+              My Dashboard
             </Link>
             <Link
               href="/bookmarks"
@@ -260,6 +260,13 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
               className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
             >
               Bookmarks
+            </Link>
+            <Link
+              href="/admin"
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-text transition-colors hover:bg-surface-2"
+            >
+              Teacher Portal
             </Link>
           </nav>
         </div>

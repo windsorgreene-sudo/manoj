@@ -18,6 +18,7 @@ import { TableOfContents, type TocItem } from "@/components/TableOfContents";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { PrintButton } from "@/components/PrintButton";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { TrackView } from "@/components/TrackView";
 import { ArticleTitle, ArticleDescription } from "@/components/ArticleHeading";
 import { Reveal } from "@/components/Reveal";
 import { SidebarCard } from "@/components/Sidebar";
@@ -103,6 +104,13 @@ export default async function ArticlePage({ params }: { params: Params }) {
   return (
     <div className="mx-auto max-w-[1240px] px-4 py-6">
       <ReadingProgress />
+      <TrackView
+        slug={article.slug}
+        title={article.title}
+        href={href}
+        category={article.category}
+        categoryName={cat.name}
+      />
       <BreadcrumbSchema items={crumbs} />
       <script
         type="application/ld+json"
