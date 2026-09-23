@@ -10,19 +10,15 @@ const SUGGESTED = [
 export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-[600px] flex-col items-center justify-center px-4 py-16 text-center">
-      <span className="font-display animate-fade-up bg-gradient-to-r from-primary to-accent bg-clip-text text-6xl font-extrabold text-transparent sm:text-7xl">
-        404
-      </span>
-      <h1 className="font-display animate-fade-up mt-3 text-2xl font-bold text-text" style={{ animationDelay: "60ms" }}>
-        Page not found
-      </h1>
-      <p className="animate-fade-up mt-2 text-[15px] text-text-muted" style={{ animationDelay: "120ms" }}>
+      <span className="font-display text-5xl font-bold text-text-faint sm:text-6xl">404</span>
+      <h1 className="font-display mt-3 text-2xl font-bold text-text">Page not found</h1>
+      <p className="mt-2 text-[15px] text-text-muted">
         The page you are looking for may have been moved, or the link may be out of date.
       </p>
-      <div className="animate-fade-up mt-6 flex w-full flex-col justify-center gap-3 sm:flex-row" style={{ animationDelay: "180ms" }}>
+      <div className="mt-6 flex w-full flex-col justify-center gap-3 sm:flex-row">
         <Link
           href="/"
-          className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)]"
+          className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-contrast transition-colors hover:bg-primary-hover"
         >
           Go to homepage
         </Link>
@@ -30,7 +26,7 @@ export default function NotFound() {
           href="/courses"
           className="rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary"
         >
-          Browse tutorials
+          Browse subjects
         </Link>
       </div>
       <div className="mt-8 w-full">

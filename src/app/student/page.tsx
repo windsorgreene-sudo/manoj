@@ -58,7 +58,7 @@ export default function StudentDashboard() {
       <Breadcrumbs items={[{ label: "Dashboard" }]} />
 
       {/* Welcome + level */}
-      <header className="animate-fade-up mt-4 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary-soft to-surface p-6 shadow-[var(--shadow-sm)]">
+      <header className="mt-4 rounded-lg border border-border bg-surface p-6">
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">Your dashboard</p>
         <h1 className="font-display mt-1 text-2xl font-extrabold text-text sm:text-3xl">
           Welcome back, learner {level.icon}
@@ -72,7 +72,7 @@ export default function StudentDashboard() {
           </div>
           <div className="h-2.5 overflow-hidden rounded-full bg-surface-2">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-[width] duration-700"
+              className="h-full rounded-full bg-primary transition-[width] duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
