@@ -18,8 +18,8 @@ export default function PlaygroundPage() {
           Code Playground
         </h1>
         <p className="mt-2 max-w-2xl text-[15px] text-text-muted">
-          Write code and run it instantly, right in your browser. Choose a language, use a template
-          or start from scratch, and press Run (or Ctrl+Enter).
+          Write code and run it instantly, right in your browser. JavaScript runs live with no
+          setup; other languages run when a hosted runner is connected. Press Run or Ctrl+Enter.
         </p>
       </header>
       <PlaygroundClient />

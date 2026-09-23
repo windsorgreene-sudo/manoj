@@ -17,8 +17,8 @@ const TEMPLATES: Record<string, string> = {
 const LANG_LIST = Object.keys(LANGUAGES);
 
 export function PlaygroundClient() {
-  const [lang, setLang] = useState("python");
-  const [code, setCode] = useState(TEMPLATES.python);
+  const [lang, setLang] = useState("javascript");
+  const [code, setCode] = useState(TEMPLATES.javascript);
   const [output, setOutput] = useState("");
   const [running, setRunning] = useState(false);
   const [isError, setIsError] = useState(false);

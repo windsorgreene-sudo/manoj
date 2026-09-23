@@ -1,40 +1,40 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
-import { categories } from "@/content";
 import { LogoMark } from "./Logo";
 
 const columns = [
   {
-    title: "Categories",
-    links: categories.slice(0, 6).map((c) => ({ label: c.shortName, href: `/${c.slug}` })),
-  },
-  {
-    title: "Tutorials",
+    title: "Courses",
     links: [
-      { label: "Python", href: "/python" },
-      { label: "Java", href: "/java" },
-      { label: "C++", href: "/cpp" },
-      { label: "SQL", href: "/sql" },
-      { label: "Data Structures", href: "/data-structures" },
+      { label: "HTML Fundamentals", href: "/courses/html-fundamentals" },
+      { label: "CSS Mastery", href: "/courses/css-mastery" },
+      { label: "JavaScript Core", href: "/courses/javascript-core" },
+      { label: "Python for Beginners", href: "/courses/python-for-beginners" },
+      { label: "All courses", href: "/courses" },
     ],
   },
   {
-    title: "Resources",
+    title: "Learn",
     links: [
-      { label: "Assignments", href: "/type/assignment" },
-      { label: "Lab Programs", href: "/type/lab" },
-      { label: "Notes", href: "/type/notes" },
-      { label: "MCQs & Tests", href: "/type/mcq" },
-      { label: "Study Resources", href: "/resources" },
+      { label: "React.js", href: "/courses/react-complete" },
+      { label: "Data Structures", href: "/courses/dsa" },
+      { label: "SQL & Databases", href: "/courses/sql-databases" },
+      { label: "System Design", href: "/courses/system-design" },
     ],
   },
   {
-    title: "Site",
+    title: "Product",
+    links: [
+      { label: "Code Playground", href: "/playground" },
+      { label: "My Dashboard", href: "/student" },
+      { label: "Teacher Portal", href: "/admin" },
+    ],
+  },
+  {
+    title: "Company",
     links: [
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
-      { label: "My Dashboard", href: "/student" },
-      { label: "Teacher Portal", href: "/admin" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
       { label: "Disclaimer", href: "/disclaimer" },
@@ -56,8 +56,8 @@ export function Footer() {
             </div>
             <p className="mt-2 max-w-xs text-sm text-text-muted">{SITE.tagline}</p>
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-text-muted">
-              A reference portal of tutorials, notes, assignments and lab work for computer
-              science and programming students.
+              Animated tutorials, a live code editor and expert-crafted courses for developers at
+              every level.
             </p>
           </div>
           {columns.map((col) => (
@@ -82,7 +82,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <p>Content compiled and maintained by {SITE.author}.</p>
+          <p>Built for learners. Free forever.</p>
         </div>
       </div>
     </footer>

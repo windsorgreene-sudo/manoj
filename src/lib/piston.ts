@@ -29,10 +29,60 @@ export interface RunResult {
   timeMs?: number;
 }
 
+// Runs JavaScript directly in the browser by capturing console output. This
+// needs no external service, so it always works. Kept sandboxed to a function
+// scope; this is a learning playground, not a secure sandbox.
+function runJavaScriptInBrowser(code: string): RunResult {
+  const logs: string[] = [];
+  const started = performance.now();
+  const original = { log: console.log, error: console.error, warn: console.warn };
+  const capture =
+    (prefix = "") =>
+    (...args: unknown[]) =>
+      logs.push(prefix + args.map((a) => formatValue(a)).join(" "));
+  try {
+    console.log = capture();
+    console.error = capture("Error: ");
+    console.warn = capture("Warning: ");
+    const fn = new Function(code);
+    fn();
+    return {
+      output: logs.join("\n") || "(no output)",
+      error: false,
+      timeMs: Math.round(performance.now() - started),
+    };
+  } catch (e) {
+    return {
+      output: [...logs, String(e)].join("\n"),
+      error: true,
+      timeMs: Math.round(performance.now() - started),
+    };
+  } finally {
+    console.log = original.log;
+    console.error = original.error;
+    console.warn = original.warn;
+  }
+}
+
+function formatValue(v: unknown): string {
+  if (typeof v === "string") return v;
+  try {
+    return JSON.stringify(v);
+  } catch {
+    return String(v);
+  }
+}
+
 export async function runCode(langId: string, code: string): Promise<RunResult> {
+  // JavaScript runs directly in the browser, no network needed.
+  if (langId === "javascript") return runJavaScriptInBrowser(code);
+
   const lang = LANGUAGES[langId];
   if (!lang) {
-    return { output: `This language (${langId}) cannot be executed here.`, error: true };
+    return {
+      output: `Live execution for ${langId} is not available in this demo. JavaScript runs directly in the browser; other languages need a hosted runner (see notes).`,
+      error: true,
+    };
   }
   const started = performance.now();
   try {
@@ -46,7 +96,11 @@ export async function runCode(langId: string, code: string): Promise<RunResult> 
       }),
     });
     if (!res.ok) {
-      return { output: `Execution service returned ${res.status}. Please try again.`, error: true };
+      return {
+        output:
+          "Remote code execution is not available right now. JavaScript still runs instantly in the browser; connect a hosted runner to enable other languages.",
+        error: true,
+      };
     }
     const data = await res.json();
     const run = data.run ?? {};
@@ -57,7 +111,11 @@ export async function runCode(langId: string, code: string): Promise<RunResult> 
       timeMs: Math.round(performance.now() - started),
     };
   } catch {
-    return { output: "Could not reach the execution service. Check your connection.", error: true };
+    return {
+      output:
+        "Could not reach the execution service. JavaScript runs in the browser; other languages need a hosted runner.",
+      error: true,
+    };
   }
 }
 
