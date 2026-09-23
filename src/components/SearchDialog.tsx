@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { SearchDoc } from "@/content";
 import { SearchIcon, CloseIcon, ClockIcon } from "./icons";
 import { formatDate } from "@/lib/site";
@@ -43,7 +44,10 @@ export function SearchDialog({
   const [typeFilter, setTypeFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [recent, setRecent] = useState<string[]>([]);
+  const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const router = useRouter();
 
   const categories = useMemo(() => {
     const map = new Map<string, string>();
@@ -66,13 +70,27 @@ export function SearchDialog({
     }
   }, [open]);
 
+  // Lock background scroll while the dialog is open.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
     };
-    if (open) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open]);
+
+  // Reset the highlighted result whenever the query or filters change.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setActive(0);
+  }, [query, typeFilter, categoryFilter]);
+
+  // Keep the highlighted result scrolled into view during keyboard navigation.
+  useEffect(() => {
+    const el = listRef.current?.children[active] as HTMLElement | undefined;
+    el?.scrollIntoView({ block: "nearest" });
+  }, [active]);
 
   const commitRecent = useCallback((q: string) => {
     const term = q.trim();
@@ -85,6 +103,22 @@ export function SearchDialog({
       return next;
     });
   }, []);
+
+  const clearRecent = useCallback(() => {
+    setRecent([]);
+    try {
+      localStorage.removeItem(RECENT_KEY);
+    } catch {}
+  }, []);
+
+  const openResult = useCallback(
+    (doc: SearchDoc) => {
+      commitRecent(query);
+      onClose();
+      router.push(doc.href);
+    },
+    [commitRecent, query, onClose, router],
+  );
 
   const results = useMemo(() => {
     let pool = index;
@@ -128,7 +162,26 @@ export function SearchDialog({
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && commitRecent(query)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                e.preventDefault();
+                onClose();
+              } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setActive((a) => Math.min(a + 1, results.length - 1));
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setActive((a) => Math.max(a - 1, 0));
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                const doc = results[active];
+                if (doc) openResult(doc);
+              }
+            }}
+            role="combobox"
+            aria-expanded={results.length > 0}
+            aria-controls="cv-search-results"
+            aria-activedescendant={results[active] ? `cv-result-${results[active].slug}` : undefined}
             placeholder="Search tutorials, topics, notes, assignments..."
             className="min-w-0 flex-1 bg-transparent text-[15px] text-text placeholder:text-text-faint focus:outline-none"
           />
@@ -205,22 +258,29 @@ export function SearchDialog({
                       {r}
                     </button>
                   ))}
+                  <button
+                    onClick={clearRecent}
+                    className="ml-1 text-xs text-text-faint underline hover:text-text-muted"
+                  >
+                    Clear
+                  </button>
                 </div>
               )}
             </div>
           ) : null}
 
           {/* Results */}
-          <ul className="divide-y divide-border">
-            {results.map((d) => (
-              <li key={d.slug}>
+          <ul id="cv-search-results" ref={listRef} role="listbox" className="divide-y divide-border">
+            {results.map((d, i) => (
+              <li key={d.slug} id={`cv-result-${d.slug}`} role="option" aria-selected={i === active}>
                 <Link
                   href={d.href}
+                  onMouseEnter={() => setActive(i)}
                   onClick={() => {
                     commitRecent(query);
                     onClose();
                   }}
-                  className="block px-4 py-3 hover:bg-surface-2"
+                  className={`block px-4 py-3 ${i === active ? "bg-surface-2" : ""}`}
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-[15px] font-semibold text-text">{d.title}</span>
@@ -237,19 +297,36 @@ export function SearchDialog({
               </li>
             ))}
             {results.length === 0 && (
-              <li className="px-4 py-10 text-center text-sm text-text-muted">
-                No results for &ldquo;{query}&rdquo;. Try a different term or filter.
+              <li className="px-4 py-12 text-center">
+                <p className="text-sm font-medium text-text">
+                  No results for &ldquo;{query.trim()}&rdquo;
+                </p>
+                <p className="mt-1 text-[13px] text-text-muted">
+                  Try a different keyword, or clear the filters above.
+                </p>
               </li>
             )}
           </ul>
         </div>
 
-        <div className="hidden sm:flex items-center gap-3 border-t border-border px-4 py-2 text-[11px] text-text-faint">
+        {/* Footer: result count + keyboard hints */}
+        <div className="flex items-center justify-between gap-3 border-t border-border px-4 py-2 text-[11px] text-text-faint">
           <span>
-            <kbd className="rounded border border-border px-1">Esc</kbd> to close
+            {query.trim()
+              ? `${results.length} result${results.length === 1 ? "" : "s"}`
+              : "Type to search"}
           </span>
-          <span>
-            <kbd className="rounded border border-border px-1">Enter</kbd> to open
+          <span className="hidden items-center gap-3 sm:flex">
+            <span>
+              <kbd className="rounded border border-border px-1">↑</kbd>
+              <kbd className="ml-0.5 rounded border border-border px-1">↓</kbd> navigate
+            </span>
+            <span>
+              <kbd className="rounded border border-border px-1">Enter</kbd> open
+            </span>
+            <span>
+              <kbd className="rounded border border-border px-1">Esc</kbd> close
+            </span>
           </span>
         </div>
       </div>
