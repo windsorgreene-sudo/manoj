@@ -4,6 +4,8 @@ import type { NavGroup } from "@/content/types";
 import { Breadcrumbs, BreadcrumbSchema } from "@/components/Breadcrumbs";
 import { ArticleListItem } from "@/components/ArticleListItem";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SubjectIcon } from "@/components/SubjectIcon";
+import { Reveal } from "@/components/Reveal";
 
 export function GroupPage({
   group,
@@ -28,8 +30,8 @@ export function GroupPage({
     <div className="mx-auto max-w-[1240px] px-4 py-6">
       <BreadcrumbSchema items={[{ label: title }]} />
       <Breadcrumbs items={[{ label: title }]} />
-      <header className="mt-4 border-b border-border pb-5">
-        <h1 className="text-[26px] font-bold text-text sm:text-[30px]">{title}</h1>
+      <header className="animate-fade-up mt-4 border-b border-border pb-5">
+        <h1 className="font-display text-[26px] font-bold text-text sm:text-[32px]">{title}</h1>
         <p className="mt-2 max-w-3xl text-[15px] text-text-muted">{description}</p>
       </header>
 
@@ -37,15 +39,25 @@ export function GroupPage({
         <div className="min-w-0">
           <SectionHeading title="Categories" />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {cats.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/${c.slug}`}
-                className="rounded-md border border-border p-4 transition-colors hover:border-primary"
-              >
-                <span className="font-semibold text-text">{c.name}</span>
-                <p className="clamp-2 mt-1 text-[13px] text-text-muted">{c.description}</p>
-              </Link>
+            {cats.map((c, i) => (
+              <Reveal key={c.slug} delay={i * 50}>
+                <Link
+                  href={`/${c.slug}`}
+                  className="sheen hover-lift group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
+                >
+                  <span className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                    <SubjectIcon slug={c.slug} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-semibold text-text transition-colors group-hover:text-primary">
+                      {c.name}
+                    </span>
+                    <span className="clamp-2 mt-1 block text-[13px] text-text-muted">
+                      {c.description}
+                    </span>
+                  </span>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>

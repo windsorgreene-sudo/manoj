@@ -128,7 +128,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           </button>
           <Link
             href="/student"
-            className="hidden rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
+            className="sheen hidden rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-primary-contrast shadow-[var(--shadow-sm)] transition-all hover:bg-primary-hover hover:shadow-[var(--shadow-primary)] sm:inline-flex"
           >
             My Dashboard
           </Link>

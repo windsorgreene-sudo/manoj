@@ -343,6 +343,157 @@ select,
   }
 }
 
+/* Aurora / gradient-shift background for hero sections */
+@keyframes cv-aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes cv-blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24px, -18px) scale(1.08);
+  }
+  66% {
+    transform: translate(-18px, 14px) scale(0.94);
+  }
+}
+@keyframes cv-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes cv-pop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes cv-sheen {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+@keyframes cv-gradient-text {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animated gradient headline text */
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--accent),
+    var(--primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: cv-gradient-text 6s ease infinite;
+}
+
+/* Aurora backdrop: soft moving color field */
+.aurora {
+  background: radial-gradient(
+      60% 80% at 20% 20%,
+      color-mix(in oklab, var(--primary) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      55% 70% at 85% 25%,
+      color-mix(in oklab, var(--accent) 20%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      70% 80% at 60% 90%,
+      color-mix(in oklab, var(--primary) 16%, transparent),
+      transparent 65%
+    );
+  background-size: 180% 180%;
+  animation: cv-aurora 18s ease-in-out infinite;
+}
+.cv-blob {
+  animation: cv-blob 16s ease-in-out infinite;
+}
+
+/* Marquee ticker */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: cv-marquee 30s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Sheen sweep on hover (add to a relatively-positioned, overflow-hidden box) */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  opacity: 0;
+}
+.sheen:hover::after {
+  opacity: 1;
+  animation: cv-sheen 0.9s ease;
+}
+.dark .sheen::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+}
+
+.animate-pop {
+  animation: cv-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* Gentle floating motion for illustration layers */
 .cv-float {
   animation: cv-float 5.5s ease-in-out infinite;

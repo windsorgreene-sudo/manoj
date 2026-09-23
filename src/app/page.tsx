@@ -16,16 +16,18 @@ import { SubjectIcon } from "@/components/SubjectIcon";
 import { Reveal } from "@/components/Reveal";
 import { HeroArt } from "@/components/art/HeroArt";
 import { DotGrid } from "@/components/art/Decor";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Marquee } from "@/components/Marquee";
 import { formatDate, PROGRAMMES, SITE } from "@/lib/site";
 import { subjectTheme } from "@/lib/subjectTheme";
 import { TypeBadge } from "@/components/Badge";
 import { ArrowRight, ClockIcon } from "@/components/icons";
 
-const HIGHLIGHTS = [
-  { label: "Subjects covered", value: "11+" },
-  { label: "Tutorials & notes", value: "20+" },
+const HIGHLIGHTS: { label: string; value: number | string; suffix?: string }[] = [
+  { label: "Subjects covered", value: 11, suffix: "+" },
+  { label: "Tutorials & notes", value: 25, suffix: "+" },
   { label: "Languages", value: "EN + Hinglish" },
-  { label: "Always free", value: "100%" },
+  { label: "Always free", value: 100, suffix: "%" },
 ];
 
 // Compact popular-category order (matches brief).
@@ -66,14 +68,16 @@ export default function HomePage() {
     <>
       {/* Illustrated hero with IPU context */}
       <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-primary-soft via-bg to-bg">
-        {/* Decorative layers: dot grid + soft color glows */}
+        {/* Decorative layers: animated aurora + dot grid + drifting blobs */}
+        <div className="aurora pointer-events-none absolute inset-0 opacity-70" aria-hidden />
         <DotGrid className="pointer-events-none absolute inset-0 text-primary/10" />
         <div
-          className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
+          className="cv-blob pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/15 blur-3xl"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute -bottom-32 -left-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl"
+          className="cv-blob pointer-events-none absolute -bottom-32 -left-10 h-72 w-72 rounded-full bg-accent/15 blur-3xl"
+          style={{ animationDelay: "-6s" }}
           aria-hidden
         />
         <div className="relative mx-auto grid max-w-[1240px] items-center gap-8 px-4 py-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr]">
@@ -87,10 +91,7 @@ export default function HomePage() {
               style={{ animationDelay: "60ms" }}
             >
               Ace your IPU exams with{" "}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                clear notes
-              </span>{" "}
-              and solved programs
+              <span className="text-gradient-animated">clear notes</span> and solved programs
             </h1>
             <p
               className="animate-fade-up mt-4 max-w-xl text-base text-text-muted sm:text-lg"
@@ -125,19 +126,32 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Highlights strip */}
+        {/* Highlights strip with count-up numbers */}
         <div className="relative border-t border-border/70 bg-surface/50 backdrop-blur">
           <div className="mx-auto grid max-w-[1240px] grid-cols-2 divide-x divide-border/70 px-4 sm:grid-cols-4">
             {HIGHLIGHTS.map((h) => (
               <div key={h.label} className="px-3 py-4 text-center">
-                <div className="font-display text-xl font-bold text-primary sm:text-2xl">
-                  {h.value}
-                </div>
+                <AnimatedCounter
+                  value={h.value}
+                  suffix={h.suffix}
+                  className="font-display text-xl font-bold text-primary sm:text-2xl"
+                />
                 <div className="mt-0.5 text-xs text-text-muted">{h.label}</div>
               </div>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Subject marquee: gentle ticker of all subjects */}
+      <section className="border-b border-border bg-bg py-3">
+        <Marquee
+          items={popularCats.map((c) => ({
+            label: c.shortName,
+            href: `/${c.slug}`,
+            slug: c.slug,
+          }))}
+        />
       </section>
 
       {/* Programme quick-picks */}
@@ -172,7 +186,7 @@ export default function HomePage() {
                 <Reveal key={c.slug} delay={i * 45}>
                   <Link
                     href={`/${c.slug}`}
-                    className="hover-lift group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
+                    className="sheen hover-lift group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
                     style={{ borderLeft: `3px solid ${theme.color}` }}
                   >
                     <span className="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
@@ -211,7 +225,7 @@ export default function HomePage() {
                 <Link
                   key={a.slug}
                   href={`/${a.category}/${a.slug}`}
-                  className="hover-lift group flex flex-col rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
+                  className="sheen hover-lift group flex flex-col rounded-xl border border-border bg-surface p-4 hover:border-primary/50"
                 >
                   <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-contrast shadow-[var(--shadow-sm)] transition-transform duration-300 group-hover:scale-110">
                     {i + 1}
@@ -293,7 +307,7 @@ export default function HomePage() {
 
             <Link
               href="/resources"
-              className="hover-lift group flex items-center justify-between rounded-xl border border-accent/30 bg-accent-soft p-4 hover:border-accent"
+              className="sheen hover-lift group flex items-center justify-between rounded-xl border border-accent/30 bg-accent-soft p-4 hover:border-accent"
             >
               <span>
                 <span className="block font-semibold text-text">Study Resources</span>

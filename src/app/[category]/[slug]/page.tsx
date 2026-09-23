@@ -240,7 +240,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
                   <li key={r.slug}>
                     <Link
                       href={`/${r.category}/${r.slug}`}
-                      className="hover-lift group flex h-full gap-3 rounded-xl border border-border bg-surface p-3.5 hover:border-primary/50"
+                      className="sheen hover-lift group flex h-full gap-3 rounded-xl border border-border bg-surface p-3.5 hover:border-primary/50"
                     >
                       <span className="transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
                         <SubjectIcon slug={r.category} size="sm" />
