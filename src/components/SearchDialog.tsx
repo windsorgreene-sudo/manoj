@@ -134,7 +134,7 @@ export function SearchDialog({
   return (
     <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Search">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative mx-auto mt-0 flex h-full w-full max-w-2xl flex-col overflow-hidden border border-border bg-surface shadow-xl sm:mt-20 sm:h-auto sm:max-h-[80vh] sm:rounded-lg">
+      <div className="relative mx-auto mt-0 flex h-full w-full max-w-2xl flex-col overflow-hidden border border-border bg-surface shadow-xl sm:mt-20 sm:h-auto sm:max-h-[80vh] sm:rounded-2xl">
         {/* Input row */}
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
           <SearchIcon className="h-5 w-5 shrink-0 text-text-faint" />

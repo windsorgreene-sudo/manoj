@@ -75,7 +75,7 @@ export function CourseCatalog({ courses, categories }: { courses: Course[]; cate
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-border-strong bg-surface p-10 text-center text-sm text-text-muted">
+        <div className="rounded-2xl border border-dashed border-border-strong bg-surface p-10 text-center text-sm text-text-muted">
           No courses match your filters. Try clearing them.
         </div>
       ) : (

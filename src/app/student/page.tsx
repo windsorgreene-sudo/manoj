@@ -82,7 +82,7 @@ export default function StudentDashboard() {
       {/* Stats */}
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-lg border border-border bg-surface p-4 text-center shadow-[var(--shadow-xs)]">
+          <div key={s.label} className="rounded-2xl border border-border bg-surface p-4 text-center shadow-[var(--shadow-xs)]">
             <div className="font-display text-xl font-bold text-primary">{s.value}</div>
             <div className="mt-0.5 text-xs text-text-muted">{s.label}</div>
           </div>
@@ -93,10 +93,10 @@ export default function StudentDashboard() {
       {loaded && continueCourse && (
         <Link
           href={`/courses/${continueCourse.slug}`}
-          className="hover-lift group mt-6 flex items-center gap-4 rounded-lg border border-primary/30 bg-primary-soft p-5"
+          className="hover-lift group mt-6 flex items-center gap-4 rounded-2xl border border-primary/30 bg-primary-soft p-5"
         >
           <span
-            className="flex h-14 w-14 items-center justify-center rounded-lg text-3xl text-white"
+            className="flex h-14 w-14 items-center justify-center rounded-2xl text-3xl text-white"
             style={{ background: continueCourse.color }}
           >
             {continueCourse.icon}
@@ -121,7 +121,7 @@ export default function StudentDashboard() {
               return (
                 <div
                   key={b.name}
-                  className={`rounded-lg border p-4 text-center transition-all ${
+                  className={`rounded-2xl border p-4 text-center transition-all ${
                     earned
                       ? "border-primary/40 bg-surface animate-pop"
                       : "border-border bg-surface-2 opacity-60"
@@ -143,7 +143,7 @@ export default function StudentDashboard() {
             Bookmarks
           </h2>
           {loaded && bookmarks.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-border-strong bg-surface p-6 text-center text-sm text-text-muted">
+            <div className="rounded-2xl border border-dashed border-border-strong bg-surface p-6 text-center text-sm text-text-muted">
               No bookmarks yet. Save lessons to find them here.
             </div>
           ) : (

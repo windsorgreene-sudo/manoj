@@ -28,7 +28,7 @@ export function LessonPlayground({ code, language }: { code: string; language: s
   };
 
   return (
-    <div className="not-prose my-8 overflow-hidden rounded-lg border border-border bg-surface shadow-[var(--shadow-sm)]">
+    <div className="not-prose my-8 overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--shadow-sm)]">
       <div className="flex items-center justify-between border-b border-border bg-surface-2 px-4 py-2.5">
         <span className="font-display text-sm font-bold text-text">▶ Try it yourself</span>
         <div className="flex items-center gap-2">

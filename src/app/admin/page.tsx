@@ -48,7 +48,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-[440px] flex-col justify-center px-4 py-10">
-      <div className="animate-fade-up rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-md)]">
+      <div className="animate-fade-up rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow-md)]">
         <div className="mb-4 flex items-center gap-2">
           <LogoMark className="h-10 w-10 rounded-xl" />
           <div>
@@ -120,7 +120,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     <div className="mx-auto max-w-[1100px] px-4 py-6">
       <Breadcrumbs items={[{ label: "Teacher Portal" }]} />
 
-      <header className="animate-fade-up mt-4 flex flex-wrap items-center justify-between gap-3 overflow-hidden rounded-lg border border-border bg-gradient-to-br from-primary-soft to-surface p-6 shadow-[var(--shadow-sm)]">
+      <header className="animate-fade-up mt-4 flex flex-wrap items-center justify-between gap-3 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary-soft to-surface p-6 shadow-[var(--shadow-sm)]">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">Teacher portal</p>
           <h1 className="font-display mt-1 text-2xl font-bold text-text sm:text-3xl">Content Dashboard</h1>

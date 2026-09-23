@@ -79,7 +79,7 @@ export default async function LessonPage({ params }: { params: Params }) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_minmax(0,1fr)_240px]">
         {/* Left: course navigation */}
         <aside className="hidden lg:block">
-          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-lg border border-border bg-surface p-4">
+          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-4">
             <LessonSidebar course={course} currentSlug={lesson.slug} />
           </div>
         </aside>
@@ -174,7 +174,7 @@ export default async function LessonPage({ params }: { params: Params }) {
         {/* Right: table of contents */}
         <aside className="hidden lg:block">
           {toc.length > 0 && (
-            <div className="sticky top-24 rounded-lg border border-border bg-surface p-4">
+            <div className="sticky top-24 rounded-2xl border border-border bg-surface p-4">
               <p className="mb-3 text-xs font-bold uppercase tracking-wider text-text-faint">
                 On this page
               </p>
