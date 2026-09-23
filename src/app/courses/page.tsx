@@ -6,7 +6,7 @@ import { CourseCatalog } from "./CourseCatalog";
 export const metadata: Metadata = {
   title: "All Courses",
   description:
-    "Browse EduLearn courses: HTML, CSS, JavaScript, Python, React, Data Structures, SQL, Git, Node.js and System Design.",
+    "Browse CodeVidya courses for GGSIPU students: C, Python, Data Structures, DBMS, Java/OOP, Operating Systems, Computer Networks, Web Technology and Software Engineering.",
   alternates: { canonical: "/courses" },
 };
 
@@ -17,11 +17,11 @@ export default function CoursesPage() {
       <Breadcrumbs items={[{ label: "Courses" }]} />
       <header className="animate-fade-up mt-4 mb-6">
         <h1 className="font-display text-3xl font-extrabold tracking-tight text-text sm:text-4xl">
-          Explore Courses
+          Subjects &amp; Courses
         </h1>
         <p className="mt-2 max-w-2xl text-[15px] text-text-muted">
-          Structured, hands-on courses with live code and quizzes. Pick a topic and start learning
-          for free.
+          IPU computer science subjects with exam-ready notes, solved code and MCQ quizzes. Pick a
+          subject and start learning for free.
         </p>
       </header>
       <CourseCatalog courses={courses} categories={CATEGORIES} />

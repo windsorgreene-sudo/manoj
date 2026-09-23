@@ -6,7 +6,7 @@ import { runCode, LANGUAGES } from "@/lib/piston";
 
 const TEMPLATES: Record<string, string> = {
   javascript: "// JavaScript\nfunction fib(n) {\n  return n < 2 ? n : fib(n - 1) + fib(n - 2);\n}\nfor (let i = 0; i < 10; i++) console.log(fib(i));",
-  typescript: "// TypeScript\nconst greet = (name: string): string => `Hello, ${name}!`;\nconsole.log(greet('EduLearn'));",
+  typescript: "// TypeScript\nconst greet = (name: string): string => `Hello, ${name}!`;\nconsole.log(greet('CodeVidya'));",
   python: "# Python\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a)\n        a, b = b, a + b\n\nfib(10)",
   java: "// Java\npublic class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 5; i++) System.out.println(\"Line \" + i);\n    }\n}",
   cpp: "// C++\n#include <iostream>\nusing namespace std;\nint main() {\n    for (int i = 1; i <= 5; i++) cout << \"Line \" << i << endl;\n    return 0;\n}",

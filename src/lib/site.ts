@@ -1,20 +1,22 @@
 export const SITE = {
-  name: "EduLearn",
-  tagline: "Learn. Code. Build.",
+  name: "CodeVidya",
+  tagline: "Learn. Practice. Ace your exams.",
   description:
-    "Animated tutorials, a live code editor, and expert-crafted courses for developers at every level. Learn web development, Python, data structures, databases and more, for free.",
+    "Free exam-ready notes, tutorials, code examples, solved programs and MCQs for GGSIPU (IP University) BCA, B.Tech and MCA computer science subjects. Learn with a live code editor.",
   url: "https://codevidya.vercel.app",
-  locale: "en",
-  author: "EduLearn",
+  locale: "en_IN",
+  author: "CodeVidya",
   founded: 2024,
+  university: "Guru Gobind Singh Indraprastha University (GGSIPU)",
+  universityShort: "GGSIPU",
 };
 
-// Top-level learning tracks used for the homepage roadmap and quick-picks.
+// IPU programmes used for the homepage framing and quick-picks.
 export const PROGRAMMES = [
-  { code: "Web Dev", name: "Web Development Path", href: "/courses" },
-  { code: "Python", name: "Python & Data", href: "/courses" },
-  { code: "DSA", name: "Data Structures & Algorithms", href: "/courses" },
-  { code: "Backend", name: "Backend & Databases", href: "/courses" },
+  { code: "BCA", name: "Bachelor of Computer Applications", href: "/courses" },
+  { code: "B.Tech CSE/IT", name: "B.Tech Computer Science / IT", href: "/courses" },
+  { code: "MCA", name: "Master of Computer Applications", href: "/courses" },
+  { code: "B.Sc CS", name: "B.Sc Computer Science", href: "/courses" },
 ];
 
 export function formatDate(iso: string): string {

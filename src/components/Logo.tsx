@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-// The EduLearn logo: an SVG mark (graduation cap + code caret) plus the
+// The CodeVidya logo: an SVG mark (graduation cap + code caret) plus the
 // wordmark. Sizes scale via the `size` prop. Mark uses the brand gradient.
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className={className} role="img" aria-label="EduLearn logo" fill="none">
+    <svg viewBox="0 0 40 40" className={className} role="img" aria-label="CodeVidya logo" fill="none">
       <defs>
         <linearGradient id="el-logo-grad" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="var(--primary)" />
@@ -26,12 +26,12 @@ export function Logo({ size = "md" }: { size?: "sm" | "md" }) {
   const mark = size === "sm" ? "h-8 w-8" : "h-9 w-9";
   const text = size === "sm" ? "text-lg" : "text-xl";
   return (
-    <Link href="/" className="group flex shrink-0 items-center gap-2" aria-label="EduLearn home">
+    <Link href="/" className="group flex shrink-0 items-center gap-2" aria-label="CodeVidya home">
       <LogoMark
         className={`${mark} shadow-[var(--shadow-primary)] rounded-[10px] transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3`}
       />
       <span className={`font-display ${text} font-bold tracking-tight text-text`}>
-        Edu<span className="text-primary">Learn</span>
+        Code<span className="text-primary">Vidya</span>
       </span>
     </Link>
   );

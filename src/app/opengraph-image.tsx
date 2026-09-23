@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "EduLearn, learn, code, build";
+export const alt = "CodeVidya, exam-ready notes and tutorials for GGSIPU students";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,15 +36,15 @@ export default function OGImage() {
           >
             🎓
           </div>
-          <div style={{ fontSize: 42, fontWeight: 800 }}>EduLearn</div>
+          <div style={{ fontSize: 42, fontWeight: 800 }}>CodeVidya</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.1, maxWidth: 950 }}>
-            Learn. Code. Build.
+          <div style={{ fontSize: 60, fontWeight: 800, lineHeight: 1.1, maxWidth: 980 }}>
+            Notes, tutorials &amp; solved code for IPU exams
           </div>
-          <div style={{ fontSize: 30, color: "#9fb0c3", maxWidth: 950 }}>
-            Animated tutorials, a live code editor and expert-crafted courses for developers.
+          <div style={{ fontSize: 30, color: "#9fb0c3", maxWidth: 980 }}>
+            BCA · B.Tech · MCA — C, Python, DSA, DBMS, Java, OS, Networks and more
           </div>
         </div>
 

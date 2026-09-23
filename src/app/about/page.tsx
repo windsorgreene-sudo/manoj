@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${SITE.name}, an animated learning platform with tutorials, a live code editor and expert-crafted courses.`,
+  description: `About ${SITE.name}, exam-ready notes, tutorials and solved code for GGSIPU BCA, B.Tech and MCA students.`,
   alternates: { canonical: "/about" },
 };
 
@@ -12,26 +12,28 @@ export default function AboutPage() {
   return (
     <StaticPage title={`About ${SITE.name}`}>
       <p>
-        {SITE.name} is a modern learning platform for developers at every level. It brings together
-        animated tutorials, a live code editor and structured courses so you can learn a concept,
-        practise it immediately, and test yourself, all in one place.
+        {SITE.name} is a free study platform for students of {SITE.university}. It brings together
+        exam-ready notes, tutorials, solved programs and practice questions for the computer science
+        subjects in the BCA, B.Tech (CSE / IT) and MCA programmes, alongside a live code editor so
+        you can run examples as you learn.
       </p>
       <p>
-        Our goal is simple: make learning to code clear, hands-on and enjoyable. Read a lesson, run
-        the example in the playground, take a quick quiz, and track your progress as you go.
+        The goal is simple: help IPU students understand a topic quickly, revise from concise notes,
+        practise with real code, and prepare confidently for internal and external examinations.
       </p>
       <h2 id="what-you-find">What you will find here</h2>
       <ul>
-        <li>Structured courses for HTML, CSS, JavaScript, Python, React and more.</li>
-        <li>Data structures, algorithms and core computer science topics.</li>
-        <li>SQL, databases, Git, Node.js and system design.</li>
-        <li>A live code playground to run and experiment with code.</li>
-        <li>Quizzes, progress tracking, XP and achievement badges.</li>
+        <li>Full subject courses: C, Python, Data Structures, DBMS and SQL.</li>
+        <li>Object-oriented programming with Java and C++.</li>
+        <li>Operating Systems, Computer Networks and Software Engineering.</li>
+        <li>Web Technology fundamentals (HTML, CSS, JavaScript).</li>
+        <li>A live code playground, MCQ quizzes and progress tracking.</li>
       </ul>
       <h2 id="approach">Our approach</h2>
       <p>
-        Every lesson is written to be practical and easy to follow, with real code examples and
-        clear explanations. Content is reviewed for accuracy and updated as technologies evolve.
+        Every lesson is written to be practical and exam-focused, with clear explanations, real code
+        and quick quizzes. Content is organised by subject so you can find exactly what you need for
+        your semester.
       </p>
     </StaticPage>
   );

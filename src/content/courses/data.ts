@@ -1,564 +1,207 @@
 import type { Course } from "./types";
 
-// Seed courses for EduLearn. Content is real and hand-written (no lorem ipsum).
-// The flagship courses (HTML, CSS, JavaScript, Python) carry a full first
-// chapter with lessons + quizzes; others carry a solid starter chapter.
+// CodeVidya courses for GGSIPU (IP University) computer science subjects.
+// Content is exam-oriented and hand-written: theory, code, tables, notes and
+// MCQ quizzes. Additional chapters live in extra.ts and are merged in index.ts.
 
 export const courses: Course[] = [
-  // ============================================================= HTML
+  // ============================================================= C PROGRAMMING
   {
-    slug: "html-fundamentals",
-    title: "HTML Fundamentals",
-    description: "Build the structure of web pages with semantic, accessible HTML.",
+    slug: "c-programming",
+    title: "C Programming",
+    description: "The foundation language of every BCA and B.Tech first year.",
     longDescription:
-      "HTML is the language every web page is built with. In this course you will learn how to structure content, use semantic elements, build forms, and write markup that is accessible and search-engine friendly.",
-    icon: "🌐",
-    color: "#e34c26",
+      "C is the first programming language in the IPU curriculum. This course covers the structure of a C program, variables, operators, control flow, functions, arrays, pointers and strings, with exam-ready explanations and solved programs.",
+    icon: "💻",
+    color: "#5468ff",
     difficulty: "beginner",
-    category: "Web Development",
-    tags: ["html", "web", "frontend", "markup"],
+    category: "Programming",
+    tags: ["c", "programming", "bca", "btech", "semester 1"],
     chapters: [
       {
-        title: "Getting Started",
+        title: "Getting Started with C",
         lessons: [
           {
-            slug: "what-is-html",
-            title: "What is HTML?",
-            description: "Understand what HTML is and how the browser turns it into a web page.",
-            duration: 6,
-            codeLanguage: "html",
+            slug: "intro-to-c",
+            title: "Introduction to C",
+            description: "What C is, its features and the structure of a C program.",
+            duration: 7,
+            codeLanguage: "c",
             codeExample:
-              "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <title>My First Page</title>\n  </head>\n  <body>\n    <h1>Hello, world!</h1>\n    <p>This is my first web page.</p>\n  </body>\n</html>",
+              '#include <stdio.h>\n\nint main() {\n    printf("Hello, IPU!\\n");\n    return 0;\n}',
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
-                  "HTML (HyperText Markup Language) describes the structure of a web page.",
-                  "It uses tags like <h1> and <p> to mark up content.",
-                  "The browser reads HTML and renders it visually.",
+                  "C is a general-purpose, procedural, structured programming language.",
+                  "Developed by Dennis Ritchie at Bell Labs in 1972.",
+                  "Execution always begins from the main() function.",
                 ],
               },
               {
                 type: "paragraph",
-                text: "HTML stands for HyperText Markup Language. It is the standard language used to create the structure of web pages. Every website you visit is built on a foundation of HTML.",
+                text: "C is a general-purpose programming language developed by Dennis Ritchie in 1972 at Bell Laboratories. It is called a middle-level language because it combines the features of high-level and low-level languages. It is the base for many later languages such as C++, Java and Python.",
               },
-              {
-                type: "paragraph",
-                text: "HTML is not a programming language, it is a markup language. Instead of logic and loops, it uses tags to describe what each piece of content is, for example a heading, a paragraph, a link or an image.",
-              },
-              { type: "heading", level: 2, id: "structure", text: "A basic HTML document" },
-              {
-                type: "paragraph",
-                text: "Every HTML document follows the same basic skeleton. Here is the smallest complete page:",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "html",
-                  code: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <title>My First Page</title>\n  </head>\n  <body>\n    <h1>Hello, world!</h1>\n    <p>This is my first web page.</p>\n  </body>\n</html>",
-                },
-              },
+              { type: "heading", level: 2, id: "features", text: "Features of C" },
               {
                 type: "list",
                 items: [
-                  "<!DOCTYPE html> tells the browser this is an HTML5 document.",
-                  "<html> is the root element that wraps everything.",
-                  "<head> holds information about the page, like its title.",
-                  "<body> holds everything the visitor actually sees.",
+                  "Simple and structured language.",
+                  "Fast and efficient (close to hardware).",
+                  "Portable across machines.",
+                  "Rich set of built-in operators and library functions.",
+                  "Supports pointers for direct memory access.",
                 ],
               },
-              {
-                type: "note",
-                variant: "tip",
-                text: "Save your file with a .html extension and open it in any browser to see the result. No installation needed.",
-              },
-            ],
-            quiz: [
-              {
-                question: "What does HTML stand for?",
-                options: [
-                  "HyperText Markup Language",
-                  "HighText Machine Language",
-                  "HyperTool Multi Language",
-                  "Home Tool Markup Language",
-                ],
-                correct: 0,
-                explain: "HTML = HyperText Markup Language, the standard for structuring web pages.",
-              },
-              {
-                question: "Which element holds the visible page content?",
-                options: ["<head>", "<title>", "<body>", "<meta>"],
-                correct: 2,
-                explain: "Everything the visitor sees goes inside the <body> element.",
-              },
-              {
-                question: "Is HTML a programming language?",
-                options: [
-                  "Yes, it has loops and conditions",
-                  "No, it is a markup language",
-                  "Yes, it compiles to machine code",
-                  "No, it is a database language",
-                ],
-                correct: 1,
-                explain: "HTML describes structure with tags; it does not contain program logic.",
-              },
-            ],
-          },
-          {
-            slug: "html-elements-and-tags",
-            title: "Elements and Tags",
-            description: "Learn how HTML elements, tags and attributes work together.",
-            duration: 7,
-            codeLanguage: "html",
-            codeExample:
-              "<a href=\"https://example.com\" target=\"_blank\">Visit Example</a>\n<img src=\"logo.png\" alt=\"Company logo\" width=\"120\">",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "An element is usually an opening tag, content, and a closing tag.",
-                  "Attributes add extra information inside the opening tag.",
-                  "Some elements, like <img>, are self-closing.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "An HTML element is made up of a start tag, some content, and an end tag. For example, <p>Hello</p> is a paragraph element where <p> is the start tag and </p> is the end tag.",
-              },
-              { type: "heading", level: 2, id: "attributes", text: "Attributes" },
-              {
-                type: "paragraph",
-                text: "Attributes provide extra information about an element and always go in the start tag. They come in name=\"value\" pairs.",
-              },
+              { type: "heading", level: 2, id: "structure", text: "Structure of a C program" },
               {
                 type: "code",
                 block: {
-                  language: "html",
-                  code: "<a href=\"https://example.com\" target=\"_blank\">Visit Example</a>",
+                  language: "c",
+                  code: '#include <stdio.h>   // preprocessor directive\n\nint main() {          // main function, entry point\n    printf("Hello, IPU!\\n");\n    return 0;         // returns 0 to the OS\n}',
                 },
-              },
-              {
-                type: "paragraph",
-                text: "Here href is the destination URL and target=\"_blank\" opens the link in a new tab.",
-              },
-              { type: "heading", level: 2, id: "self-closing", text: "Self-closing elements" },
-              {
-                type: "paragraph",
-                text: "Some elements have no content and no closing tag, such as images and line breaks.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "html",
-                  code: "<img src=\"logo.png\" alt=\"Company logo\" width=\"120\">\n<br>\n<hr>",
-                },
-              },
-              {
-                type: "note",
-                variant: "warning",
-                text: "Always add an alt attribute to images. It describes the image for screen readers and shows if the image fails to load.",
-              },
-            ],
-            quiz: [
-              {
-                question: "Where do attributes go?",
-                options: ["In the closing tag", "In the start tag", "Between tags", "In the <head>"],
-                correct: 1,
-                explain: "Attributes are written inside the opening (start) tag as name=\"value\" pairs.",
-              },
-              {
-                question: "Which attribute describes an image for accessibility?",
-                options: ["src", "title", "alt", "href"],
-                correct: 2,
-                explain: "The alt attribute provides alternative text for screen readers and broken images.",
-              },
-            ],
-          },
-          {
-            slug: "headings-and-paragraphs",
-            title: "Headings and Paragraphs",
-            description: "Structure readable text using headings and paragraphs.",
-            duration: 5,
-            codeLanguage: "html",
-            codeExample:
-              "<h1>Main title</h1>\n<h2>Section title</h2>\n<p>A paragraph of text goes here.</p>",
-            body: [
-              {
-                type: "paragraph",
-                text: "HTML provides six levels of headings, from <h1> (most important) to <h6> (least important). Use them to create a clear hierarchy on your page.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "html",
-                  code: "<h1>Main title</h1>\n<h2>Section title</h2>\n<h3>Sub-section</h3>\n<p>A paragraph of body text.</p>",
-                },
-              },
-              {
-                type: "note",
-                variant: "tip",
-                text: "Use only one <h1> per page and do not skip heading levels. This helps both readers and search engines understand your content.",
-              },
-            ],
-            quiz: [
-              {
-                question: "How many heading levels does HTML provide?",
-                options: ["3", "6", "10", "Unlimited"],
-                correct: 1,
-                explain: "HTML has six heading levels, from <h1> to <h6>.",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  // ============================================================= CSS
-  {
-    slug: "css-mastery",
-    title: "CSS Mastery",
-    description: "Style beautiful, responsive interfaces with modern CSS.",
-    longDescription:
-      "CSS controls how your HTML looks. This course covers selectors, the box model, Flexbox, Grid, responsive design and modern layout techniques used by professional front-end developers.",
-    icon: "🎨",
-    color: "#264de4",
-    difficulty: "beginner",
-    category: "Web Development",
-    tags: ["css", "web", "frontend", "styling"],
-    chapters: [
-      {
-        title: "CSS Basics",
-        lessons: [
-          {
-            slug: "what-is-css",
-            title: "What is CSS?",
-            description: "Learn how CSS styles HTML and the three ways to add it.",
-            duration: 6,
-            codeLanguage: "html",
-            codeExample:
-              "<style>\n  p { color: #2563eb; font-size: 18px; }\n</style>\n<p>Styled text</p>",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "CSS (Cascading Style Sheets) controls the look of HTML.",
-                  "You can add CSS inline, internal, or in an external file.",
-                  "External stylesheets are the recommended approach.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "CSS stands for Cascading Style Sheets. It describes how HTML elements should be displayed: their colors, sizes, spacing, layout and more.",
-              },
-              { type: "heading", level: 2, id: "adding-css", text: "Three ways to add CSS" },
-              {
-                type: "code",
-                block: {
-                  language: "css",
-                  code: "/* External file: styles.css */\np {\n  color: #2563eb;\n  font-size: 18px;\n  line-height: 1.6;\n}",
-                },
-              },
-              {
-                type: "note",
-                variant: "tip",
-                text: "Prefer an external stylesheet linked with <link rel=\"stylesheet\" href=\"styles.css\">. It keeps structure (HTML) and style (CSS) cleanly separated.",
-              },
-            ],
-            quiz: [
-              {
-                question: "What does CSS stand for?",
-                options: [
-                  "Cascading Style Sheets",
-                  "Computer Style System",
-                  "Colorful Style Syntax",
-                  "Creative Styling Standard",
-                ],
-                correct: 0,
-                explain: "CSS = Cascading Style Sheets.",
-              },
-              {
-                question: "Which is the recommended way to add CSS?",
-                options: ["Inline styles", "Internal <style>", "External stylesheet", "In the URL"],
-                correct: 2,
-                explain: "External stylesheets keep HTML and CSS separate and reusable.",
-              },
-            ],
-          },
-          {
-            slug: "selectors",
-            title: "CSS Selectors",
-            description: "Target the right elements with element, class and id selectors.",
-            duration: 7,
-            codeLanguage: "css",
-            codeExample:
-              "h1 { color: navy; }\n.button { padding: 12px 20px; }\n#hero { background: #f1f5f9; }",
-            body: [
-              {
-                type: "paragraph",
-                text: "Selectors decide which elements your rules apply to. The three most common are element, class and id selectors.",
               },
               {
                 type: "table",
-                headers: ["Selector", "Targets"],
+                headers: ["Part", "Purpose"],
                 rows: [
-                  ["h1", "All <h1> elements"],
-                  [".button", "All elements with class=\"button\""],
-                  ["#hero", "The single element with id=\"hero\""],
+                  ["#include", "Includes header files like stdio.h"],
+                  ["main()", "Entry point where execution starts"],
+                  ["printf()", "Prints output to the screen"],
+                  ["return 0", "Tells the OS the program ended successfully"],
                 ],
-              },
-              {
-                type: "code",
-                block: {
-                  language: "css",
-                  code: "h1 { color: navy; }\n.button { padding: 12px 20px; border-radius: 8px; }\n#hero { background: #f1f5f9; }",
-                },
               },
               {
                 type: "note",
                 variant: "tip",
-                text: "Prefer classes for styling. Ids should be unique per page and are better used for anchors and JavaScript hooks.",
+                text: "A common exam question: 'Why is C called a middle-level language?' Answer: it supports low-level features (pointers, bit manipulation) and high-level structured programming.",
               },
             ],
             quiz: [
               {
-                question: "Which symbol targets a class?",
-                options: ["#", ".", "@", "*"],
+                question: "Who developed the C language?",
+                options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"],
                 correct: 1,
-                explain: "A dot (.) targets a class; a hash (#) targets an id.",
+                explain: "C was developed by Dennis Ritchie at Bell Labs in 1972.",
+              },
+              {
+                question: "Where does execution of a C program begin?",
+                options: ["First function", "main()", "printf()", "The last line"],
+                correct: 1,
+                explain: "Execution always begins from the main() function.",
+              },
+              {
+                question: "C is often called a:",
+                options: ["Low-level language", "Middle-level language", "Markup language", "Query language"],
+                correct: 1,
+                explain: "C mixes low-level (pointers) and high-level (structured) features, so it is middle-level.",
               },
             ],
           },
           {
-            slug: "the-box-model",
-            title: "The Box Model",
-            description: "Understand content, padding, border and margin.",
-            duration: 8,
-            codeLanguage: "css",
-            codeExample:
-              ".card {\n  padding: 16px;\n  border: 1px solid #e2e8f0;\n  margin: 12px;\n}",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "Every element is a box: content, padding, border, margin.",
-                  "padding is space inside the border; margin is space outside it.",
-                  "box-sizing: border-box makes width include padding and border.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "In CSS, every element is a rectangular box. The box model describes the layers around the content: padding, then border, then margin.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "css",
-                  code: "* { box-sizing: border-box; }\n\n.card {\n  padding: 16px;   /* space inside */\n  border: 1px solid #e2e8f0;\n  margin: 12px;    /* space outside */\n}",
-                },
-              },
-              {
-                type: "note",
-                variant: "info",
-                text: "Setting box-sizing: border-box on everything is a common best practice: it makes element widths predictable.",
-              },
-            ],
-            quiz: [
-              {
-                question: "Which property adds space inside the border?",
-                options: ["margin", "padding", "gap", "outline"],
-                correct: 1,
-                explain: "padding is the space between the content and the border (inside).",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  // ============================================================= JAVASCRIPT
-  {
-    slug: "javascript-core",
-    title: "JavaScript Core",
-    description: "Learn the language that powers interactive websites.",
-    longDescription:
-      "JavaScript makes web pages interactive. This course covers variables, data types, functions, arrays, objects, the DOM and modern ES6+ features, with runnable examples throughout.",
-    icon: "⚡",
-    color: "#f7df1e",
-    difficulty: "beginner",
-    category: "Web Development",
-    tags: ["javascript", "js", "web", "frontend", "programming"],
-    chapters: [
-      {
-        title: "JavaScript Basics",
-        lessons: [
-          {
-            slug: "variables-and-types",
+            slug: "variables-data-types-c",
             title: "Variables and Data Types",
-            description: "Declare variables with let and const and learn the core data types.",
+            description: "Declare variables and use C's fundamental data types.",
             duration: 8,
-            codeLanguage: "javascript",
+            codeLanguage: "c",
             codeExample:
-              "let name = 'Aarav';\nconst age = 21;\nlet isStudent = true;\nconsole.log(name, age, isStudent);",
+              '#include <stdio.h>\nint main() {\n    int age = 20;\n    float marks = 87.5;\n    char grade = \'A\';\n    printf("%d %.1f %c\\n", age, marks, grade);\n    return 0;\n}',
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
-                  "Use const by default; use let only when the value must change.",
-                  "Common types: string, number, boolean, null, undefined, object.",
-                  "Avoid var in modern JavaScript.",
+                  "A variable is a named memory location.",
+                  "You must declare a variable's type before using it.",
+                  "Basic types: int, float, double, char.",
                 ],
               },
               {
                 type: "paragraph",
-                text: "A variable is a named container for a value. In modern JavaScript you declare variables with const (for values that do not change) or let (for values that do).",
+                text: "A variable is a name given to a memory location that stores a value. In C every variable must be declared with a data type, which decides how much memory it uses and what values it can hold.",
+              },
+              { type: "heading", level: 2, id: "basic-types", text: "Fundamental data types" },
+              {
+                type: "table",
+                headers: ["Type", "Size (typical)", "Example", "Format specifier"],
+                rows: [
+                  ["int", "2 or 4 bytes", "int x = 10;", "%d"],
+                  ["float", "4 bytes", "float p = 3.14;", "%f"],
+                  ["double", "8 bytes", "double d = 3.14159;", "%lf"],
+                  ["char", "1 byte", "char c = 'A';", "%c"],
+                ],
               },
               {
                 type: "code",
                 block: {
-                  language: "javascript",
-                  code: "const name = 'Aarav';   // string\nlet age = 21;            // number\nlet isStudent = true;    // boolean\n\nconsole.log(name, age, isStudent);\n// Output: Aarav 21 true",
+                  language: "c",
+                  code: '#include <stdio.h>\nint main() {\n    int age = 20;\n    float marks = 87.5;\n    char grade = \'A\';\n    printf("Age: %d, Marks: %.1f, Grade: %c\\n", age, marks, grade);\n    return 0;\n}',
                 },
-              },
-              { type: "heading", level: 2, id: "types", text: "Core data types" },
-              {
-                type: "list",
-                items: [
-                  "string: text, for example 'hello'",
-                  "number: integers and decimals, for example 42 or 3.14",
-                  "boolean: true or false",
-                  "null and undefined: represent 'no value'",
-                  "object: collections of key-value pairs",
-                ],
               },
               {
                 type: "note",
                 variant: "warning",
-                text: "const does not mean the value is frozen; it means the variable cannot be reassigned. Object contents can still change.",
+                text: "The format specifier must match the type: %d for int, %f for float, %c for char. A mismatch gives wrong output.",
               },
             ],
             quiz: [
               {
-                question: "Which keyword should you use by default?",
-                options: ["var", "let", "const", "define"],
+                question: "Which format specifier is used for an integer?",
+                options: ["%c", "%f", "%d", "%s"],
                 correct: 2,
-                explain: "Use const by default and switch to let only when reassignment is needed.",
+                explain: "%d is used to read and print integer values.",
               },
               {
-                question: "What is the type of true?",
-                options: ["string", "boolean", "number", "object"],
-                correct: 1,
-                explain: "true and false are boolean values.",
-              },
-              {
-                question: "Which is NOT a JavaScript data type?",
-                options: ["string", "number", "character", "boolean"],
-                correct: 2,
-                explain: "JavaScript has no separate character type; single characters are just strings.",
+                question: "How much memory does a char typically use?",
+                options: ["1 byte", "2 bytes", "4 bytes", "8 bytes"],
+                correct: 0,
+                explain: "A char occupies 1 byte.",
               },
             ],
           },
           {
-            slug: "functions",
-            title: "Functions",
-            description: "Write reusable blocks of code with functions and arrow functions.",
-            duration: 9,
-            codeLanguage: "javascript",
+            slug: "operators-c",
+            title: "Operators in C",
+            description: "Arithmetic, relational, logical and assignment operators.",
+            duration: 7,
+            codeLanguage: "c",
             codeExample:
-              "function add(a, b) {\n  return a + b;\n}\nconst square = (n) => n * n;\nconsole.log(add(2, 3), square(4));",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "A function groups code you can reuse by calling its name.",
-                  "Functions can take parameters and return a value.",
-                  "Arrow functions are a shorter syntax for writing functions.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "A function is a reusable block of code. You define it once and call it as many times as you need. Functions can accept inputs (parameters) and produce an output (a return value).",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "javascript",
-                  code: "function add(a, b) {\n  return a + b;\n}\n\nconsole.log(add(2, 3)); // 5",
-                },
-              },
-              { type: "heading", level: 2, id: "arrow", text: "Arrow functions" },
-              {
-                type: "code",
-                block: {
-                  language: "javascript",
-                  code: "const square = (n) => n * n;\nconsole.log(square(4)); // 16",
-                },
-              },
-              {
-                type: "note",
-                variant: "tip",
-                text: "If an arrow function just returns a value, you can skip the braces and the return keyword, as shown above.",
-              },
-            ],
-            quiz: [
-              {
-                question: "What does the return statement do?",
-                options: [
-                  "Prints to the console",
-                  "Sends a value back from the function",
-                  "Stops the whole program",
-                  "Declares a variable",
-                ],
-                correct: 1,
-                explain: "return sends a value back to wherever the function was called.",
-              },
-              {
-                question: "What does square(4) return for const square = (n) => n * n?",
-                options: ["8", "16", "4", "undefined"],
-                correct: 1,
-                explain: "4 * 4 = 16.",
-              },
-            ],
-          },
-          {
-            slug: "arrays",
-            title: "Arrays",
-            description: "Store lists of values and loop over them.",
-            duration: 8,
-            codeLanguage: "javascript",
-            codeExample:
-              "const fruits = ['apple', 'banana', 'cherry'];\nfruits.push('date');\nfruits.forEach((f) => console.log(f));",
+              "int a = 10, b = 3;\nprintf(\"%d %d %d\", a + b, a % b, a > b);",
             body: [
               {
                 type: "paragraph",
-                text: "An array is an ordered list of values. You create one with square brackets and access items by their index, starting at 0.",
+                text: "An operator is a symbol that performs an operation on operands. C provides a rich set of operators grouped into several categories.",
               },
               {
-                type: "code",
-                block: {
-                  language: "javascript",
-                  code: "const fruits = ['apple', 'banana', 'cherry'];\nconsole.log(fruits[0]); // apple\nconsole.log(fruits.length); // 3\n\nfruits.push('date'); // add to the end\nfruits.forEach((f) => console.log(f));",
-                },
+                type: "table",
+                headers: ["Category", "Operators", "Example"],
+                rows: [
+                  ["Arithmetic", "+ - * / %", "a + b"],
+                  ["Relational", "< > <= >= == !=", "a > b"],
+                  ["Logical", "&& || !", "a > 0 && b > 0"],
+                  ["Assignment", "= += -= *= /=", "a += 5"],
+                  ["Increment/Decrement", "++ --", "a++"],
+                ],
               },
               {
                 type: "note",
                 variant: "info",
-                text: "Array indexes start at 0, so the first item is fruits[0] and the last is fruits[fruits.length - 1].",
+                text: "The modulus operator % gives the remainder and works only with integers. 10 % 3 is 1.",
               },
             ],
             quiz: [
               {
-                question: "What is the index of the first array element?",
-                options: ["1", "0", "-1", "It depends"],
+                question: "What does 17 % 5 evaluate to?",
+                options: ["3", "2", "3.4", "0"],
                 correct: 1,
-                explain: "Arrays are zero-indexed: the first element is at index 0.",
+                explain: "17 divided by 5 leaves a remainder of 2.",
+              },
+              {
+                question: "Which is a logical operator?",
+                options: ["%", "&&", "+=", ">"],
+                correct: 1,
+                explain: "&& is the logical AND operator.",
               },
             ],
           },
@@ -569,103 +212,120 @@ export const courses: Course[] = [
 
   // ============================================================= PYTHON
   {
-    slug: "python-for-beginners",
-    title: "Python for Beginners",
-    description: "Start programming with one of the most readable languages.",
+    slug: "python-programming",
+    title: "Python Programming",
+    description: "A beginner-friendly language used across the IPU syllabus.",
     longDescription:
-      "Python is a beginner-friendly language used in web development, data science, automation and AI. This course covers variables, data types, control flow, functions and data structures with runnable examples.",
+      "Python is widely taught in BCA and B.Tech for its clean syntax. This course covers input/output, data types, control flow, functions, strings, lists, dictionaries and file handling, with runnable examples.",
     icon: "🐍",
     color: "#3776ab",
     difficulty: "beginner",
-    category: "Python",
-    tags: ["python", "programming", "beginner"],
+    category: "Programming",
+    tags: ["python", "programming", "bca", "scripting"],
     chapters: [
       {
         title: "Python Basics",
         lessons: [
           {
-            slug: "hello-python",
-            title: "Your First Python Program",
-            description: "Print output and understand how Python runs code.",
-            duration: 5,
+            slug: "intro-python",
+            title: "Introduction to Python",
+            description: "Why Python, its features and your first program.",
+            duration: 6,
             codeLanguage: "python",
-            codeExample: "print('Hello, world!')\nname = 'Aarav'\nprint('Hello,', name)",
+            codeExample: "print('Hello, IPU!')\nname = input('Your name: ')\nprint('Welcome,', name)",
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
-                  "print() displays output.",
-                  "Python runs top to bottom, line by line.",
-                  "No semicolons or braces needed; indentation matters.",
+                  "Python is a high-level, interpreted, general-purpose language.",
+                  "Created by Guido van Rossum in 1991.",
+                  "Indentation defines blocks; no braces or semicolons.",
                 ],
               },
               {
                 type: "paragraph",
-                text: "Python is known for its clean, readable syntax. The classic first program simply prints a message to the screen using the built-in print() function.",
+                text: "Python is a high-level, interpreted programming language known for simple, readable syntax. It was created by Guido van Rossum and released in 1991. It is used in web development, data science, automation and AI.",
+              },
+              { type: "heading", level: 2, id: "features", text: "Features of Python" },
+              {
+                type: "list",
+                items: [
+                  "Simple and easy to read (English-like syntax).",
+                  "Interpreted, so no separate compilation step.",
+                  "Dynamically typed (no need to declare types).",
+                  "Large standard library and huge community.",
+                  "Cross-platform and free/open source.",
+                ],
               },
               {
                 type: "code",
                 block: {
                   language: "python",
-                  code: "print('Hello, world!')\n# Output: Hello, world!",
+                  code: "print('Hello, IPU!')\n# Output: Hello, IPU!",
                 },
               },
               {
                 type: "note",
                 variant: "tip",
-                text: "Run this in the playground on this page to see the output instantly.",
+                text: "Run this example in the playground on this page. Python code runs top to bottom, one statement at a time.",
               },
             ],
             quiz: [
               {
-                question: "Which function displays output in Python?",
-                options: ["echo()", "printf()", "print()", "console.log()"],
-                correct: 2,
-                explain: "print() is Python's built-in function for displaying output.",
+                question: "Who created Python?",
+                options: ["Dennis Ritchie", "Guido van Rossum", "James Gosling", "Linus Torvalds"],
+                correct: 1,
+                explain: "Python was created by Guido van Rossum, released in 1991.",
               },
               {
-                question: "Does Python require semicolons at the end of lines?",
-                options: ["Yes, always", "No", "Only inside functions", "Only for print"],
+                question: "Python is a ___ language.",
+                options: ["Compiled", "Interpreted", "Assembly", "Markup"],
                 correct: 1,
-                explain: "Python uses newlines and indentation instead of semicolons and braces.",
+                explain: "Python is interpreted; code runs line by line without a separate compile step.",
+              },
+              {
+                question: "How are code blocks defined in Python?",
+                options: ["Curly braces { }", "Indentation", "Semicolons", "The word 'begin'"],
+                correct: 1,
+                explain: "Python uses indentation to define blocks.",
               },
             ],
           },
           {
-            slug: "variables-python",
+            slug: "python-data-types",
             title: "Variables and Data Types",
-            description: "Store data in variables and learn Python's core types.",
+            description: "Numbers, strings, booleans and dynamic typing.",
             duration: 7,
             codeLanguage: "python",
             codeExample:
-              "name = 'Aarav'\nage = 21\nheight = 5.9\nis_student = True\nprint(name, age, height, is_student)",
+              "n = 10\npi = 3.14\nname = 'Riya'\nactive = True\nprint(type(n), type(pi), type(name), type(active))",
             body: [
               {
                 type: "paragraph",
-                text: "A variable stores a value. In Python you do not declare a type; it is inferred from the value you assign.",
+                text: "In Python you do not declare a type; it is inferred from the value assigned. This is called dynamic typing.",
+              },
+              {
+                type: "table",
+                headers: ["Type", "Example", "Description"],
+                rows: [
+                  ["int", "10", "Whole numbers"],
+                  ["float", "3.14", "Decimal numbers"],
+                  ["str", "'Riya'", "Text"],
+                  ["bool", "True / False", "Boolean values"],
+                ],
               },
               {
                 type: "code",
                 block: {
                   language: "python",
-                  code: "name = 'Aarav'      # str\nage = 21            # int\nheight = 5.9        # float\nis_student = True   # bool\n\nprint(name, age, height, is_student)",
+                  code: "n = 10          # int\npi = 3.14       # float\nname = 'Riya'   # str\nactive = True   # bool\nprint(type(name))  # <class 'str'>",
                 },
-              },
-              {
-                type: "table",
-                headers: ["Type", "Example"],
-                rows: [
-                  ["str", "'hello'"],
-                  ["int", "42"],
-                  ["float", "3.14"],
-                  ["bool", "True / False"],
-                ],
               },
             ],
             quiz: [
               {
-                question: "What type is the value 3.14?",
+                question: "What is the type of the value 3.14?",
                 options: ["int", "float", "str", "bool"],
                 correct: 1,
                 explain: "Numbers with a decimal point are of type float.",
@@ -673,38 +333,29 @@ export const courses: Course[] = [
             ],
           },
           {
-            slug: "if-statements-python",
-            title: "If Statements",
-            description: "Make decisions in code with if, elif and else.",
+            slug: "python-control-flow",
+            title: "Control Flow",
+            description: "Make decisions with if, elif and else.",
             duration: 7,
             codeLanguage: "python",
             codeExample:
-              "score = 82\nif score >= 90:\n    print('A')\nelif score >= 75:\n    print('B')\nelse:\n    print('C')",
+              "marks = 78\nif marks >= 75:\n    print('Distinction')\nelif marks >= 40:\n    print('Pass')\nelse:\n    print('Fail')",
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
                   "if runs a block when a condition is True.",
-                  "elif checks another condition; else covers everything else.",
-                  "Indentation defines which lines belong to each block.",
+                  "elif adds more conditions; else is the fallback.",
+                  "Indentation decides which lines belong to a block.",
                 ],
-              },
-              {
-                type: "paragraph",
-                text: "Conditional statements let your program make decisions. Python uses if, elif (else if) and else.",
               },
               {
                 type: "code",
                 block: {
                   language: "python",
-                  code: "score = 82\n\nif score >= 90:\n    print('Grade A')\nelif score >= 75:\n    print('Grade B')\nelse:\n    print('Grade C')\n\n# Output: Grade B",
+                  code: "marks = 78\nif marks >= 75:\n    print('Distinction')\nelif marks >= 40:\n    print('Pass')\nelse:\n    print('Fail')\n# Output: Distinction",
                 },
-              },
-              {
-                type: "note",
-                variant: "warning",
-                text: "Indentation is not optional in Python. The lines inside each block must be indented consistently (4 spaces is standard).",
               },
             ],
             quiz: [
@@ -714,11 +365,117 @@ export const courses: Course[] = [
                 correct: 1,
                 explain: "Python uses elif for additional conditions.",
               },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================= DATA STRUCTURES
+  {
+    slug: "data-structures",
+    title: "Data Structures",
+    description: "A high-weightage exam subject for BCA and B.Tech.",
+    longDescription:
+      "Data Structures teaches how to organise data efficiently. This course covers arrays, linked lists, stacks, queues, trees, searching and sorting, with complexity analysis and exam-style questions.",
+    icon: "🧩",
+    color: "#7c3aed",
+    difficulty: "intermediate",
+    category: "Core CS",
+    tags: ["dsa", "data structures", "algorithms", "bca", "btech"],
+    chapters: [
+      {
+        title: "Foundations",
+        lessons: [
+          {
+            slug: "intro-data-structures",
+            title: "Introduction to Data Structures",
+            description: "What data structures are and their classification.",
+            duration: 7,
+            body: [
               {
-                question: "For score = 82, what does the example print?",
-                options: ["Grade A", "Grade B", "Grade C", "Nothing"],
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "A data structure is a way to store and organise data.",
+                  "Linear: array, stack, queue, linked list.",
+                  "Non-linear: tree, graph.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "A data structure is a particular way of organising and storing data in a computer so that it can be accessed and modified efficiently. Choosing the right structure makes algorithms faster and code cleaner.",
+              },
+              { type: "heading", level: 2, id: "classification", text: "Classification" },
+              {
+                type: "table",
+                headers: ["Type", "Examples"],
+                rows: [
+                  ["Linear", "Array, Stack, Queue, Linked List"],
+                  ["Non-linear", "Tree, Graph"],
+                  ["Static", "Array (fixed size)"],
+                  ["Dynamic", "Linked List (grows at runtime)"],
+                ],
+              },
+              {
+                type: "note",
+                variant: "tip",
+                text: "Exam tip: 'linear' means elements are in a sequence; 'non-linear' means an element can connect to many others (like a tree or graph).",
+              },
+            ],
+            quiz: [
+              {
+                question: "Which of these is a non-linear data structure?",
+                options: ["Array", "Stack", "Queue", "Tree"],
+                correct: 3,
+                explain: "A tree is non-linear; the others are linear.",
+              },
+              {
+                question: "A linked list is best described as a ___ structure.",
+                options: ["Static", "Dynamic", "Fixed", "Sorted"],
                 correct: 1,
-                explain: "82 is not >= 90 but is >= 75, so the elif branch runs: Grade B.",
+                explain: "A linked list grows and shrinks at runtime, so it is dynamic.",
+              },
+            ],
+          },
+          {
+            slug: "big-o",
+            title: "Time Complexity and Big-O",
+            description: "Measure how algorithms scale with input size.",
+            duration: 8,
+            codeLanguage: "c",
+            codeExample:
+              "// Linear search: O(n)\nfor (int i = 0; i < n; i++)\n    if (arr[i] == key) return i;",
+            body: [
+              {
+                type: "paragraph",
+                text: "Big-O notation describes how the running time of an algorithm grows as the input size n increases. We focus on the worst case as n gets large.",
+              },
+              {
+                type: "table",
+                headers: ["Big-O", "Name", "Example"],
+                rows: [
+                  ["O(1)", "Constant", "Access arr[i]"],
+                  ["O(log n)", "Logarithmic", "Binary search"],
+                  ["O(n)", "Linear", "Linear search"],
+                  ["O(n log n)", "Linearithmic", "Merge sort"],
+                  ["O(n^2)", "Quadratic", "Bubble sort"],
+                ],
+              },
+            ],
+            quiz: [
+              {
+                question: "What is the time complexity of binary search?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+                correct: 2,
+                explain: "Binary search halves the search space each step, giving O(log n).",
+              },
+              {
+                question: "Bubble sort has a worst-case complexity of:",
+                options: ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+                correct: 2,
+                explain: "Bubble sort uses nested loops, giving O(n^2).",
               },
             ],
           },
@@ -727,168 +484,115 @@ export const courses: Course[] = [
     ],
   },
 
-  // =========================================== REMAINING COURSES (starters)
+  // ============================================================= DBMS & SQL
   {
-    slug: "react-complete",
-    title: "React.js Complete",
-    description: "Build modern, component-based user interfaces with React.",
+    slug: "dbms-sql",
+    title: "DBMS & SQL",
+    description: "Database management concepts and SQL for the DBMS paper.",
     longDescription:
-      "React is the most popular library for building user interfaces. Learn components, props, state, hooks and how to compose them into real applications.",
-    icon: "⚛️",
-    color: "#61dafb",
-    difficulty: "intermediate",
-    category: "Web Development",
-    tags: ["react", "javascript", "frontend", "hooks"],
-    chapters: [
-      {
-        title: "React Foundations",
-        lessons: [
-          {
-            slug: "what-is-react",
-            title: "What is React?",
-            description: "Understand components and why React is popular.",
-            duration: 7,
-            codeLanguage: "javascript",
-            codeExample:
-              "function Welcome() {\n  return <h1>Hello from React</h1>;\n}",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "React builds UIs from reusable pieces called components.",
-                  "Components return JSX, which looks like HTML in JavaScript.",
-                  "React updates the screen efficiently when data changes.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "React is a JavaScript library for building user interfaces out of components: small, reusable pieces that describe part of the screen.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "javascript",
-                  code: "function Welcome() {\n  return <h1>Hello from React</h1>;\n}",
-                },
-              },
-            ],
-            quiz: [
-              {
-                question: "What are React UIs built from?",
-                options: ["Templates", "Components", "Pages", "Widgets only"],
-                correct: 1,
-                explain: "React composes UIs from reusable components.",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "dsa",
-    title: "Data Structures & Algorithms",
-    description: "Master the concepts asked in every coding interview.",
-    longDescription:
-      "Data structures and algorithms are the foundation of efficient programming and technical interviews. Learn arrays, linked lists, stacks, trees, sorting, searching and complexity analysis.",
-    icon: "🧩",
-    color: "#7c3aed",
-    difficulty: "intermediate",
-    category: "DSA",
-    tags: ["dsa", "algorithms", "data structures", "interview"],
-    chapters: [
-      {
-        title: "Foundations",
-        lessons: [
-          {
-            slug: "big-o-notation",
-            title: "Big-O Notation",
-            description: "Measure how an algorithm scales with input size.",
-            duration: 8,
-            codeLanguage: "python",
-            codeExample:
-              "def find(arr, target):\n    for x in arr:\n        if x == target:\n            return True\n    return False",
-            body: [
-              {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "Big-O describes how running time grows as input grows.",
-                  "O(1) is constant, O(n) is linear, O(n^2) is quadratic.",
-                  "We care about the worst case as n gets large.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "Big-O notation describes the performance of an algorithm as the size of the input grows. It lets us compare algorithms independently of the machine they run on.",
-              },
-              {
-                type: "table",
-                headers: ["Notation", "Name", "Example"],
-                rows: [
-                  ["O(1)", "Constant", "Accessing an array index"],
-                  ["O(n)", "Linear", "Scanning a list once"],
-                  ["O(n log n)", "Linearithmic", "Merge sort"],
-                  ["O(n^2)", "Quadratic", "Nested loops"],
-                ],
-              },
-            ],
-            quiz: [
-              {
-                question: "What is the time complexity of scanning a list once?",
-                options: ["O(1)", "O(n)", "O(n^2)", "O(log n)"],
-                correct: 1,
-                explain: "Visiting each of n items once is O(n), linear time.",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "sql-databases",
-    title: "SQL & Databases",
-    description: "Query and design relational databases with SQL.",
-    longDescription:
-      "SQL is the language of databases. Learn to query data, join tables, aggregate results and design normalized schemas.",
+      "The DBMS course covers database concepts, the relational model, keys, normalization and SQL queries. It is a scoring theory-plus-practical subject in the IPU syllabus.",
     icon: "🗃️",
-    color: "#00758f",
+    color: "#0f766e",
     difficulty: "beginner",
-    category: "Databases",
-    tags: ["sql", "database", "dbms", "backend"],
+    category: "Core CS",
+    tags: ["dbms", "sql", "database", "bca", "mca"],
     chapters: [
       {
-        title: "Querying Data",
+        title: "Database Concepts",
         lessons: [
           {
-            slug: "select-basics",
-            title: "The SELECT Statement",
-            description: "Read data from a table with SELECT.",
-            duration: 6,
-            codeLanguage: "sql",
-            codeExample: "SELECT name, age FROM students WHERE age >= 18;",
+            slug: "intro-dbms",
+            title: "Introduction to DBMS",
+            description: "What a DBMS is and its advantages over file systems.",
+            duration: 7,
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
-                  "SELECT reads columns from a table.",
-                  "WHERE filters which rows come back.",
-                  "Use * to select all columns.",
+                  "A DBMS is software to store, manage and query data.",
+                  "It removes redundancy and enforces consistency.",
+                  "Examples: MySQL, Oracle, PostgreSQL.",
                 ],
               },
               {
                 type: "paragraph",
-                text: "The SELECT statement is how you read data from a relational database. You choose which columns you want and, optionally, filter the rows with WHERE.",
+                text: "A Database Management System (DBMS) is software that lets users define, create, store and query databases. Compared to a traditional file system, it controls redundancy, keeps data consistent and provides security and concurrent access.",
+              },
+              { type: "heading", level: 2, id: "advantages", text: "Advantages of DBMS" },
+              {
+                type: "list",
+                items: [
+                  "Controls data redundancy (no repeated data).",
+                  "Ensures data consistency and integrity.",
+                  "Provides security through access control.",
+                  "Allows many users to access data at once.",
+                  "Supports backup and recovery.",
+                ],
+              },
+              {
+                type: "note",
+                variant: "info",
+                text: "Common exam question: 'DBMS vs File system'. Key point: a file system has high redundancy and no easy way to enforce relationships; a DBMS solves both.",
+              },
+            ],
+            quiz: [
+              {
+                question: "Which is NOT an advantage of a DBMS?",
+                options: [
+                  "Controls redundancy",
+                  "Ensures consistency",
+                  "Increases data duplication",
+                  "Provides security",
+                ],
+                correct: 2,
+                explain: "A DBMS reduces duplication; increasing it is not an advantage.",
+              },
+              {
+                question: "Which of these is a DBMS?",
+                options: ["MySQL", "HTML", "Linux", "Photoshop"],
+                correct: 0,
+                explain: "MySQL is a relational database management system.",
+              },
+            ],
+          },
+          {
+            slug: "sql-select",
+            title: "SQL: SELECT and WHERE",
+            description: "Read and filter data from tables.",
+            duration: 8,
+            codeLanguage: "sql",
+            codeExample: "SELECT name, marks FROM students WHERE marks >= 40 ORDER BY marks DESC;",
+            body: [
+              {
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "SELECT chooses columns to read.",
+                  "WHERE filters rows by a condition.",
+                  "ORDER BY sorts the result.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "SQL (Structured Query Language) is the standard language for relational databases. The SELECT statement retrieves data, WHERE filters it, and ORDER BY sorts it.",
               },
               {
                 type: "code",
                 block: {
                   language: "sql",
-                  code: "SELECT name, age\nFROM students\nWHERE age >= 18\nORDER BY name;",
+                  code: "SELECT name, marks\nFROM students\nWHERE marks >= 40\nORDER BY marks DESC;",
                 },
+              },
+              {
+                type: "table",
+                headers: ["Clause", "Purpose"],
+                rows: [
+                  ["SELECT", "Choose which columns to return"],
+                  ["FROM", "The table to read from"],
+                  ["WHERE", "Filter rows by a condition"],
+                  ["ORDER BY", "Sort the result set"],
+                ],
               },
             ],
             quiz: [
@@ -898,62 +602,11 @@ export const courses: Course[] = [
                 correct: 2,
                 explain: "WHERE filters which rows are returned.",
               },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "git-github",
-    title: "Git & GitHub",
-    description: "Track changes and collaborate on code with confidence.",
-    longDescription:
-      "Git is the version control system every developer uses. Learn commits, branches, merges and how to collaborate on GitHub.",
-    icon: "🐙",
-    color: "#f05033",
-    difficulty: "beginner",
-    category: "DevOps",
-    tags: ["git", "github", "version control", "collaboration"],
-    chapters: [
-      {
-        title: "Git Basics",
-        lessons: [
-          {
-            slug: "git-init-commit",
-            title: "Your First Commit",
-            description: "Initialise a repository and save a snapshot.",
-            duration: 7,
-            codeLanguage: "bash",
-            codeExample: "git init\ngit add .\ngit commit -m \"Initial commit\"",
-            body: [
               {
-                type: "keypoints",
-                title: "Quick summary",
-                items: [
-                  "git init starts tracking a project.",
-                  "git add stages changes; git commit saves a snapshot.",
-                  "Each commit has a message describing the change.",
-                ],
-              },
-              {
-                type: "paragraph",
-                text: "Git records snapshots of your project over time. You stage the changes you want to save, then commit them with a short message.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "bash",
-                  code: "git init\ngit add .\ngit commit -m \"Initial commit\"",
-                },
-              },
-            ],
-            quiz: [
-              {
-                question: "Which command saves a snapshot with a message?",
-                options: ["git save", "git commit", "git push", "git stage"],
+                question: "What does SELECT * mean?",
+                options: ["Select nothing", "Select all columns", "Delete rows", "Sort data"],
                 correct: 1,
-                explain: "git commit -m \"message\" saves a snapshot of the staged changes.",
+                explain: "The asterisk (*) selects all columns of the table.",
               },
             ],
           },
@@ -961,108 +614,544 @@ export const courses: Course[] = [
       },
     ],
   },
+
+  // ============================================================= OOP WITH JAVA
   {
-    slug: "nodejs-backend",
-    title: "Node.js Backend",
-    description: "Build servers and APIs with JavaScript on the backend.",
+    slug: "oop-java",
+    title: "OOP with Java (OOPJ)",
+    description: "Object-oriented programming for the OOPJ paper.",
     longDescription:
-      "Node.js lets you run JavaScript on the server. Learn modules, the HTTP server, Express and how to build a REST API.",
-    icon: "🟢",
-    color: "#43853d",
+      "Object-Oriented Programming with Java (OOPJ) is a core IPU subject. This course covers classes, objects, the four pillars of OOP, inheritance, polymorphism and exception handling with clear examples.",
+    icon: "☕",
+    color: "#e76f00",
     difficulty: "intermediate",
-    category: "Web Development",
-    tags: ["nodejs", "backend", "express", "api"],
+    category: "Programming",
+    tags: ["java", "oop", "oopj", "bca", "btech"],
     chapters: [
       {
-        title: "Getting Started",
+        title: "OOP Fundamentals",
         lessons: [
           {
-            slug: "what-is-node",
-            title: "What is Node.js?",
-            description: "Run JavaScript outside the browser.",
-            duration: 6,
-            codeLanguage: "javascript",
-            codeExample: "console.log('Running on Node.js');",
-            body: [
-              {
-                type: "paragraph",
-                text: "Node.js is a runtime that lets you run JavaScript on the server, outside the browser. It is used to build web servers, APIs and command-line tools.",
-              },
-              {
-                type: "code",
-                block: {
-                  language: "javascript",
-                  code: "// hello.js\nconsole.log('Running on Node.js');\n// Run with: node hello.js",
-                },
-              },
-            ],
-            quiz: [
-              {
-                question: "Where does Node.js run JavaScript?",
-                options: ["In the browser", "On the server", "In a database", "In CSS"],
-                correct: 1,
-                explain: "Node.js runs JavaScript on the server, outside the browser.",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "system-design",
-    title: "System Design",
-    description: "Design scalable systems for real-world applications.",
-    longDescription:
-      "System design is about building software that scales. Learn about load balancing, caching, databases, and how large systems are structured.",
-    icon: "🏗️",
-    color: "#0f172a",
-    difficulty: "advanced",
-    category: "DevOps",
-    tags: ["system design", "architecture", "scalability", "backend"],
-    chapters: [
-      {
-        title: "Fundamentals",
-        lessons: [
-          {
-            slug: "scalability-basics",
-            title: "Scalability Basics",
-            description: "Understand vertical vs horizontal scaling.",
+            slug: "oop-concepts",
+            title: "The Four Pillars of OOP",
+            description: "Encapsulation, abstraction, inheritance and polymorphism.",
             duration: 8,
+            codeLanguage: "java",
+            codeExample:
+              "class Student {\n    private int roll;      // encapsulation\n    public int getRoll() { return roll; }\n}",
             body: [
               {
                 type: "keypoints",
                 title: "Quick summary",
                 items: [
-                  "Vertical scaling means a bigger machine.",
-                  "Horizontal scaling means more machines.",
-                  "Horizontal scaling is how large systems handle growth.",
+                  "Encapsulation: bind data and methods together, hide details.",
+                  "Abstraction: show only essential features.",
+                  "Inheritance: reuse a parent class in a child class.",
+                  "Polymorphism: one name, many forms.",
                 ],
               },
               {
                 type: "paragraph",
-                text: "Scalability is a system's ability to handle more load. You can scale vertically (add more power to one server) or horizontally (add more servers). Large systems rely on horizontal scaling behind a load balancer.",
+                text: "Object-Oriented Programming (OOP) organises software around objects, which bundle data (fields) and behaviour (methods). Java is a pure OOP language built on four core principles.",
               },
               {
                 type: "table",
-                headers: ["Approach", "Meaning", "Limit"],
+                headers: ["Pillar", "Meaning"],
                 rows: [
-                  ["Vertical", "Bigger server (more CPU/RAM)", "Hardware ceiling"],
-                  ["Horizontal", "More servers in parallel", "Coordination complexity"],
+                  ["Encapsulation", "Wrapping data and code together, hiding internals"],
+                  ["Abstraction", "Showing only what matters, hiding complexity"],
+                  ["Inheritance", "A class acquiring properties of another class"],
+                  ["Polymorphism", "The same method behaving differently by context"],
+                ],
+              },
+              {
+                type: "note",
+                variant: "tip",
+                text: "Memory aid: 'A PIE' = Abstraction, Polymorphism, Inheritance, Encapsulation. This is a very common OOPJ exam question.",
+              },
+            ],
+            quiz: [
+              {
+                question: "Which pillar means 'hiding internal details'?",
+                options: ["Inheritance", "Polymorphism", "Encapsulation", "Recursion"],
+                correct: 2,
+                explain: "Encapsulation binds data with methods and hides internal details.",
+              },
+              {
+                question: "How many core pillars does OOP have?",
+                options: ["2", "3", "4", "5"],
+                correct: 2,
+                explain: "The four pillars are abstraction, encapsulation, inheritance and polymorphism.",
+              },
+            ],
+          },
+          {
+            slug: "classes-objects-java",
+            title: "Classes and Objects",
+            description: "Define a class and create objects from it.",
+            duration: 8,
+            codeLanguage: "java",
+            codeExample:
+              "class Car {\n    String brand;\n    void horn() { System.out.println(brand + \" beep!\"); }\n}\n\npublic class Main {\n    public static void main(String[] a) {\n        Car c = new Car();\n        c.brand = \"Tata\";\n        c.horn();\n    }\n}",
+            body: [
+              {
+                type: "paragraph",
+                text: "A class is a blueprint that defines the fields and methods of a type. An object is an instance of a class created with the new keyword.",
+              },
+              {
+                type: "code",
+                block: {
+                  language: "java",
+                  code: "class Car {\n    String brand;\n    void horn() {\n        System.out.println(brand + \" beep!\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Car c = new Car();   // object created\n        c.brand = \"Tata\";\n        c.horn();            // Tata beep!\n    }\n}",
+                },
+              },
+            ],
+            quiz: [
+              {
+                question: "Which keyword creates an object in Java?",
+                options: ["object", "new", "create", "class"],
+                correct: 1,
+                explain: "The new keyword allocates and creates a new object.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================= OPERATING SYSTEMS
+  {
+    slug: "operating-systems",
+    title: "Operating Systems",
+    description: "Processes, scheduling, memory and more for the OS paper.",
+    longDescription:
+      "The Operating Systems course covers what an OS does, process management, CPU scheduling, deadlocks and memory management. It is a theory-heavy IPU subject ideal for note-based revision.",
+    icon: "🖥️",
+    color: "#0284c7",
+    difficulty: "intermediate",
+    category: "Core CS",
+    tags: ["operating systems", "os", "btech", "mca"],
+    chapters: [
+      {
+        title: "OS Fundamentals",
+        lessons: [
+          {
+            slug: "intro-os",
+            title: "Introduction to Operating Systems",
+            description: "What an OS is and the functions it performs.",
+            duration: 7,
+            body: [
+              {
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "An OS manages hardware and software resources.",
+                  "It sits between the user and the hardware.",
+                  "Examples: Windows, Linux, macOS, Android.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "An Operating System (OS) is system software that manages computer hardware and software resources and provides common services for programs. It acts as an interface between the user and the hardware.",
+              },
+              { type: "heading", level: 2, id: "functions", text: "Functions of an OS" },
+              {
+                type: "list",
+                items: [
+                  "Process management (creating, scheduling, terminating processes).",
+                  "Memory management (allocating and freeing memory).",
+                  "File management (organising files and directories).",
+                  "Device / I/O management.",
+                  "Security and access control.",
+                ],
+              },
+              {
+                type: "note",
+                variant: "info",
+                text: "Exam point: the OS is a resource manager. Its main job is to allocate resources (CPU, memory, devices) efficiently and fairly.",
+              },
+            ],
+            quiz: [
+              {
+                question: "The OS acts as an interface between:",
+                options: [
+                  "Two programs",
+                  "The user and the hardware",
+                  "Two users",
+                  "The internet and files",
+                ],
+                correct: 1,
+                explain: "The OS sits between the user/applications and the hardware.",
+              },
+              {
+                question: "Which is NOT a function of an OS?",
+                options: ["Process management", "Memory management", "Compiling C code", "File management"],
+                correct: 2,
+                explain: "Compiling source code is the compiler's job, not the OS's core function.",
+              },
+            ],
+          },
+          {
+            slug: "cpu-scheduling",
+            title: "CPU Scheduling",
+            description: "FCFS, SJF, Round Robin and Priority scheduling.",
+            duration: 9,
+            body: [
+              {
+                type: "paragraph",
+                text: "CPU scheduling decides which process in the ready queue gets the CPU next. A good algorithm improves throughput and reduces waiting time.",
+              },
+              {
+                type: "table",
+                headers: ["Algorithm", "Idea", "Note"],
+                rows: [
+                  ["FCFS", "First come, first served", "Simple but can cause long waits"],
+                  ["SJF", "Shortest job first", "Optimal average waiting time"],
+                  ["Round Robin", "Fixed time slice per process", "Good for time-sharing"],
+                  ["Priority", "Highest priority first", "Can cause starvation"],
+                ],
+              },
+              {
+                type: "note",
+                variant: "warning",
+                text: "Priority scheduling can cause 'starvation' where low-priority processes wait forever. The solution is 'aging' (slowly raising priority over time).",
+              },
+            ],
+            quiz: [
+              {
+                question: "Which scheduling algorithm gives the optimal average waiting time?",
+                options: ["FCFS", "SJF", "Round Robin", "Priority"],
+                correct: 1,
+                explain: "Shortest Job First (SJF) gives the minimum average waiting time.",
+              },
+              {
+                question: "Round Robin scheduling is based on:",
+                options: ["Job length", "A fixed time quantum", "Priority", "Arrival only"],
+                correct: 1,
+                explain: "Round Robin gives each process a fixed time slice (quantum) in turn.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================= COMPUTER NETWORKS
+  {
+    slug: "computer-networks",
+    title: "Computer Networks",
+    description: "OSI model, protocols and networking basics.",
+    longDescription:
+      "Computer Networks covers how computers communicate: network types, the OSI and TCP/IP models, and common protocols. A frequently examined IPU subject.",
+    icon: "🌐",
+    color: "#0d9488",
+    difficulty: "intermediate",
+    category: "Core CS",
+    tags: ["computer networks", "osi", "tcp/ip", "btech"],
+    chapters: [
+      {
+        title: "Networking Basics",
+        lessons: [
+          {
+            slug: "intro-networks",
+            title: "Introduction to Networks",
+            description: "What a network is and its types (LAN, MAN, WAN).",
+            duration: 7,
+            body: [
+              {
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "A network connects devices to share data and resources.",
+                  "LAN is small (a lab), WAN is large (the internet).",
+                  "Topologies: bus, star, ring, mesh.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "A computer network is a collection of interconnected devices that can share data and resources. Networks are classified by size and reach.",
+              },
+              {
+                type: "table",
+                headers: ["Type", "Full form", "Scope"],
+                rows: [
+                  ["LAN", "Local Area Network", "A room or building"],
+                  ["MAN", "Metropolitan Area Network", "A city"],
+                  ["WAN", "Wide Area Network", "Countries (e.g. the internet)"],
                 ],
               },
             ],
             quiz: [
               {
-                question: "What is horizontal scaling?",
-                options: [
-                  "Upgrading to a bigger server",
-                  "Adding more servers",
-                  "Deleting old data",
-                  "Compressing files",
+                question: "The internet is an example of a:",
+                options: ["LAN", "MAN", "WAN", "PAN"],
+                correct: 2,
+                explain: "The internet spans the globe, so it is a Wide Area Network (WAN).",
+              },
+              {
+                question: "Which network covers the smallest area?",
+                options: ["WAN", "MAN", "LAN", "Internet"],
+                correct: 2,
+                explain: "A LAN (Local Area Network) covers the smallest area, like a lab.",
+              },
+            ],
+          },
+          {
+            slug: "osi-model",
+            title: "The OSI Model",
+            description: "The seven layers of network communication.",
+            duration: 9,
+            body: [
+              {
+                type: "paragraph",
+                text: "The OSI (Open Systems Interconnection) model divides network communication into seven layers, each with a specific role. It is a reference model used to understand how data moves across a network.",
+              },
+              {
+                type: "table",
+                headers: ["Layer", "Name", "Role"],
+                rows: [
+                  ["7", "Application", "User-facing services (HTTP, FTP)"],
+                  ["6", "Presentation", "Encryption, formatting"],
+                  ["5", "Session", "Managing connections"],
+                  ["4", "Transport", "Reliable delivery (TCP, UDP)"],
+                  ["3", "Network", "Routing (IP)"],
+                  ["2", "Data Link", "MAC addresses, frames"],
+                  ["1", "Physical", "Cables, signals"],
                 ],
+              },
+              {
+                type: "note",
+                variant: "tip",
+                text: "Mnemonic (top to bottom): 'All People Seem To Need Data Processing'. This helps recall the seven layers in exams.",
+              },
+            ],
+            quiz: [
+              {
+                question: "How many layers are in the OSI model?",
+                options: ["4", "5", "7", "8"],
+                correct: 2,
+                explain: "The OSI model has seven layers.",
+              },
+              {
+                question: "Which layer handles routing using IP addresses?",
+                options: ["Transport", "Network", "Data Link", "Physical"],
                 correct: 1,
-                explain: "Horizontal scaling adds more machines to share the load.",
+                explain: "The Network layer (layer 3) handles logical addressing and routing (IP).",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================= WEB TECHNOLOGY
+  {
+    slug: "web-technology",
+    title: "Web Technology",
+    description: "HTML, CSS and JavaScript for the web technology paper.",
+    longDescription:
+      "Web Technology introduces building web pages with HTML, styling with CSS and adding interactivity with JavaScript. Practical and scoring for IPU practical exams.",
+    icon: "🕸️",
+    color: "#d63384",
+    difficulty: "beginner",
+    category: "Web",
+    tags: ["web", "html", "css", "javascript", "bca"],
+    chapters: [
+      {
+        title: "HTML & CSS",
+        lessons: [
+          {
+            slug: "html-basics",
+            title: "HTML Basics",
+            description: "Structure a web page with HTML tags.",
+            duration: 7,
+            codeLanguage: "html",
+            codeExample:
+              '<!DOCTYPE html>\n<html>\n  <body>\n    <h1>My Page</h1>\n    <p>Hello, IPU!</p>\n  </body>\n</html>',
+            body: [
+              {
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "HTML structures a web page using tags.",
+                  "Tags usually come in pairs: <p> ... </p>.",
+                  "The <body> holds visible content.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "HTML (HyperText Markup Language) is the standard language for creating web pages. It uses tags to describe the structure of content such as headings, paragraphs, links and images.",
+              },
+              {
+                type: "code",
+                block: {
+                  language: "html",
+                  code: '<!DOCTYPE html>\n<html>\n  <head>\n    <title>My First Page</title>\n  </head>\n  <body>\n    <h1>My Page</h1>\n    <p>Hello, IPU!</p>\n  </body>\n</html>',
+                },
+              },
+            ],
+            quiz: [
+              {
+                question: "What does HTML stand for?",
+                options: [
+                  "HyperText Markup Language",
+                  "HighText Machine Language",
+                  "Hyper Transfer Markup Language",
+                  "Home Tool Markup Language",
+                ],
+                correct: 0,
+                explain: "HTML = HyperText Markup Language.",
+              },
+              {
+                question: "Which tag holds the visible content?",
+                options: ["<head>", "<title>", "<body>", "<meta>"],
+                correct: 2,
+                explain: "The <body> element contains everything visible on the page.",
+              },
+            ],
+          },
+          {
+            slug: "css-basics-web",
+            title: "Styling with CSS",
+            description: "Add colours, fonts and layout with CSS.",
+            duration: 7,
+            codeLanguage: "css",
+            codeExample: "h1 { color: #5468ff; text-align: center; }\np { font-size: 16px; }",
+            body: [
+              {
+                type: "paragraph",
+                text: "CSS (Cascading Style Sheets) controls the appearance of HTML: colours, fonts, spacing and layout. Rules target elements with selectors.",
+              },
+              {
+                type: "code",
+                block: {
+                  language: "css",
+                  code: "h1 {\n  color: #5468ff;\n  text-align: center;\n}\np {\n  font-size: 16px;\n  line-height: 1.6;\n}",
+                },
+              },
+            ],
+            quiz: [
+              {
+                question: "What does CSS stand for?",
+                options: [
+                  "Cascading Style Sheets",
+                  "Computer Style System",
+                  "Creative Styling Syntax",
+                  "Colorful Style Sheets",
+                ],
+                correct: 0,
+                explain: "CSS = Cascading Style Sheets.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================= SOFTWARE ENGINEERING
+  {
+    slug: "software-engineering",
+    title: "Software Engineering",
+    description: "SDLC, process models and testing for the SE paper.",
+    longDescription:
+      "Software Engineering teaches how software is built systematically: the software development life cycle, process models (waterfall, agile), requirements and testing. A theory-focused IPU subject.",
+    icon: "🛠️",
+    color: "#9333ea",
+    difficulty: "beginner",
+    category: "Core CS",
+    tags: ["software engineering", "sdlc", "agile", "btech", "mca"],
+    chapters: [
+      {
+        title: "Process & Models",
+        lessons: [
+          {
+            slug: "sdlc",
+            title: "Software Development Life Cycle",
+            description: "The phases every software project goes through.",
+            duration: 7,
+            body: [
+              {
+                type: "keypoints",
+                title: "Quick summary",
+                items: [
+                  "SDLC is a structured process to build quality software.",
+                  "Phases: requirements, design, coding, testing, deployment, maintenance.",
+                ],
+              },
+              {
+                type: "paragraph",
+                text: "The Software Development Life Cycle (SDLC) is a structured sequence of phases used to design, build, test and maintain software. Each phase produces deliverables that feed the next.",
+              },
+              {
+                type: "list",
+                ordered: true,
+                items: [
+                  "Requirement analysis",
+                  "System design",
+                  "Implementation (coding)",
+                  "Testing",
+                  "Deployment",
+                  "Maintenance",
+                ],
+              },
+              {
+                type: "note",
+                variant: "tip",
+                text: "Exam tip: remember the order. Requirements come first, maintenance is last and is usually the longest and most expensive phase.",
+              },
+            ],
+            quiz: [
+              {
+                question: "Which SDLC phase usually comes first?",
+                options: ["Testing", "Coding", "Requirement analysis", "Deployment"],
+                correct: 2,
+                explain: "Requirement analysis is the first phase of the SDLC.",
+              },
+              {
+                question: "Which phase is typically the longest and costliest?",
+                options: ["Design", "Maintenance", "Coding", "Testing"],
+                correct: 1,
+                explain: "Maintenance runs for the software's whole life, making it the longest and costliest.",
+              },
+            ],
+          },
+          {
+            slug: "process-models",
+            title: "Process Models",
+            description: "Waterfall vs Agile development.",
+            duration: 8,
+            body: [
+              {
+                type: "paragraph",
+                text: "A process model defines how the SDLC phases are arranged. The two most examined models are the Waterfall model and the Agile model.",
+              },
+              {
+                type: "table",
+                headers: ["Aspect", "Waterfall", "Agile"],
+                rows: [
+                  ["Flow", "Sequential (one phase after another)", "Iterative (small cycles)"],
+                  ["Changes", "Hard to change later", "Easily accommodates change"],
+                  ["Delivery", "One final delivery", "Frequent working releases"],
+                  ["Best for", "Fixed, clear requirements", "Evolving requirements"],
+                ],
+              },
+            ],
+            quiz: [
+              {
+                question: "The Waterfall model is:",
+                options: ["Iterative", "Sequential", "Circular", "Random"],
+                correct: 1,
+                explain: "Waterfall moves sequentially through phases, one after another.",
+              },
+              {
+                question: "Which model handles changing requirements best?",
+                options: ["Waterfall", "Agile", "Neither", "Both equally"],
+                correct: 1,
+                explain: "Agile is iterative and welcomes changing requirements.",
               },
             ],
           },

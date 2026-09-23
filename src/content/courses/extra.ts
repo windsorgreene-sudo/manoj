@@ -1,374 +1,171 @@
 import type { Chapter } from "./types";
 
 // Additional chapters, keyed by course slug. Merged into the base courses in
-// data.ts so course files stay readable. All content is hand-written English.
+// data.ts so course files stay readable. All content is hand-written and
+// exam-oriented for GGSIPU students.
 
 export const extraChapters: Record<string, Chapter[]> = {
-  // --------------------------------------------------------------- HTML
-  "html-fundamentals": [
+  // --------------------------------------------------------------- C
+  "c-programming": [
     {
-      title: "Links, Lists and Images",
+      title: "Control Flow & Loops",
       lessons: [
         {
-          slug: "links",
-          title: "Links and Navigation",
-          description: "Connect pages together with the anchor element.",
-          duration: 6,
-          codeLanguage: "html",
-          codeExample: '<a href="about.html">About us</a>\n<a href="#top">Back to top</a>',
+          slug: "if-else-c",
+          title: "Decision Making (if-else)",
+          description: "Branch your program with if, else if and else.",
+          duration: 7,
+          codeLanguage: "c",
+          codeExample:
+            "int n = 7;\nif (n % 2 == 0) printf(\"Even\");\nelse printf(\"Odd\");",
           body: [
             {
               type: "keypoints",
               title: "Quick summary",
               items: [
-                "The <a> element creates a hyperlink.",
-                "href sets the destination (a URL or #anchor).",
-                "Use descriptive link text, not 'click here'.",
+                "if runs a block when a condition is true.",
+                "else if adds more conditions; else is the fallback.",
+                "Conditions use relational and logical operators.",
               ],
-            },
-            {
-              type: "paragraph",
-              text: "Links are what make the web a web. The anchor element <a> turns text or images into clickable links using the href attribute.",
             },
             {
               type: "code",
               block: {
-                language: "html",
-                code: '<a href="https://example.com">External site</a>\n<a href="about.html">Internal page</a>\n<a href="#section-2">Jump to a section</a>\n<a href="mailto:hi@site.com">Email us</a>',
+                language: "c",
+                code: "#include <stdio.h>\nint main() {\n    int marks = 82;\n    if (marks >= 75) printf(\"Distinction\\n\");\n    else if (marks >= 40) printf(\"Pass\\n\");\n    else printf(\"Fail\\n\");\n    return 0;\n}",
               },
-            },
-            {
-              type: "note",
-              variant: "tip",
-              text: "Write link text that makes sense on its own. 'Read the setup guide' is far better than 'click here' for accessibility and SEO.",
             },
           ],
           quiz: [
             {
-              question: "Which attribute sets a link's destination?",
-              options: ["src", "href", "link", "to"],
-              correct: 1,
-              explain: "The href attribute holds the URL or anchor a link points to.",
+              question: "What prints for marks = 82 in the example?",
+              options: ["Distinction", "Pass", "Fail", "Nothing"],
+              correct: 0,
+              explain: "82 >= 75, so the first branch runs: Distinction.",
+            },
+          ],
+        },
+        {
+          slug: "loops-c",
+          title: "Loops (for, while)",
+          description: "Repeat statements with for and while loops.",
+          duration: 8,
+          codeLanguage: "c",
+          codeExample: "for (int i = 1; i <= 5; i++)\n    printf(\"%d \", i);",
+          body: [
+            {
+              type: "paragraph",
+              text: "Loops repeat a block of statements. Use a for loop when you know how many times to repeat, and a while loop when repetition depends on a condition.",
             },
             {
-              question: "What does href='#top' do?",
+              type: "code",
+              block: {
+                language: "c",
+                code: "// Print 1 to 5\nfor (int i = 1; i <= 5; i++) {\n    printf(\"%d \", i);\n}\n// Output: 1 2 3 4 5",
+              },
+            },
+            {
+              type: "table",
+              headers: ["Loop", "Use when"],
+              rows: [
+                ["for", "Count of iterations is known"],
+                ["while", "Repeat while a condition is true"],
+                ["do-while", "Run at least once, then check"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "Which loop always runs at least once?",
+              options: ["for", "while", "do-while", "none"],
+              correct: 2,
+              explain: "do-while checks the condition after the body, so it runs at least once.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Functions & Pointers",
+      lessons: [
+        {
+          slug: "functions-c",
+          title: "Functions in C",
+          description: "Break programs into reusable functions.",
+          duration: 8,
+          codeLanguage: "c",
+          codeExample:
+            "int add(int a, int b) { return a + b; }\nprintf(\"%d\", add(2, 3));",
+          body: [
+            {
+              type: "paragraph",
+              text: "A function is a self-contained block of code that performs a task. Functions improve reusability and make large programs easier to manage.",
+            },
+            {
+              type: "code",
+              block: {
+                language: "c",
+                code: "#include <stdio.h>\nint add(int a, int b) {   // function definition\n    return a + b;\n}\nint main() {\n    printf(\"%d\\n\", add(2, 3));  // 5\n    return 0;\n}",
+              },
+            },
+          ],
+          quiz: [
+            {
+              question: "What does a function's return type specify?",
               options: [
-                "Opens a new tab",
-                "Jumps to an element with id='top' on the page",
-                "Downloads a file",
-                "Reloads the page",
+                "The type of value it gives back",
+                "Its name",
+                "The number of parameters",
+                "Where it is called",
               ],
-              correct: 1,
-              explain: "A hash link jumps to the element whose id matches, here id='top'.",
+              correct: 0,
+              explain: "The return type declares what kind of value the function returns.",
             },
           ],
         },
         {
-          slug: "lists",
-          title: "Ordered and Unordered Lists",
-          description: "Group related items with list elements.",
-          duration: 5,
-          codeLanguage: "html",
-          codeExample: "<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n</ul>",
+          slug: "pointers-c",
+          title: "Pointers",
+          description: "Variables that store memory addresses.",
+          duration: 9,
+          codeLanguage: "c",
+          codeExample:
+            "int x = 10;\nint *p = &x;\nprintf(\"%d %d\", x, *p);",
           body: [
             {
-              type: "paragraph",
-              text: "Lists group related items. Use an unordered list <ul> when order does not matter, and an ordered list <ol> when it does (like steps).",
+              type: "keypoints",
+              title: "Quick summary",
+              items: [
+                "A pointer stores the address of another variable.",
+                "& gives an address; * gives the value at an address.",
+                "Pointers enable dynamic memory and pass-by-reference.",
+              ],
             },
             {
               type: "code",
               block: {
-                language: "html",
-                code: "<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n  <li>JavaScript</li>\n</ul>\n\n<ol>\n  <li>Plan</li>\n  <li>Build</li>\n  <li>Ship</li>\n</ol>",
-              },
-            },
-          ],
-          quiz: [
-            {
-              question: "Which element creates a numbered list?",
-              options: ["<ul>", "<ol>", "<li>", "<list>"],
-              correct: 1,
-              explain: "<ol> is an ordered (numbered) list; <ul> is unordered (bullets).",
-            },
-          ],
-        },
-        {
-          slug: "images",
-          title: "Adding Images",
-          description: "Embed images with the img element and good alt text.",
-          duration: 5,
-          codeLanguage: "html",
-          codeExample: '<img src="cat.jpg" alt="A sleeping cat" width="300">',
-          body: [
-            {
-              type: "paragraph",
-              text: "The <img> element embeds an image. It needs a src (the file) and should always have an alt attribute describing the image.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "html",
-                code: '<img src="cat.jpg" alt="A sleeping orange cat" width="300" loading="lazy">',
+                language: "c",
+                code: "#include <stdio.h>\nint main() {\n    int x = 10;\n    int *p = &x;       // p holds address of x\n    printf(\"%d\\n\", *p); // 10 (value at address)\n    return 0;\n}",
               },
             },
             {
               type: "note",
               variant: "warning",
-              text: "Add loading='lazy' to images below the fold so the page loads faster.",
+              text: "Always initialise pointers. Using an uninitialised (wild) pointer causes undefined behaviour, a favourite exam trap.",
             },
           ],
           quiz: [
             {
-              question: "Which attribute should every image include for accessibility?",
-              options: ["title", "alt", "caption", "label"],
+              question: "The & operator returns the ___ of a variable.",
+              options: ["value", "address", "type", "size"],
               correct: 1,
-              explain: "alt describes the image for screen readers and when the image fails to load.",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: "Forms",
-      lessons: [
-        {
-          slug: "forms-basics",
-          title: "Building a Form",
-          description: "Collect user input with form controls.",
-          duration: 8,
-          codeLanguage: "html",
-          codeExample:
-            '<form>\n  <label>Name <input type="text" name="name"></label>\n  <button type="submit">Send</button>\n</form>',
-          body: [
-            {
-              type: "keypoints",
-              title: "Quick summary",
-              items: [
-                "The <form> element wraps input controls.",
-                "<input>, <textarea> and <select> collect data.",
-                "Always pair inputs with a <label> for accessibility.",
-              ],
+              explain: "& is the address-of operator; it returns the memory address.",
             },
             {
-              type: "paragraph",
-              text: "Forms let users send data: logins, searches, sign-ups and more. A form wraps one or more controls and a submit button.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "html",
-                code: '<form action="/subscribe" method="post">\n  <label for="email">Email</label>\n  <input id="email" type="email" name="email" required>\n\n  <button type="submit">Subscribe</button>\n</form>',
-              },
-            },
-            {
-              type: "note",
-              variant: "tip",
-              text: "Use the right input type (email, number, date). Mobile keyboards adapt and browsers validate automatically.",
-            },
-          ],
-          quiz: [
-            {
-              question: "Why pair an input with a <label>?",
-              options: [
-                "It is required by HTML",
-                "For accessibility and a larger click target",
-                "To style the input",
-                "It submits the form",
-              ],
+              question: "The * operator (on a pointer) gives the:",
+              options: ["Address", "Value stored at that address", "Type", "Name"],
               correct: 1,
-              explain: "Labels describe inputs for screen readers and let users click the label to focus the field.",
-            },
-          ],
-        },
-      ],
-    },
-  ],
-
-  // --------------------------------------------------------------- CSS
-  "css-mastery": [
-    {
-      title: "Layout with Flexbox",
-      lessons: [
-        {
-          slug: "flexbox",
-          title: "Flexbox Basics",
-          description: "Arrange items in a row or column with Flexbox.",
-          duration: 9,
-          codeLanguage: "css",
-          codeExample:
-            ".row {\n  display: flex;\n  gap: 12px;\n  justify-content: space-between;\n  align-items: center;\n}",
-          body: [
-            {
-              type: "keypoints",
-              title: "Quick summary",
-              items: [
-                "display: flex turns an element into a flex container.",
-                "justify-content aligns items along the main axis.",
-                "align-items aligns items along the cross axis.",
-              ],
-            },
-            {
-              type: "paragraph",
-              text: "Flexbox is a one-dimensional layout system for arranging items in a row or a column. It makes centering and spacing straightforward.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "css",
-                code: ".navbar {\n  display: flex;\n  justify-content: space-between; /* space between items */\n  align-items: center;           /* vertical centering */\n  gap: 16px;\n}",
-              },
-            },
-            {
-              type: "table",
-              headers: ["Property", "Controls"],
-              rows: [
-                ["justify-content", "Main-axis alignment (usually horizontal)"],
-                ["align-items", "Cross-axis alignment (usually vertical)"],
-                ["gap", "Space between items"],
-                ["flex-direction", "Row or column"],
-              ],
-            },
-          ],
-          quiz: [
-            {
-              question: "What does display: flex do?",
-              options: [
-                "Hides the element",
-                "Makes it a flex container",
-                "Adds a border",
-                "Centers text only",
-              ],
-              correct: 1,
-              explain: "display: flex turns an element into a flex container whose children become flex items.",
-            },
-            {
-              question: "Which property centers items vertically in a row?",
-              options: ["justify-content", "align-items", "text-align", "gap"],
-              correct: 1,
-              explain: "In a row, align-items controls the vertical (cross-axis) alignment.",
-            },
-          ],
-        },
-        {
-          slug: "grid",
-          title: "CSS Grid Basics",
-          description: "Build two-dimensional layouts with Grid.",
-          duration: 9,
-          codeLanguage: "css",
-          codeExample:
-            ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n}",
-          body: [
-            {
-              type: "paragraph",
-              text: "CSS Grid is a two-dimensional layout system: it handles rows and columns at the same time, which makes it perfect for page layouts and card grids.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "css",
-                code: ".gallery {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */\n  gap: 16px;\n}",
-              },
-            },
-            {
-              type: "note",
-              variant: "info",
-              text: "Use Flexbox for one direction (a row or column) and Grid when you need to control both rows and columns together.",
-            },
-          ],
-          quiz: [
-            {
-              question: "CSS Grid is best described as:",
-              options: [
-                "One-dimensional layout",
-                "Two-dimensional layout",
-                "A color system",
-                "An animation tool",
-              ],
-              correct: 1,
-              explain: "Grid lays out content in two dimensions (rows and columns) at once.",
-            },
-          ],
-        },
-      ],
-    },
-  ],
-
-  // --------------------------------------------------------- JAVASCRIPT
-  "javascript-core": [
-    {
-      title: "Objects and Logic",
-      lessons: [
-        {
-          slug: "objects",
-          title: "Objects",
-          description: "Group related data with key-value pairs.",
-          duration: 8,
-          codeLanguage: "javascript",
-          codeExample:
-            "const user = { name: 'Aarav', age: 21 };\nconsole.log(user.name);",
-          body: [
-            {
-              type: "keypoints",
-              title: "Quick summary",
-              items: [
-                "An object stores data as key-value pairs.",
-                "Access values with dot notation: user.name.",
-                "Objects can hold values, arrays and functions.",
-              ],
-            },
-            {
-              type: "paragraph",
-              text: "Objects group related data together under named keys. They are one of the most-used structures in JavaScript.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "javascript",
-                code: "const user = {\n  name: 'Aarav',\n  age: 21,\n  skills: ['HTML', 'CSS'],\n};\n\nconsole.log(user.name);      // Aarav\nconsole.log(user.skills[0]); // HTML",
-              },
-            },
-          ],
-          quiz: [
-            {
-              question: "How do you read the name from const user = { name: 'Sam' }?",
-              options: ["user->name", "user.name", "user[name]", "name(user)"],
-              correct: 1,
-              explain: "Dot notation user.name reads the value stored under the 'name' key.",
-            },
-          ],
-        },
-        {
-          slug: "conditionals",
-          title: "Conditionals and Loops",
-          description: "Make decisions and repeat work.",
-          duration: 9,
-          codeLanguage: "javascript",
-          codeExample:
-            "for (let i = 1; i <= 3; i++) {\n  console.log(i % 2 === 0 ? 'even' : 'odd');\n}",
-          body: [
-            {
-              type: "paragraph",
-              text: "Conditionals let your code choose a path with if/else, and loops let you repeat work with for and while.",
-            },
-            {
-              type: "code",
-              block: {
-                language: "javascript",
-                code: "const score = 72;\nif (score >= 90) {\n  console.log('A');\n} else if (score >= 60) {\n  console.log('Pass');\n} else {\n  console.log('Retry');\n}\n\nfor (let i = 1; i <= 3; i++) {\n  console.log('Attempt', i);\n}",
-              },
-            },
-          ],
-          quiz: [
-            {
-              question: "What does a for loop do?",
-              options: [
-                "Runs code once",
-                "Repeats code a number of times",
-                "Defines a function",
-                "Creates an object",
-              ],
-              correct: 1,
-              explain: "A for loop repeats a block of code, usually a set number of times.",
+              explain: "Dereferencing with * gives the value stored at the pointer's address.",
             },
           ],
         },
@@ -377,66 +174,90 @@ export const extraChapters: Record<string, Chapter[]> = {
   ],
 
   // --------------------------------------------------------------- PYTHON
-  "python-for-beginners": [
+  "python-programming": [
     {
-      title: "Loops and Data Structures",
+      title: "Loops and Functions",
       lessons: [
         {
-          slug: "loops-python",
-          title: "For Loops",
-          description: "Repeat actions over a range or a list.",
+          slug: "loops-py",
+          title: "Loops in Python",
+          description: "Repeat with for and while.",
           duration: 7,
           codeLanguage: "python",
-          codeExample: "for i in range(5):\n    print(i)",
+          codeExample: "for i in range(1, 6):\n    print(i, end=' ')",
           body: [
             {
-              type: "keypoints",
-              title: "Quick summary",
-              items: [
-                "A for loop repeats over a sequence.",
-                "range(n) gives numbers 0 to n-1.",
-                "You can loop directly over a list.",
-              ],
-            },
-            {
               type: "paragraph",
-              text: "For loops repeat an action for each item in a sequence, such as a range of numbers or the items of a list.",
+              text: "Python for loops iterate over a sequence such as a range or a list. while loops repeat as long as a condition is true.",
             },
             {
               type: "code",
               block: {
                 language: "python",
-                code: "for i in range(5):\n    print(i)\n# 0 1 2 3 4\n\nfruits = ['apple', 'banana']\nfor fruit in fruits:\n    print(fruit)",
+                code: "for i in range(1, 6):\n    print(i, end=' ')\n# 1 2 3 4 5\n\nn = 3\nwhile n > 0:\n    print(n)\n    n -= 1",
               },
             },
           ],
           quiz: [
             {
-              question: "What does range(3) produce?",
-              options: ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3", "3"],
-              correct: 1,
-              explain: "range(3) yields 0, 1, 2 (starts at 0, stops before 3).",
+              question: "range(1, 6) produces:",
+              options: ["1 2 3 4 5", "1 2 3 4 5 6", "0 1 2 3 4 5", "1 to 6 inclusive"],
+              correct: 0,
+              explain: "range(1, 6) yields 1, 2, 3, 4, 5 (stops before 6).",
             },
           ],
         },
         {
-          slug: "lists-python",
-          title: "Lists",
-          description: "Store ordered collections you can change.",
+          slug: "functions-py",
+          title: "Functions",
+          description: "Define reusable logic with def.",
           duration: 7,
           codeLanguage: "python",
-          codeExample:
-            "nums = [3, 1, 2]\nnums.append(4)\nnums.sort()\nprint(nums)",
+          codeExample: "def square(n):\n    return n * n\nprint(square(5))",
           body: [
             {
               type: "paragraph",
-              text: "A list is an ordered, changeable collection of items. You can add, remove, sort and index into it.",
+              text: "Functions in Python are defined with the def keyword. They can take parameters and return a value.",
             },
             {
               type: "code",
               block: {
                 language: "python",
-                code: "nums = [3, 1, 2]\nnums.append(4)   # [3, 1, 2, 4]\nnums.sort()      # [1, 2, 3, 4]\nprint(nums[0])   # 1\nprint(len(nums)) # 4",
+                code: "def square(n):\n    return n * n\n\nprint(square(5))  # 25",
+              },
+            },
+          ],
+          quiz: [
+            {
+              question: "Which keyword defines a function in Python?",
+              options: ["func", "def", "function", "define"],
+              correct: 1,
+              explain: "Python uses def to define a function.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Data Structures in Python",
+      lessons: [
+        {
+          slug: "lists-py",
+          title: "Lists",
+          description: "Ordered, changeable collections.",
+          duration: 7,
+          codeLanguage: "python",
+          codeExample: "nums = [3, 1, 2]\nnums.append(4)\nnums.sort()\nprint(nums)",
+          body: [
+            {
+              type: "paragraph",
+              text: "A list is an ordered, mutable collection. You can add, remove, sort and index items.",
+            },
+            {
+              type: "code",
+              block: {
+                language: "python",
+                code: "nums = [3, 1, 2]\nnums.append(4)   # [3, 1, 2, 4]\nnums.sort()      # [1, 2, 3, 4]\nprint(nums[0])   # 1",
               },
             },
           ],
@@ -445,36 +266,402 @@ export const extraChapters: Record<string, Chapter[]> = {
               question: "Which method adds an item to the end of a list?",
               options: ["add()", "push()", "append()", "insert()"],
               correct: 2,
-              explain: "append() adds an item to the end of a Python list.",
+              explain: "append() adds to the end of a Python list.",
             },
           ],
         },
         {
-          slug: "functions-python",
-          title: "Functions",
-          description: "Package reusable logic with def.",
-          duration: 7,
+          slug: "dict-py",
+          title: "Dictionaries",
+          description: "Store data as key-value pairs.",
+          duration: 6,
           codeLanguage: "python",
-          codeExample: "def greet(name):\n    return f'Hi, {name}!'\n\nprint(greet('Sam'))",
+          codeExample: "s = {'name': 'Riya', 'roll': 12}\nprint(s['name'])",
           body: [
             {
               type: "paragraph",
-              text: "Functions let you name and reuse a block of code. Define them with def, give them parameters, and return a result.",
+              text: "A dictionary stores data as key-value pairs. You look up a value by its key, not by position.",
             },
             {
               type: "code",
               block: {
                 language: "python",
-                code: "def area(width, height):\n    return width * height\n\nprint(area(4, 3))  # 12",
+                code: "student = {'name': 'Riya', 'roll': 12}\nprint(student['name'])   # Riya\nstudent['branch'] = 'BCA'  # add a key",
               },
             },
           ],
           quiz: [
             {
-              question: "Which keyword defines a function in Python?",
-              options: ["func", "function", "def", "define"],
+              question: "Dictionary values are accessed by their:",
+              options: ["Index", "Key", "Position", "Type"],
+              correct: 1,
+              explain: "Dictionary values are looked up by their key.",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+
+  // --------------------------------------------------------- DATA STRUCTURES
+  "data-structures": [
+    {
+      title: "Linear Structures",
+      lessons: [
+        {
+          slug: "stack",
+          title: "Stack (LIFO)",
+          description: "A last-in, first-out data structure.",
+          duration: 8,
+          codeLanguage: "c",
+          codeExample: "// push, pop, peek work at the 'top' only",
+          body: [
+            {
+              type: "keypoints",
+              title: "Quick summary",
+              items: [
+                "A stack follows Last In, First Out (LIFO).",
+                "Main operations: push, pop, peek.",
+                "Used in function calls, undo, expression evaluation.",
+              ],
+            },
+            {
+              type: "paragraph",
+              text: "A stack is a linear data structure that follows the LIFO principle: the last element added is the first one removed. Think of a stack of plates.",
+            },
+            {
+              type: "table",
+              headers: ["Operation", "Meaning"],
+              rows: [
+                ["push", "Add an element to the top"],
+                ["pop", "Remove the top element"],
+                ["peek / top", "View the top without removing"],
+                ["isEmpty", "Check if the stack is empty"],
+              ],
+            },
+            {
+              type: "note",
+              variant: "info",
+              text: "Real uses: the function call stack, browser back button, and undo in editors all use a stack.",
+            },
+          ],
+          quiz: [
+            {
+              question: "A stack follows which principle?",
+              options: ["FIFO", "LIFO", "Random", "Sorted"],
+              correct: 1,
+              explain: "A stack is Last In, First Out (LIFO).",
+            },
+            {
+              question: "Which operation removes the top element?",
+              options: ["push", "pop", "peek", "enqueue"],
+              correct: 1,
+              explain: "pop removes and returns the top element.",
+            },
+          ],
+        },
+        {
+          slug: "queue",
+          title: "Queue (FIFO)",
+          description: "A first-in, first-out data structure.",
+          duration: 7,
+          body: [
+            {
+              type: "paragraph",
+              text: "A queue is a linear structure that follows FIFO: First In, First Out. The first element added is the first removed, like a line at a counter.",
+            },
+            {
+              type: "table",
+              headers: ["Operation", "Meaning"],
+              rows: [
+                ["enqueue", "Add to the rear"],
+                ["dequeue", "Remove from the front"],
+                ["front", "View the front element"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "A queue follows which principle?",
+              options: ["LIFO", "FIFO", "Random", "Priority"],
+              correct: 1,
+              explain: "A queue is First In, First Out (FIFO).",
+            },
+          ],
+        },
+        {
+          slug: "linked-list",
+          title: "Linked List",
+          description: "Nodes connected by pointers.",
+          duration: 9,
+          codeLanguage: "c",
+          codeExample: "struct Node {\n    int data;\n    struct Node *next;\n};",
+          body: [
+            {
+              type: "paragraph",
+              text: "A linked list is a linear structure where each element (node) stores data and a pointer to the next node. Unlike arrays, it grows dynamically and does not need contiguous memory.",
+            },
+            {
+              type: "code",
+              block: {
+                language: "c",
+                code: "struct Node {\n    int data;\n    struct Node *next;\n};",
+              },
+            },
+            {
+              type: "table",
+              headers: ["Array", "Linked List"],
+              rows: [
+                ["Fixed size", "Grows dynamically"],
+                ["Fast random access O(1)", "Sequential access O(n)"],
+                ["Contiguous memory", "Scattered nodes with pointers"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "Each node in a singly linked list stores data and:",
+              options: [
+                "A pointer to the previous node",
+                "A pointer to the next node",
+                "The whole list",
+                "An index",
+              ],
+              correct: 1,
+              explain: "A singly linked list node stores data and a pointer to the next node.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Searching & Sorting",
+      lessons: [
+        {
+          slug: "searching",
+          title: "Linear and Binary Search",
+          description: "Two ways to find an element.",
+          duration: 8,
+          codeLanguage: "c",
+          codeExample: "// Binary search needs a sorted array",
+          body: [
+            {
+              type: "paragraph",
+              text: "Searching finds the position of an element. Linear search checks each element in turn; binary search repeatedly halves a sorted array.",
+            },
+            {
+              type: "table",
+              headers: ["Search", "Requires sorted?", "Time complexity"],
+              rows: [
+                ["Linear", "No", "O(n)"],
+                ["Binary", "Yes", "O(log n)"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "Binary search requires the array to be:",
+              options: ["Empty", "Sorted", "Reversed", "Large"],
+              correct: 1,
+              explain: "Binary search only works on a sorted array.",
+            },
+            {
+              question: "Time complexity of linear search is:",
+              options: ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
               correct: 2,
-              explain: "Python uses the def keyword to define a function.",
+              explain: "Linear search may check every element, so it is O(n).",
+            },
+          ],
+        },
+        {
+          slug: "sorting",
+          title: "Sorting Algorithms",
+          description: "Bubble, selection, insertion, merge and quick sort.",
+          duration: 9,
+          body: [
+            {
+              type: "paragraph",
+              text: "Sorting arranges data in order. Simple sorts (bubble, selection, insertion) are O(n^2); efficient sorts (merge, quick) are O(n log n).",
+            },
+            {
+              type: "table",
+              headers: ["Algorithm", "Average", "Worst"],
+              rows: [
+                ["Bubble Sort", "O(n^2)", "O(n^2)"],
+                ["Selection Sort", "O(n^2)", "O(n^2)"],
+                ["Merge Sort", "O(n log n)", "O(n log n)"],
+                ["Quick Sort", "O(n log n)", "O(n^2)"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "Which sort has O(n log n) in the worst case?",
+              options: ["Bubble", "Quick", "Merge", "Selection"],
+              correct: 2,
+              explain: "Merge sort is O(n log n) even in the worst case.",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+
+  // --------------------------------------------------------------- DBMS
+  "dbms-sql": [
+    {
+      title: "Keys & Normalization",
+      lessons: [
+        {
+          slug: "keys",
+          title: "Keys in DBMS",
+          description: "Primary, candidate, foreign and super keys.",
+          duration: 7,
+          body: [
+            {
+              type: "keypoints",
+              title: "Quick summary",
+              items: [
+                "A primary key uniquely identifies each row.",
+                "A foreign key links one table to another.",
+                "A candidate key is a minimal super key.",
+              ],
+            },
+            {
+              type: "table",
+              headers: ["Key", "Meaning"],
+              rows: [
+                ["Super key", "Any set of columns that uniquely identify a row"],
+                ["Candidate key", "A minimal super key"],
+                ["Primary key", "The chosen candidate key (unique, not null)"],
+                ["Foreign key", "A column referring to a primary key in another table"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "A primary key must be:",
+              options: ["Unique and not null", "Always numeric", "A foreign key", "Nullable"],
+              correct: 0,
+              explain: "A primary key uniquely identifies a row and cannot be null.",
+            },
+            {
+              question: "A foreign key is used to:",
+              options: [
+                "Sort a table",
+                "Link two tables",
+                "Delete data",
+                "Speed up queries only",
+              ],
+              correct: 1,
+              explain: "A foreign key references a primary key in another table, creating a relationship.",
+            },
+          ],
+        },
+        {
+          slug: "normalization",
+          title: "Normalization (1NF, 2NF, 3NF)",
+          description: "Reduce redundancy and anomalies.",
+          duration: 8,
+          body: [
+            {
+              type: "paragraph",
+              text: "Normalization organises tables to reduce data redundancy and avoid update, insert and delete anomalies. It proceeds through normal forms.",
+            },
+            {
+              type: "list",
+              items: [
+                "1NF: atomic values, no repeating groups.",
+                "2NF: 1NF and no partial dependency on part of a composite key.",
+                "3NF: 2NF and no transitive dependency.",
+              ],
+            },
+            {
+              type: "note",
+              variant: "tip",
+              text: "Common exam line: '1NF removes repeating groups, 2NF removes partial dependency, 3NF removes transitive dependency.'",
+            },
+          ],
+          quiz: [
+            {
+              question: "Which normal form removes transitive dependency?",
+              options: ["1NF", "2NF", "3NF", "BCNF"],
+              correct: 2,
+              explain: "3NF removes transitive dependencies.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "More SQL",
+      lessons: [
+        {
+          slug: "sql-joins",
+          title: "SQL Joins",
+          description: "Combine rows from two tables.",
+          duration: 8,
+          codeLanguage: "sql",
+          codeExample: "SELECT s.name, c.title\nFROM students s\nINNER JOIN courses c ON s.cid = c.id;",
+          body: [
+            {
+              type: "paragraph",
+              text: "A JOIN combines rows from two or more tables based on a related column. The join type decides which unmatched rows are kept.",
+            },
+            {
+              type: "table",
+              headers: ["Join", "Returns"],
+              rows: [
+                ["INNER JOIN", "Only matching rows in both tables"],
+                ["LEFT JOIN", "All left rows + matched right rows"],
+                ["RIGHT JOIN", "All right rows + matched left rows"],
+                ["FULL JOIN", "All rows from both tables"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "INNER JOIN returns:",
+              options: [
+                "All rows from both tables",
+                "Only rows with a match in both tables",
+                "Only left table rows",
+                "No rows",
+              ],
+              correct: 1,
+              explain: "INNER JOIN returns only rows that match in both tables.",
+            },
+          ],
+        },
+        {
+          slug: "aggregate-functions",
+          title: "Aggregate Functions & GROUP BY",
+          description: "Summarise data with COUNT, SUM, AVG.",
+          duration: 7,
+          codeLanguage: "sql",
+          codeExample: "SELECT branch, AVG(marks)\nFROM students\nGROUP BY branch;",
+          body: [
+            {
+              type: "paragraph",
+              text: "Aggregate functions compute a single value from many rows. GROUP BY splits rows into groups so aggregates are calculated per group.",
+            },
+            {
+              type: "table",
+              headers: ["Function", "Returns"],
+              rows: [
+                ["COUNT()", "Number of rows"],
+                ["SUM()", "Total of a column"],
+                ["AVG()", "Average of a column"],
+                ["MAX() / MIN()", "Largest / smallest value"],
+              ],
+            },
+          ],
+          quiz: [
+            {
+              question: "Which function counts rows?",
+              options: ["SUM()", "COUNT()", "AVG()", "MAX()"],
+              correct: 1,
+              explain: "COUNT() returns the number of rows.",
             },
           ],
         },
