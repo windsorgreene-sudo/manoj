@@ -15,11 +15,11 @@ export function CourseChapters({ course }: { course: Course }) {
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {course.chapters.map((chapter, ci) => (
-        <div key={ci} className="overflow-hidden rounded-2xl border border-border bg-surface">
-          <div className="flex items-center justify-between border-b border-border bg-surface-2 px-5 py-3">
-            <h3 className="font-display font-bold text-text">
+        <div key={ci} className="overflow-hidden rounded-lg border border-border bg-surface">
+          <div className="flex items-center justify-between border-b border-border bg-surface-2 px-4 py-2.5">
+            <h3 className="font-display text-sm font-semibold text-text">
               <span className="mr-2 text-text-faint">{ci + 1}.</span>
               {chapter.title}
             </h3>
@@ -32,10 +32,10 @@ export function CourseChapters({ course }: { course: Course }) {
                 <li key={lesson.slug}>
                   <Link
                     href={`/courses/${course.slug}/${lesson.slug}`}
-                    className="group flex items-center gap-3 px-5 py-3 transition-colors hover:bg-surface-2"
+                    className="group flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-surface-2"
                   >
                     <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-[11px] ${
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[11px] ${
                         isDone
                           ? "border-ok bg-ok text-white"
                           : "border-border-strong text-text-faint"

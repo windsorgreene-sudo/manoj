@@ -65,26 +65,28 @@ export default async function CoursePage({ params }: { params: Params }) {
 
       {/* Course header */}
       <header
-        className="animate-fade-up relative mt-4 overflow-hidden rounded-3xl border border-border p-6 text-white shadow-[var(--shadow-md)] sm:p-8"
-        style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}bb)` }}
+        className="animate-fade-up relative mt-4 overflow-hidden rounded-xl border border-border p-6 text-white shadow-[var(--shadow-sm)] sm:p-8"
+        style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}cc)` }}
       >
-        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
-        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center">
-          <span className="text-6xl drop-shadow">{course.icon}</span>
-          <div>
-            <span className="rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur">
+        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+          <span className="text-5xl drop-shadow-sm sm:text-6xl">{course.icon}</span>
+          <div className="min-w-0">
+            <span className="inline-flex items-center rounded-md bg-black/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur">
               {DIFF_LABEL[course.difficulty]}
             </span>
-            <h1 className="font-display mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h1 className="font-display mt-2.5 text-2xl font-bold tracking-tight sm:text-3xl">
               {course.title}
             </h1>
-            <p className="mt-2 max-w-2xl text-white/90">{course.longDescription}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/90">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">{course.longDescription}</p>
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-white/85">
               <span>{total} lessons</span>
-              <span className="inline-flex items-center gap-1">
+              <span aria-hidden className="h-1 w-1 rounded-full bg-white/40" />
+              <span className="inline-flex items-center gap-1.5">
                 <ClockIcon className="h-4 w-4" />
                 {Math.max(1, Math.round(mins / 60))} hours
               </span>
+              <span aria-hidden className="h-1 w-1 rounded-full bg-white/40" />
               <span>{course.category}</span>
             </div>
           </div>
@@ -92,7 +94,7 @@ export default async function CoursePage({ params }: { params: Params }) {
         {first && (
           <Link
             href={`/courses/${course.slug}/${first.lesson.slug}`}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-slate-900 shadow-lg transition-transform hover:-translate-y-0.5"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
             Start course →
           </Link>
@@ -100,8 +102,8 @@ export default async function CoursePage({ params }: { params: Params }) {
       </header>
 
       {/* Curriculum */}
-      <section className="mt-8">
-        <h2 className="font-display mb-4 text-xl font-bold text-text">Course content</h2>
+      <section className="mt-10">
+        <h2 className="font-display mb-4 text-lg font-bold text-text">Course content</h2>
         <CourseChapters course={course} />
       </section>
     </div>

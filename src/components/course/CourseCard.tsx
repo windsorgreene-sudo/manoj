@@ -30,31 +30,26 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/courses/${course.slug}`}
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
-        e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
-      }}
-      className="sheen hover-lift cv-gradient-border cv-spotlight group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface"
+      className="hover-lift group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface"
     >
       {/* Gradient header */}
       <div
-        className="relative flex h-24 items-center justify-between overflow-hidden px-5"
+        className="relative flex h-20 items-center justify-between overflow-hidden px-4"
         style={{
           background: `linear-gradient(135deg, ${course.color}, ${course.color}cc)`,
         }}
       >
-        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
-        <span className="cv-icon-pop relative text-4xl drop-shadow-sm">
+        <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
+        <span className="relative text-3xl drop-shadow-sm transition-transform duration-300 group-hover:scale-110">
           {course.icon}
         </span>
-        <span className="relative rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
+        <span className="relative rounded-md bg-black/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white backdrop-blur">
           {DIFF_LABEL[course.difficulty]}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-bold text-text transition-colors group-hover:text-primary">
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="font-display text-base font-semibold text-text transition-colors group-hover:text-primary">
           {course.title}
         </h3>
         <p className="clamp-2 mt-1 flex-1 text-sm text-text-muted">{course.description}</p>

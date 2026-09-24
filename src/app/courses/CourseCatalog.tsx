@@ -36,7 +36,7 @@ export function CourseCatalog({ courses, categories }: { courses: Course[]; cate
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search courses..."
-          className="w-full max-w-md rounded-xl border border-border-strong bg-surface px-4 py-2.5 text-sm text-text placeholder:text-text-faint focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15"
+          className="w-full max-w-md rounded-lg border border-border-strong bg-surface px-4 py-2.5 text-sm text-text placeholder:text-text-faint focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
       </div>
 
@@ -75,7 +75,7 @@ export function CourseCatalog({ courses, categories }: { courses: Course[]; cate
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border-strong bg-surface p-10 text-center text-sm text-text-muted">
+        <div className="rounded-lg border border-dashed border-border-strong bg-surface p-10 text-center text-sm text-text-muted">
           No courses match your filters. Try clearing them.
         </div>
       ) : (
