@@ -4,6 +4,15 @@ import { useState } from "react";
 import { CodeEditor } from "@/components/playground/CodeEditor";
 import { runCode, NON_RUNNABLE } from "@/lib/piston";
 
+// Python's runtime (Pyodide) downloads on first use, so warn the user.
+let pythonLoadedOnce = false;
+function runningMessage(language: string): string {
+  if (language === "python" && !pythonLoadedOnce) {
+    return "Loading Python runtime (first run downloads ~10 MB, then it's cached)...";
+  }
+  return "Running...";
+}
+
 // The "Try it yourself" panel embedded at the bottom of a lesson.
 export function LessonPlayground({ code, language }: { code: string; language: string }) {
   const [value, setValue] = useState(code);
@@ -19,10 +28,11 @@ export function LessonPlayground({ code, language }: { code: string; language: s
       return;
     }
     setRunning(true);
-    setOutput("Running...");
+    setOutput(runningMessage(language));
     setIsError(false);
     const res = await runCode(language, value);
-    setOutput(res.output + (res.timeMs ? `\n\n,  finished in ${res.timeMs} ms` : ""));
+    if (language === "python") pythonLoadedOnce = true;
+    setOutput(res.output + (res.timeMs ? `\n\nFinished in ${res.timeMs} ms` : ""));
     setIsError(res.error);
     setRunning(false);
   };

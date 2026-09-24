@@ -1,7 +1,15 @@
-// Runs code via the public Piston API (https://github.com/engineer-man/piston).
-// No API key required. Maps our language ids to Piston runtimes.
+// Code execution for the learning playground.
+//
+// History: this used the public Piston API (emkc.org). That endpoint became
+// whitelist-only on 2026-02-15 and now returns 401, so it no longer works and
+// there is no key-less public replacement. We therefore run everything we can
+// entirely in the browser (no server, no API key):
+//   - JavaScript: executed directly by capturing console output.
+//   - Python:     executed via Pyodide (WebAssembly), loaded on demand.
+// Languages that need a native toolchain (C, C++, Java) cannot run in the
+// browser, so we show an honest message instead of failing silently.
 
-const PISTON_URL = "https://emkc.org/api/v2/piston/execute";
+import { runPython } from "./pyodide";
 
 interface PistonLang {
   language: string;
@@ -20,8 +28,19 @@ export const LANGUAGES: Record<string, PistonLang> = {
   bash: { language: "bash", version: "5.2.0", monaco: "shell", ext: "sh" },
 };
 
-// Languages that Piston cannot "run" meaningfully (markup/styles).
+// Markup / query languages that are not "run" in this playground.
 export const NON_RUNNABLE = new Set(["html", "css", "sql"]);
+
+// Languages we can execute fully in the browser (no server/API key).
+export const BROWSER_RUNNABLE = new Set(["javascript", "python"]);
+
+// Languages that need a native toolchain and cannot run client-side.
+export const NEEDS_NATIVE = new Set(["c", "cpp", "java"]);
+
+/** True if the language can be executed right here in the browser. */
+export function canRunInBrowser(langId: string): boolean {
+  return BROWSER_RUNNABLE.has(langId);
+}
 
 export interface RunResult {
   output: string;
@@ -73,50 +92,49 @@ function formatValue(v: unknown): string {
   }
 }
 
+const NATIVE_LABEL: Record<string, string> = {
+  c: "C",
+  cpp: "C++",
+  java: "Java",
+};
+
 export async function runCode(langId: string, code: string): Promise<RunResult> {
   // JavaScript runs directly in the browser, no network needed.
   if (langId === "javascript") return runJavaScriptInBrowser(code);
 
-  const lang = LANGUAGES[langId];
-  if (!lang) {
-    return {
-      output: `Live execution for ${langId} is not available in this demo. JavaScript runs directly in the browser; other languages need a hosted runner (see notes).`,
-      error: true,
-    };
-  }
-  const started = performance.now();
-  try {
-    const res = await fetch(PISTON_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        language: lang.language,
-        version: lang.version,
-        files: [{ name: `main.${lang.ext}`, content: code }],
-      }),
-    });
-    if (!res.ok) {
+  // Python runs in the browser via Pyodide (WebAssembly).
+  if (langId === "python") {
+    const started = performance.now();
+    try {
+      const res = await runPython(code);
+      return { ...res, timeMs: Math.round(performance.now() - started) };
+    } catch (e) {
       return {
         output:
-          "Remote code execution is not available right now. JavaScript still runs instantly in the browser; connect a hosted runner to enable other languages.",
+          "Could not load the Python runtime. Check your connection and try again.\n\n" +
+          String(e),
         error: true,
       };
     }
-    const data = await res.json();
-    const run = data.run ?? {};
-    const out = [run.stdout, run.stderr].filter(Boolean).join("\n").trim();
-    return {
-      output: out || "(no output)",
-      error: (run.code ?? 0) !== 0,
-      timeMs: Math.round(performance.now() - started),
-    };
-  } catch {
+  }
+
+  // C / C++ / Java need a native compiler and cannot run in the browser.
+  if (NEEDS_NATIVE.has(langId)) {
+    const name = NATIVE_LABEL[langId] ?? langId;
     return {
       output:
-        "Could not reach the execution service. JavaScript runs in the browser; other languages need a hosted runner.",
-      error: true,
+        `${name} programs need a native compiler and can't run in the browser.\n\n` +
+        "Read and edit the code here, then compile it locally (for example with " +
+        (langId === "java" ? "javac + java" : "gcc/g++") +
+        ") to see the output.",
+      error: false,
     };
   }
+
+  return {
+    output: `Live execution for ${langId} is not available here. JavaScript and Python run directly in the browser.`,
+    error: true,
+  };
 }
 
 export function monacoLangId(langId: string): string {

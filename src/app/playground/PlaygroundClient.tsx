@@ -4,6 +4,15 @@ import { useState } from "react";
 import { CodeEditor } from "@/components/playground/CodeEditor";
 import { runCode, LANGUAGES } from "@/lib/piston";
 
+// Python's runtime (Pyodide) downloads on first use, so warn the user.
+let pythonLoadedOnce = false;
+function runningMessage(language: string): string {
+  if (language === "python" && !pythonLoadedOnce) {
+    return "Loading Python runtime (first run downloads ~10 MB, then it's cached)...";
+  }
+  return "Running...";
+}
+
 const TEMPLATES: Record<string, string> = {
   javascript: "// JavaScript\nfunction fib(n) {\n  return n < 2 ? n : fib(n - 1) + fib(n - 2);\n}\nfor (let i = 0; i < 10; i++) console.log(fib(i));",
   typescript: "// TypeScript\nconst greet = (name: string): string => `Hello, ${name}!`;\nconsole.log(greet('CodeVidya'));",
@@ -31,10 +40,11 @@ export function PlaygroundClient() {
 
   const run = async () => {
     setRunning(true);
-    setOutput("Running...");
+    setOutput(runningMessage(lang));
     setIsError(false);
     const res = await runCode(lang, code);
-    setOutput(res.output + (res.timeMs ? `\n\n,  finished in ${res.timeMs} ms` : ""));
+    if (lang === "python") pythonLoadedOnce = true;
+    setOutput(res.output + (res.timeMs ? `\n\nFinished in ${res.timeMs} ms` : ""));
     setIsError(res.error);
     setRunning(false);
   };
