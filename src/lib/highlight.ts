@@ -60,9 +60,23 @@ const C_COM = "#6c7686"; // comment
 export function highlight(line: string, lang: string): string {
   let src = escapeHtml(line);
   const placeholders: string[] = [];
+
+  // Placeholder token must NOT contain characters that any later pass can
+  // match. Earlier versions used digits (\u0000{index}\u0000), so the numbers
+  // pass matched the index digit inside a string/comment placeholder and
+  // corrupted it — that was the "printf(0)" / stray-"0" bug. We encode the
+  // index in a non-word, non-digit private-use band instead.
+  const OPEN = "\uE000";
+  const CLOSE = "\uE001";
+  const encodeIndex = (n: number) =>
+    // map each digit to a private-use code point outside \w and \d
+    String(n)
+      .split("")
+      .map((d) => String.fromCharCode(0xe010 + Number(d)))
+      .join("");
   const stash = (html: string) => {
     placeholders.push(html);
-    return `\u0000${placeholders.length - 1}\u0000`;
+    return `${OPEN}${encodeIndex(placeholders.length - 1)}${CLOSE}`;
   };
 
   // Ordered pass: comments, then strings, numbers and keywords. Each matched
@@ -82,7 +96,16 @@ export function highlight(line: string, lang: string): string {
     src = src.replace(re, (m) => stash(`<span style="color:${C_KW}">${m}</span>`));
   }
 
-  // Restore placeholders.
-  src = src.replace(/\u0000(\d+)\u0000/g, (_, i) => placeholders[Number(i)]);
+  // Restore placeholders. Decode the private-use index band back to a number.
+  const restoreRe = new RegExp(`${OPEN}([\\uE010-\\uE019]+)${CLOSE}`, "g");
+  src = src.replace(restoreRe, (_, enc: string) => {
+    const idx = Number(
+      enc
+        .split("")
+        .map((ch) => ch.charCodeAt(0) - 0xe010)
+        .join(""),
+    );
+    return placeholders[idx] ?? "";
+  });
   return src;
 }
