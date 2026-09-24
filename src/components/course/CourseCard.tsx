@@ -30,7 +30,7 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/courses/${course.slug}`}
-      className="hover-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface"
+      className="sheen hover-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface"
     >
       {/* Gradient header */}
       <div
