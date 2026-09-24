@@ -186,24 +186,22 @@ export default function HomePage() {
         {/* Final CTA */}
         <Reveal
           as="section"
-          className="sheen group relative mt-10 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary to-accent p-8 text-center shadow-[var(--shadow-md)] sm:p-12"
+          className="mt-10 flex flex-col items-start justify-between gap-4 rounded-lg border border-border bg-surface p-6 sm:flex-row sm:items-center"
         >
-          <div className="cv-dot-grid pointer-events-none absolute inset-0 opacity-20" aria-hidden />
-          <div
-            className="cv-float pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"
-            aria-hidden
-          />
-          <h2 className="relative font-display text-2xl font-extrabold text-white sm:text-3xl">
-            Ready to start studying?
-          </h2>
-          <p className="relative mx-auto mt-2 max-w-xl text-white/90">
-            Pick your subject, read the notes, run the code and test yourself. Completely free.
-          </p>
+          <div>
+            <h2 className="font-display text-lg font-semibold text-text">
+              Ready to start studying?
+            </h2>
+            <p className="mt-1 text-sm text-text-muted">
+              Pick a subject, read the notes and practise the code. Free forever.
+            </p>
+          </div>
           <Link
             href="/courses"
-            className="relative mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-primary shadow-lg transition-transform hover:-translate-y-0.5"
+            className="group inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-contrast transition-all hover:bg-primary-hover"
           >
-            Browse Subjects <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:cv-bounce-x" />
+            Browse subjects
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </Reveal>
       </div>
