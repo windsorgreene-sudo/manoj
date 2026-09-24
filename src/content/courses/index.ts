@@ -1,13 +1,17 @@
 import { courses as baseCourses } from "./data";
 import { extraChapters } from "./extra";
-import type { Course, LessonRef } from "./types";
+import { extraChapters2 } from "./content2";
+import type { Chapter, Course, LessonRef } from "./types";
 
 // Merge any additional chapters onto their course so course files stay small.
-export const courses: Course[] = baseCourses.map((c) =>
-  extraChapters[c.slug]
-    ? { ...c, chapters: [...c.chapters, ...extraChapters[c.slug]] }
-    : c,
-);
+// Chapters can come from several sources (extra.ts, content2.ts, ...).
+export const courses: Course[] = baseCourses.map((c) => {
+  const added: Chapter[] = [
+    ...(extraChapters[c.slug] ?? []),
+    ...(extraChapters2[c.slug] ?? []),
+  ];
+  return added.length ? { ...c, chapters: [...c.chapters, ...added] } : c;
+});
 export type { Course, Lesson, Chapter, QuizQuestion, LessonRef } from "./types";
 
 export function getCourse(slug: string): Course | undefined {
