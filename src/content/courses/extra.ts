@@ -21,11 +21,17 @@ export const extraChapters: Record<string, Chapter[]> = {
           body: [
             {
               type: "keypoints",
-              title: "Quick summary",
+              title: { en: "Quick summary", hi: "Ek line mein" },
               items: [
-                "if runs a block when a condition is true.",
-                "else if adds more conditions; else is the fallback.",
-                "Conditions use relational and logical operators.",
+                { en: "if runs a block when a condition is true.", hi: "condition true hone par if ka block chalta hai." },
+                {
+                  en: "else if adds more conditions; else is the fallback.",
+                  hi: "else if aur conditions jodta hai; else last option hota hai.",
+                },
+                {
+                  en: "Conditions use relational and logical operators.",
+                  hi: "Conditions mein relational aur logical operators use hote hain.",
+                },
               ],
             },
             {
@@ -55,7 +61,10 @@ export const extraChapters: Record<string, Chapter[]> = {
           body: [
             {
               type: "paragraph",
-              text: "Loops repeat a block of statements. Use a for loop when you know how many times to repeat, and a while loop when repetition depends on a condition.",
+              text: {
+                en: "Loops repeat a block of statements. Use a for loop when you know how many times to repeat, and a while loop when repetition depends on a condition.",
+                hi: "Loops kisi block ko baar-baar chalate hain. Jab pata ho ki kitni baar repeat karna hai to for loop use karo, aur jab repeat karna kisi condition par depend kare to while loop use karo.",
+              },
             },
             {
               type: "code",
@@ -66,11 +75,14 @@ export const extraChapters: Record<string, Chapter[]> = {
             },
             {
               type: "table",
-              headers: ["Loop", "Use when"],
+              headers: [
+                { en: "Loop", hi: "Loop" },
+                { en: "Use when", hi: "Kab use karein" },
+              ],
               rows: [
-                ["for", "Count of iterations is known"],
-                ["while", "Repeat while a condition is true"],
-                ["do-while", "Run at least once, then check"],
+                ["for", { en: "Count of iterations is known", hi: "Jab pata ho kitni baar chalana hai" }],
+                ["while", { en: "Repeat while a condition is true", hi: "Jab tak condition true hai tab tak chalao" }],
+                ["do-while", { en: "Run at least once, then check", hi: "Kam se kam ek baar chalta hai, phir check karta hai" }],
               ],
             },
           ],
@@ -99,7 +111,10 @@ export const extraChapters: Record<string, Chapter[]> = {
           body: [
             {
               type: "paragraph",
-              text: "A function is a self-contained block of code that performs a task. Functions improve reusability and make large programs easier to manage.",
+              text: {
+                en: "A function is a self-contained block of code that performs a task. Functions improve reusability and make large programs easier to manage.",
+                hi: "Function code ka ek alag block hota hai jo koi ek kaam karta hai. Functions se code dobara use hota hai aur bade programs sambhalna aasan ho jaata hai.",
+              },
             },
             {
               type: "code",
@@ -134,11 +149,20 @@ export const extraChapters: Record<string, Chapter[]> = {
           body: [
             {
               type: "keypoints",
-              title: "Quick summary",
+              title: { en: "Quick summary", hi: "Ek line mein" },
               items: [
-                "A pointer stores the address of another variable.",
-                "& gives an address; * gives the value at an address.",
-                "Pointers enable dynamic memory and pass-by-reference.",
+                {
+                  en: "A pointer stores the address of another variable.",
+                  hi: "Pointer kisi doosre variable ka address store karta hai.",
+                },
+                {
+                  en: "& gives an address; * gives the value at an address.",
+                  hi: "& address deta hai; * us address par rakhi value deta hai.",
+                },
+                {
+                  en: "Pointers enable dynamic memory and pass-by-reference.",
+                  hi: "Pointers dynamic memory aur pass-by-reference possible banate hain.",
+                },
               ],
             },
             {
@@ -151,7 +175,10 @@ export const extraChapters: Record<string, Chapter[]> = {
             {
               type: "note",
               variant: "warning",
-              text: "Always initialise pointers. Using an uninitialised (wild) pointer causes undefined behaviour, a favourite exam trap.",
+              text: {
+                en: "Always initialise pointers. Using an uninitialised (wild) pointer causes undefined behaviour, a favourite exam trap.",
+                hi: "Pointers ko hamesha initialise karo. Bina initialise kiya (wild) pointer use karne se undefined behaviour aata hai, jo exam ka favourite trap hai.",
+              },
             },
           ],
           quiz: [

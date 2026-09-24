@@ -32,29 +32,55 @@ export const courses: Course[] = [
             body: [
               {
                 type: "keypoints",
-                title: "Quick summary",
+                title: { en: "Quick summary", hi: "Ek line mein" },
                 items: [
-                  "C is a general-purpose, procedural, structured programming language.",
-                  "Developed by Dennis Ritchie at Bell Labs in 1972.",
-                  "Execution always begins from the main() function.",
+                  {
+                    en: "C is a general-purpose, procedural, structured programming language.",
+                    hi: "C ek general-purpose, procedural aur structured programming language hai.",
+                  },
+                  {
+                    en: "Developed by Dennis Ritchie at Bell Labs in 1972.",
+                    hi: "Ise 1972 mein Dennis Ritchie ne Bell Labs mein banaya tha.",
+                  },
+                  {
+                    en: "Execution always begins from the main() function.",
+                    hi: "Program hamesha main() function se chalna shuru hota hai.",
+                  },
                 ],
               },
               {
                 type: "paragraph",
-                text: "C is a general-purpose programming language developed by Dennis Ritchie in 1972 at Bell Laboratories. It is called a middle-level language because it combines the features of high-level and low-level languages. It is the base for many later languages such as C++, Java and Python.",
+                text: {
+                  en: "C is a general-purpose programming language developed by Dennis Ritchie in 1972 at Bell Laboratories. It is called a middle-level language because it combines the features of high-level and low-level languages. It is the base for many later languages such as C++, Java and Python.",
+                  hi: "C ek general-purpose programming language hai jise 1972 mein Dennis Ritchie ne Bell Laboratories mein banaya. Ise middle-level language kaha jaata hai kyunki ismein high-level aur low-level dono languages ke features aate hain. C baad ki bahut si languages jaise C++, Java aur Python ka base hai.",
+                },
               },
-              { type: "heading", level: 2, id: "features", text: "Features of C" },
+              { type: "heading", level: 2, id: "features", text: { en: "Features of C", hi: "C ke Features" } },
               {
                 type: "list",
                 items: [
-                  "Simple and structured language.",
-                  "Fast and efficient (close to hardware).",
-                  "Portable across machines.",
-                  "Rich set of built-in operators and library functions.",
-                  "Supports pointers for direct memory access.",
+                  { en: "Simple and structured language.", hi: "Simple aur structured language hai." },
+                  {
+                    en: "Fast and efficient (close to hardware).",
+                    hi: "Fast aur efficient hai (hardware ke kaafi paas).",
+                  },
+                  { en: "Portable across machines.", hi: "Alag-alag machines par portable hai." },
+                  {
+                    en: "Rich set of built-in operators and library functions.",
+                    hi: "Bahut saare built-in operators aur library functions milte hain.",
+                  },
+                  {
+                    en: "Supports pointers for direct memory access.",
+                    hi: "Pointers ke through direct memory access deta hai.",
+                  },
                 ],
               },
-              { type: "heading", level: 2, id: "structure", text: "Structure of a C program" },
+              {
+                type: "heading",
+                level: 2,
+                id: "structure",
+                text: { en: "Structure of a C program", hi: "C program ka Structure" },
+              },
               {
                 type: "code",
                 block: {
@@ -64,18 +90,24 @@ export const courses: Course[] = [
               },
               {
                 type: "table",
-                headers: ["Part", "Purpose"],
+                headers: [
+                  { en: "Part", hi: "Hissa" },
+                  { en: "Purpose", hi: "Kaam" },
+                ],
                 rows: [
-                  ["#include", "Includes header files like stdio.h"],
-                  ["main()", "Entry point where execution starts"],
-                  ["printf()", "Prints output to the screen"],
-                  ["return 0", "Tells the OS the program ended successfully"],
+                  ["#include", { en: "Includes header files like stdio.h", hi: "stdio.h jaise header files ko add karta hai" }],
+                  ["main()", { en: "Entry point where execution starts", hi: "Yahi se program chalna shuru hota hai" }],
+                  ["printf()", { en: "Prints output to the screen", hi: "Screen par output print karta hai" }],
+                  ["return 0", { en: "Tells the OS the program ended successfully", hi: "OS ko batata hai ki program sahi se khatam hua" }],
                 ],
               },
               {
                 type: "note",
                 variant: "tip",
-                text: "A common exam question: 'Why is C called a middle-level language?' Answer: it supports low-level features (pointers, bit manipulation) and high-level structured programming.",
+                text: {
+                  en: "A common exam question: 'Why is C called a middle-level language?' Answer: it supports low-level features (pointers, bit manipulation) and high-level structured programming.",
+                  hi: "Exam ka common sawaal: 'C ko middle-level language kyun kehte hain?' Jawaab: ye low-level features (pointers, bit manipulation) aur high-level structured programming dono support karti hai.",
+                },
               },
             ],
             quiz: [
@@ -110,26 +142,42 @@ export const courses: Course[] = [
             body: [
               {
                 type: "keypoints",
-                title: "Quick summary",
+                title: { en: "Quick summary", hi: "Ek line mein" },
                 items: [
-                  "A variable is a named memory location.",
-                  "You must declare a variable's type before using it.",
-                  "Basic types: int, float, double, char.",
+                  { en: "A variable is a named memory location.", hi: "Variable ek naam wali memory location hoti hai." },
+                  {
+                    en: "You must declare a variable's type before using it.",
+                    hi: "Variable use karne se pehle uska type declare karna zaroori hai.",
+                  },
+                  { en: "Basic types: int, float, double, char.", hi: "Basic types: int, float, double, char." },
                 ],
               },
               {
                 type: "paragraph",
-                text: "A variable is a name given to a memory location that stores a value. In C every variable must be declared with a data type, which decides how much memory it uses and what values it can hold.",
+                text: {
+                  en: "A variable is a name given to a memory location that stores a value. In C every variable must be declared with a data type, which decides how much memory it uses and what values it can hold.",
+                  hi: "Variable ek memory location ko diya gaya naam hai jo koi value store karti hai. C mein har variable ko ek data type ke saath declare karna padta hai, jo decide karta hai ki wo kitni memory legi aur kaunsi values rakh sakti hai.",
+                },
               },
-              { type: "heading", level: 2, id: "basic-types", text: "Fundamental data types" },
+              {
+                type: "heading",
+                level: 2,
+                id: "basic-types",
+                text: { en: "Fundamental data types", hi: "Basic Data Types" },
+              },
               {
                 type: "table",
-                headers: ["Type", "Size (typical)", "Example", "Format specifier"],
+                headers: [
+                  { en: "Type", hi: "Type" },
+                  { en: "Size (typical)", hi: "Size (aam taur par)" },
+                  { en: "Example", hi: "Example" },
+                  { en: "Format specifier", hi: "Format specifier" },
+                ],
                 rows: [
-                  ["int", "2 or 4 bytes", "int x = 10;", "%d"],
-                  ["float", "4 bytes", "float p = 3.14;", "%f"],
-                  ["double", "8 bytes", "double d = 3.14159;", "%lf"],
-                  ["char", "1 byte", "char c = 'A';", "%c"],
+                  ["int", { en: "2 or 4 bytes", hi: "2 ya 4 bytes" }, "int x = 10;", "%d"],
+                  ["float", { en: "4 bytes", hi: "4 bytes" }, "float p = 3.14;", "%f"],
+                  ["double", { en: "8 bytes", hi: "8 bytes" }, "double d = 3.14159;", "%lf"],
+                  ["char", { en: "1 byte", hi: "1 byte" }, "char c = 'A';", "%c"],
                 ],
               },
               {
@@ -142,7 +190,10 @@ export const courses: Course[] = [
               {
                 type: "note",
                 variant: "warning",
-                text: "The format specifier must match the type: %d for int, %f for float, %c for char. A mismatch gives wrong output.",
+                text: {
+                  en: "The format specifier must match the type: %d for int, %f for float, %c for char. A mismatch gives wrong output.",
+                  hi: "Format specifier type se match karna chahiye: int ke liye %d, float ke liye %f, char ke liye %c. Galat match karne par output galat aayega.",
+                },
               },
             ],
             quiz: [
@@ -171,23 +222,33 @@ export const courses: Course[] = [
             body: [
               {
                 type: "paragraph",
-                text: "An operator is a symbol that performs an operation on operands. C provides a rich set of operators grouped into several categories.",
+                text: {
+                  en: "An operator is a symbol that performs an operation on operands. C provides a rich set of operators grouped into several categories.",
+                  hi: "Operator ek symbol hota hai jo operands par koi operation karta hai. C mein kaafi saare operators milte hain jo alag-alag categories mein bante hue hain.",
+                },
               },
               {
                 type: "table",
-                headers: ["Category", "Operators", "Example"],
+                headers: [
+                  { en: "Category", hi: "Category" },
+                  { en: "Operators", hi: "Operators" },
+                  { en: "Example", hi: "Example" },
+                ],
                 rows: [
-                  ["Arithmetic", "+ - * / %", "a + b"],
-                  ["Relational", "< > <= >= == !=", "a > b"],
-                  ["Logical", "&& || !", "a > 0 && b > 0"],
-                  ["Assignment", "= += -= *= /=", "a += 5"],
-                  ["Increment/Decrement", "++ --", "a++"],
+                  [{ en: "Arithmetic", hi: "Arithmetic (ganit)" }, "+ - * / %", "a + b"],
+                  [{ en: "Relational", hi: "Relational (tulna)" }, "< > <= >= == !=", "a > b"],
+                  [{ en: "Logical", hi: "Logical" }, "&& || !", "a > 0 && b > 0"],
+                  [{ en: "Assignment", hi: "Assignment" }, "= += -= *= /=", "a += 5"],
+                  [{ en: "Increment/Decrement", hi: "Increment/Decrement" }, "++ --", "a++"],
                 ],
               },
               {
                 type: "note",
                 variant: "info",
-                text: "The modulus operator % gives the remainder and works only with integers. 10 % 3 is 1.",
+                text: {
+                  en: "The modulus operator % gives the remainder and works only with integers. 10 % 3 is 1.",
+                  hi: "Modulus operator % remainder (bacha hua) deta hai aur sirf integers ke saath kaam karta hai. 10 % 3 ka answer 1 hota hai.",
+                },
               },
             ],
             quiz: [

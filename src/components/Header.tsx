@@ -7,6 +7,7 @@ import type { SearchDoc } from "@/content/courses/search";
 import { courses } from "@/content/courses";
 import { SearchDialog } from "./SearchDialog";
 import { Logo } from "./Logo";
+import { useLanguage } from "./LanguageProvider";
 import {
   SearchIcon,
   MenuIcon,
@@ -35,6 +36,7 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
   const [dark, setDark] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, toggle: toggleLang } = useLanguage();
   const pathname = usePathname();
 
   const isActive = (href: string) =>
@@ -129,6 +131,16 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
           >
             <BookmarkIcon className="h-5 w-5" />
           </Link>
+          <button
+            onClick={toggleLang}
+            aria-label={`Switch language, current: ${lang === "hi" ? "Hinglish" : "English"}`}
+            title={lang === "hi" ? "Switch to English" : "Hinglish mein padho"}
+            className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-text-muted transition-colors hover:border-primary hover:text-primary"
+          >
+            <span className={lang === "en" ? "text-primary" : ""}>EN</span>
+            <span aria-hidden className="text-text-faint">/</span>
+            <span className={lang === "hi" ? "text-primary" : ""}>हिं</span>
+          </button>
           <button
             onClick={toggleTheme}
             aria-label="Toggle dark mode"
@@ -243,6 +255,18 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
               </Link>
             ))}
             <div className="my-2 border-t border-border" />
+            <div className="flex items-center justify-between rounded-lg px-3 py-2.5">
+              <span className="text-[15px] font-medium text-text">Language</span>
+              <button
+                onClick={toggleLang}
+                aria-label="Toggle language"
+                className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-text-muted"
+              >
+                <span className={lang === "en" ? "text-primary" : ""}>EN</span>
+                <span aria-hidden className="text-text-faint">/</span>
+                <span className={lang === "hi" ? "text-primary" : ""}>हिं</span>
+              </button>
+            </div>
             <Link
               href="/student"
               onClick={() => setMenuOpen(false)}
