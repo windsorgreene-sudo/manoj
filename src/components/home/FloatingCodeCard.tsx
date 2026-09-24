@@ -43,12 +43,7 @@ export function FloatingCodeCard() {
 
   return (
     <div className="relative w-full max-w-sm">
-      {/* Soft glow halo behind the card */}
-      <div
-        className="cv-float-slow pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-primary/30 to-accent/30 blur-2xl"
-        aria-hidden
-      />
-      <div className="cv-float cv-tilt w-full overflow-hidden rounded-2xl border border-[#2a313c] bg-[#0d1117] shadow-[var(--shadow-lg)]">
+      <div className="w-full overflow-hidden rounded-xl border border-[#2a313c] bg-[#0d1117] shadow-[var(--shadow-md)]">
         <div className="flex items-center gap-2 border-b border-white/5 bg-[#161b22] px-3 py-2">
           <span className="flex gap-1.5" aria-hidden>
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
