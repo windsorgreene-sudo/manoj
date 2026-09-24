@@ -20,7 +20,7 @@ export function SectionHeading({
           className="group inline-flex shrink-0 items-center gap-1 rounded-full border border-border px-3 py-1 text-[13px] font-medium text-text-muted transition-colors hover:border-primary hover:text-primary"
         >
           {linkLabel}
-          <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:cv-bounce-x">→</span>
         </Link>
       )}
     </div>

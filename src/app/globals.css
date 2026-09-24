@@ -691,3 +691,179 @@ body {
 }
 
 /* Prevent theme flash: applied inline before hydration */
+
+
+/* =========================================================================
+   Extra effects & animations (v2 polish)
+   New utilities layered on top of the base system. All reduced-motion safe
+   via the existing prefers-reduced-motion block above.
+   ========================================================================= */
+
+/* Blinking terminal / typewriter caret */
+@keyframes cv-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cv-caret {
+  animation: cv-blink 1s steps(1) infinite;
+}
+
+/* Soft pulsing glow ring (for badges, live dots, CTAs) */
+@keyframes cv-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in oklab, var(--primary) 0%, transparent);
+  }
+}
+.cv-glow-pulse {
+  animation: cv-glow-pulse 2.2s ease-out infinite;
+}
+
+/* Gentle bounce (arrows, chevrons) */
+@keyframes cv-bounce-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.cv-bounce-x {
+  animation: cv-bounce-x 1.1s ease-in-out infinite;
+}
+
+/* Continuous slow rotation (decorative rings/blobs) */
+@keyframes cv-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.cv-spin-slow {
+  animation: cv-spin-slow 26s linear infinite;
+}
+
+/* Animated conic gradient border (wraps a child .cv-border-inner) */
+@keyframes cv-border-spin {
+  to { transform: rotate(1turn); }
+}
+.cv-gradient-border {
+  position: relative;
+  border-radius: 1rem;
+  isolation: isolate;
+}
+.cv-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    var(--primary),
+    var(--accent),
+    var(--primary)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+.cv-gradient-border:hover::before {
+  opacity: 1;
+  animation: cv-border-spin 3.5s linear infinite;
+}
+
+/* 3D hover tilt / lift — pairs with the JS tilt or standalone hover */
+.cv-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+.cv-tilt:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-4deg) translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Magnetic glow that follows the pointer (uses --mx/--my set inline by JS) */
+.cv-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.cv-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in oklab, var(--primary) 18%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.cv-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Dotted grid backdrop for sections */
+.cv-dot-grid {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--text) 12%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 40%, #000 40%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 40%, #000 40%, transparent 75%);
+}
+
+/* Underline that grows from center */
+.cv-underline-grow {
+  position: relative;
+}
+.cv-underline-grow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cv-underline-grow:hover::after {
+  width: 100%;
+}
+
+/* Icon pop on hover */
+.cv-icon-pop {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.group:hover .cv-icon-pop {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* Subtle continuous scale breathe (hero badge dot etc.) */
+@keyframes cv-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+.cv-breathe {
+  animation: cv-breathe 2s ease-in-out infinite;
+}
+
+/* Reduced-motion: silence the new continuous animations too */
+@media (prefers-reduced-motion: reduce) {
+  .cv-caret,
+  .cv-glow-pulse,
+  .cv-bounce-x,
+  .cv-spin-slow,
+  .cv-breathe {
+    animation: none !important;
+  }
+  .cv-gradient-border:hover::before {
+    animation: none !important;
+  }
+}

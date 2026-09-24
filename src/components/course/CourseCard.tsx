@@ -30,7 +30,12 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/courses/${course.slug}`}
-      className="sheen hover-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface"
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+        e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+      }}
+      className="sheen hover-lift cv-gradient-border cv-spotlight group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface"
     >
       {/* Gradient header */}
       <div
@@ -40,7 +45,7 @@ export function CourseCard({ course }: { course: Course }) {
         }}
       >
         <CourseArt color={course.color} className="pointer-events-none absolute inset-0 h-full w-full" />
-        <span className="relative text-4xl drop-shadow-sm transition-transform duration-300 group-hover:scale-110">
+        <span className="cv-icon-pop relative text-4xl drop-shadow-sm">
           {course.icon}
         </span>
         <span className="relative rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
@@ -80,7 +85,7 @@ export function CourseCard({ course }: { course: Course }) {
         ) : (
           <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
             Start learning
-            <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:cv-bounce-x">→</span>
           </span>
         )}
       </div>
