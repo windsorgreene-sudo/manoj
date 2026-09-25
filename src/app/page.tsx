@@ -8,6 +8,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
+import { BentoGrid } from "@/components/home/BentoGrid";
 import { ArrowRight } from "@/components/icons";
 
 const STATS: { label: string; value: number | string; suffix?: string }[] = [
@@ -118,6 +119,9 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Why CodeVidya — feature bento */}
+        <BentoGrid />
 
         {/* Learning paths */}
         <section className="mb-10">
