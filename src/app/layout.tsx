@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { Analytics } from "@vercel/analytics/next";
 import { buildSearchIndex } from "@/content/courses/search";
 import { SITE } from "@/lib/site";
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <ScrollToTop />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );

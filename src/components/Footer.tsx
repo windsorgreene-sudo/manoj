@@ -6,20 +6,20 @@ const columns = [
   {
     title: "Courses",
     links: [
-      { label: "HTML Fundamentals", href: "/courses/html-fundamentals" },
-      { label: "CSS Mastery", href: "/courses/css-mastery" },
-      { label: "JavaScript Core", href: "/courses/javascript-core" },
-      { label: "Python for Beginners", href: "/courses/python-for-beginners" },
+      { label: "C Programming", href: "/courses/c-programming" },
+      { label: "Python", href: "/courses/python-programming" },
+      { label: "Data Structures", href: "/courses/data-structures" },
+      { label: "DBMS & SQL", href: "/courses/dbms-sql" },
       { label: "All courses", href: "/courses" },
     ],
   },
   {
     title: "Learn",
     links: [
-      { label: "React.js", href: "/courses/react-complete" },
-      { label: "Data Structures", href: "/courses/dsa" },
-      { label: "SQL & Databases", href: "/courses/sql-databases" },
-      { label: "System Design", href: "/courses/system-design" },
+      { label: "OOP with Java", href: "/courses/oop-java" },
+      { label: "Operating Systems", href: "/courses/operating-systems" },
+      { label: "Computer Networks", href: "/courses/computer-networks" },
+      { label: "Web Technology", href: "/courses/web-technology" },
     ],
   },
   {
@@ -56,8 +56,8 @@ export function Footer() {
             </div>
             <p className="mt-2 max-w-xs text-sm text-text-muted">{SITE.tagline}</p>
             <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-text-muted">
-              Animated tutorials, a live code editor and expert-crafted courses for developers at
-              every level.
+              Exam-ready notes, solved programs and a live code editor for GGSIPU BCA, B.Tech and
+              MCA students, in English and Hinglish.
             </p>
           </div>
           {columns.map((col) => (
@@ -82,7 +82,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <p>Built for learners. Free forever.</p>
+          <p>Built for IPU students 🇮🇳 · Free forever.</p>
         </div>
       </div>
     </footer>
