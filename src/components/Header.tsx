@@ -19,11 +19,12 @@ import {
 } from "./icons";
 
 // EduLearn primary navigation. "Courses" opens a dropdown of the catalog.
+// Primary nav is content-focused. The account/dashboard entry point is the
+// "My Dashboard" button on the right, so we don't duplicate it here.
 const NAV = [
   { key: "courses", label: "Courses", href: "/courses", dropdown: true },
   { key: "playground", label: "Playground", href: "/playground", dropdown: false },
   { key: "paths", label: "Learning Paths", href: "/#paths", dropdown: false },
-  { key: "dashboard", label: "Dashboard", href: "/student", dropdown: false },
 ];
 
 function courseDropdown() {
@@ -125,8 +126,9 @@ export function Header({ searchIndex }: { searchIndex: SearchDoc[] }) {
             <SearchIcon className="h-5 w-5" />
           </button>
           <Link
-            href="/student"
-            aria-label="My dashboard and bookmarks"
+            href="/student#bookmarks"
+            aria-label="My bookmarks"
+            title="Bookmarks"
             className="hidden rounded-full p-2 text-text-muted hover:bg-surface-2 sm:inline-flex"
           >
             <BookmarkIcon className="h-5 w-5" />

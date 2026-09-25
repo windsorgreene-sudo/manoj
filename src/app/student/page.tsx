@@ -138,7 +138,7 @@ export default function StudentDashboard() {
         </section>
 
         {/* Bookmarks */}
-        <section>
+        <section id="bookmarks" className="scroll-mt-24">
           <h2 className="font-display mb-3 border-b border-border pb-2 text-lg font-bold text-text">
             Bookmarks
           </h2>
