@@ -7,9 +7,7 @@ import { Roadmap } from "@/components/home/Roadmap";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { Marquee } from "@/components/Marquee";
 import { BentoGrid } from "@/components/home/BentoGrid";
-import { Testimonials } from "@/components/home/Testimonials";
 import { Faq } from "@/components/home/Faq";
 import { ArrowRight } from "@/components/icons";
 
@@ -18,14 +16,6 @@ const STATS: { label: string; value: number | string; suffix?: string }[] = [
   { label: "Lessons", value: totalLessons(), suffix: "+" },
   { label: "Programmes", value: 4, suffix: "" },
   { label: "Always free", value: 100, suffix: "%" },
-];
-
-const HOW_IT_WORKS = [
-  { step: 1, title: "Choose a course", text: "Pick a track that fits your goal, from HTML to system design." },
-  { step: 2, title: "Read animated lessons", text: "Clear explanations with real, runnable code examples." },
-  { step: 3, title: "Practice in the editor", text: "Try the code live in the built-in playground." },
-  { step: 4, title: "Take a quiz", text: "Check your understanding with a quick quiz." },
-  { step: 5, title: "Track your progress", text: "Earn XP and badges as you complete lessons." },
 ];
 
 export default function HomePage() {
@@ -102,13 +92,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Course topic marquee */}
-      <section className="border-b border-border bg-bg py-3">
-        <Marquee
-          items={courses.map((c) => ({ label: `${c.icon} ${c.title}`, href: `/courses/${c.slug}`, slug: c.slug }))}
-        />
-      </section>
-
       <div className="mx-auto max-w-[1200px] px-4 py-10">
         {/* Featured courses */}
         <section className="mb-10">
@@ -149,27 +132,6 @@ export default function HomePage() {
             />
           </div>
         </section>
-
-        {/* How it works */}
-        <section className="mb-10">
-          <SectionHeading title="How It Works" />
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {HOW_IT_WORKS.map((s, i) => (
-              <Reveal key={s.step} delay={i * 60}>
-                <div className="hover-lift group h-full rounded-lg border border-border bg-surface p-4">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-soft text-xs font-bold text-primary">
-                    {s.step}
-                  </span>
-                  <h3 className="mt-2.5 font-display text-sm font-semibold text-text">{s.title}</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-text-muted">{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <Testimonials />
 
         {/* FAQ */}
         <Faq />
