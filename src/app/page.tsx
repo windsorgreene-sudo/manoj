@@ -9,6 +9,8 @@ import { Reveal } from "@/components/Reveal";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
 import { BentoGrid } from "@/components/home/BentoGrid";
+import { Testimonials } from "@/components/home/Testimonials";
+import { Faq } from "@/components/home/Faq";
 import { ArrowRight } from "@/components/icons";
 
 const STATS: { label: string; value: number | string; suffix?: string }[] = [
@@ -165,6 +167,12 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Testimonials */}
+        <Testimonials />
+
+        {/* FAQ */}
+        <Faq />
 
         {/* Final CTA */}
         <Reveal
