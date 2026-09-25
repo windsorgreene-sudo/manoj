@@ -3,12 +3,9 @@ import { courses, totalLessons } from "@/content/courses";
 import { HeroSearchButton } from "@/components/HeroSearchButton";
 import { CourseCard } from "@/components/course/CourseCard";
 import { FloatingCodeCard } from "@/components/home/FloatingCodeCard";
-import { Roadmap } from "@/components/home/Roadmap";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { BentoGrid } from "@/components/home/BentoGrid";
-import { Faq } from "@/components/home/Faq";
 import { ArrowRight } from "@/components/icons";
 
 const STATS: { label: string; value: number | string; suffix?: string }[] = [
@@ -104,37 +101,6 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-
-        {/* Why CodeVidya — feature bento */}
-        <BentoGrid />
-
-        {/* Learning paths */}
-        <section className="mb-10">
-          <SectionHeading title="Follow a Learning Path" />
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <Roadmap
-              title="Programming Path"
-              nodes={[
-                { label: "C", icon: "💻", href: "/courses/c-programming" },
-                { label: "Python", icon: "🐍", href: "/courses/python-programming" },
-                { label: "OOP Java", icon: "☕", href: "/courses/oop-java" },
-                { label: "Web Tech", icon: "🕸️", href: "/courses/web-technology" },
-              ]}
-            />
-            <Roadmap
-              title="Core CS Path"
-              nodes={[
-                { label: "Data Structures", icon: "🧩", href: "/courses/data-structures" },
-                { label: "DBMS", icon: "🗃️", href: "/courses/dbms-sql" },
-                { label: "OS", icon: "🖥️", href: "/courses/operating-systems" },
-                { label: "Networks", icon: "🌐", href: "/courses/computer-networks" },
-              ]}
-            />
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <Faq />
 
         {/* Final CTA */}
         <Reveal
