@@ -1,15 +1,33 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { prepareMdx, type PreparedMdx } from "@/lib/mdx";
+import { prepareMdx, type CodeBlockData, type PreparedMdx } from "@/lib/mdx";
 import { Callout } from "@/components/content/callout";
 import { CodeBlock } from "@/components/content/code-block";
 import { CodeTabs } from "@/components/content/code-tabs";
 
 /** Server-rendered MDX with Shiki code blocks, language tabs and callouts. */
-export async function MdxContent({ content, prepared, tryIt = true }: { content: string; prepared?: PreparedMdx; tryIt?: boolean }) {
+function StaticBlock({ block }: { block: CodeBlockData }) {
+  return (
+    <div className="my-6 overflow-hidden rounded-2xl border border-border">
+      <div className="border-b border-border px-3 py-1.5 font-mono text-xs text-muted-foreground">{block.label}</div>
+      <div className="[&_pre]:!m-0 [&_pre]:!rounded-none [&_pre]:!bg-transparent" dangerouslySetInnerHTML={{ __html: block.html }} />
+    </div>
+  );
+}
+
+/**
+ * Server-rendered MDX with Shiki code blocks, language tabs and callouts.
+ * `staticCode` renders code without client islands (used by the editor's server-action preview).
+ */
+export async function MdxContent({ content, prepared, tryIt = true, staticCode = false }: { content: string; prepared?: PreparedMdx; tryIt?: boolean; staticCode?: boolean }) {
   const { source, blocks, tabs } = prepared ?? (await prepareMdx(content));
-  const components = {
+  const staticComponents = {
+    CodeBlock: ({ id }: { id: string }) => (blocks[Number(id)] ? <StaticBlock block={blocks[Number(id)]} /> : null),
+    CodeTabs: ({ id }: { id: string }) => <>{tabs[Number(id)]?.map((i) => (blocks[i] ? <StaticBlock key={i} block={blocks[i]} /> : null))}</>,
+    Callout,
+  };
+  const components = staticCode ? staticComponents : {
     CodeBlock: ({ id }: { id: string }) => {
       const b = blocks[Number(id)];
       return b ? <CodeBlock block={b} tryIt={tryIt} /> : null;

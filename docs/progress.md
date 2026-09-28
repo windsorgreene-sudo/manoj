@@ -65,19 +65,20 @@
 - [x] Lint + type-check + build green; commit "Phase 5: Student Panel"
 
 ## Phase 6 — Admin Panel
-- [ ] Layout (collapsible sidebar, top bar) + server-side role checks everywhere
-- [ ] Overview KPIs, charts, activity feed
-- [ ] CMS: courses/modules/lessons (DnD), articles (MDX editor, workflow, revisions, SEO), problems, quizzes, sheets, roadmaps
-- [ ] Contests admin (schedule, attach problems, standings, freeze)
-- [ ] Contributor review queue
-- [ ] Users table (search, sort, paginate, role, ban, CSV)
-- [ ] Moderation queue
-- [ ] Media library
-- [ ] Analytics
-- [ ] Announcements
-- [ ] Settings (branding, feature flags, maintenance)
-- [ ] Audit log
-- [ ] Lint + type-check + build green; commit "Phase 6: Admin Panel"
+- [x] Layout (collapsible sidebar, top bar) + server-side role checks everywhere
+- [x] Overview KPIs, charts, activity feed
+- [x] CMS: courses/modules/lessons (DnD), articles (MDX editor, workflow, revisions, SEO), problems, quizzes, sheets, roadmaps
+- [x] Contests admin (schedule, attach problems, standings, freeze)
+- [x] Contributor review queue
+- [x] Users table (search, sort, paginate, role, ban, CSV)
+- [x] Moderation queue
+- [x] Media library
+- [x] Analytics
+- [x] Announcements
+- [x] Settings (branding, feature flags, maintenance)
+- [x] Audit log
+- Note: monetization pages (plans, coupons, payments) ship with Phase 7 payments.
+- [x] Lint + type-check + build green; commit "Phase 6: Admin Panel"
 
 ## Phase 7 — Contests, Payments & Launch
 - [ ] Contests (list, registration, realtime/polling leaderboard, 3D podium, ratings)

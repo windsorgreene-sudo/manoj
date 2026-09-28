@@ -44,3 +44,6 @@ export function timeAgo(d: Date | string) {
 }
 
 export const appUrl = () => process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+/** Current time (ms). Wrapper keeps server components free of direct impure calls. */
+export const nowMs = () => Date.now();

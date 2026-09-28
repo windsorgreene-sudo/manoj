@@ -1,10 +1,12 @@
 import "server-only";
 import { cache } from "react";
 import { db } from "@/lib/db";
+import { publishDueArticles } from "@/lib/admin";
 
 export type TreeCategory = { slug: string; name: string; articles: { slug: string; title: string; difficulty: "EASY" | "MEDIUM" | "HARD" }[] };
 
 export const getTutorialTree = cache(async (): Promise<TreeCategory[]> => {
+  await publishDueArticles();
   const cats = await db.category.findMany({
     where: { slug: { not: "blog" } },
     orderBy: { order: "asc" },
