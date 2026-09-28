@@ -1,16 +1,46 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Hero } from "@/components/marketing/hero";
+import { StoryExperience } from "@/components/marketing/story";
+import { CourseCarousel } from "@/components/marketing/course-carousel";
+import {
+  FaqSection,
+  FeaturesSection,
+  LearningPathsSection,
+  NewsletterCta,
+  PricingSection,
+  StatsSection,
+  TechMarquee,
+  TestimonialsSection,
+} from "@/components/marketing/sections";
+import { getFeaturedCourses, getPlatformStats } from "@/lib/queries/courses";
+import { JsonLd } from "@/components/seo/json-ld";
+import { appUrl, formatNumber } from "@/lib/utils";
 
-export default function HomePage() {
+export const revalidate = 600;
+
+export default async function HomePage() {
+  const [courses, stats] = await Promise.all([getFeaturedCourses(), getPlatformStats()]);
   return (
-    <section className="container-cv py-32 text-center">
-      <h1 className="font-heading text-5xl font-bold md:text-7xl">
-        Learn. Practice. <span className="text-gradient">Compete.</span>
-      </h1>
-      <p className="mx-auto mt-6 max-w-xl text-muted-foreground">The premium coding platform — the full landing arrives in Phase 2.</p>
-      <Button asChild className="mt-8 rounded-xl">
-        <Link href="/signup">Start free</Link>
-      </Button>
-    </section>
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "CodeVerse",
+          url: appUrl(),
+          logo: `${appUrl()}/icon.svg`,
+          sameAs: ["https://github.com", "https://x.com", "https://linkedin.com"],
+        }}
+      />
+      <StoryExperience hero={<Hero learners={formatNumber(stats.learners)} />} />
+      <StatsSection stats={stats} />
+      <TechMarquee />
+      <FeaturesSection />
+      <CourseCarousel courses={courses} />
+      <LearningPathsSection />
+      <TestimonialsSection />
+      <PricingSection compact />
+      <FaqSection />
+      <NewsletterCta />
+    </>
   );
 }

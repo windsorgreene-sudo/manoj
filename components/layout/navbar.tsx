@@ -14,10 +14,23 @@ import { primaryNav, practiceNav } from "@/components/layout/nav-links";
 import { Magnetic } from "@/components/motion/magnetic";
 import { useUiStore } from "@/lib/stores/ui-store";
 import type { SessionUser } from "@/lib/session";
+import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
-export function Navbar({ user }: { user: SessionUser | null }) {
+export function Navbar() {
   const pathname = usePathname();
+  const { data: session, isPending } = useSession();
+  const user: SessionUser | null = session
+    ? {
+        id: session.user.id,
+        name: session.user.name,
+        email: session.user.email,
+        image: session.user.image ?? null,
+        role: (session.user.role as SessionUser["role"]) ?? "STUDENT",
+        username: session.user.username ?? null,
+        isPro: Boolean(session.user.isPro),
+      }
+    : null;
   const [scrolled, setScrolled] = useState(false);
   const openSearch = useUiStore((s) => s.setSearchOpen);
 
@@ -102,7 +115,9 @@ export function Navbar({ user }: { user: SessionUser | null }) {
             <Search className="size-5" />
           </Button>
           <ThemeToggle />
-          {user ? (
+          {isPending ? (
+            <div className="shimmer size-9 rounded-full" aria-hidden />
+          ) : user ? (
             <UserMenu user={user} />
           ) : (
             <div className="hidden items-center gap-2 sm:flex">

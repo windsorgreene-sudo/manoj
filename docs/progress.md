@@ -19,15 +19,15 @@
 - [x] Lint + type-check + build green; commit "Phase 1: Foundation"
 
 ## Phase 2 — 3D Landing & Marketing
-- [ ] 3D "Knowledge Core" hero (crystal planet, orbiting tech logos, particle field, bloom, chromatic aberration)
-- [ ] SplitText headline + typewriter code snippet
-- [ ] Scroll storytelling: pinned 4 chapters (Learn → Practice → Compete → Get Hired)
-- [ ] Count-up stats, 3D tilt course cards, horizontal carousel, logo marquee
-- [ ] Features, popular courses, learning paths, testimonials, pricing, FAQ, newsletter footer
-- [ ] Course catalog (filters, sorting, search)
-- [ ] Pricing, About, Contact, Blog, Privacy, Terms, Write for Us
-- [ ] 3D 404 (astronaut) and 500 pages
-- [ ] Lint + type-check + build green; commit "Phase 2: 3D Landing & Marketing"
+- [x] 3D "Knowledge Core" hero (crystal planet, orbiting tech logos, particle field, bloom, chromatic aberration)
+- [x] SplitText headline + typewriter code snippet
+- [x] Scroll storytelling: pinned 4 chapters (Learn → Practice → Compete → Get Hired)
+- [x] Count-up stats, 3D tilt course cards, horizontal carousel, logo marquee
+- [x] Features, popular courses, learning paths, testimonials, pricing, FAQ, newsletter footer
+- [x] Course catalog (filters, sorting, search)
+- [x] Pricing, About, Contact, Blog, Privacy, Terms, Write for Us
+- [x] 3D 404 (astronaut) and 500 pages
+- [x] Lint + type-check + build green; commit "Phase 2: 3D Landing & Marketing"
 
 ## Phase 3 — Learn
 - [ ] Course detail (syllabus accordion, preview lessons, reviews, enroll, progress)
@@ -95,6 +95,7 @@
 |---|---|---|
 | `RESEND_API_KEY` | Emails (verification, reset, newsletter) printed to the server console | `lib/email.ts` |
 | `GOOGLE_*` / `GITHUB_*` | Social login buttons hidden | `components/auth/social-buttons.tsx` |
+| `JUDGE0_*` | `/api/run` returns 503 + the console shows an "Add your Judge0 key" panel | `lib/judge0.ts`, `components/editor/run-output.tsx` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
 
 Notes:

@@ -10,6 +10,7 @@ export function CustomCursor() {
   const reduced = useReducedMotion();
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const wrap = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!desktop || reduced) return;
@@ -17,10 +18,17 @@ export function CustomCursor() {
       y = 0,
       rx = 0,
       ry = 0,
-      raf = 0;
+      raf = 0,
+      shown = false;
     const move = (e: PointerEvent) => {
       x = e.clientX;
       y = e.clientY;
+      if (!shown) {
+        shown = true;
+        rx = x;
+        ry = y;
+        wrap.current?.style.setProperty("opacity", "1");
+      }
       const target = e.target as HTMLElement | null;
       const interactive = Boolean(target?.closest("a,button,[role=button],input,textarea,select,[data-cursor=hover]"));
       ring.current?.classList.toggle("scale-[1.8]", interactive);
@@ -45,7 +53,7 @@ export function CustomCursor() {
 
   if (!desktop || reduced) return null;
   return (
-    <div aria-hidden className="cursor-dot pointer-events-none fixed inset-0 z-[100]">
+    <div ref={wrap} aria-hidden className="cursor-dot pointer-events-none fixed inset-0 z-[100] opacity-0 transition-opacity">
       <div ref={dot} className="fixed left-0 top-0 size-1.5 rounded-full bg-brand-soft" />
       <div
         ref={ring}
