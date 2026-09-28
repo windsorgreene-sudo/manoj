@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { FooterGate } from "@/components/layout/footer-gate";
 import { CommandPalette } from "@/components/layout/command-palette";
 import { TutorPanel } from "@/components/learn/tutor-panel";
 
@@ -12,7 +13,11 @@ export function SiteShell({ children, footer = true }: { children: ReactNode; fo
       <main id="main" className="relative">
         {children}
       </main>
-      {footer ? <Footer /> : null}
+      {footer ? (
+        <FooterGate>
+          <Footer />
+        </FooterGate>
+      ) : null}
       <CommandPalette />
       <TutorPanel />
     </>

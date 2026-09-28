@@ -41,14 +41,14 @@
 - [x] Lint + type-check + build green; commit "Phase 3: Learn"
 
 ## Phase 4 — Practice
-- [ ] Problems list (filters, tags, acceptance, status, Pick Random)
-- [ ] Problem workspace (split panes, tabs, Monaco, console, Run/Submit, verdicts)
-- [ ] Playground (stdin, save & share)
-- [ ] DSA sheets with progress
-- [ ] Roadmaps (node graphs)
-- [ ] Visualizers (sorting, binary search, linked list, stack/queue, BST, BFS/DFS, Dijkstra)
-- [ ] 3D Data Structure Lab
-- [ ] Lint + type-check + build green; commit "Phase 4: Practice"
+- [x] Problems list (filters, tags, acceptance, status, Pick Random)
+- [x] Problem workspace (split panes, tabs, Monaco, console, Run/Submit, verdicts)
+- [x] Playground (stdin, save & share)
+- [x] DSA sheets with progress
+- [x] Roadmaps (node graphs)
+- [x] Visualizers (sorting, binary search, linked list, stack/queue, BST, BFS/DFS, Dijkstra)
+- [x] 3D Data Structure Lab
+- [x] Lint + type-check + build green; commit "Phase 4: Practice"
 
 ## Phase 5 — Student Panel
 > Note: AI Tutor side panel + gamification engine (`lib/gamification.ts`) were built early in Phase 3.
@@ -98,6 +98,7 @@
 | `GOOGLE_*` / `GITHUB_*` | Social login buttons hidden | `components/auth/social-buttons.tsx` |
 | `JUDGE0_*` | `/api/run` returns 503 + the console shows an "Add your Judge0 key" panel | `lib/judge0.ts`, `components/editor/run-output.tsx` |
 | `OPENAI_API_KEY` | Mocked streaming AI tutor (explain / 4-level hints / code review / quiz, EN + HI) | `lib/ai-tutor.ts`, `app/api/ai/tutor` |
+| `PUSHER_*` | `lib/realtime.ts` publish() no-ops; leaderboards/notifications poll | `lib/realtime.ts` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
 
 Notes:
