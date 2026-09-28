@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MotionConfig } from "motion/react";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { CelebrationLayer } from "@/components/motion/celebration-layer";
 
 export function Providers({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -20,6 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
         <MotionConfig reducedMotion="user">
           <TooltipProvider delayDuration={200}>
             {children}
+            <CelebrationLayer />
             <Toaster richColors theme="dark" position="bottom-right" closeButton />
           </TooltipProvider>
         </MotionConfig>

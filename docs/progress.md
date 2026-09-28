@@ -30,15 +30,15 @@
 - [x] Lint + type-check + build green; commit "Phase 2: 3D Landing & Marketing"
 
 ## Phase 3 — Learn
-- [ ] Course detail (syllabus accordion, preview lessons, reviews, enroll, progress)
-- [ ] Tutorial reader: 3 columns, topic tree, MDX + Shiki, TOC scroll-spy
-- [ ] Code tabs, copy, "Try it Yourself" lazy editor
-- [ ] Reading progress, time, difficulty, author, updated date
-- [ ] Highlight → note, bookmark, like, share, improve
-- [ ] Inline quiz, related, prev/next, comments with replies + upvotes
-- [ ] Reusable Judge0 service (with no-key message)
-- [ ] Ctrl+K command palette search (Postgres full-text fallback)
-- [ ] Lint + type-check + build green; commit "Phase 3: Learn"
+- [x] Course detail (syllabus accordion, preview lessons, reviews, enroll, progress)
+- [x] Tutorial reader: 3 columns, topic tree, MDX + Shiki, TOC scroll-spy
+- [x] Code tabs, copy, "Try it Yourself" lazy editor
+- [x] Reading progress, time, difficulty, author, updated date
+- [x] Highlight → note, bookmark, like, share, improve
+- [x] Inline quiz, related, prev/next, comments with replies + upvotes
+- [x] Reusable Judge0 service (with no-key message)
+- [x] Ctrl+K command palette search (Postgres full-text fallback)
+- [x] Lint + type-check + build green; commit "Phase 3: Learn"
 
 ## Phase 4 — Practice
 - [ ] Problems list (filters, tags, acceptance, status, Pick Random)
@@ -51,6 +51,7 @@
 - [ ] Lint + type-check + build green; commit "Phase 4: Practice"
 
 ## Phase 5 — Student Panel
+> Note: AI Tutor side panel + gamification engine (`lib/gamification.ts`) were built early in Phase 3.
 - [ ] Overview (greeting, XP/level, streak + freeze, POTD countdown, continue learning, contests)
 - [ ] Stats (donut, radar, languages, weekly time, heatmap)
 - [ ] My Courses, My Sheets, Bookmarks, Notes & Highlights (search, markdown, PDF export)
@@ -96,6 +97,7 @@
 | `RESEND_API_KEY` | Emails (verification, reset, newsletter) printed to the server console | `lib/email.ts` |
 | `GOOGLE_*` / `GITHUB_*` | Social login buttons hidden | `components/auth/social-buttons.tsx` |
 | `JUDGE0_*` | `/api/run` returns 503 + the console shows an "Add your Judge0 key" panel | `lib/judge0.ts`, `components/editor/run-output.tsx` |
+| `OPENAI_API_KEY` | Mocked streaming AI tutor (explain / 4-level hints / code review / quiz, EN + HI) | `lib/ai-tutor.ts`, `app/api/ai/tutor` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
 
 Notes:
