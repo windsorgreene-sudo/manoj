@@ -52,17 +52,17 @@
 
 ## Phase 5 — Student Panel
 > Note: AI Tutor side panel + gamification engine (`lib/gamification.ts`) were built early in Phase 3.
-- [ ] Overview (greeting, XP/level, streak + freeze, POTD countdown, continue learning, contests)
-- [ ] Stats (donut, radar, languages, weekly time, heatmap)
-- [ ] My Courses, My Sheets, Bookmarks, Notes & Highlights (search, markdown, PDF export)
-- [ ] Submission history with code viewer + diff
-- [ ] Smart Revision flashcards (spaced repetition)
-- [ ] Achievements (3D badges) + leaderboards (global / college / friends)
-- [ ] AI Tutor side panel (streaming; mocked fallback)
-- [ ] Gamification (XP rules, streak bonus, levels, badges, confetti, level-up modal)
-- [ ] Notifications center + settings
-- [ ] Public profile /u/[username] with follow
-- [ ] Lint + type-check + build green; commit "Phase 5: Student Panel"
+- [x] Overview (greeting, XP/level, streak + freeze, POTD countdown, continue learning, contests)
+- [x] Stats (donut, radar, languages, weekly time, heatmap)
+- [x] My Courses, My Sheets, Bookmarks, Notes & Highlights (search, markdown, PDF export)
+- [x] Submission history with code viewer + diff
+- [x] Smart Revision flashcards (spaced repetition)
+- [x] Achievements (3D badges) + leaderboards (global / college / friends)
+- [x] AI Tutor side panel (streaming; mocked fallback)
+- [x] Gamification (XP rules, streak bonus, levels, badges, confetti, level-up modal)
+- [x] Notifications center + settings
+- [x] Public profile /u/[username] with follow
+- [x] Lint + type-check + build green; commit "Phase 5: Student Panel"
 
 ## Phase 6 — Admin Panel
 - [ ] Layout (collapsible sidebar, top bar) + server-side role checks everywhere
@@ -99,6 +99,7 @@
 | `JUDGE0_*` | `/api/run` returns 503 + the console shows an "Add your Judge0 key" panel | `lib/judge0.ts`, `components/editor/run-output.tsx` |
 | `OPENAI_API_KEY` | Mocked streaming AI tutor (explain / 4-level hints / code review / quiz, EN + HI) | `lib/ai-tutor.ts`, `app/api/ai/tutor` |
 | `PUSHER_*` | `lib/realtime.ts` publish() no-ops; leaderboards/notifications poll | `lib/realtime.ts` |
+| `CLOUDINARY_*` | Uploads (avatars, media) saved to `public/uploads` | `lib/uploads.ts` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
 
 Notes:
