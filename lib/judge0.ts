@@ -155,6 +155,8 @@ export async function judge(opts: {
   revealHidden?: boolean;
   concurrency?: number;
 }): Promise<JudgeResult> {
+  // A problem without test cases must never be "Accepted" (that would hand out XP for any code).
+  if (!opts.tests.length) return { verdict: "INTERNAL_ERROR", passed: 0, total: 0, runtimeMs: null, memoryKb: null, compileOutput: "", results: [] };
   const results: TestResult[] = new Array(opts.tests.length);
   let compileOutput = "";
   let idx = 0;

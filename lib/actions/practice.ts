@@ -1,11 +1,12 @@
 "use server";
 
+import { headers } from "next/headers";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { snippetSchema } from "@/lib/validators/code";
-import { rateLimit } from "@/lib/rate-limit";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 const shareId = customAlphabet("23456789abcdefghjkmnpqrstuvwxyz", 10);
 
@@ -24,7 +25,9 @@ export async function saveSnippet(input: z.input<typeof snippetSchema>) {
   const data = snippetSchema.safeParse(input);
   if (!data.success) return { ok: false as const, error: data.error.issues[0]?.message ?? "Invalid snippet" };
   const user = await getCurrentUser();
-  if (!rateLimit(`snip:${user?.id ?? "anon"}`, 10, 60_000).success) return { ok: false as const, error: "Too many snippets, slow down." };
+  // Signed-out visitors are limited per IP, not through one shared bucket.
+  const who = user?.id ?? `ip:${clientIp(await headers())}`;
+  if (!rateLimit(`snip:${who}`, 10, 60_000).success) return { ok: false as const, error: "Too many snippets, slow down." };
   const s = await db.snippet.create({ data: { ...data.data, shareId: shareId(), userId: user?.id } });
   return { ok: true as const, shareId: s.shareId };
 }

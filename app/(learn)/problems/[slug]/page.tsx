@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { MdxContent } from "@/components/content/mdx-content";
+import { HINGLISH_ID_PREFIX, MdxContent } from "@/components/content/mdx-content";
 import { LangVariant } from "@/components/i18n/lang-variant";
 import { ProblemWorkspace } from "@/components/practice/problem-workspace";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
@@ -64,7 +64,7 @@ export default async function ProblemPage({ params }: { params: Promise<{ slug: 
             memoryLimitMb: p.memoryLimitMb,
             plainStatement: p.statement.slice(0, 3000),
           }}
-          description={<LangVariant en={<MdxContent content={md} tryIt={false} />} hinglish={mdHi ? <MdxContent content={mdHi} tryIt={false} /> : null} />}
+          description={<LangVariant en={<MdxContent content={md} tryIt={false} />} hinglish={mdHi ? <MdxContent content={mdHi} tryIt={false} idPrefix={HINGLISH_ID_PREFIX} /> : null} />}
         />
       </Suspense>
     </>

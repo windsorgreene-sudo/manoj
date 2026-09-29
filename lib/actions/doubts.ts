@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import sanitizeHtml from "sanitize-html";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { castVote } from "@/lib/votes";
 import { assertUser, AuthError } from "@/lib/session";
 import { checkBadges } from "@/lib/gamification";
 import { rateLimit, limits } from "@/lib/rate-limit";
@@ -72,16 +73,7 @@ export async function voteOnPost(input: { target: "DOUBT" | "ANSWER"; id: string
     const owner = d.target === "DOUBT" ? await db.doubt.findUnique({ where: { id: d.id }, select: { userId: true } }) : await db.answer.findUnique({ where: { id: d.id }, select: { userId: true } });
     if (!owner) throw new Error("USER:Post not found.");
     if (owner.userId === user.id) throw new Error("USER:You can't vote on your own post.");
-    const key = { userId_targetType_targetId: { userId: user.id, targetType: d.target, targetId: d.id } };
-    const existing = await db.vote.findUnique({ where: key });
-    const delta = d.value - (existing?.value ?? 0);
-    if (d.value === 0) {
-      if (existing) await db.vote.delete({ where: key });
-    } else await db.vote.upsert({ where: key, update: { value: d.value }, create: { userId: user.id, targetType: d.target, targetId: d.id, value: d.value } });
-    const score =
-      d.target === "DOUBT"
-        ? (await db.doubt.update({ where: { id: d.id }, data: { score: { increment: delta } }, select: { score: true } })).score
-        : (await db.answer.update({ where: { id: d.id }, data: { score: { increment: delta } }, select: { score: true } })).score;
+    const score = await castVote(user.id, d.target, d.id, d.value);
     return { score };
   });
 }

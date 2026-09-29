@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CalendarDays, Clock } from "lucide-react";
-import { MdxContent } from "@/components/content/mdx-content";
+import { HINGLISH_ID_PREFIX, MdxContent } from "@/components/content/mdx-content";
 import { ArticleActions } from "@/components/learn/article-actions";
 import { ArticleBody } from "@/components/learn/article-body";
 import { Comments } from "@/components/learn/comments";
@@ -42,7 +42,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
-  const [tree, related, prepared, preparedHi] = await Promise.all([getTutorialTree(), getRelatedArticles(article), prepareMdx(article.content), article.contentHinglish ? prepareMdx(article.contentHinglish) : Promise.resolve(null)]);
+  const [tree, related, prepared, preparedHi] = await Promise.all([getTutorialTree(), getRelatedArticles(article), prepareMdx(article.content), article.contentHinglish ? prepareMdx(article.contentHinglish, { idPrefix: HINGLISH_ID_PREFIX }) : Promise.resolve(null)]);
   const { prev, next } = prevNext(tree, slug);
   const quiz = article.quizzes[0];
   const url = `${appUrl()}/tutorials/${article.slug}`;
@@ -121,7 +121,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
           <div className="mt-8">
             <ArticleBody articleId={article.id}>
-              <LangVariant en={<MdxContent content={article.content} prepared={prepared} />} hinglish={preparedHi && article.contentHinglish ? <MdxContent content={article.contentHinglish} prepared={preparedHi} /> : null} />
+              <LangVariant en={<MdxContent content={article.content} prepared={prepared} />} hinglish={preparedHi && article.contentHinglish ? <MdxContent content={article.contentHinglish} prepared={preparedHi} idPrefix={HINGLISH_ID_PREFIX} /> : null} />
             </ArticleBody>
           </div>
 

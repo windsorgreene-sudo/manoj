@@ -20,7 +20,10 @@ function StaticBlock({ block }: { block: CodeBlockData }) {
  * Server-rendered MDX with Shiki code blocks, language tabs and callouts.
  * `staticCode` renders code without client islands (used by the editor's server-action preview).
  */
-export async function MdxContent({ content, prepared, tryIt = true, staticCode = false }: { content: string; prepared?: PreparedMdx; tryIt?: boolean; staticCode?: boolean }) {
+/** Heading-id prefix for the Hinglish copy, so it never shares ids with the English one rendered next to it. */
+export const HINGLISH_ID_PREFIX = "hi-";
+
+export async function MdxContent({ content, prepared, tryIt = true, staticCode = false, idPrefix = "" }: { content: string; prepared?: PreparedMdx; tryIt?: boolean; staticCode?: boolean; idPrefix?: string }) {
   const { source, blocks, tabs } = prepared ?? (await prepareMdx(content));
   const staticComponents = {
     CodeBlock: ({ id }: { id: string }) => (blocks[Number(id)] ? <StaticBlock block={blocks[Number(id)]} /> : null),
@@ -43,7 +46,7 @@ export async function MdxContent({ content, prepared, tryIt = true, staticCode =
       <MDXRemote
         source={source}
         components={components}
-        options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] }, blockJS: true }}
+        options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [[rehypeSlug, { prefix: idPrefix }]] }, blockJS: true }}
       />
     </div>
   );

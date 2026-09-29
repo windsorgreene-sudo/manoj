@@ -56,15 +56,15 @@ export default async function Analytics({ searchParams }: { searchParams: Promis
     <div className="space-y-6">
       <PageHeader title="Analytics" description="Content performance, difficulty, funnels, retention and audience." />
       <div className="grid gap-4 xl:grid-cols-2">
-        <section className="glass p-5" aria-labelledby="a1"><h2 id="a1" className="mb-2 font-semibold">Most-read articles</h2><HBar data={topArticles.map((a) => ({ name: a.title.slice(0, 26), views: a.views }))} dataKey="views" nameKey="name" /></section>
-        <section className="glass p-5" aria-labelledby="a2"><h2 id="a2" className="mb-2 font-semibold">Hardest problems (lowest acceptance)</h2><HBar data={hardest.map((h) => ({ name: h.title.slice(0, 26), acceptance: h.acceptance }))} dataKey="acceptance" nameKey="name" unit="%" /></section>
-        <section className="glass p-5" aria-labelledby="a3">
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a1"><h2 id="a1" className="mb-2 font-semibold">Most-read articles</h2><HBar data={topArticles.map((a) => ({ name: a.title.slice(0, 26), views: a.views }))} dataKey="views" nameKey="name" /></section>
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a2"><h2 id="a2" className="mb-2 font-semibold">Hardest problems (lowest acceptance)</h2><HBar data={hardest.map((h) => ({ name: h.title.slice(0, 26), acceptance: h.acceptance }))} dataKey="acceptance" nameKey="name" unit="%" /></section>
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a3">
           <div className="mb-2 flex flex-wrap items-center gap-2"><h2 id="a3" className="font-semibold">Course drop-off funnel</h2>
             <nav aria-label="Course" className="ml-auto flex flex-wrap gap-1">{courses.map((c) => <Link key={c.id} href={`/admin/analytics?course=${c.slug}`} aria-current={c.id === course?.id ? "page" : undefined} className={`rounded-lg px-2 py-1 text-xs ${c.id === course?.id ? "bg-brand text-white" : "bg-surface-2 text-muted-foreground"}`}>{c.title.split(" ")[0]}</Link>)}</nav>
           </div>
           <DropOffFunnel data={funnel} />
         </section>
-        <section className="glass p-5" aria-labelledby="a4">
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a4">
           <h2 id="a4" className="mb-3 font-semibold">Retention cohorts (weekly, % active)</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-xs"><caption className="sr-only">Retention cohorts</caption>
@@ -77,8 +77,8 @@ export default async function Analytics({ searchParams }: { searchParams: Promis
             </table>
           </div>
         </section>
-        <section className="glass p-5" aria-labelledby="a5"><h2 id="a5" className="mb-2 font-semibold">Devices</h2><Donut data={devices.map((d) => ({ name: d.device, value: d._count }))} /></section>
-        <section className="glass p-5" aria-labelledby="a6"><h2 id="a6" className="mb-2 font-semibold">Top countries</h2><Donut data={countries.map((c) => ({ name: c.country, value: c._count }))} /></section>
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a5"><h2 id="a5" className="mb-2 font-semibold">Devices</h2><Donut data={devices.map((d) => ({ name: d.device, value: d._count }))} /></section>
+        <section className="glass min-w-0 overflow-hidden p-5" aria-labelledby="a6"><h2 id="a6" className="mb-2 font-semibold">Top countries</h2><Donut data={countries.map((c) => ({ name: c.country, value: c._count }))} /></section>
       </div>
     </div>
   );

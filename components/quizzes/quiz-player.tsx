@@ -44,6 +44,7 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
   const [confirm, setConfirm] = useState(false);
   const [resumable, setResumable] = useState<Saved | null>(null);
   const submitted = useRef(false);
+  const retryAt = useRef(0);
   const celebrate = useCelebrate();
   const { locale } = useLocale();
   const q = quiz.questions[idx];
@@ -72,14 +73,23 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
   const submit = useCallback(
     async (auto = false) => {
       if (submitted.current || startedAt === null) return;
+      // After a failed automatic submit, wait before retrying instead of hammering every tick.
+      if (auto && Date.now() < retryAt.current) return;
       submitted.current = true;
       setBusy(true);
       setConfirm(false);
-      const r = await gradeQuiz({ quizId: quiz.id, answers, timeTakenS: Math.round((Date.now() - startedAt) / 1000) });
-      setBusy(false);
+      let r: Awaited<ReturnType<typeof gradeQuiz>>;
+      try {
+        r = await gradeQuiz({ quizId: quiz.id, answers, timeTakenS: Math.round((Date.now() - startedAt) / 1000) });
+      } catch {
+        r = { ok: false, error: "Network error, your answers are saved. Trying again…" };
+      } finally {
+        setBusy(false);
+      }
       if (!r.ok) {
         submitted.current = false;
-        return void toast.error(r.error);
+        retryAt.current = Date.now() + 5000;
+        return void toast.error(r.error, { id: "quiz-submit" });
       }
       sessionStorage.removeItem(storageKey);
       setResult(r.data);

@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { assertSameOrigin } from "@/lib/csrf";
 import { getCurrentUser } from "@/lib/session";
 import { rateLimit } from "@/lib/rate-limit";
-import { ALLOWED_TYPES, MAX_BYTES, storeFile } from "@/lib/uploads";
+import { ALLOWED_TYPES, MAX_BYTES, storeFile, UnsupportedFileError } from "@/lib/uploads";
 
 /** Authenticated upload (avatars for everyone; media library for admins/contributors). */
 export async function POST(req: NextRequest) {
@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
     if (purpose === "avatar") await db.user.update({ where: { id: user.id }, data: { image: stored.url } });
     return NextResponse.json({ url: stored.url, id: media.id });
   } catch (e) {
+    if (e instanceof UnsupportedFileError) return NextResponse.json({ error: "Unsupported file type" }, { status: 415 });
     console.error("[uploads]", e);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }

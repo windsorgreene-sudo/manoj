@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function parts(ms: number) {
@@ -22,9 +22,15 @@ export function Countdown({ target, label, compact = false }: { target: string; 
     };
   }, []);
   const left = now === null ? null : new Date(target).getTime() - now;
+  // Refresh once when the target passes. A ref (not a narrow time window) is used because
+  // background tabs throttle timers and could skip a short window entirely.
+  const refreshedFor = useRef<string | null>(null);
   useEffect(() => {
-    if (left !== null && left <= 0 && left > -1500) router.refresh();
-  }, [left, router]);
+    if (left !== null && left <= 0 && refreshedFor.current !== target) {
+      refreshedFor.current = target;
+      router.refresh();
+    }
+  }, [left, router, target]);
   if (left === null) return <span className="shimmer inline-block h-6 w-40 rounded" aria-hidden />;
   const p = parts(left);
   const pad = (n: number) => String(n).padStart(2, "0");

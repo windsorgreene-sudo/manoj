@@ -1,6 +1,7 @@
 import "server-only";
 import { db } from "@/lib/db";
 import type { XpSource } from "@/lib/generated/prisma/client";
+import { DAY_MS, istDay } from "@/lib/day";
 
 /** XP rules (single source of truth). */
 export const XP_RULES = {
@@ -25,14 +26,13 @@ export function levelProgress(xp: number) {
 
 export type AwardResult = { awarded: boolean; amount: number; xp: number; level: number; leveledUp: boolean; streak: number; newBadges: { slug: string; name: string; icon: string; color: string }[] };
 
-const utcDay = (d = new Date()) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-const DAY = 86_400_000;
+const DAY = DAY_MS;
 
 /** Updates the daily streak (with streak freezes). Returns the current streak and whether a bonus is due. */
 export async function touchStreak(userId: string) {
-  const today = utcDay();
+  const today = istDay();
   const s = await db.streak.upsert({ where: { userId }, update: {}, create: { userId } });
-  const last = s.lastActiveDay ? utcDay(s.lastActiveDay) : null;
+  const last = s.lastActiveDay ? new Date(Date.UTC(s.lastActiveDay.getUTCFullYear(), s.lastActiveDay.getUTCMonth(), s.lastActiveDay.getUTCDate())) : null;
   if (last && last.getTime() === today.getTime()) return { current: s.current, bonus: false };
   let current = 1;
   let freezes = s.freezes;
@@ -60,15 +60,19 @@ async function addXp(userId: string, source: XpSource, amount: number, refId: st
   return true;
 }
 
-/** Idempotently awards XP for (source, refId), updates level + streak, and checks badges. */
-export async function awardXp(userId: string, source: XpSource, amount: number, refId: string | null, note?: string): Promise<AwardResult> {
+/**
+ * Idempotently awards XP for (source, refId), updates level + streak, and checks badges.
+ * The streak only moves when the user actually did something new now (`touch`); pass
+ * `{ touch: false }` for XP granted in the background (e.g. contest finalisation).
+ */
+export async function awardXp(userId: string, source: XpSource, amount: number, refId: string | null, note?: string, { touch = true }: { touch?: boolean } = {}): Promise<AwardResult> {
   const before = await db.profile.findUnique({ where: { userId }, select: { xp: true } });
   const beforeLevel = levelForXp(before?.xp ?? 0);
   const awarded = await addXp(userId, source, amount, refId, note);
-  const streak = await touchStreak(userId);
+  const streak = touch && awarded ? await touchStreak(userId) : { current: (await db.streak.findUnique({ where: { userId }, select: { current: true } }))?.current ?? 0, bonus: false };
   let total = awarded ? amount : 0;
   if (streak.bonus) {
-    const bonusGiven = await addXp(userId, "STREAK_BONUS", XP_RULES.STREAK_BONUS, `streak-${utcDay().toISOString().slice(0, 10)}`, `${streak.current}-day streak`);
+    const bonusGiven = await addXp(userId, "STREAK_BONUS", XP_RULES.STREAK_BONUS, `streak-${istDay().toISOString().slice(0, 10)}`, `${streak.current}-day streak`);
     if (bonusGiven) total += XP_RULES.STREAK_BONUS;
   }
   const newBadges = awarded ? await checkBadges(userId) : [];
@@ -76,7 +80,7 @@ export async function awardXp(userId: string, source: XpSource, amount: number, 
   const xp = profile?.xp ?? 0;
   const level = levelForXp(xp);
   await db.profile.update({ where: { userId }, data: { level } }).catch(() => undefined);
-  await db.user.update({ where: { id: userId }, data: { lastActiveAt: new Date() } }).catch(() => undefined);
+  if (touch) await db.user.update({ where: { id: userId }, data: { lastActiveAt: new Date() } }).catch(() => undefined);
   if (level > beforeLevel) {
     await db.notification.create({ data: { userId, type: "ACHIEVEMENT", title: `Level up! You reached level ${level}`, body: "Keep going, new badges await.", link: "/dashboard" } });
   }
@@ -136,6 +140,11 @@ export async function checkBadges(userId: string) {
       await db.notification.create({ data: { userId, type: "ACHIEVEMENT", title: `Badge unlocked: ${b.name}`, body: b.description, link: "/dashboard/achievements" } });
       earned.push({ slug: b.slug, name: b.name, icon: b.icon, color: b.color });
     }
+  }
+  if (earned.length) {
+    // Badge XP can cross a level boundary; keep the stored level in sync.
+    const p = await db.profile.findUnique({ where: { userId }, select: { xp: true } });
+    if (p) await db.profile.update({ where: { userId }, data: { level: levelForXp(p.xp) } });
   }
   return earned;
 }

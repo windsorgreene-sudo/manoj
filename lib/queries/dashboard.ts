@@ -2,22 +2,24 @@ import "server-only";
 import { cache } from "react";
 import { db } from "@/lib/db";
 import { levelProgress } from "@/lib/gamification";
+import { DAY_MS, istDateKey, istDay, istDayStart } from "@/lib/day";
 
-const DAY = 86_400_000;
+const DAY = DAY_MS;
 const utcDay = (d = new Date()) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
 
 export const getProblemOfTheDay = cache(async () => {
   const count = await db.problem.count({ where: { status: "PUBLISHED" } });
   if (!count) return null;
-  const dayIndex = Math.floor(utcDay().getTime() / DAY);
+  const dayIndex = Math.floor(istDay().getTime() / DAY);
   const [p] = await db.problem.findMany({
     where: { status: "PUBLISHED" },
     orderBy: { number: "asc" },
-    skip: (dayIndex * 7) % count,
+    skip: dayIndex % count,
     take: 1,
     select: { slug: true, title: true, difficulty: true, topics: true, number: true },
   });
-  return { ...p, endsAt: new Date(utcDay().getTime() + DAY).toISOString() };
+  if (!p) return null;
+  return { ...p, endsAt: new Date(istDayStart().getTime() + DAY).toISOString() };
 });
 
 export async function getOverview(userId: string) {
@@ -35,9 +37,9 @@ export async function getOverview(userId: string) {
     db.notification.count({ where: { userId, read: false } }),
   ]);
   const potdSolved = potd
-    ? Boolean(await db.submission.findFirst({ where: { userId, verdict: "ACCEPTED", problem: { slug: potd.slug }, createdAt: { gte: utcDay() } }, select: { id: true } }))
+    ? Boolean(await db.submission.findFirst({ where: { userId, verdict: "ACCEPTED", problem: { slug: potd.slug }, createdAt: { gte: istDayStart() } }, select: { id: true } }))
     : false;
-  const today = utcDay().getTime();
+  const today = istDay().getTime();
   const last = streak?.lastActiveDay ? utcDay(streak.lastActiveDay).getTime() : 0;
   return {
     xp: profile?.xp ?? 0,
@@ -56,15 +58,16 @@ export async function getOverview(userId: string) {
 }
 
 export async function getActivityHeatmap(userId: string, days = 365) {
-  const since = new Date(utcDay().getTime() - (days - 1) * DAY);
+  const firstDay = new Date(istDay().getTime() - (days - 1) * DAY);
+  const since = new Date(istDayStart().getTime() - (days - 1) * DAY);
   const [subs, xp, study] = await Promise.all([
     db.submission.findMany({ where: { userId, createdAt: { gte: since } }, select: { createdAt: true } }),
     db.xpEvent.findMany({ where: { userId, createdAt: { gte: since }, source: "ARTICLE_READ" }, select: { createdAt: true } }),
-    db.studySession.findMany({ where: { userId, date: { gte: since } }, select: { date: true } }),
+    db.studySession.findMany({ where: { userId, date: { gte: firstDay } }, select: { date: true } }),
   ]);
   const map = new Map<string, number>();
   const add = (d: Date) => {
-    const k = d.toISOString().slice(0, 10);
+    const k = istDateKey(d);
     map.set(k, (map.get(k) ?? 0) + 1);
   };
   subs.forEach((s) => add(s.createdAt));
@@ -72,7 +75,7 @@ export async function getActivityHeatmap(userId: string, days = 365) {
   study.forEach((s) => map.set(s.date.toISOString().slice(0, 10), Math.max(1, map.get(s.date.toISOString().slice(0, 10)) ?? 0)));
   const out: { date: string; count: number }[] = [];
   for (let i = 0; i < days; i++) {
-    const k = new Date(since.getTime() + i * DAY).toISOString().slice(0, 10);
+    const k = new Date(firstDay.getTime() + i * DAY).toISOString().slice(0, 10);
     out.push({ date: k, count: map.get(k) ?? 0 });
   }
   return out;

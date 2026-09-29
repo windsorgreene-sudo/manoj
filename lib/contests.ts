@@ -74,7 +74,8 @@ export async function finalizeContestIfEnded(contestId: string) {
       const profile = await db.profile.upsert({ where: { userId: p.userId }, update: {}, create: { userId: p.userId }, select: { maxRating: true } });
       await db.profile.update({ where: { userId: p.userId }, data: { contestRating: ch.after, maxRating: Math.max(profile.maxRating, ch.after) } });
       const xp = CONTEST_XP.PARTICIPATE + CONTEST_XP.PER_SOLVE * p.solved + (ch.rank <= 3 ? CONTEST_XP.PODIUM : 0);
-      await awardXp(p.userId, "CONTEST", xp, contest.id, contest.title).catch(() => undefined);
+      // Finalisation runs lazily (first view after the end), so it must not count as activity today.
+      await awardXp(p.userId, "CONTEST", xp, contest.id, contest.title, { touch: false }).catch(() => undefined);
       await checkBadges(p.userId).catch(() => undefined);
       await db.notification.create({
         data: {

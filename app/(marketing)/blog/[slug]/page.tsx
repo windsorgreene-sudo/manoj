@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { db } from "@/lib/db";
-import { MdxContent } from "@/components/content/mdx-content";
+import { HINGLISH_ID_PREFIX, MdxContent } from "@/components/content/mdx-content";
 import { LangVariant } from "@/components/i18n/lang-variant";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
 import { appUrl, formatDate } from "@/lib/utils";
@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {post.author.name} · {post.publishedAt ? formatDate(post.publishedAt) : ""} · {post.readingMins} min read
       </p>
       <div className="mt-10">
-        <LangVariant en={<MdxContent content={post.content} tryIt={false} />} hinglish={post.contentHinglish ? <MdxContent content={post.contentHinglish} tryIt={false} /> : null} />
+        <LangVariant en={<MdxContent content={post.content} tryIt={false} />} hinglish={post.contentHinglish ? <MdxContent content={post.contentHinglish} tryIt={false} idPrefix={HINGLISH_ID_PREFIX} /> : null} />
       </div>
     </article>
   );

@@ -52,8 +52,8 @@ export function HBar({ data, dataKey, nameKey, height = 280, unit = "" }: { data
 
 export function Donut({ data, height = 220 }: { data: { name: string; value: number }[]; height?: number }) {
   return (
-    <div className="flex items-center gap-4">
-      <div style={{ height, width: height }} role="img" aria-label={data.map((d) => `${d.name}: ${d.value}`).join(", ")}>
+    <div className="flex flex-wrap items-center gap-4">
+      <div className="max-w-full shrink-0" style={{ height, width: height }} role="img" aria-label={data.map((d) => `${d.name}: ${d.value}`).join(", ")}>
         <ResponsiveContainer>
           <PieChart>
             <Pie data={data} dataKey="value" nameKey="name" innerRadius="55%" outerRadius="80%" paddingAngle={2} stroke="none">

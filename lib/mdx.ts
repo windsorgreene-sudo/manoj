@@ -42,10 +42,10 @@ const FENCE = /```([a-z0-9+#-]*)\n([\s\S]*?)```/g;
  * Pre-processes article MDX:
  * - every fenced code block → <CodeBlock id="n" /> with Shiki HTML rendered on the server
  * - <CodeTabs> … </CodeTabs> groups → <CodeTabs id="k" /> (a language-tab group)
- * - extracts the ## / ### headings for the table of contents (ids match rehype-slug)
+ * - extracts the ## / ### headings for the table of contents (ids match rehype-slug, including `idPrefix`)
  * Code never goes through the MDX parser, so braces/angle brackets inside code are safe.
  */
-export async function prepareMdx(content: string): Promise<PreparedMdx> {
+export async function prepareMdx(content: string, { idPrefix = "" }: { idPrefix?: string } = {}): Promise<PreparedMdx> {
   const blocks: CodeBlockData[] = [];
   const tabs: number[][] = [];
   const raw: { lang: string; code: string }[] = [];
@@ -73,7 +73,7 @@ export async function prepareMdx(content: string): Promise<PreparedMdx> {
     const m = /^(##|###)\s+(.+)$/.exec(line.trim());
     if (m) {
       const text = m[2].replace(/[`*_]/g, "").trim();
-      toc.push({ id: slugger.slug(text), text, level: m[1] === "##" ? 2 : 3 });
+      toc.push({ id: idPrefix + slugger.slug(text), text, level: m[1] === "##" ? 2 : 3 });
     }
   }
 

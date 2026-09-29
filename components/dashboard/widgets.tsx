@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { CalendarClock, CheckCircle2, Flame, Snowflake, Target, Trophy } from "lucide-react";
@@ -54,16 +55,28 @@ export function StreakCard({ current, longest, freezes, activeToday, atRisk }: {
 }
 
 function useCountdown(to: string) {
+  const router = useRouter();
   const [left, setLeft] = useState(0);
   useEffect(() => {
-    const tick = () => setLeft(Math.max(0, new Date(to).getTime() - Date.now()));
+    let wasRunning = false;
+    let refreshed = false;
+    const tick = () => {
+      const ms = Math.max(0, new Date(to).getTime() - Date.now());
+      setLeft(ms);
+      if (ms > 0) wasRunning = true;
+      // Day rolled over while the dashboard was open: load the new Problem of the Day.
+      else if (wasRunning && !refreshed) {
+        refreshed = true;
+        router.refresh();
+      }
+    };
     const first = window.setTimeout(tick, 0);
     const t = window.setInterval(tick, 1000);
     return () => {
       window.clearTimeout(first);
       window.clearInterval(t);
     };
-  }, [to]);
+  }, [to, router]);
   const h = Math.floor(left / 3_600_000),
     m = Math.floor((left % 3_600_000) / 60_000),
     s = Math.floor((left % 60_000) / 1000);

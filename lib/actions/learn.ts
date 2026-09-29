@@ -1,13 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import sanitizeHtml from "sanitize-html";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { assertUser, AuthError, getCurrentUser } from "@/lib/session";
 import { awardXp, XP_RULES, type AwardResult } from "@/lib/gamification";
-import { rateLimit, limits } from "@/lib/rate-limit";
+import { clientIp, rateLimit, limits } from "@/lib/rate-limit";
 import { issueCertificate } from "@/lib/certificates";
+import { castVote } from "@/lib/votes";
 
 export type Result<T = undefined> = { ok: true; data: T } | { ok: false; error: string; unauth?: boolean };
 
@@ -21,6 +23,7 @@ async function guard<T>(fn: () => Promise<T>): Promise<Result<T>> {
     if (e instanceof AuthError) return { ok: false, error: e.message, unauth: e.status === 401 };
     if (e instanceof z.ZodError) return { ok: false, error: e.issues[0]?.message ?? "Invalid input" };
     if (e instanceof Error && e.message.startsWith("RATE:")) return { ok: false, error: e.message.slice(5) };
+    if (e instanceof Error && e.message.startsWith("USER:")) return { ok: false, error: e.message.slice(5) };
     console.error("[action]", e);
     return { ok: false, error: "Something went wrong. Please try again." };
   }
@@ -81,7 +84,14 @@ export async function markArticleRead(articleId: string): Promise<Result<AwardRe
   return guard(async () => {
     const user = await getCurrentUser();
     id.parse(articleId);
-    await db.article.update({ where: { id: articleId }, data: { views: { increment: 1 } } }).catch(() => undefined);
+    // Only published articles count; unknown ids must not mint XP (awardXp dedupes per refId only).
+    const article = await db.article.findFirst({ where: { id: articleId, status: "PUBLISHED" }, select: { id: true } });
+    if (!article) throw new Error("USER:Article not found.");
+    // Count a view at most a few times per reader per hour so refreshing can't inflate "most read".
+    const reader = user?.id ?? clientIp(await headers());
+    if (rateLimit(`read:${reader}:${articleId}`, 3, 3_600_000).success) {
+      await db.article.update({ where: { id: articleId }, data: { views: { increment: 1 } } });
+    }
     if (!user) return null;
     return awardXp(user.id, "ARTICLE_READ", XP_RULES.ARTICLE_READ, articleId);
   });
@@ -196,17 +206,25 @@ export async function postComment(input: { articleId?: string; problemId?: strin
     const user = await assertUser();
     const data = z
       .object({ articleId: id.optional(), problemId: id.optional(), parentId: id.optional(), body: z.string().trim().min(2, "Comment is too short").max(5000) })
-      .refine((d) => d.articleId || d.problemId, "Missing target")
+      .refine((d) => Boolean(d.articleId) !== Boolean(d.problemId), "Missing target")
       .parse(input);
     limit(`comment:${user.id}`, { limit: 10, windowMs: 60_000 });
+    const target = data.articleId
+      ? await db.article.findFirst({ where: { id: data.articleId, status: "PUBLISHED" }, select: { id: true } })
+      : await db.problem.findFirst({ where: { id: data.problemId, status: "PUBLISHED" }, select: { id: true } });
+    if (!target) throw new Error("USER:This page is no longer available.");
+    let parentOwner: string | null = null;
+    if (data.parentId) {
+      const parent = await db.comment.findUnique({ where: { id: data.parentId }, select: { userId: true, hidden: true, articleId: true, problemId: true } });
+      // Replies must stay in the same thread.
+      if (!parent || parent.hidden || parent.articleId !== (data.articleId ?? null) || parent.problemId !== (data.problemId ?? null)) throw new Error("USER:That comment is no longer available.");
+      parentOwner = parent.userId;
+    }
     const c = await db.comment.create({
       data: { userId: user.id, target: data.articleId ? "ARTICLE" : "PROBLEM", articleId: data.articleId, problemId: data.problemId, parentId: data.parentId, body: plain(data.body) },
     });
-    if (data.parentId) {
-      const parent = await db.comment.findUnique({ where: { id: data.parentId }, select: { userId: true } });
-      if (parent && parent.userId !== user.id) {
-        await db.notification.create({ data: { userId: parent.userId, type: "COMMENT", title: `${user.name} replied to your comment`, body: plain(data.body).slice(0, 120) } });
-      }
+    if (parentOwner && parentOwner !== user.id) {
+      await db.notification.create({ data: { userId: parentOwner, type: "COMMENT", title: `${user.name} replied to your comment`, body: plain(data.body).slice(0, 120) } });
     }
     return { id: c.id };
   });
@@ -217,14 +235,10 @@ export async function voteComment(input: { commentId: string; value: 1 | -1 | 0 
     const user = await assertUser();
     const data = z.object({ commentId: id, value: z.union([z.literal(1), z.literal(-1), z.literal(0)]) }).parse(input);
     limit(`vote:${user.id}`);
-    const key = { userId_targetType_targetId: { userId: user.id, targetType: "COMMENT" as const, targetId: data.commentId } };
-    const existing = await db.vote.findUnique({ where: key });
-    const delta = data.value - (existing?.value ?? 0);
-    if (data.value === 0) {
-      if (existing) await db.vote.delete({ where: key });
-    } else await db.vote.upsert({ where: key, update: { value: data.value }, create: { userId: user.id, targetType: "COMMENT", targetId: data.commentId, value: data.value } });
-    const c = await db.comment.update({ where: { id: data.commentId }, data: { score: { increment: delta } } });
-    return { score: c.score };
+    const comment = await db.comment.findUnique({ where: { id: data.commentId }, select: { userId: true, hidden: true } });
+    if (!comment || comment.hidden) throw new Error("USER:Comment not found.");
+    if (comment.userId === user.id) throw new Error("USER:You can't vote on your own comment.");
+    return { score: await castVote(user.id, "COMMENT", data.commentId, data.value) };
   });
 }
 
@@ -261,11 +275,9 @@ export async function setLessonComplete(input: { lessonId: string; completed: bo
       db.progress.count({ where: { userId: user.id, completed: true, lesson: { module: { courseId } } } }),
     ]);
     const pct = Math.round((done / Math.max(1, total)) * 100);
-    const justCompleted = pct === 100 && !enrollment.completedAt;
-    await db.enrollment.update({
-      where: { id: enrollment.id },
-      data: { progressPct: pct, lastLessonId: lesson.id, completedAt: pct === 100 ? (enrollment.completedAt ?? new Date()) : null },
-    });
+    // Completion is permanent: un-ticking a lesson later must not re-trigger the certificate flow.
+    await db.enrollment.update({ where: { id: enrollment.id }, data: { progressPct: pct, lastLessonId: lesson.id } });
+    const justCompleted = pct === 100 && (await db.enrollment.updateMany({ where: { id: enrollment.id, completedAt: null }, data: { completedAt: new Date() } })).count === 1;
     let xp: AwardResult | null = null;
     if (justCompleted) {
       xp = await awardXp(user.id, "COURSE_COMPLETED", XP_RULES.COURSE_COMPLETED, courseId);

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, Code2, ListChecks, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MdxContent } from "@/components/content/mdx-content";
+import { HINGLISH_ID_PREFIX, MdxContent } from "@/components/content/mdx-content";
 import { LangVariant } from "@/components/i18n/lang-variant";
 import { LessonSidebar, MarkComplete } from "@/components/learn/lesson-player";
 import { TutorLauncher } from "@/components/learn/tutor-launcher";
@@ -32,8 +32,8 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         where: { id: current.id },
         include: {
           article: { select: { content: true, contentHinglish: true, title: true, slug: true } },
-          problem: { select: { slug: true, title: true, difficulty: true, statement: true } },
-          quiz: { select: { slug: true, title: true, description: true, _count: { select: { questions: true } } } },
+          problem: { select: { slug: true, title: true, difficulty: true, statement: true, statementHinglish: true } },
+          quiz: { select: { slug: true, title: true, description: true, descriptionHinglish: true, _count: { select: { questions: true } } } },
         },
       })
     : null;
@@ -62,20 +62,20 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             </div>
             <div className="mt-8">
               {lesson?.article ? (
-                <LangVariant en={<MdxContent content={lesson.article.content} />} hinglish={lesson.article.contentHinglish ? <MdxContent content={lesson.article.contentHinglish} /> : null} />
+                <LangVariant en={<MdxContent content={lesson.article.content} />} hinglish={lesson.article.contentHinglish ? <MdxContent content={lesson.article.contentHinglish} idPrefix={HINGLISH_ID_PREFIX} /> : null} />
               ) : lesson?.problem ? (
                 <div className="glass p-8">
                   <Code2 className="size-8 text-cyan" />
                   <h2 className="mt-3 text-xl font-semibold">{lesson.problem.title}</h2>
                   <DifficultyBadge difficulty={lesson.problem.difficulty} className="mt-2" />
-                  <p className="mt-3 line-clamp-4 text-muted-foreground">{lesson.problem.statement.replace(/[*`]/g, "")}</p>
+                  <LangVariant as="p" className="mt-3 line-clamp-4 text-muted-foreground" en={lesson.problem.statement.replace(/[*`]/g, "")} hinglish={lesson.problem.statementHinglish?.replace(/[*`]/g, "")} />
                   <Button asChild className="mt-6 rounded-xl"><Link href={`/problems/${lesson.problem.slug}`}>Open in problem workspace <ArrowRight /></Link></Button>
                 </div>
               ) : lesson?.quiz ? (
                 <div className="glass p-8">
                   <ListChecks className="size-8 text-brand-soft" />
                   <h2 className="mt-3 text-xl font-semibold">{lesson.quiz.title}</h2>
-                  <p className="mt-2 text-muted-foreground">{lesson.quiz.description}</p>
+                  <LangVariant as="p" className="mt-2 text-muted-foreground" en={lesson.quiz.description} hinglish={lesson.quiz.descriptionHinglish} />
                   <p className="mt-2 text-sm text-muted-foreground">{lesson.quiz._count.questions} questions</p>
                   <Button asChild className="mt-6 rounded-xl"><Link href={`/quizzes/${lesson.quiz.slug}`}>Start quiz <ArrowRight /></Link></Button>
                 </div>
@@ -86,8 +86,8 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
           </>
         )}
         <nav aria-label="Lesson navigation" className="mt-12 flex justify-between gap-4">
-          {prev ? <Button asChild variant="outline" className="rounded-xl"><Link href={`/courses/${slug}/learn/${prev.slug}`}><ArrowLeft /> {prev.title}</Link></Button> : <span />}
-          {next ? <Button asChild className="rounded-xl"><Link href={`/courses/${slug}/learn/${next.slug}`}>{next.title} <ArrowRight /></Link></Button> : <Button asChild variant="outline" className="rounded-xl"><Link href={`/courses/${slug}`}>Back to course</Link></Button>}
+          {prev ? <Button asChild variant="outline" className="min-w-0 max-w-[48%] rounded-xl"><Link href={`/courses/${slug}/learn/${prev.slug}`} title={prev.title}><ArrowLeft /> <span className="truncate">{prev.title}</span></Link></Button> : <span />}
+          {next ? <Button asChild className="min-w-0 max-w-[48%] rounded-xl"><Link href={`/courses/${slug}/learn/${next.slug}`} title={next.title}><span className="truncate">{next.title}</span> <ArrowRight /></Link></Button> : <Button asChild variant="outline" className="rounded-xl"><Link href={`/courses/${slug}`}>Back to course</Link></Button>}
         </nav>
       </div>
     </div>
