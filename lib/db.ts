@@ -7,7 +7,11 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 function createClient() {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
-    throw new Error("DATABASE_URL is not set. Copy .env.example to .env and add your Neon connection string.");
+    throw new Error(
+      process.env.VERCEL
+        ? "DATABASE_URL is not set. In Vercel open Project → Settings → Environment Variables, add DATABASE_URL (your Neon connection string) for Production AND Preview, then Redeploy."
+        : "DATABASE_URL is not set. Copy .env.example to .env and add your Neon connection string.",
+    );
   }
   return new PrismaClient({ adapter: new PrismaPg({ connectionString }) });
 }
