@@ -2,10 +2,10 @@
 inclusion: always
 ---
 
-# CodeVerse: Product
+# Kodshala: Product
 
 ## 1. Product
-"CodeVerse" is a premium, production-ready learning platform (GeeksforGeeks + LeetCode + Coursera combined) where students LEARN from tutorials, PRACTICE by writing and running code in the browser, COMPETE in contests and TRACK their progress. It must feel like a top-tier 2026 product: immersive 3D, cinematic scroll animations, smooth micro-interactions and a clean, professional UI.
+"Kodshala" is a premium, production-ready learning platform (GeeksforGeeks + LeetCode + Coursera combined) where students LEARN from tutorials, PRACTICE by writing and running code in the browser, COMPETE in contests and TRACK their progress. It must feel like a top-tier 2026 product: immersive 3D, cinematic scroll animations, smooth micro-interactions and a clean, professional UI.
 Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
 
 ## 5. Public Pages
@@ -66,4 +66,4 @@ Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
 - Audit log of every admin action
 
 ## Business model
-- CodeVerse is 100% free. Never add paid plans, "Pro" badges, paywalls, prices, checkout or "Upgrade" CTAs.
+- Kodshala is 100% free. Never add paid plans, "Pro" badges, paywalls, prices, checkout or "Upgrade" CTAs.

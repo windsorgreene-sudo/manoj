@@ -12,10 +12,11 @@ function randomCode(topic: string) {
   const prefix = topic.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase().padEnd(2, "X");
   const bytes = randomBytes(4);
   const suffix = Array.from(bytes, (b) => ALPHABET[b % ALPHABET.length]).join("");
-  return `CV-${prefix}-${new Date().getUTCFullYear()}-${suffix}`;
+  return `KS-${prefix}-${new Date().getUTCFullYear()}-${suffix}`;
 }
 
-export const CODE_PATTERN = /^CV-[A-Z]{2}-\d{4}-[A-Z0-9]{4,8}$/;
+// KS- is the current prefix; CV- certificates issued before the rename stay valid.
+export const CODE_PATTERN = /^(KS|CV)-[A-Z]{2}-\d{4}-[A-Z0-9]{4,8}$/;
 export const verifyUrl = (code: string) => `${appUrl()}/verify/${code}`;
 
 /** Issues (or returns the existing) certificate for a completed course. Idempotent per (user, course). */
@@ -48,8 +49,8 @@ type CertData = NonNullable<Awaited<ReturnType<typeof getCertificate>>>;
 /** Landscape A4 certificate with a QR code linking to the public verification page. */
 export async function renderCertificatePdf(cert: CertData) {
   const pdf = await PDFDocument.create();
-  pdf.setTitle(`CodeVerse Certificate - ${cert.course.title}`);
-  pdf.setAuthor("CodeVerse");
+  pdf.setTitle(`Kodshala Certificate - ${cert.course.title}`);
+  pdf.setAuthor("Kodshala");
   pdf.setSubject(`Certificate ${cert.code}`);
   const page = pdf.addPage([842, 595]);
   const { width, height } = page.getSize();
@@ -74,7 +75,7 @@ export async function renderCertificatePdf(cert: CertData) {
     page.drawText(t, { x: (width - font.widthOfTextAtSize(t, size)) / 2, y, size, font, color });
   };
 
-  center("CODEVERSE", height - 92, 16, sansBold, violet);
+  center("KODSHALA", height - 92, 16, sansBold, violet);
   center("CERTIFICATE OF COMPLETION", height - 140, 30, serifBold);
   center("This certifies that", height - 190, 14, serif, muted);
   let nameSize = 40;
@@ -96,7 +97,7 @@ export async function renderCertificatePdf(cert: CertData) {
 
   page.drawLine({ start: { x: width / 2 - 90, y: 100 }, end: { x: width / 2 + 90, y: 100 }, thickness: 0.8, color: ink });
   center("Priya Verma, Founder & Lead Instructor", 84, 11, sans, ink);
-  center("CodeVerse Learning Pvt. Ltd.", 70, 9, sans, muted);
+  center("Kodshala Learning Pvt. Ltd.", 70, 9, sans, muted);
 
   const qr = await QRCode.toBuffer(verifyUrl(cert.code), { type: "png", margin: 1, width: 240, color: { dark: "#0F0F1F", light: "#FFFFFF" } });
   const qrImg = await pdf.embedPng(qr);

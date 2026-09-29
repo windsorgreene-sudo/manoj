@@ -54,7 +54,7 @@ export default async function ContestPage({ params }: Props) {
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
             location: { "@type": "VirtualLocation", url },
-            organizer: { "@type": "Organization", name: "CodeVerse", url: appUrl() },
+            organizer: { "@type": "Organization", name: "Kodshala", url: appUrl() },
             isAccessibleForFree: true,
           },
         ]}

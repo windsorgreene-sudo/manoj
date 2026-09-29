@@ -1,4 +1,4 @@
-# CodeVerse
+# Kodshala
 
 **Learn · Practice · Compete · Get hired.** A premium coding-education platform that combines in-depth tutorials (GeeksforGeeks), a browser IDE with a judge (LeetCode) and structured courses (Coursera), with immersive 3D, cinematic scroll animations and a full student + admin panel.
 
@@ -30,9 +30,9 @@ npm run dev          # http://localhost:3000
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@codeverse.dev | Admin@123 |
-| Student | student@codeverse.dev | Student@123 |
-| Contributor | contributor@codeverse.dev | Contributor@123 |
+| Admin | admin@kodshala.com | Admin@123 |
+| Student | student@kodshala.com | Student@123 |
+| Contributor | contributor@kodshala.com | Contributor@123 |
 
 ---
 
@@ -88,7 +88,7 @@ npm run problems:build   # regenerates prisma/seed/data/problems.json
 
 ## Judge0 setup
 
-CodeVerse runs code through [Judge0 CE](https://github.com/judge0/judge0) for **C, C++, Java, Python, JavaScript and Go**.
+Kodshala runs code through [Judge0 CE](https://github.com/judge0/judge0) for **C, C++, Java, Python, JavaScript and Go**.
 
 ### Development: RapidAPI
 

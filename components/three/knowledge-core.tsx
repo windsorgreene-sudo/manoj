@@ -89,8 +89,8 @@ function CrystalPlanet() {
     if (!group.current) return;
     group.current.rotation.y += dt * 0.12;
     // tilt toward the pointer
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, globalPointer.y * 0.25, 0.05);
-    group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, -globalPointer.x * 0.15, 0.05);
+    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, globalPointer.y * 0.08, 0.03);
+    group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, -globalPointer.x * 0.05, 0.03);
     if (shell.current) shell.current.rotation.y -= dt * 0.2;
   });
   return (
@@ -152,8 +152,8 @@ function ParticleField({ count }: { count: number }) {
     const p = ref.current;
     if (!p) return;
     p.rotation.y += dt * 0.02;
-    p.position.x = THREE.MathUtils.lerp(p.position.x, globalPointer.x * 0.6, 0.03);
-    p.position.y = THREE.MathUtils.lerp(p.position.y, globalPointer.y * 0.4, 0.03);
+    p.position.x = THREE.MathUtils.lerp(p.position.x, globalPointer.x * 0.2, 0.02);
+    p.position.y = THREE.MathUtils.lerp(p.position.y, globalPointer.y * 0.12, 0.02);
   });
   return (
     <points ref={ref}>
@@ -188,8 +188,8 @@ function CameraRig() {
     const t = THREE.MathUtils.smoothstep(p - i, 0, 1);
     target.current.copy(KF_POS[i]).lerp(KF_POS[i + 1], t);
     lookTarget.current.copy(KF_LOOK[i]).lerp(KF_LOOK[i + 1], t);
-    target.current.x += globalPointer.x * 0.3;
-    target.current.y += globalPointer.y * 0.2;
+    target.current.x += globalPointer.x * 0.1;
+    target.current.y += globalPointer.y * 0.06;
     camera.position.lerp(target.current, 0.06);
     look.current.lerp(lookTarget.current, 0.06);
     camera.lookAt(look.current);

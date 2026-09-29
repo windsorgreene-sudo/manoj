@@ -1,4 +1,4 @@
-// CodeVerse: full data model
+// Kodshala: full data model
 // Better Auth tables: User, Session, Account, Verification
 
 generator client {

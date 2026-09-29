@@ -4,7 +4,7 @@ import { integrations } from "@/lib/env";
 
 type Mail = { to: string; subject: string; html: string; text?: string };
 
-const FROM = process.env.EMAIL_FROM ?? "CodeVerse <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM ?? "Kodshala <onboarding@resend.dev>";
 
 /** Sends through Resend when configured; otherwise logs the email to the server console (dev fallback). */
 export async function sendEmail(mail: Mail) {
@@ -32,6 +32,6 @@ export function emailLayout(title: string, body: string, cta?: { label: string; 
       <p style="line-height:1.6;color:#A1A1B8;margin:0 0 24px">${body}</p>
       ${cta ? `<a href="${cta.url}" style="display:inline-block;background:#7C3AED;color:#fff;text-decoration:none;padding:12px 20px;border-radius:12px;font-weight:600">${cta.label}</a>` : ""}
     </div>
-    <p style="color:#5b5b72;font-size:12px;margin-top:24px">You received this email because you have a CodeVerse account.</p>
+    <p style="color:#5b5b72;font-size:12px;margin-top:24px">You received this email because you have a Kodshala account.</p>
   </div></body></html>`;
 }

@@ -25,6 +25,6 @@ export async function GET(req: NextRequest) {
   const lines = rows.map((r) => [r.id, r.name, r.email, r.username, r.role, r.banned, r.emailVerified, r.profile?.xp, r.profile?.level, r.profile?.contestRating, r.profile?.college, r.createdAt.toISOString(), r.lastActiveAt?.toISOString()].map(esc).join(","));
   await audit(user, "users.export", "User", null, { count: rows.length });
   return new NextResponse([header.join(","), ...lines].join("\n"), {
-    headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="codeverse-users-${new Date().toISOString().slice(0, 10)}.csv"`, "Cache-Control": "no-store" },
+    headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="kodshala-users-${new Date().toISOString().slice(0, 10)}.csv"`, "Cache-Control": "no-store" },
   });
 }

@@ -1,4 +1,4 @@
-# CodeVerse: Build Progress
+# Kodshala: Build Progress
 
 > Resume rule: "Continue from docs/progress.md" → start at the first unchecked item.
 

@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   if (purpose === "media" && user.role === "STUDENT") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (purpose === "avatar" && !file.type.startsWith("image/")) return NextResponse.json({ error: "Avatar must be an image" }, { status: 415 });
   try {
-    const stored = await storeFile(file, purpose === "avatar" ? "codeverse/avatars" : "codeverse/media");
+    const stored = await storeFile(file, purpose === "avatar" ? "kodshala/avatars" : "kodshala/media");
     const media = await db.media.create({
       data: { url: stored.url, publicId: stored.publicId, filename: file.name.slice(0, 200), mimeType: file.type, sizeBytes: file.size, width: stored.width, height: stored.height, uploaderId: user.id },
     });

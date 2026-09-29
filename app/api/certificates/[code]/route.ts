@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   return new NextResponse(Buffer.from(bytes), {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `${inline ? "inline" : "attachment"}; filename="codeverse-${cert.code}.pdf"`,
+      "Content-Disposition": `${inline ? "inline" : "attachment"}; filename="kodshala-${cert.code}.pdf"`,
       "Cache-Control": "public, max-age=3600",
     },
   });

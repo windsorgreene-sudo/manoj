@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   // Stored for the admin Inbox; the email is a copy for the team.
   if (hasDatabase()) await db.contactMessage.create({ data: { name: clean(name).slice(0, 120), email: email.slice(0, 200), subject: clean(subject).slice(0, 200), message: clean(message).slice(0, 5000) } });
   await sendEmail({
-    to: process.env.CONTACT_EMAIL ?? "support@codeverse.dev",
+    to: process.env.CONTACT_EMAIL ?? "support@kodshala.com",
     subject: `[Contact] ${clean(subject)}`,
     html: emailLayout(`Message from ${clean(name)}`, `${clean(message).replace(/\n/g, "<br/>")}<br/><br/>Reply to: ${clean(email)}`),
     text: `${name} <${email}>: ${message}`,

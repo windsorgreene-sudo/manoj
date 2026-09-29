@@ -238,16 +238,16 @@ export const badges = [
 ] as const;
 
 export const students = [
-  { name: "Aarav Sharma", email: "student@codeverse.dev", college: "IIT Delhi", country: "IN", bio: "Final-year CSE. Graphs > everything." },
-  { name: "Diya Patel", email: "diya.patel@codeverse.dev", college: "NIT Trichy", country: "IN", bio: "Competitive programmer and chai enthusiast." },
-  { name: "Kabir Singh", email: "kabir.singh@codeverse.dev", college: "IIT Delhi", country: "IN", bio: "Backend dev in the making." },
-  { name: "Ananya Iyer", email: "ananya.iyer@codeverse.dev", college: "BITS Pilani", country: "IN", bio: "SDE intern · DP lover." },
-  { name: "Rohan Mehta", email: "rohan.mehta@codeverse.dev", college: "VIT Vellore", country: "IN", bio: "Learning web dev one div at a time." },
-  { name: "Ishita Rao", email: "ishita.rao@codeverse.dev", college: "IIIT Hyderabad", country: "IN", bio: "ML + DSA." },
-  { name: "Vihaan Gupta", email: "vihaan.gupta@codeverse.dev", college: "NIT Trichy", country: "IN", bio: "Codeforces Expert." },
-  { name: "Saanvi Nair", email: "saanvi.nair@codeverse.dev", college: "BITS Pilani", country: "IN", bio: "Python is my first language." },
-  { name: "Arjun Reddy", email: "arjun.reddy@codeverse.dev", college: "IIT Bombay", country: "IN", bio: "Systems & OS nerd." },
-  { name: "Meera Joshi", email: "meera.joshi@codeverse.dev", college: "IIT Bombay", country: "IN", bio: "Frontend + accessibility advocate." },
+  { name: "Aarav Sharma", email: "student@kodshala.com", college: "IIT Delhi", country: "IN", bio: "Final-year CSE. Graphs > everything." },
+  { name: "Diya Patel", email: "diya.patel@kodshala.com", college: "NIT Trichy", country: "IN", bio: "Competitive programmer and chai enthusiast." },
+  { name: "Kabir Singh", email: "kabir.singh@kodshala.com", college: "IIT Delhi", country: "IN", bio: "Backend dev in the making." },
+  { name: "Ananya Iyer", email: "ananya.iyer@kodshala.com", college: "BITS Pilani", country: "IN", bio: "SDE intern · DP lover." },
+  { name: "Rohan Mehta", email: "rohan.mehta@kodshala.com", college: "VIT Vellore", country: "IN", bio: "Learning web dev one div at a time." },
+  { name: "Ishita Rao", email: "ishita.rao@kodshala.com", college: "IIIT Hyderabad", country: "IN", bio: "ML + DSA." },
+  { name: "Vihaan Gupta", email: "vihaan.gupta@kodshala.com", college: "NIT Trichy", country: "IN", bio: "Codeforces Expert." },
+  { name: "Saanvi Nair", email: "saanvi.nair@kodshala.com", college: "BITS Pilani", country: "IN", bio: "Python is my first language." },
+  { name: "Arjun Reddy", email: "arjun.reddy@kodshala.com", college: "IIT Bombay", country: "IN", bio: "Systems & OS nerd." },
+  { name: "Meera Joshi", email: "meera.joshi@kodshala.com", college: "IIT Bombay", country: "IN", bio: "Frontend + accessibility advocate." },
 ] as const;
 
 export const roadmaps = [

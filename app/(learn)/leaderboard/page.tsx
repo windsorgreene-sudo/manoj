@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LeaderboardTable } from "@/components/dashboard/leaderboard-table";
 import { getLeaderboard } from "@/lib/queries/dashboard";
 
-export const metadata: Metadata = { title: "Global Leaderboard", description: "Top CodeVerse learners by XP and contest rating.", alternates: { canonical: "/leaderboard" } };
+export const metadata: Metadata = { title: "Global Leaderboard", description: "Top Kodshala learners by XP and contest rating.", alternates: { canonical: "/leaderboard" } };
 export const revalidate = 300;
 
 export default async function PublicLeaderboardPage() {

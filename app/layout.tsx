@@ -15,19 +15,19 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl()),
   title: {
-    default: "CodeVerse: Learn, Practice, Compete & Get Hired",
-    template: "%s · CodeVerse",
+    default: "Kodshala: Learn, Practice, Compete & Get Hired",
+    template: "%s · Kodshala",
   },
   description:
-    "CodeVerse is the all-in-one coding platform: in-depth tutorials, 6-language browser IDE, DSA problems, weekly contests, an AI tutor and progress tracking.",
+    "Kodshala is the all-in-one coding platform: in-depth tutorials, 6-language browser IDE, DSA problems, weekly contests, an AI tutor and progress tracking.",
   keywords: ["DSA", "coding practice", "programming tutorials", "competitive programming", "interview preparation", "online compiler"],
-  applicationName: "CodeVerse",
+  applicationName: "Kodshala",
   openGraph: {
     type: "website",
-    siteName: "CodeVerse",
+    siteName: "Kodshala",
     locale: "en_IN",
   },
-  twitter: { card: "summary_large_image", creator: "@codeverse" },
+  twitter: { card: "summary_large_image", creator: "@kodshala" },
   robots: { index: true, follow: true },
 };
 

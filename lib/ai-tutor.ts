@@ -29,7 +29,7 @@ export function buildInstructions(input: TutorInput) {
     quiz: "Create a 5-question multiple-choice quiz from the reference material. For each question give 4 options labelled A-D, then list the answers with one-line explanations at the end under 'Answers'.",
     chat: "Answer the student's question as a patient tutor. Prefer guiding questions and hints over giving away complete solutions to practice problems.",
   };
-  return `You are CodeVerse Tutor, an expert, encouraging programming tutor for Indian college students. ${lang}\n${modes[input.mode]}\nUse Markdown with short paragraphs and fenced code blocks when needed.\n${ctx}`;
+  return `You are Kodshala Tutor, an expert, encouraging programming tutor for Indian college students. ${lang}\n${modes[input.mode]}\nUse Markdown with short paragraphs and fenced code blocks when needed.\n${ctx}`;
 }
 
 /** Deterministic mock tutor used when no AI key is configured (streams like the real one). */

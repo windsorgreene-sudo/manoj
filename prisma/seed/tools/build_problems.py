@@ -72,7 +72,7 @@ WORDS = "the quick brown fox jumps over lazy dog code verse learn practice compe
     hints=["Split the string on whitespace, most languages collapse repeated spaces for you.", "Reverse the list of words and join with a single space."],
     editorial="Split on whitespace, reverse, join. In-place variant: reverse the whole string, then reverse each word. **Time** O(n).",
     samples=[("the sky is blue", "Words reversed: blue is sky the."), ("  hello   world  ", "Extra spaces are removed.")],
-    hidden=["a", "codeverse", "  one two  three   "] + [" ".join(random.choice(WORDS) for _ in range(k)) for k in (8, 40)],
+    hidden=["a", "kodshala", "  one two  three   "] + [" ".join(random.choice(WORDS) for _ in range(k)) for k in (8, 40)],
 )
 def reverse_words(inp):
     return " ".join(inp.split()[::-1])

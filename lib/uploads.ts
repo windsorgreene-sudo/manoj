@@ -11,7 +11,7 @@ export const MAX_BYTES = 5 * 1024 * 1024;
 export type Stored = { url: string; publicId: string | null; width?: number; height?: number };
 
 /** Stores a file on Cloudinary when configured, otherwise under public/uploads (local fallback). */
-export async function storeFile(file: File, folder = "codeverse"): Promise<Stored> {
+export async function storeFile(file: File, folder = "kodshala"): Promise<Stored> {
   const buf = Buffer.from(await file.arrayBuffer());
   if (integrations.cloudinary()) {
     if (!process.env.CLOUDINARY_URL) {

@@ -96,7 +96,7 @@ export async function adjustXp(input: { userId: string; amount: number; reason: 
     await db.$transaction([
       db.xpEvent.create({ data: { userId: d.userId, source: "ADMIN", amount: xp - profile.xp, refId: `admin-${Date.now()}`, note: d.reason } }),
       db.profile.update({ where: { userId: d.userId }, data: { xp, level: levelForXp(xp) } }),
-      db.notification.create({ data: { userId: d.userId, type: "SYSTEM", title: `${d.amount > 0 ? "+" : ""}${d.amount} XP from the CodeVerse team`, body: d.reason } }),
+      db.notification.create({ data: { userId: d.userId, type: "SYSTEM", title: `${d.amount > 0 ? "+" : ""}${d.amount} XP from the Kodshala team`, body: d.reason } }),
     ]);
     let finalXp = xp;
     if (d.amount > 0 && (await checkBadges(d.userId)).length) {

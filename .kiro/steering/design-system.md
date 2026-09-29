@@ -2,7 +2,7 @@
 inclusion: always
 ---
 
-# CodeVerse: Design System & Motion
+# Kodshala: Design System & Motion
 
 ## 3. Design System
 - Dark-first with a light-mode toggle. Colors: background #0A0A14, surface #12121F, primary #7C3AED (purple), accent #06B6D4 (cyan), success #84CC16, warning #F59E0B, danger #EF4444

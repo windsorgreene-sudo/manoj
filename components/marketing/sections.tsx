@@ -100,7 +100,7 @@ const FREE_FEATURES = [
   "Doubts forum & leaderboards",
 ];
 
-/** Landing section: everything on CodeVerse is free, no plans, no paywalls. */
+/** Landing section: everything on Kodshala is free, no plans, no paywalls. */
 export function FreeSection() {
   return (
     <section className="container-cv relative z-10 py-24" id="free">
@@ -125,11 +125,11 @@ export function FreeSection() {
 }
 
 const FAQS = [
-  { q: "Is CodeVerse really free?", a: "Yes, 100%. Every course, tutorial, problem, contest, mock test, the AI tutor and certificates are free. There are no paid plans." },
+  { q: "Is Kodshala really free?", a: "Yes, 100%. Every course, tutorial, problem, contest, mock test, the AI tutor and certificates are free. There are no paid plans." },
   { q: "Which programming languages can I use?", a: "C, C++, Java, Python, JavaScript and Go, in the problem workspace, the playground and every 'Try it Yourself' editor." },
   { q: "How does the AI tutor avoid giving away answers?", a: "It is instructed to give progressive hints: first a nudge, then the approach, then pseudocode. It only shows a full solution if you explicitly ask for one." },
   { q: "Are the certificates verifiable?", a: "Every certificate has a unique code and a QR code linking to a public verification page anyone can check." },
-  { q: "Can I use CodeVerse in Hindi?", a: "Yes. Switch the interface language to हिन्दी from the footer or settings, and ask the AI tutor to explain in Hindi." },
+  { q: "Can I use Kodshala in Hindi?", a: "Yes. Switch the interface language to हिन्दी from the footer or settings, and ask the AI tutor to explain in Hindi." },
   { q: "Do I need a credit card?", a: "No. Sign up with email, Google or GitHub, nothing to pay, ever." },
 ];
 

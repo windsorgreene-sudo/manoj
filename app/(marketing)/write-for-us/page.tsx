@@ -6,7 +6,7 @@ import { ContributorForm } from "@/components/marketing/contributor-form";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 
-export const metadata: Metadata = { title: "Write for Us", description: "Become a CodeVerse contributor, teach thousands of learners for free.", alternates: { canonical: "/write-for-us" } };
+export const metadata: Metadata = { title: "Write for Us", description: "Become a Kodshala contributor, teach thousands of learners for free.", alternates: { canonical: "/write-for-us" } };
 
 const PERKS = [
   { Icon: Award, title: "Earn recognition", body: "Contributor badge, XP and a public author page for every published article." },
@@ -37,7 +37,7 @@ export default async function WriteForUsPage() {
         {!user ? (
           <div className="glass p-8 text-center">
             <h2 className="text-xl font-semibold">Log in to apply</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Applications are linked to your CodeVerse account so approved contributors can start writing right away.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Applications are linked to your Kodshala account so approved contributors can start writing right away.</p>
             <Button asChild className="mt-6 rounded-xl"><Link href="/login?next=/write-for-us">Log in or sign up</Link></Button>
           </div>
         ) : user.role !== "STUDENT" ? (

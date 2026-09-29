@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   if (hasDatabase()) await db.newsletterSubscriber.upsert({ where: { email }, update: { unsubscribedAt: null }, create: { email } });
   await sendEmail({
     to: email,
-    subject: "You're subscribed to the CodeVerse weekly digest",
+    subject: "You're subscribed to the Kodshala weekly digest",
     html: emailLayout("Welcome aboard!", "Every Sunday you'll get the best new tutorials, the week's hardest problem and upcoming contests."),
   });
   return NextResponse.json({ ok: true });

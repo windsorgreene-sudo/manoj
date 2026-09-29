@@ -47,7 +47,7 @@ export async function decideApplication(input: { id: string; approve: boolean })
     const app = await db.contributorApplication.update({ where: { id: d.id }, data: { status: d.approve ? "APPROVED" : "REJECTED" }, include: { user: true } });
     if (d.approve && app.user.role === "STUDENT") await db.user.update({ where: { id: app.userId }, data: { role: "CONTRIBUTOR" } });
     await db.notification.create({
-      data: { userId: app.userId, type: "REVIEW", title: d.approve ? "Welcome to the CodeVerse contributor team!" : "Contributor application update", body: d.approve ? "Log out and back in, then start writing from Dashboard → My Articles." : "Thanks for applying. We can't approve your application right now.", link: d.approve ? "/dashboard/articles" : "/write-for-us" },
+      data: { userId: app.userId, type: "REVIEW", title: d.approve ? "Welcome to the Kodshala contributor team!" : "Contributor application update", body: d.approve ? "Log out and back in, then start writing from Dashboard → My Articles." : "Thanks for applying. We can't approve your application right now.", link: d.approve ? "/dashboard/articles" : "/write-for-us" },
     });
     await audit(actor, d.approve ? "contributor.approve" : "contributor.reject", "User", app.user.email);
     return null;

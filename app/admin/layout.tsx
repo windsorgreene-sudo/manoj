@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { requireUser } from "@/lib/session";
 import { AdminShell } from "@/components/admin/admin-shell";
 
-export const metadata: Metadata = { title: { default: "Admin", template: "%s · Admin · CodeVerse" }, robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: { default: "Admin", template: "%s · Admin · Kodshala" }, robots: { index: false, follow: false } };
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const user = await requireUser("ADMIN", "/admin");

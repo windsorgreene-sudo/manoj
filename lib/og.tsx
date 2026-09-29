@@ -22,7 +22,7 @@ export function ogCard({ eyebrow, title, subtitle, accent = "#7C3AED" }: { eyebr
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, #7C3AED, #06B6D4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 30, fontWeight: 800 }}>{"</>"}</div>
-          <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: -0.5 }}>CodeVerse</div>
+          <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: -0.5 }}>Kodshala</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ fontSize: 26, textTransform: "uppercase", letterSpacing: 4, color: "#67E8F9" }}>{eyebrow}</div>
@@ -31,7 +31,7 @@ export function ogCard({ eyebrow, title, subtitle, accent = "#7C3AED" }: { eyebr
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, color: "#A1A1B5" }}>
           <div>Learn · Practice · Compete · Get hired</div>
-          <div style={{ color: accent }}>codeverse.dev</div>
+          <div style={{ color: accent }}>kodshala.com</div>
         </div>
       </div>
     ),

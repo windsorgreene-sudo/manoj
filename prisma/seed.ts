@@ -113,16 +113,16 @@ async function main() {
 
   // ── Users ──────────────────────────────────────────────
   console.log("Users");
-  const admin = await createUser({ name: "Priya Verma", email: "admin@codeverse.dev", password: "Admin@123", role: "ADMIN", username: "priya", createdAt: daysAgo(400) });
+  const admin = await createUser({ name: "Priya Verma", email: "admin@kodshala.com", password: "Admin@123", role: "ADMIN", username: "priya", createdAt: daysAgo(400) });
   const contributor = await createUser({
     name: "Rahul Khanna",
-    email: "contributor@codeverse.dev",
+    email: "contributor@kodshala.com",
     password: "Contributor@123",
     role: "CONTRIBUTOR",
     username: "rahulk",
     createdAt: daysAgo(300),
   });
-  await db.profile.create({ data: { userId: admin.id, bio: "Founder & lead instructor at CodeVerse. Ex-Google.", college: "IIT Madras", country: "IN", xp: 12000, level: 25, contestRating: 2150, maxRating: 2210 } });
+  await db.profile.create({ data: { userId: admin.id, bio: "Founder & lead instructor at Kodshala. Ex-Google.", college: "IIT Madras", country: "IN", xp: 12000, level: 25, contestRating: 2150, maxRating: 2210 } });
   await db.profile.create({ data: { userId: contributor.id, bio: "Senior engineer who loves explaining algorithms.", college: "IIT Kanpur", country: "IN", xp: 5400, level: 16, contestRating: 1890, maxRating: 1920 } });
   await db.streak.createMany({ data: [{ userId: admin.id, current: 12, longest: 90 }, { userId: contributor.id, current: 4, longest: 41 }] });
 
@@ -175,7 +175,7 @@ async function main() {
         order: i,
         readingMins: readingMins(a.content),
         views: 400 + Math.floor(rand() * 9000),
-        seoTitle: `${a.title} | CodeVerse`,
+        seoTitle: `${a.title} | Kodshala`,
         seoDescription: a.excerpt,
         publishedAt: published,
         createdAt: published,
@@ -473,7 +473,7 @@ async function main() {
     for (const slug of earned) await db.userBadge.create({ data: { userId: u.id, badgeId: badgeIds.get(slug) as string, awardedAt: daysAgo(Math.floor(rand() * 50)) } });
   }
   // Certificate for completed course
-  await db.certificate.create({ data: { code: "CV-PY-2026-A7F3", userId: demo.id, courseId: courseIds.get("python-programming") as string, issuedAt: daysAgo(3) } });
+  await db.certificate.create({ data: { code: "KS-PY-2026-A7F3", userId: demo.id, courseId: courseIds.get("python-programming") as string, issuedAt: daysAgo(3) } });
 
   // ── Social graph ───────────────────────────────────────
   for (let i = 1; i < studentUsers.length; i++) {
@@ -569,9 +569,9 @@ async function main() {
   // ── Contests (past, live, upcoming) ────────────────────
   console.log("Contests");
   const contestDefs = [
-    { slug: "codeverse-weekly-41", title: "CodeVerse Weekly #41", start: now - 7 * DAY, dur: 2, problems: ["two-sum", "merge-intervals", "coin-change", "trapping-rain-water"], ended: true },
-    { slug: "codeverse-weekly-42", title: "CodeVerse Weekly #42", start: now - 30 * 60_000, dur: 2, problems: ["valid-anagram", "kth-largest-element-in-an-array", "number-of-islands", "edit-distance"], ended: false },
-    { slug: "codeverse-monthly-sept", title: "CodeVerse Monthly Challenge", start: now + 3 * DAY, dur: 3, problems: ["maximum-subarray", "longest-increasing-subsequence", "sliding-window-maximum", "median-of-two-sorted-arrays", "n-queens-count"], ended: false },
+    { slug: "kodshala-weekly-41", title: "Kodshala Weekly #41", start: now - 7 * DAY, dur: 2, problems: ["two-sum", "merge-intervals", "coin-change", "trapping-rain-water"], ended: true },
+    { slug: "kodshala-weekly-42", title: "Kodshala Weekly #42", start: now - 30 * 60_000, dur: 2, problems: ["valid-anagram", "kth-largest-element-in-an-array", "number-of-islands", "edit-distance"], ended: false },
+    { slug: "kodshala-monthly-sept", title: "Kodshala Monthly Challenge", start: now + 3 * DAY, dur: 3, problems: ["maximum-subarray", "longest-increasing-subsequence", "sliding-window-maximum", "median-of-two-sorted-arrays", "n-queens-count"], ended: false },
   ];
   for (const c of contestDefs) {
     const contest = await db.contest.create({
@@ -616,17 +616,17 @@ async function main() {
       { key: "contests", enabled: true, description: "Enable contests and live leaderboards." },
       { key: "maintenance_mode", enabled: false, description: "Show a maintenance page to non-admin visitors." },
       { key: "new_signups", enabled: true, description: "Allow new users to register." },
-      { key: "branding", enabled: true, description: "Site branding settings.", value: { siteName: "CodeVerse", tagline: "Learn. Practice. Compete. Get hired.", supportEmail: "support@codeverse.dev" } },
+      { key: "branding", enabled: true, description: "Site branding settings.", value: { siteName: "Kodshala", tagline: "Learn. Practice. Compete. Get hired.", supportEmail: "support@kodshala.com" } },
     ],
   });
   await db.announcement.create({
-    data: { title: "CodeVerse Weekly #42 is live!", body: "4 problems, 2 hours, rated. Jump in now.", link: "/contests/codeverse-weekly-42", variant: "info", isBanner: true, authorId: admin.id },
+    data: { title: "Kodshala Weekly #42 is live!", body: "4 problems, 2 hours, rated. Jump in now.", link: "/contests/kodshala-weekly-42", variant: "info", isBanner: true, authorId: admin.id },
   });
 
   // ── Notifications ──────────────────────────────────────
   await db.notification.createMany({
     data: [
-      { userId: demo.id, type: "CONTEST", title: "Weekly #42 has started", body: "The contest is live, good luck!", link: "/contests/codeverse-weekly-42" },
+      { userId: demo.id, type: "CONTEST", title: "Weekly #42 has started", body: "The contest is live, good luck!", link: "/contests/kodshala-weekly-42" },
       { userId: demo.id, type: "ACHIEVEMENT", title: "Badge unlocked: Polyglot", body: "You got Accepted in 3 languages.", link: "/dashboard/achievements", read: true },
       { userId: demo.id, type: "COMMENT", title: "Rahul replied to your comment", body: "on Dijkstra's Shortest Path Algorithm", link: "/tutorials/dijkstra-shortest-path" },
       { userId: demo.id, type: "FOLLOW", title: "Ishita Rao followed you", body: "Check out their profile.", link: "/u/ishitarao" },
@@ -647,16 +647,16 @@ async function main() {
 
   await db.auditLog.createMany({
     data: [
-      { actorId: admin.id, action: "contest.create", entity: "Contest", entityId: "codeverse-monthly-sept", createdAt: daysAgo(2) },
+      { actorId: admin.id, action: "contest.create", entity: "Contest", entityId: "kodshala-monthly-sept", createdAt: daysAgo(2) },
       { actorId: admin.id, action: "announcement.create", entity: "Announcement", createdAt: daysAgo(1) },
       { actorId: admin.id, action: "article.publish", entity: "Article", entityId: "dijkstra-shortest-path", createdAt: daysAgo(20) },
     ],
   });
 
   console.log("Seed complete");
-  console.log("   Admin:   admin@codeverse.dev / Admin@123");
-  console.log("   Student: student@codeverse.dev / Student@123");
-  console.log("   Contributor: contributor@codeverse.dev / Contributor@123");
+  console.log("   Admin:   admin@kodshala.com / Admin@123");
+  console.log("   Student: student@kodshala.com / Student@123");
+  console.log("   Contributor: contributor@kodshala.com / Contributor@123");
 }
 
 main()

@@ -16,7 +16,7 @@ Python needs no \`main\` function or semicolons. Indentation defines blocks.
 
 ${fence}python
 name = input("What's your name? ")
-print(f"Hello, {name}! Welcome to CodeVerse.")
+print(f"Hello, {name}! Welcome to Kodshala.")
 ${fence}
 
 ## Dynamic typing

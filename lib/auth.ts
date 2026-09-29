@@ -27,7 +27,7 @@ function baseUsername(email: string) {
 }
 
 export const auth = betterAuth({
-  appName: "CodeVerse",
+  appName: "Kodshala",
   baseURL: process.env.BETTER_AUTH_URL || appUrl(),
   secret: process.env.BETTER_AUTH_SECRET,
   // Production URL plus this deployment's own Vercel URLs (so preview deployments can log in too).
@@ -40,7 +40,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Reset your CodeVerse password",
+        subject: "Reset your Kodshala password",
         html: emailLayout("Reset your password", "Click the button below to choose a new password. This link expires in 1 hour.", {
           label: "Reset password",
           url,
@@ -55,8 +55,8 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Verify your CodeVerse email",
-        html: emailLayout("Welcome to CodeVerse", "Confirm your email to start learning, practicing and competing.", {
+        subject: "Verify your Kodshala email",
+        html: emailLayout("Welcome to Kodshala", "Confirm your email to start learning, practicing and competing.", {
           label: "Verify email",
           url,
         }),
@@ -108,7 +108,7 @@ export const auth = betterAuth({
             data: {
               userId: user.id,
               type: "SYSTEM",
-              title: "Welcome to CodeVerse!",
+              title: "Welcome to Kodshala!",
               body: "Start with the DSA course or solve today's Problem of the Day to begin your streak.",
               link: "/dashboard",
             },
@@ -121,7 +121,7 @@ export const auth = betterAuth({
         before: async (session) => {
           const u = await db.user.findUnique({ where: { id: session.userId }, select: { banned: true, banExpires: true } });
           if (u?.banned && (!u.banExpires || u.banExpires > new Date())) {
-            throw new APIError("FORBIDDEN", { message: "Your account has been suspended. Contact support@codeverse.dev." });
+            throw new APIError("FORBIDDEN", { message: "Your account has been suspended. Contact support@kodshala.com." });
           }
         },
       },

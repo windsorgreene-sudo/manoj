@@ -36,7 +36,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             "@type": "Course",
             name: course.title,
             description: course.description,
-            provider: { "@type": "Organization", name: "CodeVerse", sameAs: appUrl() },
+            provider: { "@type": "Organization", name: "Kodshala", sameAs: appUrl() },
             educationalLevel: LEVEL[course.level],
             inLanguage: "en",
             isAccessibleForFree: true,

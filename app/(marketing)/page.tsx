@@ -23,7 +23,7 @@ export default async function HomePage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "CodeVerse",
+          name: "Kodshala",
           url: appUrl(),
           logo: `${appUrl()}/icon.svg`,
         }}

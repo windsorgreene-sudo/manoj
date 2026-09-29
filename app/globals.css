@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ───────────── CodeVerse design tokens ───────────── */
+/* ───────────── Kodshala design tokens ───────────── */
 :root {
   /* brand (shared across themes) */
   --cv-primary: #7c3aed;

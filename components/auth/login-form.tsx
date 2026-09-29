@@ -95,15 +95,15 @@ export function LoginForm({ next, google, github }: { next: string; google: bool
         </RippleButton>
       </form>
       <p className="text-center text-sm text-muted-foreground">
-        New to CodeVerse?{" "}
+        New to Kodshala?{" "}
         <Link href={`/signup${next !== "/dashboard" ? `?next=${encodeURIComponent(next)}` : ""}`} className="font-medium text-foreground underline-offset-4 hover:underline">
           Create an account
         </Link>
       </p>
       <div className="glass p-4 text-xs text-muted-foreground">
         <p className="mb-1 font-semibold text-foreground">Demo accounts</p>
-        <p>Student: student@codeverse.dev / Student@123</p>
-        <p>Admin: admin@codeverse.dev / Admin@123</p>
+        <p>Student: student@kodshala.com / Student@123</p>
+        <p>Admin: admin@kodshala.com / Admin@123</p>
       </div>
     </motion.div>
   );

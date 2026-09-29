@@ -2,7 +2,7 @@
 inclusion: always
 ---
 
-# CodeVerse: Structure & Naming
+# Kodshala: Structure & Naming
 
 ## Folder structure (from section 9)
 ```

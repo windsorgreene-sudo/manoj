@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/marketing/legal-page";
 
-export const metadata: Metadata = { title: "Terms of Service", description: "The rules for using CodeVerse.", alternates: { canonical: "/terms" } };
+export const metadata: Metadata = { title: "Terms of Service", description: "The rules for using Kodshala.", alternates: { canonical: "/terms" } };
 
 export default function TermsPage() {
   return (
     <LegalPage title="Terms of Service" updated="1 September 2026">
-      <p>By creating an account or using CodeVerse you agree to these terms. If you do not agree, please do not use the service.</p>
+      <p>By creating an account or using Kodshala you agree to these terms. If you do not agree, please do not use the service.</p>
       <h2>1. Accounts</h2>
       <p>You must be at least 13 years old. Keep your credentials secure; you are responsible for activity under your account. One person, one account.</p>
       <h2>2. Acceptable use</h2>
@@ -16,17 +16,17 @@ export default function TermsPage() {
         <li>Be respectful in comments and the Doubts forum. Harassment, hate speech and spam are removed and may lead to suspension.</li>
       </ul>
       <h2>3. Your content</h2>
-      <p>You keep ownership of code, notes, comments and articles you create. You grant CodeVerse a licence to host and display content you choose to make public (comments, answers, published articles).</p>
+      <p>You keep ownership of code, notes, comments and articles you create. You grant Kodshala a licence to host and display content you choose to make public (comments, answers, published articles).</p>
       <h2>4. Contributors</h2>
-      <p>Approved contributors grant CodeVerse a non-exclusive licence to publish their articles. Articles are reviewed before publication and may be edited for clarity.</p>
+      <p>Approved contributors grant Kodshala a non-exclusive licence to publish their articles. Articles are reviewed before publication and may be edited for clarity.</p>
       <h2>5. Free service</h2>
-      <p>CodeVerse is free to use. We don&apos;t sell plans or charge for any feature. Features may change as the platform evolves.</p>
+      <p>Kodshala is free to use. We don&apos;t sell plans or charge for any feature. Features may change as the platform evolves.</p>
       <h2>6. Certificates</h2>
-      <p>Certificates confirm course completion on CodeVerse. They can be revoked if obtained through academic dishonesty.</p>
+      <p>Certificates confirm course completion on Kodshala. They can be revoked if obtained through academic dishonesty.</p>
       <h2>7. Disclaimers</h2>
       <p>The service is provided &quot;as is&quot;. We work hard to keep content accurate but do not guarantee specific results such as job offers.</p>
       <h2>8. Changes &amp; contact</h2>
-      <p>We may update these terms and will notify you of material changes by email. Questions: legal@codeverse.dev. These terms are governed by the laws of India; courts in Bengaluru have jurisdiction.</p>
+      <p>We may update these terms and will notify you of material changes by email. Questions: legal@kodshala.com. These terms are governed by the laws of India; courts in Bengaluru have jurisdiction.</p>
     </LegalPage>
   );
 }

@@ -35,7 +35,7 @@ ${fence}html
     </article>
     <aside>Related tutorials</aside>
   </main>
-  <footer>© CodeVerse</footer>
+  <footer>© Kodshala</footer>
 </body>
 ${fence}
 
@@ -137,7 +137,7 @@ ${fence}
     tags: ["http", "networking", "web"],
     content: `## From URL to page
 
-1. **DNS** resolves \`codeverse.dev\` to an IP address.
+1. **DNS** resolves \`kodshala.com\` to an IP address.
 2. A **TCP** connection (plus a **TLS** handshake for HTTPS) is established.
 3. The browser sends an **HTTP request**; the server returns a **response**.
 4. The browser parses HTML, fetches CSS/JS/images, and renders.
@@ -146,7 +146,7 @@ ${fence}
 
 ${fence}http
 GET /api/problems?difficulty=easy HTTP/1.1
-Host: codeverse.dev
+Host: kodshala.com
 Accept: application/json
 Authorization: Bearer eyJhbGciOi...
 ${fence}
@@ -770,7 +770,7 @@ Pick **one language** and get fluent with its standard library. Cover arrays, st
 
 ## Weeks 5-8: Core patterns
 
-Linked lists, stacks/queues, trees, graphs (BFS/DFS, Dijkstra, topological sort) and dynamic programming. Use the **CodeVerse DSA Sheet** and aim for understanding over volume, re-solve problems you got wrong after 3 days, then after a week.
+Linked lists, stacks/queues, trees, graphs (BFS/DFS, Dijkstra, topological sort) and dynamic programming. Use the **Kodshala DSA Sheet** and aim for understanding over volume, re-solve problems you got wrong after 3 days, then after a week.
 
 ## Weeks 9-10: Contests and speed
 
@@ -787,8 +787,8 @@ Interviewers increasingly allow AI tools in take-homes but expect you to **expla
 <Callout type="tip">Consistency beats intensity: a 60-day streak of one hour a day outperforms weekend cramming.</Callout>`,
   },
   {
-    slug: "inside-the-codeverse-judge",
-    title: "Inside the CodeVerse Judge: How Your Code Runs Safely",
+    slug: "inside-the-kodshala-judge",
+    title: "Inside the Kodshala Judge: How Your Code Runs Safely",
     category: "blog",
     difficulty: "MEDIUM",
     excerpt: "A look at sandboxed execution with Judge0, per-test verdicts, time and memory limits, and rate limiting.",
@@ -816,8 +816,8 @@ We stop at the first failing hidden test, and report runtime and memory as the m
 Code execution is rate-limited per user to keep queues short for everyone during contests.`,
   },
   {
-    slug: "why-we-built-codeverse",
-    title: "Why We Built CodeVerse",
+    slug: "why-we-built-kodshala",
+    title: "Why We Built Kodshala",
     category: "blog",
     difficulty: "EASY",
     excerpt: "Learning to code shouldn't require five tabs. Here's the story and philosophy behind one platform for learn, practice and compete.",

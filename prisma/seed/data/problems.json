@@ -116,8 +116,8 @@
     "expected": "a"
    },
    {
-    "input": "codeverse",
-    "expected": "codeverse"
+    "input": "kodshala",
+    "expected": "kodshala"
    },
    {
     "input": "  one two  three   ",

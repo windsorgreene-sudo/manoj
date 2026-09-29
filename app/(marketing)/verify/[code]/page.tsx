@@ -11,7 +11,7 @@ type Props = { params: Promise<{ code: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cert = await getCertificate((await params).code.toUpperCase());
   if (!cert) return { title: "Certificate not found", robots: { index: false } };
-  return { title: `${cert.user.name}, ${cert.course.title} certificate`, description: `Verified CodeVerse certificate ${cert.code} issued to ${cert.user.name} for completing ${cert.course.title}.`, robots: { index: false, follow: true } };
+  return { title: `${cert.user.name}, ${cert.course.title} certificate`, description: `Verified Kodshala certificate ${cert.code} issued to ${cert.user.name} for completing ${cert.course.title}.`, robots: { index: false, follow: true } };
 }
 
 export default async function VerifyCodePage({ params }: Props) {
@@ -23,7 +23,7 @@ export default async function VerifyCodePage({ params }: Props) {
         <div className="glass max-w-md p-8 text-center" role="alert">
           <ShieldX className="mx-auto size-12 text-danger" aria-hidden />
           <h1 className="mt-4 font-heading text-2xl font-bold">Certificate not found</h1>
-          <p className="mt-2 text-sm text-muted-foreground">No certificate matches <span className="font-mono">{code.slice(0, 30)}</span>. Check the ID for typos, it looks like <span className="font-mono">CV-XX-2026-XXXX</span>.</p>
+          <p className="mt-2 text-sm text-muted-foreground">No certificate matches <span className="font-mono">{code.slice(0, 30)}</span>. Check the ID for typos, it looks like <span className="font-mono">KS-XX-2026-XXXX</span>.</p>
           <Button asChild variant="outline" className="mt-6 rounded-xl"><Link href="/verify">Try another ID</Link></Button>
         </div>
       </div>
@@ -39,7 +39,7 @@ export default async function VerifyCodePage({ params }: Props) {
           credentialCategory: "certificate",
           identifier: cert.code,
           dateCreated: cert.issuedAt.toISOString(),
-          recognizedBy: { "@type": "Organization", name: "CodeVerse", url: appUrl() },
+          recognizedBy: { "@type": "Organization", name: "Kodshala", url: appUrl() },
           about: { "@type": "Course", name: cert.course.title, url: `${appUrl()}/courses/${cert.course.slug}` },
         }}
       />
@@ -55,7 +55,7 @@ export default async function VerifyCodePage({ params }: Props) {
           <div className="rounded-xl border border-border p-3"><dt className="text-xs text-muted-foreground">Certificate ID</dt><dd className="mt-1 font-mono">{cert.code}</dd></div>
           <div className="rounded-xl border border-border p-3"><dt className="text-xs text-muted-foreground">Issued</dt><dd className="mt-1">{formatDate(cert.issuedAt, { dateStyle: "long" })}</dd></div>
           <div className="rounded-xl border border-border p-3"><dt className="text-xs text-muted-foreground">Level</dt><dd className="mt-1 capitalize">{cert.course.level.toLowerCase()}</dd></div>
-          <div className="rounded-xl border border-border p-3"><dt className="text-xs text-muted-foreground">Issuer</dt><dd className="mt-1">CodeVerse Learning Pvt. Ltd.</dd></div>
+          <div className="rounded-xl border border-border p-3"><dt className="text-xs text-muted-foreground">Issuer</dt><dd className="mt-1">Kodshala Learning Pvt. Ltd.</dd></div>
         </dl>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button asChild className="rounded-xl"><a href={`/api/certificates/${cert.code}?inline=1`} target="_blank" rel="noopener noreferrer"><Download /> View PDF</a></Button>

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
 import { EmptyState } from "@/components/ui/empty-state";
 
-export const metadata: Metadata = { title: "Blog", description: "Engineering stories, career advice and product updates from CodeVerse.", alternates: { canonical: "/blog" } };
+export const metadata: Metadata = { title: "Blog", description: "Engineering stories, career advice and product updates from Kodshala.", alternates: { canonical: "/blog" } };
 export const revalidate = 600;
 
 export default async function BlogPage() {
@@ -16,7 +16,7 @@ export default async function BlogPage() {
   return (
     <div className="container-cv py-16">
       <header className="max-w-2xl">
-        <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Notes from the CodeVerse team</h1>
+        <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Notes from the Kodshala team</h1>
       </header>
       {posts.length ? (
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

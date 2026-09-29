@@ -7,7 +7,7 @@ export const metadata = { title: "Settings" };
 
 export default async function AdminSettings() {
   const flags = await db.featureFlag.findMany({ orderBy: { key: "asc" } });
-  const branding = (flags.find((f) => f.key === "branding")?.value as { siteName: string; tagline: string; supportEmail: string } | null) ?? { siteName: "CodeVerse", tagline: "", supportEmail: "support@codeverse.dev" };
+  const branding = (flags.find((f) => f.key === "branding")?.value as { siteName: string; tagline: string; supportEmail: string } | null) ?? { siteName: "Kodshala", tagline: "", supportEmail: "support@kodshala.com" };
   return (
     <>
       <PageHeader title="Settings" description="Branding, feature flags, maintenance mode and integrations." />

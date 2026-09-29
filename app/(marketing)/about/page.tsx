@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/marketing/section-heading";
 import { getPlatformStats } from "@/lib/queries/courses";
 
-export const metadata: Metadata = { title: "About", description: "The story, mission and team behind CodeVerse.", alternates: { canonical: "/about" } };
+export const metadata: Metadata = { title: "About", description: "The story, mission and team behind Kodshala.", alternates: { canonical: "/about" } };
 export const revalidate = 3600;
 
 const VALUES = [
@@ -31,7 +31,7 @@ export default async function AboutPage() {
           We&apos;re building the <span className="text-gradient">coding universe</span> we wished we had.
         </h1>
         <p className="mt-6 text-lg text-muted-foreground">
-          CodeVerse started in a hostel room in 2024 with one question: why does learning to code require five different websites? Today we host {stats.articles} tutorials,
+          Kodshala started in a hostel room in 2024 with one question: why does learning to code require five different websites? Today we host {stats.articles} tutorials,
           {" "}{stats.problems} practice problems and {stats.contests} contests on one fast, beautiful platform.
         </p>
       </section>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export const metadata: Metadata = { title: "Verify a certificate", description: "Check that a CodeVerse certificate is genuine using its certificate ID.", alternates: { canonical: "/verify" } };
+export const metadata: Metadata = { title: "Verify a certificate", description: "Check that a Kodshala certificate is genuine using its certificate ID.", alternates: { canonical: "/verify" } };
 
 export default async function VerifyPage({ searchParams }: { searchParams: Promise<{ code?: string }> }) {
   const { code } = await searchParams;
@@ -19,7 +19,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
         <p className="mt-2 text-sm text-muted-foreground">Enter the certificate ID printed on the bottom-left of the certificate, or scan its QR code.</p>
         <div className="mt-6 space-y-1.5">
           <Label htmlFor="code">Certificate ID</Label>
-          <Input id="code" name="code" required placeholder="CV-PY-2026-A7F3" autoComplete="off" className="font-mono uppercase" />
+          <Input id="code" name="code" required placeholder="KS-PY-2026-A7F3" autoComplete="off" className="font-mono uppercase" />
         </div>
         <Button type="submit" className="mt-4 w-full rounded-xl">Verify</Button>
       </form>

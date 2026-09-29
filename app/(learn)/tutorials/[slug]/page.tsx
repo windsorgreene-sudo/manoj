@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const a = await getArticleBySlug((await params).slug);
   if (!a) return {};
   return {
-    title: a.seoTitle?.replace(" | CodeVerse", "") ?? a.title,
+    title: a.seoTitle?.replace(" | Kodshala", "") ?? a.title,
     description: a.seoDescription ?? a.excerpt,
     alternates: { canonical: `/tutorials/${a.slug}` },
     openGraph: { type: "article", title: a.title, description: a.excerpt, publishedTime: a.publishedAt?.toISOString(), modifiedTime: a.updatedAt.toISOString(), authors: [a.author.name] },
@@ -59,7 +59,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             datePublished: article.publishedAt?.toISOString(),
             dateModified: article.updatedAt.toISOString(),
             author: { "@type": "Person", name: article.author.name },
-            publisher: { "@type": "Organization", name: "CodeVerse", logo: { "@type": "ImageObject", url: `${appUrl()}/icon.svg` } },
+            publisher: { "@type": "Organization", name: "Kodshala", logo: { "@type": "ImageObject", url: `${appUrl()}/icon.svg` } },
             proficiencyLevel: article.difficulty === "EASY" ? "Beginner" : article.difficulty === "MEDIUM" ? "Intermediate" : "Expert",
             mainEntityOfPage: url,
             keywords: article.tags.map((t) => t.name).join(", "),

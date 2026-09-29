@@ -96,7 +96,7 @@ export function StoryExperience({ hero }: { hero: ReactNode }) {
 
       {hero}
 
-      <section className="story-track relative z-10 h-[400dvh] motion-reduce:h-auto" aria-label="How CodeVerse works">
+      <section className="story-track relative z-10 h-[400dvh] motion-reduce:h-auto" aria-label="How Kodshala works">
        <div className="story-pin sticky top-0 flex min-h-dvh items-center motion-reduce:static motion-reduce:py-16">
         <div className="container-cv grid gap-10 lg:grid-cols-2">
           <div className="relative min-h-[320px]">

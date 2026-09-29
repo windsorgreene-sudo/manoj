@@ -1,7 +1,7 @@
 import { ogCard, OG_SIZE } from "@/lib/og";
 import { db } from "@/lib/db";
 
-export const alt = "CodeVerse coding problem";
+export const alt = "Kodshala coding problem";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

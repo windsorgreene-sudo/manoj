@@ -14,5 +14,5 @@ export async function GET() {
   if (user.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const rows = await db.newsletterSubscriber.findMany({ where: { unsubscribedAt: null }, orderBy: { createdAt: "asc" } });
   const csv = ["email,subscribed_at", ...rows.map((r) => [r.email, r.createdAt.toISOString()].map(esc).join(","))].join("\n");
-  return new NextResponse(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="codeverse-subscribers.csv"` } });
+  return new NextResponse(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="kodshala-subscribers.csv"` } });
 }

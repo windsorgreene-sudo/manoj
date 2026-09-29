@@ -22,13 +22,13 @@ export function CodeEditor({ language, value, onChange, height = "100%", onRun, 
 
   const onMount: OnMount = (editor, monaco) => {
     if (onRun) editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, onRun);
-    monaco.editor.defineTheme("codeverse-dark", {
+    monaco.editor.defineTheme("kodshala-dark", {
       base: "vs-dark",
       inherit: true,
       rules: [],
       colors: { "editor.background": "#0E0E1A", "editor.lineHighlightBackground": "#1A1A2B", "editorLineNumber.foreground": "#4B4B66" },
     });
-    monaco.editor.setTheme(theme === "vs-dark" ? "codeverse-dark" : "light");
+    monaco.editor.setTheme(theme === "vs-dark" ? "kodshala-dark" : "light");
   };
 
   return (
@@ -38,7 +38,7 @@ export function CodeEditor({ language, value, onChange, height = "100%", onRun, 
         language={LANGUAGE_META[language].monaco}
         value={value}
         onChange={(v) => onChange(v ?? "")}
-        theme={theme === "vs-dark" ? "codeverse-dark" : "light"}
+        theme={theme === "vs-dark" ? "kodshala-dark" : "light"}
         onMount={onMount}
         loading={
           <div className="flex h-full items-center justify-center gap-2 text-sm text-muted-foreground">

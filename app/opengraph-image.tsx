@@ -1,6 +1,6 @@
 import { ogCard, OG_SIZE } from "@/lib/og";
 
-export const alt = "CodeVerse: Learn, Practice, Compete & Get Hired";
+export const alt = "Kodshala: Learn, Practice, Compete & Get Hired";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

@@ -103,7 +103,7 @@ export function DashboardShell({ user, children }: { user: SessionUser; children
             </SheetContent>
           </Sheet>
           <Link href="/" className="text-sm text-muted-foreground hover:text-foreground lg:hidden">
-            CodeVerse
+            Kodshala
           </Link>
           <div className="ml-auto flex items-center gap-1">
             <Button asChild variant="ghost" size="sm" className="hidden rounded-xl sm:inline-flex">

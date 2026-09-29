@@ -30,7 +30,7 @@ async function getUser(username: string) {
 export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
   const u = await getUser((await params).username);
   if (!u) return { title: "User not found" };
-  return { title: `${u.name} (@${u.username})`, description: u.profile?.bio ?? `${u.name}'s CodeVerse profile`, alternates: { canonical: `/u/${u.username}` } };
+  return { title: `${u.name} (@${u.username})`, description: u.profile?.bio ?? `${u.name}'s Kodshala profile`, alternates: { canonical: `/u/${u.username}` } };
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {

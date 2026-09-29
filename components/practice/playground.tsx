@@ -19,7 +19,7 @@ type Initial = { title: string; language: LanguageKey; code: string; stdin: stri
 export function Playground({ initial }: { initial?: Initial }) {
   const [language, setLanguage] = useState<LanguageKey>(initial?.language ?? "PYTHON");
   const [code, setCode] = useState(initial?.code ?? HELLO_WORLD.PYTHON);
-  const [stdin, setStdin] = useState(initial?.stdin ?? "CodeVerse");
+  const [stdin, setStdin] = useState(initial?.stdin ?? "Kodshala");
   const [title, setTitle] = useState(initial?.title ?? "Untitled snippet");
   const [out, setOut] = useState<RunOutputState>({ kind: "idle" });
   const [saving, setSaving] = useState(false);

@@ -23,7 +23,15 @@ const nextConfig: NextConfig = {
   },
   // Old paid-plan URLs → home (everything is free now).
   async redirects() {
-    return ["/pricing", "/checkout/:path*", "/dashboard/billing", "/admin/monetization"].map((source) => ({ source, destination: source.startsWith("/admin") ? "/admin" : source.startsWith("/dashboard") ? "/dashboard" : "/", permanent: true }));
+    const paid = ["/pricing", "/checkout/:path*", "/dashboard/billing", "/admin/monetization"].map((source) => ({ source, destination: source.startsWith("/admin") ? "/admin" : source.startsWith("/dashboard") ? "/dashboard" : "/", permanent: true }));
+    // Old CodeVerse URLs after the rename to Kodshala.
+    const renamed = [
+      { source: "/contests/codeverse-:rest", destination: "/contests/kodshala-:rest", permanent: true },
+      { source: "/blog/why-we-built-codeverse", destination: "/blog/why-we-built-kodshala", permanent: true },
+      { source: "/blog/inside-the-codeverse-judge", destination: "/blog/inside-the-kodshala-judge", permanent: true },
+      { source: "/tutorials/inside-the-codeverse-judge", destination: "/blog/inside-the-kodshala-judge", permanent: true },
+    ];
+    return [...paid, ...renamed];
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

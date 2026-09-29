@@ -30,7 +30,7 @@ export async function GET() {
     }
   };
 
-  write("CodeVerse - Notes & Highlights", bold, 20, rgb(0.49, 0.23, 0.93));
+  write("Kodshala - Notes & Highlights", bold, 20, rgb(0.49, 0.23, 0.93));
   write(`${user.name} - exported ${new Date().toLocaleDateString("en-IN")} - ${notes.length} notes`, font, 10, rgb(0.4, 0.4, 0.5));
   y -= 10;
   for (const n of notes) {
@@ -42,6 +42,6 @@ export async function GET() {
   }
   const bytes = await pdf.save();
   return new NextResponse(Buffer.from(bytes), {
-    headers: { "Content-Type": "application/pdf", "Content-Disposition": 'attachment; filename="codeverse-notes.pdf"', "Cache-Control": "no-store" },
+    headers: { "Content-Type": "application/pdf", "Content-Disposition": 'attachment; filename="kodshala-notes.pdf"', "Cache-Control": "no-store" },
   });
 }

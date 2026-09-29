@@ -9,6 +9,6 @@ export default defineConfig({
   },
   datasource: {
     // A placeholder keeps `prisma generate` working in CI/builds without a database.
-    url: process.env.DATABASE_URL ?? "postgresql://user:password@localhost:5432/codeverse",
+    url: process.env.DATABASE_URL ?? "postgresql://user:password@localhost:5432/kodshala",
   },
 });

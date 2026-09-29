@@ -2,7 +2,7 @@
 inclusion: always
 ---
 
-# CodeVerse: Quality Bar
+# Kodshala: Quality Bar
 
 ## 9. Quality Bar (non-negotiable)
 - Performance: Lighthouse 90+ on mobile for article and problem pages: SSG/ISR for articles, dynamic imports, next/image, route-level code splitting

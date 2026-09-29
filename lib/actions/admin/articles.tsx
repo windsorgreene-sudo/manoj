@@ -119,7 +119,7 @@ export async function reviewArticle(input: { id: string; decision: "approve" | "
         userId: a.authorId,
         type: "REVIEW",
         title: d.decision === "approve" ? `“${a.title}” is published!` : d.decision === "changes" ? `Changes requested on “${a.title}”` : `“${a.title}” was not accepted`,
-        body: d.note ?? "Thanks for contributing to CodeVerse.",
+        body: d.note ?? "Thanks for contributing to Kodshala.",
         link: d.decision === "approve" ? `/tutorials/${a.slug}` : `/dashboard/articles/${a.id}`,
       },
     });

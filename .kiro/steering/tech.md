@@ -2,7 +2,7 @@
 inclusion: always
 ---
 
-# CodeVerse: Tech
+# Kodshala: Tech
 
 ## 2. Tech Stack (latest stable versions)
 - Next.js (App Router) + React + TypeScript (strict)
@@ -34,4 +34,4 @@ inclusion: always
 Models (plus the tables Better Auth needs): User (role), Profile, Follow, Course, Module, Lesson, Article, ArticleRevision, Category, Tag, Problem, TestCase, Submission, Sheet, SheetItem, Quiz, Question, QuizAttempt, Contest, ContestProblem, ContestParticipant, Enrollment, Progress, Bookmark, Note, Flashcard, Comment, Vote, Doubt, Answer, Badge, UserBadge, XpEvent, Streak, Certificate, Notification, Report, Announcement, FeatureFlag, AuditLog, with proper relations, indexes and cascade rules.
 
 Seed with REAL content (no lorem ipsum): 1 admin, 1 contributor, 10 students, 6 courses (DSA, Python, JavaScript, Web Development, DBMS, Operating Systems), 30+ articles, 30 problems with test cases, 5 quizzes, 3 contests, 15 badges.
-Demo logins: admin@codeverse.dev / Admin@123 and student@codeverse.dev / Student@123
+Demo logins: admin@kodshala.com / Admin@123 and student@kodshala.com / Student@123

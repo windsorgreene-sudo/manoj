@@ -42,7 +42,7 @@ export default async function CertificatesPage() {
                 <CopyLinkButton url={verifyUrl(c.code)} />
                 <Button asChild size="sm" variant="ghost" className="rounded-lg">
                   <a
-                    href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(c.course.title)}&organizationName=CodeVerse&issueYear=${c.issuedAt.getFullYear()}&issueMonth=${c.issuedAt.getMonth() + 1}&certUrl=${encodeURIComponent(verifyUrl(c.code))}&certId=${c.code}`}
+                    href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(c.course.title)}&organizationName=Kodshala&issueYear=${c.issuedAt.getFullYear()}&issueMonth=${c.issuedAt.getMonth() + 1}&certUrl=${encodeURIComponent(verifyUrl(c.code))}&certId=${c.code}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

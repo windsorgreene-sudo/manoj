@@ -61,7 +61,7 @@ export function CommandPalette() {
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen} title="Search CodeVerse" description="Search courses, tutorials, problems and doubts" shouldFilter={false}>
+    <CommandDialog open={open} onOpenChange={setOpen} title="Search Kodshala" description="Search courses, tutorials, problems and doubts" shouldFilter={false}>
       <CommandInput placeholder="Search tutorials, problems, courses…" value={q} onValueChange={setQ} />
       <CommandList data-lenis-prevent>
         {debounced.length >= 2 ? (
