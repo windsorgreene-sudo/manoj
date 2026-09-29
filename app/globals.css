@@ -17,6 +17,13 @@
   --cv-gradient: linear-gradient(135deg, #a78bfa 0%, #7c3aed 40%, #06b6d4 100%);
   --cv-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
+  /* Light theme uses deeper accents so text on white passes WCAG AA (4.5:1). */
+  --cv-primary-soft: #6d28d9;
+  --cv-accent: #0e7490;
+  --cv-success: #3f6212;
+  --cv-warning: #b45309;
+  --cv-danger: #dc2626;
+
   /* light theme surfaces */
   --cv-bg: #f7f7fb;
   --cv-surface: #ffffff;
@@ -50,6 +57,11 @@
 }
 
 .dark {
+  --cv-primary-soft: #a78bfa;
+  --cv-accent: #06b6d4;
+  --cv-success: #84cc16;
+  --cv-warning: #f59e0b;
+  --cv-danger: #ef4444;
   --cv-bg: #0a0a14;
   --cv-surface: #12121f;
   --cv-surface-2: #1a1a2b;
@@ -269,3 +281,11 @@ header nav a, header nav button { white-space: nowrap; }
    Only ever hide; never set display, so each element keeps its own layout classes. */
 html:not([lang="hi-Latn"]) [data-variant="hinglish"] { display: none !important; }
 html[lang="hi-Latn"] [data-variant="en"]:has(+ [data-variant="hinglish"]) { display: none !important; }
+
+/* Accent fills with dark text were tuned for the bright dark-mode accents; on the deeper
+   light-mode accents white text reads better. */
+html:not(.dark) :is(.bg-success, .bg-warning, .bg-cyan).text-black { color: #fff; }
+/* Small white-on-red badges: a slightly deeper red keeps the text readable in both themes. */
+.bg-danger.text-white { background-color: #dc2626; }
+/* Brand-coloured text on dark surfaces uses the lighter violet. */
+.dark .text-brand { color: var(--cv-primary-soft); }

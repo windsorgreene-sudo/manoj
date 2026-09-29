@@ -98,7 +98,7 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
   return (
     <div className="space-y-6">
       <Section title="Profile" description="This information appears on your public profile.">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <Avatar className="size-16">
             {avatar ? <AvatarImage src={avatar} alt="" /> : null}
             <AvatarFallback className="bg-brand/20 text-lg">{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>

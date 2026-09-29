@@ -12,8 +12,8 @@ import { cn, formatDate } from "@/lib/utils";
 export function XpBar({ level, current, needed, pct, xp }: { level: number; current: number; needed: number; pct: number; xp: number }) {
   return (
     <div>
-      <div className="flex items-baseline justify-between text-sm">
-        <span className="font-semibold">Level {level}</span>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 text-sm">
+        <span className="whitespace-nowrap font-semibold">Level {level}</span>
         <span className="text-xs text-muted-foreground">
           {current} / {needed} XP · {xp.toLocaleString("en-IN")} total
         </span>

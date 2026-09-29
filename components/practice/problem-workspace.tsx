@@ -47,6 +47,7 @@ import { usePrefsStore } from "@/lib/stores/prefs-store";
 import { useTutorCodeStore } from "@/lib/stores/tutor-code-store";
 import { cn, timeAgo } from "@/lib/utils";
 import { useLocale } from "@/components/i18n/intl-provider";
+import { useResolvedEditorTheme } from "@/lib/stores/editor-theme";
 import { pick, pickList } from "@/lib/i18n-content";
 
 const CodeEditor = dynamic(() => import("@/components/editor/code-editor").then((m) => m.CodeEditor), {
@@ -99,7 +100,8 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
   const celebrate = useCelebrate();
   const isDesktop = useMediaQuery("(min-width: 1024px)", true);
   const { locale } = useLocale();
-  const { editorTheme, setEditorTheme, fontSize, setFontSize, codeLang, setCodeLang } = usePrefsStore();
+  const { setEditorTheme, fontSize, setFontSize, codeLang, setCodeLang } = usePrefsStore();
+  const resolvedEditorTheme = useResolvedEditorTheme();
   const setTutorCode = useTutorCodeStore((s) => s.setCode);
 
   const initialLang = (LANGUAGES.find((l) => LANGUAGE_META[l].shiki === codeLang) ?? "PYTHON") as LanguageKey;
@@ -310,8 +312,8 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
             ))}
           </SelectContent>
         </Select>
-        <Button variant="ghost" size="icon-sm" aria-label="Toggle editor theme" onClick={() => setEditorTheme(editorTheme === "vs-dark" ? "light" : "vs-dark")}>
-          {editorTheme === "vs-dark" ? <Sun /> : <Moon />}
+        <Button variant="ghost" size="icon-sm" aria-label="Toggle editor theme" onClick={() => setEditorTheme(resolvedEditorTheme === "vs-dark" ? "light" : "vs-dark")}>
+          {resolvedEditorTheme === "vs-dark" ? <Sun /> : <Moon />}
         </Button>
         <Button variant="ghost" size="icon-sm" aria-label="Decrease font size" onClick={() => setFontSize(fontSize - 1)}>
           <Minus />

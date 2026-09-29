@@ -56,13 +56,13 @@ export function Navbar() {
     >
       <nav className="container-cv flex h-16 items-center gap-4" aria-label="Main">
         <Logo />
-        <ul className="ml-6 hidden items-center gap-1 lg:flex">
+        <ul className="ml-4 hidden items-center gap-0.5 lg:flex xl:ml-6 xl:gap-1">
           {primaryNav.slice(0, 3).map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
                 className={cn(
-                  "rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  "rounded-xl px-2 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground xl:px-3",
                   isActive(item.href) && "text-foreground",
                 )}
               >
@@ -72,7 +72,7 @@ export function Navbar() {
           ))}
           <li>
             <Popover>
-              <PopoverTrigger className="flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+              <PopoverTrigger className="flex items-center gap-1 rounded-xl px-2 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground hover:text-foreground xl:px-3">
                 {t("practice")} <ChevronDown className="size-4" />
               </PopoverTrigger>
               <PopoverContent className="glass w-[480px] p-2" align="start">
@@ -94,7 +94,7 @@ export function Navbar() {
               <Link
                 href={item.href}
                 className={cn(
-                  "rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  "rounded-xl px-2 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground xl:px-3",
                   isActive(item.href) && "text-foreground",
                 )}
               >
@@ -113,7 +113,7 @@ export function Navbar() {
           >
             <Search className="size-4" />
             <span>{t("search")}</span>
-            <kbd className="ml-4 rounded-md border border-border px-1.5 text-[10px]">Ctrl K</kbd>
+            <kbd className="ml-4 hidden rounded-md border border-border px-1.5 text-[10px] xl:inline">Ctrl K</kbd>
           </button>
           <Button variant="ghost" size="icon" className="rounded-xl md:hidden" aria-label="Search" onClick={() => openSearch(true)}>
             <Search className="size-5" />

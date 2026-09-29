@@ -22,8 +22,8 @@ export default async function DashboardPage() {
     <div className="space-y-6">
       <section className="glass relative overflow-hidden p-6">
         <div aria-hidden className="absolute -right-20 -top-20 size-72 rounded-full bg-brand/20 blur-3xl" />
-        <div className="relative flex flex-wrap items-center gap-5">
-          <Avatar className="size-16 ring-2 ring-brand">
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
+          <Avatar className="size-14 shrink-0 ring-2 ring-brand sm:size-16">
             {user.image ? <AvatarImage src={user.image} alt="" /> : null}
             <AvatarFallback className="bg-brand/20 text-lg font-bold">{user.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}</AvatarFallback>
           </Avatar>
@@ -32,7 +32,7 @@ export default async function DashboardPage() {
             <p className="text-sm text-muted-foreground">Contest rating {o.rating} · {stats.solved} problems solved · {o.unread} unread notifications</p>
             <div className="mt-4 max-w-xl"><XpBar level={o.progress.level} current={o.progress.current} needed={o.progress.needed} pct={o.progress.pct} xp={o.xp} /></div>
           </div>
-          <Button asChild className="rounded-xl"><Link href="/problems"><Sparkles /> Practice now</Link></Button>
+          <Button asChild className="w-full rounded-xl sm:w-auto"><Link href="/problems"><Sparkles /> Practice now</Link></Button>
         </div>
       </section>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

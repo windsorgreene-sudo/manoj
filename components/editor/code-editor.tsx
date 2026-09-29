@@ -4,6 +4,7 @@ import Editor, { type OnMount } from "@monaco-editor/react";
 import { Loader2 } from "lucide-react";
 import { LANGUAGE_META, type LanguageKey } from "@/lib/languages";
 import { usePrefsStore } from "@/lib/stores/prefs-store";
+import { useResolvedEditorTheme } from "@/lib/stores/editor-theme";
 
 type Props = {
   language: LanguageKey;
@@ -17,7 +18,7 @@ type Props = {
 
 /** Monaco wrapper, always loaded via next/dynamic from interactive surfaces only. */
 export function CodeEditor({ language, value, onChange, height = "100%", onRun, readOnly, ariaLabel = "Code editor" }: Props) {
-  const theme = usePrefsStore((s) => s.editorTheme);
+  const theme = useResolvedEditorTheme();
   const fontSize = usePrefsStore((s) => s.fontSize);
 
   const onMount: OnMount = (editor, monaco) => {

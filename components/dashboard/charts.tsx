@@ -7,9 +7,9 @@ const tooltipStyle = { background: "var(--cv-surface)", border: "1px solid var(-
 
 export function DifficultyDonut({ data, totals }: { data: Record<"EASY" | "MEDIUM" | "HARD", number>; totals: Record<"EASY" | "MEDIUM" | "HARD", number> }) {
   const rows = [
-    { name: "Easy", value: data.EASY, total: totals.EASY ?? 0, color: "#84CC16" },
-    { name: "Medium", value: data.MEDIUM, total: totals.MEDIUM ?? 0, color: "#F59E0B" },
-    { name: "Hard", value: data.HARD, total: totals.HARD ?? 0, color: "#EF4444" },
+    { name: "Easy", value: data.EASY, total: totals.EASY ?? 0, color: "var(--cv-success)" },
+    { name: "Medium", value: data.MEDIUM, total: totals.MEDIUM ?? 0, color: "var(--cv-warning)" },
+    { name: "Hard", value: data.HARD, total: totals.HARD ?? 0, color: "var(--cv-danger)" },
   ];
   const solved = rows.reduce((t, r) => t + r.value, 0);
   return (
@@ -17,8 +17,8 @@ export function DifficultyDonut({ data, totals }: { data: Record<"EASY" | "MEDIU
       <div className="relative size-44" role="img" aria-label={`Solved ${solved}: ${rows.map((r) => `${r.name} ${r.value}`).join(", ")}`}>
         <ResponsiveContainer>
           <PieChart>
-            <Pie data={solved ? rows : [{ name: "None", value: 1, color: "#1A1A2B" }]} dataKey="value" innerRadius={56} outerRadius={78} paddingAngle={solved ? 3 : 0} stroke="none" isAnimationActive>
-              {(solved ? rows : [{ color: "#1A1A2B" }]).map((r, i) => (
+            <Pie data={solved ? rows : [{ name: "None", value: 1, color: "var(--cv-surface-2)" }]} dataKey="value" innerRadius={56} outerRadius={78} paddingAngle={solved ? 3 : 0} stroke="none" isAnimationActive>
+              {(solved ? rows : [{ color: "var(--cv-surface-2)" }]).map((r, i) => (
                 <Cell key={i} fill={r.color} />
               ))}
             </Pie>
