@@ -78,11 +78,16 @@ export const getProblemForWorkspace = cache(async (slug: string) => {
       topics: true,
       companies: true,
       hints: true,
+      hintsHinglish: true,
+      statementHinglish: true,
+      inputFormatHinglish: true,
+      outputFormatHinglish: true,
+      constraintsHinglish: true,
       starterCode: true,
       timeLimitMs: true,
       memoryLimitMb: true,
      
-      testCases: { where: { isSample: true }, orderBy: { order: "asc" }, select: { id: true, input: true, expected: true, explanation: true } },
+      testCases: { where: { isSample: true }, orderBy: { order: "asc" }, select: { id: true, input: true, expected: true, explanation: true, explanationHinglish: true } },
       _count: { select: { testCases: true } },
     },
   });

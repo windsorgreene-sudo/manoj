@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookOpen, CheckCircle2, Clock, Globe, Star, Users } from "lucide-react";
 import { EnrollCard, ReviewForm, Syllabus } from "@/components/learn/course-enroll";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
 import { db } from "@/lib/db";
 import { getCourseDetail } from "@/lib/queries/course-detail";
@@ -63,7 +64,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
               <span className="rounded-lg bg-success px-2.5 py-1 text-xs font-semibold text-black">Free</span>
             </div>
             <h1 className="mt-4 font-heading text-4xl font-bold md:text-5xl">{course.title}</h1>
-            <p className="mt-3 text-lg text-muted-foreground">{course.subtitle}</p>
+            <LangVariant as="p" className="mt-3 text-lg text-muted-foreground" en={course.subtitle} hinglish={course.subtitleHinglish} />
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5"><Star className="size-4 fill-warning text-warning" /> {course.rating || "New"} ({course.reviewCount} reviews)</span>
               <span className="flex items-center gap-1.5"><Users className="size-4" /> {course._count.enrollments} learners</span>
@@ -78,11 +79,11 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         <div className="min-w-0 space-y-12">
           <section aria-labelledby="about">
             <h2 id="about" className="font-heading text-2xl font-bold">About this course</h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">{course.description}</p>
+            <LangVariant as="p" className="mt-3 leading-relaxed text-muted-foreground" en={course.description} hinglish={course.descriptionHinglish} />
             <h3 className="mt-6 font-semibold">What you&apos;ll learn</h3>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-              {course.outcomes.map((o) => (
-                <li key={o} className="flex gap-2 text-sm"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" /> {o}</li>
+              {course.outcomes.map((o, i) => (
+                <li key={o} className="flex gap-2 text-sm"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" /> <LangVariant as="span" en={o} hinglish={course.outcomesHinglish[i]} /></li>
               ))}
             </ul>
           </section>

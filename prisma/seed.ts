@@ -1,3 +1,4 @@
+import { syncHinglish } from "./seed/hinglish-sync";
 import "dotenv/config";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -653,6 +654,7 @@ async function main() {
     ],
   });
 
+  console.log("Hinglish content:", await syncHinglish(db));
   console.log("Seed complete");
   console.log("   Admin:   admin@kodshala.com / Admin@123");
   console.log("   Student: student@kodshala.com / Student@123");

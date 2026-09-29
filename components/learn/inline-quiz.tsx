@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { gradeQuiz } from "@/lib/actions/learn";
 import { useCelebrate } from "@/components/motion/celebration-layer";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/components/i18n/intl-provider";
+import { pick, pickList } from "@/lib/i18n-content";
 
-type Q = { id: string; prompt: string; options: string[] };
-type Graded = { score: number; max: number; perQuestion: { id: string; correct: number[]; ok: boolean; explanation: string }[] };
+type Q = { id: string; prompt: string; options: string[]; promptHinglish?: string | null; optionsHinglish?: string[] };
+type Graded = { score: number; max: number; perQuestion: { id: string; correct: number[]; ok: boolean; explanation: string; explanationHinglish?: string | null }[] };
 
 /** Knowledge check at the end of an article, graded on the server. */
 export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q[] }) {
@@ -17,6 +19,7 @@ export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q
   const [result, setResult] = useState<Graded | null>(null);
   const [busy, setBusy] = useState(false);
   const celebrate = useCelebrate();
+  const { locale } = useLocale();
 
   const submit = async () => {
     setBusy(true);
@@ -40,10 +43,10 @@ export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q
             <li key={q.id}>
               <fieldset>
                 <legend className="font-medium">
-                  {qi + 1}. {q.prompt}
+                  {qi + 1}. {pick(locale, q.prompt, q.promptHinglish)}
                 </legend>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                  {q.options.map((opt, oi) => {
+                  {pickList(locale, q.options, q.optionsHinglish).map((opt, oi) => {
                     const chosen = answers[q.id] === oi;
                     const isCorrect = graded?.correct.includes(oi);
                     return (
@@ -68,7 +71,7 @@ export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q
                 {graded ? (
                   <p className={cn("mt-2 flex items-start gap-2 text-sm", graded.ok ? "text-success" : "text-danger")}>
                     {graded.ok ? <CheckCircle2 className="mt-0.5 size-4 shrink-0" /> : <XCircle className="mt-0.5 size-4 shrink-0" />}
-                    <span className="text-muted-foreground">{graded.explanation}</span>
+                    <span className="text-muted-foreground">{pick(locale, graded.explanation, graded.explanationHinglish)}</span>
                   </p>
                 ) : null}
               </fieldset>

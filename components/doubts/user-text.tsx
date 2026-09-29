@@ -7,7 +7,7 @@ import { Fragment } from "react";
 export function UserText({ text, className }: { text: string; className?: string }) {
   const parts = text.split(/```[a-zA-Z0-9+#-]*\n?([\s\S]*?)```/g);
   return (
-    <div className={className} data-no-translate>
+    <div className={className}>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
           <pre key={i} className="my-3 overflow-x-auto rounded-xl border border-border bg-muted/40 p-4 font-mono text-[13px] leading-relaxed">

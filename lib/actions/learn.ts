@@ -142,7 +142,7 @@ export async function gradeQuiz(input: { quizId: string; answers: Record<string,
         wrong++;
         if (quiz.negativeMarking) score -= q.marks * quiz.negativeMark;
       }
-      return { id: q.id, correct: q.correct, ok, skipped: isSkipped, explanation: q.explanation, marks: q.marks };
+      return { id: q.id, correct: q.correct, ok, skipped: isSkipped, explanation: q.explanation, explanationHinglish: q.explanationHinglish, marks: q.marks };
     });
     const user = await getCurrentUser();
     let xp: AwardResult | null = null;

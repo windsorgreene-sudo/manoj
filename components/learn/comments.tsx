@@ -90,7 +90,7 @@ function CommentItem({ c, replies, target, refresh, signedIn }: { c: CommentView
           )}{" "}
           <span className="text-xs text-muted-foreground">· {timeAgo(c.createdAt)}</span>
         </p>
-        <p className="mt-1 text-sm whitespace-pre-wrap" data-no-translate>{c.body}</p>
+        <p className="mt-1 text-sm whitespace-pre-wrap">{c.body}</p>
         {!c.parentId ? (
           <Button variant="ghost" size="xs" className="mt-1 -ml-2 rounded-lg text-muted-foreground" onClick={() => (signedIn ? setReplying(!replying) : toast.error("Log in to reply"))}>
             <Reply /> Reply

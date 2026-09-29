@@ -5,6 +5,7 @@ import { ArrowLeft, FileQuestion, History, Timer } from "lucide-react";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { QuizPlayer } from "@/components/quizzes/quiz-player";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
 
 import { appUrl, formatDate } from "@/lib/utils";
@@ -23,7 +24,7 @@ export default async function QuizPage({ params }: Props) {
     getCurrentUser(),
     db.quiz.findUnique({
       where: { slug },
-      include: { questions: { orderBy: { order: "asc" }, select: { id: true, type: true, prompt: true, options: true, marks: true } }, article: { select: { slug: true, title: true } } },
+      include: { questions: { orderBy: { order: "asc" }, select: { id: true, type: true, prompt: true, options: true, marks: true, promptHinglish: true, optionsHinglish: true } }, article: { select: { slug: true, title: true } } },
     }),
   ]);
   if (!quiz || !quiz.isPublished) notFound();
@@ -43,7 +44,7 @@ export default async function QuizPage({ params }: Props) {
         <h1 className="mt-3 flex flex-wrap items-center gap-3 font-heading text-3xl font-bold md:text-4xl">
           {quiz.title}
         </h1>
-        <p className="mt-3 text-muted-foreground">{quiz.description}</p>
+        <LangVariant as="p" className="mt-3 text-muted-foreground" en={quiz.description} hinglish={quiz.descriptionHinglish} />
         <p className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1"><FileQuestion className="size-4" /> {quiz.questions.length} questions · {maxMarks} marks</span>
           <span className="flex items-center gap-1"><Timer className="size-4" /> {quiz.durationMins} minutes</span>

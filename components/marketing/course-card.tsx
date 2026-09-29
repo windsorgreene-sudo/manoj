@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import { BookOpen, Clock, Star, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { CourseCardData } from "@/lib/queries/courses";
@@ -24,7 +25,7 @@ export function CourseCard({ course, className }: { course: CourseCardData; clas
         <p className="absolute bottom-4 left-5 font-heading text-2xl font-bold text-white drop-shadow">{course.title}</p>
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">
-        <p className="line-clamp-2 text-sm text-muted-foreground">{course.subtitle}</p>
+        <LangVariant as="p" className="line-clamp-2 text-sm text-muted-foreground" en={course.subtitle} hinglish={course.subtitleHinglish} />
         <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
             <Star className="size-3.5 fill-warning text-warning" /> {course.rating ? course.rating.toFixed(1) : "New"} ({course.reviews})

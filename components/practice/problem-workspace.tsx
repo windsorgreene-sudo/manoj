@@ -46,6 +46,8 @@ import { LANGUAGE_META, LANGUAGES, type LanguageKey } from "@/lib/languages";
 import { usePrefsStore } from "@/lib/stores/prefs-store";
 import { useTutorCodeStore } from "@/lib/stores/tutor-code-store";
 import { cn, timeAgo } from "@/lib/utils";
+import { useLocale } from "@/components/i18n/intl-provider";
+import { pick, pickList } from "@/lib/i18n-content";
 
 const CodeEditor = dynamic(() => import("@/components/editor/code-editor").then((m) => m.CodeEditor), {
   ssr: false,
@@ -61,6 +63,7 @@ export type WorkspaceProblem = {
   topics: string[];
   companies: string[];
   hints: string[];
+  hintsHinglish?: string[];
   starterCode: Record<string, string>;
   samples: { id: string; input: string; expected: string }[];
   totalTests: number;
@@ -95,6 +98,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
   const qc = useQueryClient();
   const celebrate = useCelebrate();
   const isDesktop = useMediaQuery("(min-width: 1024px)", true);
+  const { locale } = useLocale();
   const { editorTheme, setEditorTheme, fontSize, setFontSize, codeLang, setCodeLang } = usePrefsStore();
   const setTutorCode = useTutorCodeStore((s) => s.setCode);
 
@@ -247,7 +251,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
 
         <TabsContent value="hints" className="space-y-3 p-5">
           <p className="text-sm text-muted-foreground">Unlock hints one at a time, try to solve it after each one.</p>
-          {problem.hints.map((h, i) => (
+          {pickList(locale, problem.hints, problem.hintsHinglish).map((h, i) => (
             <div key={i} className={cn("rounded-xl border p-4 text-sm", i < hintsShown ? "border-warning/40 bg-warning/5" : "border-border")}>
               <p className="mb-1 flex items-center gap-2 font-semibold">
                 <Lightbulb className="size-4 text-warning" /> Hint {i + 1}
@@ -510,6 +514,7 @@ function Block({ label, text, danger }: { label: string; text: string; danger?: 
 }
 
 function Editorial({ problemId, solved }: { problemId: string; solved: boolean }) {
+  const { locale } = useLocale();
   const q = useQuery({ queryKey: ["editorial", problemId, solved], queryFn: () => getEditorial(problemId) });
   if (q.isLoading) return <div className="shimmer h-40 rounded-xl" />;
   if (q.isError || !q.data) return <p className="text-sm text-danger">Couldn&apos;t load the editorial.</p>;
@@ -524,7 +529,7 @@ function Editorial({ problemId, solved }: { problemId: string; solved: boolean }
   return (
     <div className="space-y-4 text-sm leading-relaxed">
       <h2 className="font-heading text-lg font-bold">Approach</h2>
-      <p className="whitespace-pre-wrap">{q.data.editorial.replace(/\*\*|`/g, "")}</p>
+      <p className="whitespace-pre-wrap">{pick(locale, q.data.editorial, q.data.editorialHinglish).replace(/\*\*|`/g, "")}</p>
       {q.data.solution ? (
         <>
           <h3 className="font-semibold">Reference solution (Python)</h3>

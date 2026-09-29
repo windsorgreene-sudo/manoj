@@ -7,6 +7,7 @@ export const courseCardSelect = {
   slug: true,
   title: true,
   subtitle: true,
+  subtitleHinglish: true,
   topic: true,
   level: true,
   color: true,
@@ -23,6 +24,7 @@ export type CourseCardData = {
   slug: string;
   title: string;
   subtitle: string;
+  subtitleHinglish: string | null;
   topic: string;
   level: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
   color: string;
@@ -44,6 +46,7 @@ export async function withRatings(rows: Row[]): Promise<CourseCardData[]> {
     slug: r.slug,
     title: r.title,
     subtitle: r.subtitle,
+    subtitleHinglish: r.subtitleHinglish,
     topic: r.topic,
     level: r.level,
     color: r.color,

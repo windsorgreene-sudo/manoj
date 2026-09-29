@@ -44,11 +44,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrains.variable} ${devanagari.variable} dark`}>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(/(?:^|; )NEXT_LOCALE=hinglish(?:;|$)/.test(document.cookie)&&!location.pathname.startsWith("/admin")){var d=document.documentElement;d.classList.add("tr-pending");setTimeout(function(){d.classList.remove("tr-pending")},1000)}}catch(e){}`,
-          }}
-        />
+        {/* Set the content language before first paint so Hinglish readers never see an English flash. */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var m=document.cookie.match(/(?:^|; )NEXT_LOCALE=(hinglish|hi)(?:;|$)/);if(m)document.documentElement.lang=m[1]==="hinglish"?"hi-Latn":"hi"}catch(e){}` }} />
       </head>
       <body className="min-h-dvh">
         <a

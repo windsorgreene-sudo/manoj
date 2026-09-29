@@ -10,6 +10,7 @@ import { InlineQuiz } from "@/components/learn/inline-quiz";
 import { MobileTopics } from "@/components/learn/mobile-topics";
 import { ReadingProgress } from "@/components/learn/reading-progress";
 import { TableOfContents } from "@/components/learn/table-of-contents";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import { TopicTree } from "@/components/learn/topic-tree";
 import { TutorLauncher } from "@/components/learn/tutor-launcher";
 import { DifficultyBadge } from "@/components/learn/difficulty-badge";
@@ -41,7 +42,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
-  const [tree, related, prepared] = await Promise.all([getTutorialTree(), getRelatedArticles(article), prepareMdx(article.content)]);
+  const [tree, related, prepared, preparedHi] = await Promise.all([getTutorialTree(), getRelatedArticles(article), prepareMdx(article.content), article.contentHinglish ? prepareMdx(article.contentHinglish) : Promise.resolve(null)]);
   const { prev, next } = prevNext(tree, slug);
   const quiz = article.quizzes[0];
   const url = `${appUrl()}/tutorials/${article.slug}`;
@@ -92,7 +93,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </nav>
           <header>
             <h1 className="font-heading text-3xl font-bold leading-tight md:text-5xl">{article.title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{article.excerpt}</p>
+            <LangVariant as="p" className="mt-4 text-lg text-muted-foreground" en={article.excerpt} hinglish={article.excerptHinglish} />
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
               <DifficultyBadge difficulty={article.difficulty} />
               <span className="flex items-center gap-1.5">
@@ -120,7 +121,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
           <div className="mt-8">
             <ArticleBody articleId={article.id}>
-              <MdxContent content={article.content} prepared={prepared} />
+              <LangVariant en={<MdxContent content={article.content} prepared={prepared} />} hinglish={preparedHi && article.contentHinglish ? <MdxContent content={article.contentHinglish} prepared={preparedHi} /> : null} />
             </ArticleBody>
           </div>
 
@@ -167,7 +168,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <Link key={r.slug} href={`/tutorials/${r.slug}`} className="glass hover-glow p-5">
                     <DifficultyBadge difficulty={r.difficulty} />
                     <h3 className="mt-2 font-semibold">{r.title}</h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{r.excerpt}</p>
+                    <LangVariant as="p" className="mt-1 line-clamp-2 text-sm text-muted-foreground" en={r.excerpt} hinglish={r.excerptHinglish} />
                   </Link>
                 ))}
               </div>
@@ -179,7 +180,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
         <aside className="hidden xl:block">
           <div className="sticky top-20">
-            <TableOfContents items={prepared.toc} />
+            <LangVariant en={<TableOfContents items={prepared.toc} />} hinglish={preparedHi ? <TableOfContents items={preparedHi.toc} /> : null} />
           </div>
         </aside>
       </div>

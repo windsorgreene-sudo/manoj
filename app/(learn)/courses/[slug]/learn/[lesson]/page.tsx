@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, ArrowRight, Code2, ListChecks, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MdxContent } from "@/components/content/mdx-content";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import { LessonSidebar, MarkComplete } from "@/components/learn/lesson-player";
 import { TutorLauncher } from "@/components/learn/tutor-launcher";
 import { DifficultyBadge } from "@/components/learn/difficulty-badge";
@@ -30,7 +31,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
     ? await db.lesson.findUnique({
         where: { id: current.id },
         include: {
-          article: { select: { content: true, title: true, slug: true } },
+          article: { select: { content: true, contentHinglish: true, title: true, slug: true } },
           problem: { select: { slug: true, title: true, difficulty: true, statement: true } },
           quiz: { select: { slug: true, title: true, description: true, _count: { select: { questions: true } } } },
         },
@@ -61,7 +62,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             </div>
             <div className="mt-8">
               {lesson?.article ? (
-                <MdxContent content={lesson.article.content} />
+                <LangVariant en={<MdxContent content={lesson.article.content} />} hinglish={lesson.article.contentHinglish ? <MdxContent content={lesson.article.contentHinglish} /> : null} />
               ) : lesson?.problem ? (
                 <div className="glass p-8">
                   <Code2 className="size-8 text-cyan" />

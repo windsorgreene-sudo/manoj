@@ -156,8 +156,7 @@ export function NewsletterCta() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.35),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.25),transparent_50%)]" />
         <div className="relative">
           <h2 className="font-heading text-3xl font-bold md:text-5xl">
-            <span data-no-translate className="hinglish-hide">Your next offer starts with <span className="text-gradient">one problem a day.</span></span>
-            <span data-no-translate className="hinglish-show">Roz ek problem, aur agla <span className="text-gradient">offer aapka.</span></span>
+            Your next offer starts with <span className="text-gradient">one problem a day.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Get the weekly digest: the best new tutorials, the week&apos;s hardest problem and upcoming contests.</p>
           <div className="mt-8 flex justify-center">

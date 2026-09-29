@@ -155,7 +155,7 @@ export function TutorPanel() {
             </div>
           ) : null}
           {msgs.map((m, i) => (
-            <div key={i} data-no-translate className={cn("max-w-[92%] rounded-2xl px-4 py-3", m.role === "user" ? "ml-auto bg-brand text-white" : "glass")}>
+            <div key={i} className={cn("max-w-[92%] rounded-2xl px-4 py-3", m.role === "user" ? "ml-auto bg-brand text-white" : "glass")}>
               {m.role === "assistant" ? m.content ? <Markdown text={m.content} /> : <Loader2 className="size-4 animate-spin" aria-label="Thinking" /> : <p className="text-sm whitespace-pre-wrap">{m.content}</p>}
             </div>
           ))}

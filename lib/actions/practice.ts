@@ -15,9 +15,9 @@ export async function getEditorial(problemId: string) {
   if (!user) return { unlocked: false as const, reason: "Log in and solve the problem to unlock the editorial." };
   const solved = await db.submission.findFirst({ where: { userId: user.id, problemId, verdict: "ACCEPTED" }, select: { id: true } });
   if (!solved && user.role === "STUDENT") return { unlocked: false as const, reason: "Solve the problem to unlock the editorial." };
-  const p = await db.problem.findUnique({ where: { id: problemId }, select: { editorial: true, solutionCode: true } });
+  const p = await db.problem.findUnique({ where: { id: problemId }, select: { editorial: true, editorialHinglish: true, solutionCode: true } });
   const solution = (p?.solutionCode as Record<string, string> | null)?.PYTHON ?? null;
-  return { unlocked: true as const, editorial: p?.editorial ?? "", solution };
+  return { unlocked: true as const, editorial: p?.editorial ?? "", editorialHinglish: p?.editorialHinglish ?? null, solution };
 }
 
 export async function saveSnippet(input: z.input<typeof snippetSchema>) {

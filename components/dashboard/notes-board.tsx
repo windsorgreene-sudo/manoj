@@ -70,7 +70,7 @@ export function NotesBoard({ notes }: { notes: Note[] }) {
                   </div>
                 </div>
               ) : (
-                <div data-no-translate><Md text={n.body} /></div>
+                <Md text={n.body} />
               )}
               <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
                 {n.article ? <Link href={`/tutorials/${n.article.slug}`} className="truncate hover:text-foreground">{n.article.title}</Link> : null}

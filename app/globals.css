@@ -261,12 +261,11 @@ html.dark .shiki, html.dark .shiki span { color: var(--shiki-dark) !important; }
   .cursor-dot { display: none !important; }
 }
 
-/* Hinglish: hide page text until the dictionary has been applied (removed by DomTranslator, 1s failsafe). */
-html.tr-pending body { opacity: 0; }
 
-/* Sentences whose Hinglish word order differs from English: render both, show one. */
-.hinglish-show { display: none; }
-html[lang="hi-Latn"] .hinglish-hide { display: none; }
-html[lang="hi-Latn"] .hinglish-show { display: inline; }
 /* Navbar items never wrap (Hinglish labels are longer). */
 header nav a, header nav button { white-space: nowrap; }
+
+/* Language variants of learning content (Hinglish is chosen in the footer / Settings).
+   Only ever hide; never set display, so each element keeps its own layout classes. */
+html:not([lang="hi-Latn"]) [data-variant="hinglish"] { display: none !important; }
+html[lang="hi-Latn"] [data-variant="en"]:has(+ [data-variant="hinglish"]) { display: none !important; }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LangVariant } from "@/components/i18n/lang-variant";
 import Link from "next/link";
 import { Clock, FileQuestion, MinusCircle, Timer } from "lucide-react";
 import { db } from "@/lib/db";
@@ -72,7 +73,7 @@ export default async function QuizzesPage({ searchParams }: { searchParams: SP }
                 <span className="ml-auto text-xs text-muted-foreground">{q.topic}</span>
               </div>
               <h2 className="mt-4 text-lg font-semibold">{q.title}</h2>
-              <p className="mt-2 line-clamp-2 flex-1 text-sm text-muted-foreground">{q.description}</p>
+              <LangVariant as="p" className="mt-2 line-clamp-2 flex-1 text-sm text-muted-foreground" en={q.description} hinglish={q.descriptionHinglish} />
               <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
                 <li className="flex items-center gap-1"><FileQuestion className="size-3.5" /> {q._count.questions} questions</li>
                 <li className="flex items-center gap-1"><Timer className="size-3.5" /> {q.durationMins} min</li>

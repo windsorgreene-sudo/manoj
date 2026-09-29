@@ -307,6 +307,9 @@ model Course {
   title        String
   subtitle     String
   description  String
+  subtitleHinglish    String?
+  descriptionHinglish String?
+  outcomesHinglish    String[]
   topic        String
   level        Level        @default(BEGINNER)
   language     String       @default("English")
@@ -443,6 +446,9 @@ model Article {
   title          String
   excerpt        String
   content        String
+  /// Hinglish (Hindi in Latin script) version; code blocks are identical to `content`
+  excerptHinglish String?
+  contentHinglish String?
   difficulty     Difficulty    @default(EASY)
   status         ContentStatus @default(DRAFT)
   isBlog         Boolean       @default(false)
@@ -511,6 +517,12 @@ model Problem {
   number        Int        @unique
   title         String
   statement     String
+  statementHinglish    String?
+  inputFormatHinglish  String?
+  outputFormatHinglish String?
+  constraintsHinglish  String?
+  editorialHinglish    String?
+  hintsHinglish        String[]
   constraints   String
   inputFormat   String?
   outputFormat  String?
@@ -549,6 +561,7 @@ model TestCase {
   expected  String
   isSample  Boolean  @default(false)
   explanation String?
+  explanationHinglish String?
   order     Int      @default(0)
 
   @@index([problemId, isSample])
@@ -636,6 +649,7 @@ model Quiz {
   slug            String     @unique
   title           String
   description     String
+  descriptionHinglish String?
   topic           String
   durationMins    Int        @default(15)
   negativeMarking Boolean    @default(false)
@@ -659,6 +673,9 @@ model Question {
   options     String[]
   correct     Int[]
   explanation String
+  promptHinglish      String?
+  optionsHinglish     String[]
+  explanationHinglish String?
   marks       Int          @default(1)
   order       Int
 

@@ -9,8 +9,10 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useCelebrate } from "@/components/motion/celebration-layer";
 import { gradeQuiz } from "@/lib/actions/learn";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/components/i18n/intl-provider";
+import { pick, pickList } from "@/lib/i18n-content";
 
-export type PlayerQuestion = { id: string; type: "SINGLE" | "MULTIPLE" | "TRUE_FALSE"; prompt: string; options: string[]; marks: number };
+export type PlayerQuestion = { id: string; type: "SINGLE" | "MULTIPLE" | "TRUE_FALSE"; prompt: string; options: string[]; marks: number; promptHinglish?: string | null; optionsHinglish?: string[] };
 export type PlayerQuiz = { id: string; slug: string; title: string; durationMins: number; negativeMarking: boolean; negativeMark: number; isMockTest: boolean; questions: PlayerQuestion[] };
 
 type Graded = {
@@ -21,7 +23,7 @@ type Graded = {
   skipped: number;
   timeTakenS: number;
   stats: { attempts: number; avgScore: number; percentile: number };
-  perQuestion: { id: string; correct: number[]; ok: boolean; skipped: boolean; explanation: string; marks: number }[];
+  perQuestion: { id: string; correct: number[]; ok: boolean; skipped: boolean; explanation: string; explanationHinglish?: string | null; marks: number }[];
 };
 
 type Saved = { answers: Record<string, number[]>; review: string[]; startedAt: number };
@@ -43,6 +45,7 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
   const [resumable, setResumable] = useState<Saved | null>(null);
   const submitted = useRef(false);
   const celebrate = useCelebrate();
+  const { locale } = useLocale();
   const q = quiz.questions[idx];
 
   // Offer to resume an in-progress attempt (survives reloads).
@@ -171,9 +174,9 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
         </div>
         <div className="mt-2 h-1 overflow-hidden rounded-full bg-muted"><div className="h-full bg-brand transition-[width]" style={{ width: `${((idx + 1) / quiz.questions.length) * 100}%` }} /></div>
         <fieldset className="mt-6">
-          <legend id="q-prompt" className="text-lg font-medium leading-relaxed">{q.prompt}</legend>
+          <legend id="q-prompt" className="text-lg font-medium leading-relaxed">{pick(locale, q.prompt, q.promptHinglish)}</legend>
           <div className="mt-5 grid gap-3" role={q.type === "MULTIPLE" ? "group" : "radiogroup"}>
-            {q.options.map((opt, oi) => {
+            {pickList(locale, q.options, q.optionsHinglish).map((opt, oi) => {
               const chosen = mine.includes(oi);
               return (
                 <label key={oi} className={cn("flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm transition-colors hover:border-brand/60 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-cyan", chosen && "border-brand bg-brand/10")}>
@@ -265,6 +268,7 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
 }
 
 function ResultView({ quiz, result, answers, onRetry }: { quiz: PlayerQuiz; result: Graded; answers: Record<string, number[]>; onRetry: () => void }) {
+  const { locale } = useLocale();
   const pct = result.max > 0 ? Math.max(0, Math.round((result.score / result.max) * 100)) : 0;
   const attempted = result.correct + result.wrong;
   const accuracy = attempted ? Math.round((result.correct / attempted) * 100) : 0;
@@ -331,10 +335,10 @@ function ResultView({ quiz, result, answers, onRetry }: { quiz: PlayerQuiz; resu
               <li key={qq.id} className="glass p-5">
                 <p className="flex items-start gap-2 font-medium">
                   {g?.skipped ? <MinusCircle className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-label="Skipped" /> : g?.ok ? <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" aria-label="Correct" /> : <XCircle className="mt-0.5 size-5 shrink-0 text-danger" aria-label="Wrong" />}
-                  <span>{n}. {qq.prompt}</span>
+                  <span>{n}. {pick(locale, qq.prompt, qq.promptHinglish)}</span>
                 </p>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-                  {qq.options.map((opt, oi) => {
+                  {pickList(locale, qq.options, qq.optionsHinglish).map((opt, oi) => {
                     const right = g?.correct.includes(oi);
                     const picked = mine.includes(oi);
                     return (
@@ -345,7 +349,7 @@ function ResultView({ quiz, result, answers, onRetry }: { quiz: PlayerQuiz; resu
                     );
                   })}
                 </ul>
-                {g?.explanation ? <p className="mt-3 text-sm text-muted-foreground"><b className="text-foreground">Why:</b> {g.explanation}</p> : null}
+                {g?.explanation ? <p className="mt-3 text-sm text-muted-foreground"><b className="text-foreground">Why:</b> {pick(locale, g.explanation, g.explanationHinglish)}</p> : null}
               </li>
             );
           })}

@@ -13,6 +13,7 @@
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --force",
     "db:studio": "prisma studio",
+    "hinglish:sync": "tsx prisma/sync-hinglish.ts",
     "problems:build": "python3 prisma/seed/tools/build_problems.py",
     "postinstall": "prisma generate"
   },

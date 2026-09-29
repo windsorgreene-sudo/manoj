@@ -28,7 +28,7 @@ export const getArticleBySlug = cache(async (slug: string) => {
       tags: { select: { slug: true, name: true } },
       quizzes: {
         take: 1,
-        select: { id: true, title: true, questions: { orderBy: { order: "asc" }, select: { id: true, prompt: true, options: true } } },
+        select: { id: true, title: true, questions: { orderBy: { order: "asc" }, select: { id: true, prompt: true, options: true, promptHinglish: true, optionsHinglish: true } } },
       },
       _count: { select: { likes: true, comments: true } },
     },
@@ -45,7 +45,7 @@ export async function getRelatedArticles(article: { id: string; categoryId: stri
     },
     orderBy: { views: "desc" },
     take: 4,
-    select: { slug: true, title: true, excerpt: true, difficulty: true, readingMins: true },
+    select: { slug: true, title: true, excerpt: true, excerptHinglish: true, difficulty: true, readingMins: true },
   });
 }
 
