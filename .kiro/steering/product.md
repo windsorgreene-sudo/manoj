@@ -41,7 +41,7 @@ Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
 - Smart Revision: flashcards generated from bookmarked topics, scheduled with spaced repetition
 - Achievements & badges; leaderboards (global / college / friends)
 - Certificates: auto-generated PDF on course completion with a public QR verification page
-- AI Tutor (side panel on every learning page): explains concepts in English or Hindi, gives progressive hints (never the full solution unless asked), reviews code (complexity, edge cases, style), creates a quiz from any article
+- AI Tutor (side panel on every learning page): explains concepts in English or Hinglish, gives progressive hints (never the full solution unless asked), reviews code (complexity, edge cases, style), creates a quiz from any article
 - Gamification: +5 XP per article read, +10 / +20 / +40 XP per Easy / Medium / Hard problem, streak bonuses, levels and badges
 - Notifications center; settings (profile, avatar, password, theme, language, notification preferences)
 - Public profile /u/[username]: stats, badges, heatmap, contest rating, follow button

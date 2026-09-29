@@ -74,7 +74,7 @@ export async function updateProfile(input: ProfileInput) {
 
 const prefsSchema = z.object({
   theme: z.enum(["dark", "light"]),
-  locale: z.enum(["en", "hi", "hinglish"]),
+  locale: z.enum(["en", "hinglish"]),
   preferredLang: z.enum(["C", "CPP", "JAVA", "PYTHON", "JAVASCRIPT", "GO"]),
   emailNotifications: z.boolean(),
   pushNotifications: z.boolean(),
@@ -187,12 +187,17 @@ export async function toggleFollow(targetUserId: string) {
     const id = z.string().max(64).parse(targetUserId);
     if (id === user.id) throw new Error("USER:You can't follow yourself.");
     if (!rateLimit(`follow:${user.id}`, 30, 60_000).success) throw new Error("USER:Slow down.");
+    const target = await db.user.findUnique({ where: { id }, select: { id: true } });
+    if (!target) throw new Error("USER:User not found.");
     const key = { followerId_followingId: { followerId: user.id, followingId: id } };
     const existing = await db.follow.findUnique({ where: key });
     if (existing) await db.follow.delete({ where: key });
     else {
       await db.follow.create({ data: { followerId: user.id, followingId: id } });
-      await db.notification.create({ data: { userId: id, type: "FOLLOW", title: `${user.name} followed you`, body: "Check out their profile.", link: user.username ? `/u/${user.username}` : undefined } });
+      // Unfollow/re-follow must not spam the other person: at most one follow notice per follower per day.
+      const title = `${user.name} followed you`;
+      const recent = await db.notification.findFirst({ where: { userId: id, type: "FOLLOW", title, createdAt: { gte: new Date(Date.now() - 86_400_000) } }, select: { id: true } });
+      if (!recent) await db.notification.create({ data: { userId: id, type: "FOLLOW", title, body: "Check out their profile.", link: user.username ? `/u/${user.username}` : undefined } });
     }
     const followers = await db.follow.count({ where: { followingId: id } });
     return { following: !existing, followers };

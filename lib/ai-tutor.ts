@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const tutorSchema = z.object({
   mode: z.enum(["explain", "hint", "review", "quiz", "chat"]),
-  language: z.enum(["en", "hi", "hinglish"]).default("en"),
+  language: z.enum(["en", "hinglish"]).default("en"),
   context: z
     .object({ title: z.string().max(200), kind: z.enum(["article", "problem", "lesson", "general"]), content: z.string().max(8000).optional() })
     .nullable()
@@ -16,11 +16,9 @@ export type TutorInput = z.infer<typeof tutorSchema>;
 
 export function buildInstructions(input: TutorInput) {
   const lang =
-    input.language === "hi"
-      ? "Respond in simple Hindi (Devanagari script), keeping technical terms like 'array', 'recursion', 'O(n)' in English."
-      : input.language === "hinglish"
-        ? "Respond in Hinglish: Hindi written in the Latin alphabet, the way Indian students text (e.g. 'Pehle array ko sort karo, phir two pointers lagao'). Keep technical terms in English."
-        : "Respond in clear, friendly English.";
+    input.language === "hinglish"
+      ? "Respond in Hinglish: Hindi written in the Latin alphabet, the way Indian students text (e.g. 'Pehle array ko sort karo, phir two pointers lagao'). Keep technical terms in English. Never use Devanagari script."
+      : "Respond in clear, friendly English.";
   const ctx = input.context
     ? `The student is currently on the ${input.context.kind} "${input.context.title}".${input.context.content ? `\n\nReference material:\n"""\n${input.context.content}\n"""` : ""}`
     : "";
@@ -38,9 +36,9 @@ export function buildInstructions(input: TutorInput) {
 export function mockTutorReply(input: TutorInput) {
   const topic = input.context?.title ?? "this topic";
   const q = input.messages[input.messages.length - 1]?.content ?? "";
-  const hi = input.language === "hi";
+  const hi = input.language === "hinglish";
   const note = hi
-    ? "\n\n(डेमो मोड: असली AI जवाबों के लिए `OPENAI_API_KEY` जोड़ें।)"
+    ? "\n\n(Demo mode: asli AI jawab ke liye `OPENAI_API_KEY` add karo.)"
     : "\n\n(Demo mode: add `OPENAI_API_KEY` for real AI answers.)";
   switch (input.mode) {
     case "hint": {
@@ -52,10 +50,10 @@ export function mockTutorReply(input: TutorInput) {
         "**Hint 4, pseudocode.**\n```\nstate = empty\nfor each item x:\n    if state can answer the query for x:\n        record answer\n    update state with x\nreturn answer\n```",
       ];
       const hiT = [
-        `**संकेत 1, ध्यान दें।** "${topic}" में हर step पर आपको कौन सी जानकारी चाहिए? क्या आप कुछ बार-बार compute कर रहे हैं?`,
-        "**संकेत 2, pattern.** यह एक classic pattern जैसा है: *hash map*, *two pointers* या *DP*। कौन सा repeated work हटाता है?",
-        "**संकेत 3, approach.** Input को एक बार process करें और एक छोटा state रखें। इससे O(n²) से O(n) हो जाएगा।",
-        "**संकेत 4, pseudocode.**\n```\nstate = खाली\nहर x के लिए:\n    अगर state जवाब दे सकता है: answer record करें\n    state में x जोड़ें\n```",
+        `**Hint 1, observe karo.** "${topic}" mein har step par tumhe kaunsi information chahiye? Kya tum kuch baar-baar compute kar rahe ho?`,
+        "**Hint 2, pattern.** Yeh ek classic pattern jaisa lagta hai: *hash map*, *two pointers* ya *DP*. Kaunsa repeated work hataata hai?",
+        "**Hint 3, approach.** Input ko ek baar process karo aur ek chhota state rakho. Isse O(n²) se O(n) ho jayega.",
+        "**Hint 4, pseudocode.**\n```\nstate = empty\nhar item x ke liye:\n    agar state x ka answer de sakta hai: answer record karo\n    state mein x add karo\nreturn answer\n```",
       ];
       return (hi ? hiT : en)[lvl - 1] + note;
     }
@@ -64,7 +62,7 @@ export function mockTutorReply(input: TutorInput) {
       const loops = (code.match(/\bfor\b|\bwhile\b/g) ?? []).length;
       const nested = /for[\s\S]{0,200}for/.test(code);
       return (
-        (hi ? "### Code review\n" : "### Code review\n") +
+        "### Code review\n" +
         `- **Complexity:** ${nested ? "nested loops detected → likely **O(n²)**. Consider a hash map or sorting + two pointers." : loops ? "a single pass → about **O(n)** time." : "no loops found, constant work per call."}\n` +
         "- **Edge cases:** empty input, a single element, duplicates, negative numbers and the maximum constraint size.\n" +
         `- **Style:** ${code.length > 1500 ? "consider extracting helper functions;" : "the code is compact;"} use descriptive names and avoid magic numbers.\n` +
@@ -80,7 +78,7 @@ export function mockTutorReply(input: TutorInput) {
     default:
       return (
         (hi
-          ? `अच्छा सवाल! "${q.slice(0, 80)}" को समझने के लिए पहले छोटे example से शुरू करें। ${topic} का मूल विचार है: काम को छोटे हिस्सों में बाँटें और पहले से किए गए काम को दोबारा न करें।\n\n**उदाहरण:** array [2, 7, 11, 15] और target 9 में, हर संख्या के लिए देखें कि (target − x) पहले मिल चुका है या नहीं।`
+          ? `Achha sawaal! "${q.slice(0, 80)}" ko samajhne ke liye pehle ek chhote example se shuru karte hain.\n\n**${topic} ka core idea:** problem ko chhote steps mein todo aur jo kaam ho chuka hai use dobara mat karo.\n\n**Chhota example:** [2, 7, 11, 15] aur target 9 mein, har number par socho "kya target − x pehle dekh chuka hoon?", hash map yeh O(1) mein bata deta hai.`
           : `Great question! Let's break down "${q.slice(0, 80)}".\n\n**Core idea of ${topic}:** split the problem into small steps and never redo work you've already done.\n\n**Tiny example:** for [2, 7, 11, 15] with target 9, at each number ask "have I already seen target − x?", a hash map answers that in O(1).\n\n**Analogy:** it's like keeping a guest list at the door instead of searching the whole party every time someone arrives.`) + note
       );
   }

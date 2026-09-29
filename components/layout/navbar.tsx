@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Logo } from "@/components/layout/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { UserMenu } from "@/components/layout/user-menu";
 import { primaryNav, practiceNav } from "@/components/layout/nav-links";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -118,6 +119,7 @@ export function Navbar() {
           <Button variant="ghost" size="icon" className="rounded-xl md:hidden" aria-label="Search" onClick={() => openSearch(true)}>
             <Search className="size-5" />
           </Button>
+          <LanguageSwitcher compact className="hidden xl:inline-flex" />
           <ThemeToggle />
           {isPending ? (
             <div className="shimmer size-9 rounded-full" aria-hidden />
@@ -156,6 +158,10 @@ export function Navbar() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 px-4">
+                <p className="mb-2 text-xs text-muted-foreground">Content language</p>
+                <LanguageSwitcher />
+              </div>
               {!user ? (
                 <div className="mt-4 flex flex-col gap-2 px-4 pb-6">
                   <Button asChild variant="outline" className="rounded-xl">

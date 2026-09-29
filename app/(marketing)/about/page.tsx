@@ -11,7 +11,7 @@ export const revalidate = 3600;
 const VALUES = [
   { Icon: Target, title: "Learn by doing", body: "Every concept is one click away from running code." },
   { Icon: Heart, title: "Hints, not spoilers", body: "We protect the 'aha' moment, that's where learning happens." },
-  { Icon: Users, title: "Built for Bharat", body: "Fast on budget phones, priced for students, available in Hindi." },
+  { Icon: Users, title: "Built for Bharat", body: "Fast on budget phones, priced for students, available in Hinglish." },
   { Icon: Rocket, title: "Craft matters", body: "A learning tool should feel as good as the products you'll build." },
 ];
 

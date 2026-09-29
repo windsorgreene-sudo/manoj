@@ -18,7 +18,7 @@ inclusion: always
 - State & forms: TanStack Query, Zustand, React Hook Form, Zod
 - Realtime: Pusher or Ably (contest leaderboard, notifications)
 - AI tutor: Vercel AI SDK with streaming responses
-- Also: Recharts (charts), Resend (emails), Cloudinary (media), next-intl (English + Hindi)
+- Also: Recharts (charts), Resend (emails), Cloudinary (media), next-intl (English UI, English + Hinglish learning content via a toggle; no Hindi/Devanagari locale)
 - Deploy: Vercel + Neon Postgres
 
 ## Fallbacks when a key is missing (the app must still run)

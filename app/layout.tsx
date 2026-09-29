@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Noto_Sans_Devanagari, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { NavigationProgress } from "@/components/motion/navigation-progress";
@@ -9,7 +9,6 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" });
-const devanagari = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "600"], variable: "--font-devanagari", display: "swap", preload: false });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono", display: "swap" });
 
 export const metadata: Metadata = {
@@ -42,10 +41,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrains.variable} ${devanagari.variable} dark`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrains.variable} dark`}>
       <head>
         {/* Set the content language before first paint so Hinglish readers never see an English flash. */}
-        <script dangerouslySetInnerHTML={{ __html: `try{var m=document.cookie.match(/(?:^|; )NEXT_LOCALE=(hinglish|hi)(?:;|$)/);if(m)document.documentElement.lang=m[1]==="hinglish"?"hi-Latn":"hi"}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `try{var m=document.cookie.match(/(?:^|; )NEXT_LOCALE=(hinglish|hi)(?:;|$)/);if(m)document.documentElement.lang="hi-Latn"}catch(e){}` }} />
       </head>
       <body className="min-h-dvh">
         <a

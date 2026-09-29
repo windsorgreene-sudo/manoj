@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "@/components/i18n/intl-provider";
+import { LOCALES, useLocale, type Locale } from "@/components/i18n/intl-provider";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Bot, Code2, HelpCircle, Lightbulb, ListChecks, Loader2, Send, Sparkles } from "lucide-react";
@@ -56,7 +56,13 @@ export function TutorPanel() {
   const ctx = useUiStore((s) => s.tutorContext);
   const code = useTutorCodeStore((s) => s.code);
   const { locale } = useLocale();
-  const [lang, setLang] = useState<"en" | "hi" | "hinglish">(locale);
+  const [lang, setLang] = useState<Locale>(locale);
+  // Follow the site-wide content language when it changes (the cookie is read after mount).
+  const [prevLocale, setPrevLocale] = useState(locale);
+  if (locale !== prevLocale) {
+    setPrevLocale(locale);
+    setLang(locale);
+  }
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -133,7 +139,7 @@ export function TutorPanel() {
           </SheetTitle>
           <SheetDescription className="truncate">{ctx ? `Helping with: ${ctx.title}` : "Ask anything about programming."}</SheetDescription>
           <div className="flex gap-1 pt-1" role="radiogroup" aria-label="Tutor language">
-            {(["en", "hinglish", "hi"] as const).map((l) => (
+            {LOCALES.map(({ code: l, label }) => (
               <button
                 key={l}
                 type="button"
@@ -142,7 +148,7 @@ export function TutorPanel() {
                 onClick={() => setLang(l)}
                 className={cn("rounded-lg px-2.5 py-1 text-xs font-medium", lang === l ? "bg-brand text-white" : "bg-surface-2 text-muted-foreground")}
               >
-                {l === "en" ? "English" : l === "hinglish" ? "Hinglish" : "हिन्दी"}
+                {label}
               </button>
             ))}
           </div>
@@ -203,7 +209,7 @@ export function TutorPanel() {
                   void send("chat", input);
                 }
               }}
-              placeholder={lang === "hi" ? "अपना सवाल लिखें…" : "Ask a question…"}
+              placeholder={lang === "hinglish" ? "Apna sawaal likho…" : "Ask a question…"}
               className="min-h-0 resize-none rounded-xl"
             />
             <Button type="submit" size="icon" className="size-auto rounded-xl px-3" disabled={busy || !input.trim()} aria-label="Send">

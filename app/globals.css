@@ -104,7 +104,7 @@
   --radius-lg: calc(var(--radius) - 4px);
   --radius-xl: calc(var(--radius) - 2px);
   --radius-2xl: var(--radius);
-  --font-sans: var(--font-inter), var(--font-devanagari), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-space-grotesk), var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --animate-marquee: marquee 40s linear infinite;

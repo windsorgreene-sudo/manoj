@@ -85,7 +85,7 @@
 - [x] Certificates (PDF + QR verification page)
 - [x] Doubts forum
 - [x] ~~Pro subscriptions~~, removed: the platform is 100% free (no plans, payments or paywalls)
-- [x] Hindi translation (next-intl)
+- [x] English / Hinglish content toggle (next-intl); the Hindi (Devanagari) locale was removed
 - [x] SEO: sitemap, robots, OG images, JSON-LD
 - [x] Final performance + accessibility pass
 - [x] Vercel deployment guide in README
@@ -106,5 +106,5 @@ Notes:
 - Next.js 16 renamed `middleware.ts` → `proxy.ts`; route protection lives in `proxy.ts` + `lib/session.ts` server guards.
 - Prisma 7 uses `prisma.config.ts` + `@prisma/adapter-pg`; client generated to `lib/generated/prisma` (git-ignored, `postinstall` regenerates).
 - lucide-react v1 dropped brand icons → `components/ui/brand-icons.tsx`.
-- i18n uses next-intl client provider with a `NEXT_LOCALE` cookie (no locale routing) so pages stay static; UI chrome (nav, footer, menus, dashboard nav) is translated to Hindi. The AI tutor also answers in Hindi.
+- i18n uses next-intl client provider with a `NEXT_LOCALE` cookie (no locale routing) so pages stay static; the interface stays in English and a toggle switches learning content between English and Hinglish. The AI tutor answers in English or Hinglish.
 - Contest finalization (ranks, Elo ratings ±150, XP, notifications) runs lazily on first view after a contest ends; freezing snapshots public standings.

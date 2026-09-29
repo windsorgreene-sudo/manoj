@@ -1,5 +1,6 @@
 import { SettingsForms } from "@/components/dashboard/settings-forms";
 import { db } from "@/lib/db";
+import { toLocale } from "@/lib/i18n-content";
 import { requireUser } from "@/lib/session";
 
 export const metadata = { title: "Settings" };
@@ -24,7 +25,7 @@ export default async function SettingsPage() {
           github: profile?.github ?? "",
           linkedin: profile?.linkedin ?? "",
           theme: (profile?.theme as "dark" | "light") ?? "dark",
-          locale: (profile?.locale as "en" | "hi" | "hinglish") ?? "en",
+          locale: toLocale(profile?.locale),
           preferredLang: profile?.preferredLang ?? "PYTHON",
           emailNotifications: profile?.emailNotifications ?? true,
           pushNotifications: profile?.pushNotifications ?? true,

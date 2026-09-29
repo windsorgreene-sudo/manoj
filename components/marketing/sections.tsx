@@ -34,7 +34,7 @@ export function StatsSection({ stats }: { stats: { learners: number; problems: n
 
 const FEATURES = [
   { Icon: Braces, title: "Code in the browser", href: "/playground", body: "Write and run C, C++, Java, Python, JavaScript or Go. Your code is saved as you type, and submissions are checked against hidden tests." },
-  { Icon: Bot, title: "A tutor that gives hints", href: "/tutorials", body: "Stuck? Ask for a nudge first. It only shows a full answer if you ask for one. Works in English and Hindi." },
+  { Icon: Bot, title: "A tutor that gives hints", href: "/tutorials", body: "Stuck? Ask for a nudge first. It only shows a full answer if you ask for one. Works in English and Hinglish." },
   { Icon: Trophy, title: "Weekly contests", href: "/contests", body: "Timed rounds with a live leaderboard and a rating that goes up or down with every contest." },
   { Icon: Wand2, title: "See algorithms move", href: "/visualizers", body: "Step through sorting, binary search, BFS, DFS and Dijkstra one line at a time." },
   { Icon: Flame, title: "Build a habit", href: "/dashboard", body: "Daily streaks, XP and badges. Miss a day and a streak freeze has your back." },
@@ -129,7 +129,7 @@ const FAQS = [
   { q: "Which programming languages can I use?", a: "C, C++, Java, Python, JavaScript and Go, in the problem workspace, the playground and every 'Try it Yourself' editor." },
   { q: "How does the AI tutor avoid giving away answers?", a: "It is instructed to give progressive hints: first a nudge, then the approach, then pseudocode. It only shows a full solution if you explicitly ask for one." },
   { q: "Are the certificates verifiable?", a: "Every certificate has a unique code and a QR code linking to a public verification page anyone can check." },
-  { q: "Can I use Kodshala in Hindi?", a: "Yes. Switch the interface language to हिन्दी or Hinglish from the footer or settings, and ask the AI tutor to explain in Hindi or Hinglish." },
+  { q: "Can I learn in Hinglish?", a: "Yes. Use the English / Hinglish toggle in the navbar, footer or settings to read tutorials, problems, quizzes and courses in Hinglish. The AI tutor can answer in Hinglish too." },
   { q: "Do I need a credit card?", a: "No. Sign up with email, Google or GitHub, nothing to pay, ever." },
 ];
 

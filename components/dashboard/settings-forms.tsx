@@ -127,7 +127,7 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
         </form>
       </Section>
 
-      <Section title="Preferences" description="Theme, interface language and default coding language.">
+      <Section title="Preferences" description="Theme, content language (English or Hinglish) and default coding language.">
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-1.5">
             <Label id="l-theme">Theme</Label>
@@ -137,10 +137,10 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label id="l-locale">Language</Label>
-            <Select value={prefs.locale} onValueChange={(v) => savePrefs({ ...prefs, locale: v as "en" | "hi" | "hinglish" })}>
+            <Label id="l-locale">Content language</Label>
+            <Select value={prefs.locale} onValueChange={(v) => savePrefs({ ...prefs, locale: v as PrefsInput["locale"] })}>
               <SelectTrigger aria-labelledby="l-locale" className="rounded-xl"><SelectValue /></SelectTrigger>
-              <SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hinglish">Hinglish</SelectItem><SelectItem value="hi">हिन्दी</SelectItem></SelectContent>
+              <SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hinglish">Hinglish</SelectItem></SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">
