@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { appUrl } from "@/lib/utils";
 
 /**
  * CSRF protection for JSON route handlers: state-changing requests must come from our own origin.
@@ -15,7 +16,7 @@ export function assertSameOrigin(req: NextRequest | Request) {
   try {
     const o = new URL(origin);
     if (host && o.host === host) return true;
-    const app = process.env.NEXT_PUBLIC_APP_URL;
+    const app = appUrl();
     return Boolean(app && new URL(app).host === o.host);
   } catch {
     return false;

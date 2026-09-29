@@ -43,7 +43,14 @@ export function timeAgo(d: Date | string) {
   return "just now";
 }
 
-export const appUrl = () => process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+/**
+ * Absolute site URL. Order: NEXT_PUBLIC_APP_URL → Vercel production domain (auto-set by Vercel) → localhost.
+ * Empty strings (e.g. copied from .env.example) are treated as unset.
+ */
+export const appUrl = () => {
+  const vercelHost = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  return (process.env.NEXT_PUBLIC_APP_URL || (vercelHost ? `https://${vercelHost}` : "http://localhost:3000")).replace(/\/$/, "");
+};
 
 /** Current time (ms). Wrapper keeps server components free of direct impure calls. */
 export const nowMs = () => Date.now();

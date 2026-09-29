@@ -142,7 +142,8 @@ prisma/           schema, migrations, seed + seed data
 1. **Database** — create a Neon project (see above) and copy the **pooled** connection string. Optionally create a Neon branch per Vercel preview.
 2. **Import** the GitHub repo at https://vercel.com/new. Preset: **Next.js**; keep the default build command (`npm run build` runs `prisma generate`), install command `npm install`, Node 20+.
 3. **Environment variables** (Project → Settings → Environment Variables, Production + Preview):
-   - Required: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` — both URLs set to your production origin, e.g. `https://codeverse.vercel.app`.
+   - Required: `DATABASE_URL` and `BETTER_AUTH_SECRET`. `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` are optional on Vercel — when unset the app uses Vercel's production domain automatically, and preview deployments are trusted for login. Set them once you add a custom domain.
+   - Functions are pinned to `iad1` in `vercel.json` (closest to a Neon `us-east` database). Change it if your database lives elsewhere, e.g. `bom1` for Neon Mumbai.
    - Strongly recommended on Vercel: `CLOUDINARY_URL` (the filesystem is read-only/ephemeral, so the `public/uploads` fallback won't persist) and `RESEND_API_KEY` (console-logged emails aren't visible to users).
    - Optional: Judge0, OpenAI, Pusher, Meilisearch, Razorpay, Google/GitHub OAuth — each feature falls back gracefully when its keys are missing.
 4. **Migrate** the production database once (and after every schema change):

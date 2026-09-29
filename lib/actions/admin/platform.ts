@@ -7,6 +7,7 @@ import { adminAction, audit } from "@/lib/admin";
 import { emailLayout, sendEmail } from "@/lib/email";
 import { deleteStored } from "@/lib/uploads";
 import type { Prisma } from "@/lib/generated/prisma/client";
+import { appUrl } from "@/lib/utils";
 
 const id = z.string().min(1).max(64);
 
@@ -119,7 +120,7 @@ export async function saveAnnouncement(input: AnnouncementInput) {
     if (d.notifyEmail) {
       const users = await db.user.findMany({ where: { banned: false, emailVerified: true, profile: { emailNotifications: true } }, select: { email: true }, take: 500 });
       for (const u of users) {
-        const r = await sendEmail({ to: u.email, subject: d.title, html: emailLayout(d.title, d.body, d.link ? { label: "Open", url: d.link.startsWith("/") ? `${process.env.NEXT_PUBLIC_APP_URL ?? ""}${d.link}` : d.link } : undefined) });
+        const r = await sendEmail({ to: u.email, subject: d.title, html: emailLayout(d.title, d.body, d.link ? { label: "Open", url: d.link.startsWith("/") ? `${appUrl()}${d.link}` : d.link } : undefined) });
         if (r.ok) emailed++;
       }
     }

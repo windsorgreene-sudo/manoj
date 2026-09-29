@@ -6,6 +6,7 @@ import { APIError } from "better-auth/api";
 import { db } from "@/lib/db";
 import { emailLayout, sendEmail } from "@/lib/email";
 import { integrations } from "@/lib/env";
+import { appUrl } from "@/lib/utils";
 
 const socialProviders: Parameters<typeof betterAuth>[0]["socialProviders"] = {};
 if (integrations.google()) {
@@ -27,9 +28,10 @@ function baseUsername(email: string) {
 
 export const auth = betterAuth({
   appName: "CodeVerse",
-  baseURL: process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+  baseURL: process.env.BETTER_AUTH_URL || appUrl(),
   secret: process.env.BETTER_AUTH_SECRET,
-  trustedOrigins: [process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"],
+  // Production URL plus this deployment's own Vercel URLs (so preview deployments can log in too).
+  trustedOrigins: [appUrl(), process.env.BETTER_AUTH_URL, process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`, process.env.VERCEL_BRANCH_URL && `https://${process.env.VERCEL_BRANCH_URL}`].filter((o): o is string => Boolean(o)),
   database: prismaAdapter(db, { provider: "postgresql" }),
   emailAndPassword: {
     enabled: true,
