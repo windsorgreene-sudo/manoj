@@ -167,7 +167,7 @@ function ParticleField({ count }: { count: number }) {
 
 // ───────── Camera flight through the 4 chapters ─────────
 const KEYFRAMES: { pos: [number, number, number]; look: [number, number, number] }[] = [
-  { pos: [-2.4, 0, 7.5], look: [-2.4, 0, 0] }, // hero — planet sits right of the headline
+  { pos: [-2.4, 0, 7.5], look: [-2.4, 0, 0] }, // hero, planet sits right of the headline
   { pos: [2.5, 1.2, 6.5], look: [-1.8, 0, 0] }, // Learn
   { pos: [-4.5, -0.8, 5.5], look: [-1.2, 0, 0] }, // Practice
   { pos: [-1.5, 4.5, 5.5], look: [-1.6, 0, 0] }, // Compete

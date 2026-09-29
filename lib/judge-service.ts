@@ -16,7 +16,7 @@ export async function runSamples(problemId: string, language: LanguageKey, code:
       ? [{ id: "custom", input: customInput, expected: p.testCases[0] && customInput === p.testCases[0].input ? p.testCases[0].expected : "\u0000", isSample: true }]
       : p.testCases.map((t) => ({ id: t.id, input: t.input, expected: t.expected, isSample: true }));
   const result = await judge({ language, code, tests, timeLimitMs: p.timeLimitMs, memoryLimitMb: p.memoryLimitMb });
-  // A custom input has no expected output — report "finished" rather than Wrong Answer.
+  // A custom input has no expected output, report "finished" rather than Wrong Answer.
   if (tests[0]?.id === "custom" && tests[0].expected === "\u0000" && result.verdict === "WRONG_ANSWER") {
     result.verdict = "ACCEPTED";
     result.results = result.results.map((r) => ({ ...r, passed: true, status: "ACCEPTED", expected: undefined }));

@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
   if (!assertSameOrigin(req)) return NextResponse.json({ error: "Bad origin" }, { status: 403 });
   const user = await getCurrentUser();
   if (!rateLimit(`prun:${user?.id ?? clientIp(req.headers)}`, user ? limits.codeRun.limit : 6, limits.codeRun.windowMs).success) {
-    return NextResponse.json({ error: "Too many runs — wait a few seconds." }, { status: 429 });
+    return NextResponse.json({ error: "Too many runs, wait a few seconds." }, { status: 429 });
   }
   const parsed = problemRunSchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid request" }, { status: 400 });

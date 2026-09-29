@@ -5,7 +5,7 @@ import { LANGUAGE_META, type LanguageKey } from "@/lib/languages";
 /**
  * Reusable Judge0 CE service.
  * - Development: RapidAPI (JUDGE0_RAPIDAPI_KEY)
- * - Production: self-hosted Judge0 (JUDGE0_URL + JUDGE0_AUTH_TOKEN) — takes precedence
+ * - Production: self-hosted Judge0 (JUDGE0_URL + JUDGE0_AUTH_TOKEN), takes precedence
  * Code always runs inside Judge0's isolate sandbox (no network, CPU/wall/memory limits).
  */
 

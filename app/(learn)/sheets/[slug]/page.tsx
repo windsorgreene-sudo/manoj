@@ -27,7 +27,6 @@ export default async function SheetPage({ params }: { params: Promise<{ slug: st
   const sections = [...new Set(sheet.items.map((i) => i.section))].map((name) => ({ name, items: sheet.items.filter((i) => i.section === name).map((i) => i.problem) }));
   return (
     <div className="container-cv max-w-5xl py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{sheet.kind === "COMPANY" ? `${sheet.company} sheet` : "Topic sheet"}</p>
       <h1 className="mt-3 font-heading text-4xl font-bold">{sheet.title}</h1>
       <p className="mt-2 text-muted-foreground">{sheet.description}</p>
       <SheetView sheetId={sheet.id} sections={sections} />

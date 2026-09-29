@@ -62,10 +62,10 @@ export function SubmissionHistory({ subs }: { subs: Sub[] }) {
           <tbody>
             {list.map((s) => (
               <tr key={s.id} className="border-b border-border/60 last:border-0 hover:bg-accent/40">
-                <td className="px-4 py-3">{s.problem ? <Link href={`/problems/${s.problem.slug}`} className="hover:text-cyan">{s.problem.number}. {s.problem.title}</Link> : "—"}</td>
+                <td className="px-4 py-3">{s.problem ? <Link href={`/problems/${s.problem.slug}`} className="hover:text-cyan">{s.problem.number}. {s.problem.title}</Link> : "-"}</td>
                 <td className="px-4 py-3"><VerdictText verdict={s.verdict} /></td>
                 <td className="px-4 py-3 text-muted-foreground">{LANGUAGE_META[s.language as LanguageKey]?.label}</td>
-                <td className="px-4 py-3 tabular-nums text-muted-foreground">{s.runtimeMs ?? "–"} ms</td>
+                <td className="px-4 py-3 tabular-nums text-muted-foreground">{s.runtimeMs ?? "-"} ms</td>
                 <td className="px-4 py-3 text-muted-foreground">{formatDate(s.createdAt, { dateStyle: "medium", timeStyle: "short" })}</td>
                 <td className="px-4 py-3 text-right"><button type="button" onClick={() => { setOpen(s); setCompare(""); }} className="text-xs font-medium text-cyan hover:underline">View code</button></td>
               </tr>

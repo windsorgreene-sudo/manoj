@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
-/** Shared branded OG card (Satori — flexbox only, inline styles). */
+/** Shared branded OG card (Satori, flexbox only, inline styles). */
 export function ogCard({ eyebrow, title, subtitle, accent = "#7C3AED" }: { eyebrow: string; title: string; subtitle?: string; accent?: string }) {
   const t = title.length > 90 ? `${title.slice(0, 87)}…` : title;
   return new ImageResponse(

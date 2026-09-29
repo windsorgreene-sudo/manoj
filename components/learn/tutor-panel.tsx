@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 type Msg = { role: "user" | "assistant"; content: string };
 type Mode = "chat" | "explain" | "hint" | "review" | "quiz";
 
-/** Tiny, safe Markdown renderer for tutor replies (text nodes only — no HTML injection). */
+/** Tiny, safe Markdown renderer for tutor replies (text nodes only, no HTML injection). */
 function Markdown({ text }: { text: string }) {
   const blocks = text.split(/```/);
   return (
@@ -105,7 +105,7 @@ export function TutorPanel() {
       }
       if (mode === "hint") setHintLevel((l) => Math.min(4, l + 1));
     } catch {
-      setError({ text: "Network error — please try again." });
+      setError({ text: "Network error, please try again." });
       setMsgs(history);
     } finally {
       setBusy(false);
@@ -149,7 +149,7 @@ export function TutorPanel() {
         <div className="flex-1 space-y-4 overflow-y-auto p-4" aria-live="polite">
           {msgs.length === 0 ? (
             <div className="glass p-5 text-sm text-muted-foreground">
-              <Sparkles className="mb-2 size-5 text-cyan" />I give <strong className="text-foreground">progressive hints</strong> — never the full solution unless you ask for it. Pick a quick action or type a question.
+              <Sparkles className="mb-2 size-5 text-cyan" />I give <strong className="text-foreground">progressive hints</strong> and never give the full solution unless you ask. Pick a quick action or type a question.
             </div>
           ) : null}
           {msgs.map((m, i) => (

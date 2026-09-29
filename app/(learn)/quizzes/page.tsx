@@ -40,7 +40,6 @@ export default async function QuizzesPage({ searchParams }: { searchParams: SP }
   return (
     <div className="container-cv py-12 md:py-16">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Assess yourself</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Quizzes &amp; mock tests</h1>
         <p className="mt-3 text-muted-foreground">Timed, auto-graded tests with negative marking where it matters and a question-by-question analysis at the end.</p>
       </header>

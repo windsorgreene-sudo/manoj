@@ -6,7 +6,7 @@ import { ContributorForm } from "@/components/marketing/contributor-form";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 
-export const metadata: Metadata = { title: "Write for Us", description: "Become a CodeVerse contributor — teach thousands of learners for free.", alternates: { canonical: "/write-for-us" } };
+export const metadata: Metadata = { title: "Write for Us", description: "Become a CodeVerse contributor, teach thousands of learners for free.", alternates: { canonical: "/write-for-us" } };
 
 const PERKS = [
   { Icon: Award, title: "Earn recognition", body: "Contributor badge, XP and a public author page for every published article." },
@@ -21,7 +21,6 @@ export default async function WriteForUsPage() {
   return (
     <div className="container-cv grid gap-12 py-16 lg:grid-cols-[1fr_1.1fr]">
       <div>
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Write for us</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Teach what you know. <span className="text-gradient">Help others grow.</span></h1>
         <p className="mt-4 text-muted-foreground">We&apos;re looking for engineers and students who can explain DSA, languages and CS fundamentals clearly, with runnable examples.</p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -43,7 +42,7 @@ export default async function WriteForUsPage() {
           </div>
         ) : user.role !== "STUDENT" ? (
           <div className="glass p-8 text-center">
-            <h2 className="text-xl font-semibold">You&apos;re already a contributor ✍️</h2>
+            <h2 className="text-xl font-semibold">You&apos;re already a contributor</h2>
             <Button asChild className="mt-6 rounded-xl"><Link href="/dashboard/articles">Go to my articles</Link></Button>
           </div>
         ) : existing?.status === "PENDING" ? (

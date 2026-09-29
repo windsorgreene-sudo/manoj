@@ -91,7 +91,7 @@ export function PotdCard({ potd }: { potd: { slug: string; title: string; diffic
       <div className="mt-auto pt-4">
         {potd.solved ? (
           <p className="flex items-center gap-2 text-sm text-success">
-            <CheckCircle2 className="size-4" /> Solved today — nice!
+            <CheckCircle2 className="size-4" /> Solved today, nice!
           </p>
         ) : (
           <Button asChild className="w-full rounded-xl">

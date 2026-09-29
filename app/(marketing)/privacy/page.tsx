@@ -9,14 +9,14 @@ export default function PrivacyPage() {
       <p>CodeVerse Learning Pvt. Ltd. (&quot;CodeVerse&quot;, &quot;we&quot;) respects your privacy. This policy explains what we collect, why, and the choices you have. It is written to comply with India&apos;s Digital Personal Data Protection Act, 2023.</p>
       <h2>Information we collect</h2>
       <ul>
-        <li><strong>Account data</strong> — name, email, password hash, avatar and profile details you add (college, bio, links).</li>
-        <li><strong>Learning activity</strong> — lessons completed, code you submit, quiz attempts, contest participation, notes and bookmarks.</li>
-        <li><strong>Usage data</strong> — pages visited, device type and approximate country, used in aggregate to improve the product.</li>
+        <li><strong>Account data</strong>: name, email, password hash, avatar and profile details you add (college, bio, links).</li>
+        <li><strong>Learning activity</strong>: lessons completed, code you submit, quiz attempts, contest participation, notes and bookmarks.</li>
+        <li><strong>Usage data</strong>: pages visited, device type and approximate country, used in aggregate to improve the product.</li>
       </ul>
       <h2>How we use it</h2>
       <ul>
         <li>To provide the service: run your code, track progress, issue certificates and show leaderboards.</li>
-        <li>To send transactional emails (verification, password reset, receipts) and — only if you opt in — the weekly digest.</li>
+        <li>To send transactional emails (verification, password reset, receipts) and, only if you opt in, the weekly digest.</li>
         <li>To keep the platform safe: rate limiting, abuse prevention and fraud detection.</li>
       </ul>
       <h2>AI tutor</h2>

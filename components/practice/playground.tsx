@@ -37,7 +37,7 @@ export function Playground({ initial }: { initial?: Initial }) {
     const url = `${window.location.origin}/playground/${r.shareId}`;
     setLink(url);
     await navigator.clipboard.writeText(url).catch(() => undefined);
-    toast.success("Snippet saved — share link copied!");
+    toast.success("Snippet saved, share link copied!");
     window.history.replaceState(null, "", `/playground/${r.shareId}`);
   };
 

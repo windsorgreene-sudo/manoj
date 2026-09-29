@@ -24,7 +24,7 @@ export default async function MyCoursesPage() {
               <div className="min-w-0">
                 <p className="font-semibold">{e.course.title}</p>
                 <p className="line-clamp-1 text-xs text-muted-foreground">{e.course.subtitle}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{e.completedAt ? `Completed ${formatDate(e.completedAt)} 🎓` : `Enrolled ${formatDate(e.createdAt)}`}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{e.completedAt ? `Completed ${formatDate(e.completedAt)}` : `Enrolled ${formatDate(e.createdAt)}`}</p>
               </div>
             </Link>
           ))}

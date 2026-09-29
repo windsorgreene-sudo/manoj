@@ -40,7 +40,6 @@ export default async function QuizPage({ params }: Props) {
       />
       <Link href="/quizzes" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All tests</Link>
       <header className="mt-4 max-w-3xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{quiz.isMockTest ? "Mock test" : "Quiz"} · {quiz.topic}</p>
         <h1 className="mt-3 flex flex-wrap items-center gap-3 font-heading text-3xl font-bold md:text-4xl">
           {quiz.title}
         </h1>

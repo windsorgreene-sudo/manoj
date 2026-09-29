@@ -71,7 +71,7 @@ export default async function ContestPage({ params }: Props) {
           <h1 className="mt-3 font-heading text-3xl font-bold md:text-5xl">{contest.title}</h1>
           <p className="mt-3 text-muted-foreground">{contest.description}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            {formatDate(contest.startsAt, { dateStyle: "medium", timeStyle: "short" })} – {formatDate(contest.endsAt, { timeStyle: "short" })} · {contest._count.participants} participants
+            {formatDate(contest.startsAt, { dateStyle: "medium", timeStyle: "short" })}, {formatDate(contest.endsAt, { timeStyle: "short" })} · {contest._count.participants} participants
           </p>
         </div>
         <div className="flex flex-col items-start gap-4 lg:items-end">
@@ -111,7 +111,7 @@ export default async function ContestPage({ params }: Props) {
               </ol>
             )}
             {phase === "LIVE" && !registered ? <p className="mt-3 text-sm text-warning">Register to have your submissions count towards the leaderboard.</p> : null}
-            {phase === "ENDED" ? <p className="mt-3 text-sm text-muted-foreground">The contest is over — problems are open for practice (not scored).</p> : null}
+            {phase === "ENDED" ? <p className="mt-3 text-sm text-muted-foreground">The contest is over, problems are open for practice (not scored).</p> : null}
           </section>
 
           <ContestLeaderboard slug={contest.slug} initial={standings} />

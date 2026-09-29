@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Noto_Sans_Devanagari, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
-import { CustomCursor } from "@/components/motion/custom-cursor";
 import { NavigationProgress } from "@/components/motion/navigation-progress";
 import { Suspense } from "react";
 import { appUrl } from "@/lib/utils";
@@ -16,7 +15,7 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl()),
   title: {
-    default: "CodeVerse — Learn, Practice, Compete & Get Hired",
+    default: "CodeVerse: Learn, Practice, Compete & Get Hired",
     template: "%s · CodeVerse",
   },
   description:
@@ -44,7 +43,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrains.variable} ${devanagari.variable} dark`}>
-      <body className="noise min-h-dvh">
+      <body className="min-h-dvh">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
@@ -56,7 +55,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Suspense>
         <Providers>
           <SmoothScroll>{children}</SmoothScroll>
-          <CustomCursor />
         </Providers>
       </body>
     </html>

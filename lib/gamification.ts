@@ -78,7 +78,7 @@ export async function awardXp(userId: string, source: XpSource, amount: number, 
   await db.profile.update({ where: { userId }, data: { level } }).catch(() => undefined);
   await db.user.update({ where: { id: userId }, data: { lastActiveAt: new Date() } }).catch(() => undefined);
   if (level > beforeLevel) {
-    await db.notification.create({ data: { userId, type: "ACHIEVEMENT", title: `Level up! You reached level ${level}`, body: "Keep going — new badges await.", link: "/dashboard" } });
+    await db.notification.create({ data: { userId, type: "ACHIEVEMENT", title: `Level up! You reached level ${level}`, body: "Keep going, new badges await.", link: "/dashboard" } });
   }
   return { awarded, amount: total, xp, level, leveledUp: level > beforeLevel, streak: streak.current, newBadges };
 }
@@ -117,7 +117,7 @@ export async function checkBadges(userId: string) {
     } else if (type === "acceptedAnswers") v = await db.answer.count({ where: { userId, acceptedOn: { isNot: null } } });
     else if (type === "nightOwl") {
       const rows = await db.submission.findMany({ where: { userId, verdict: "ACCEPTED" }, select: { createdAt: true }, orderBy: { createdAt: "desc" }, take: 200 });
-      // IST night: 00:00–04:00 IST = 18:30–22:30 UTC
+      // IST night: 00:00-04:00 IST = 18:30-22:30 UTC
       v = rows.filter((r) => {
         const m = (r.createdAt.getUTCHours() * 60 + r.createdAt.getUTCMinutes() + 330) % 1440;
         return m < 240;

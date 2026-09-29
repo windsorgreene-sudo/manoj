@@ -35,7 +35,6 @@ export function CourseCarousel({ courses }: { courses: CourseCardData[] }) {
     <section ref={section} className="relative z-10 overflow-hidden py-24" aria-labelledby="popular-courses">
       <div className="container-cv mb-10 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Popular courses</p>
           <h2 id="popular-courses" className="mt-3 font-heading text-3xl font-bold md:text-5xl">
             Structured learning, <span className="text-gradient">zero fluff</span>
           </h2>

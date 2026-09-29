@@ -84,10 +84,12 @@ export function StoryExperience({ hero }: { hero: ReactNode }) {
   return (
     <div ref={root} className="relative">
       {/* Sticky 3D canvas behind hero + story; pauses automatically once scrolled past */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 opacity-40 lg:opacity-100">
         <div className="sticky top-0 h-dvh">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.18),transparent_60%)]" />
           <HeroScene />
+          {/* Keeps the headline readable over the scene */}
+          <div className="absolute inset-y-0 left-0 hidden w-[55%] bg-gradient-to-r from-background via-background/85 to-transparent lg:block" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
         </div>
       </div>

@@ -28,7 +28,6 @@ export default async function ProblemsPage({ searchParams }: { searchParams: Pro
     <div className="container-cv py-10 md:py-14">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Problem set</p>
           <h1 className="mt-2 font-heading text-4xl font-bold">Practice problems</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {facets.total} problems · <span className="text-success">{facets.counts.EASY} Easy</span> · <span className="text-warning">{facets.counts.MEDIUM} Medium</span> · <span className="text-danger">{facets.counts.HARD} Hard</span>
@@ -82,7 +81,7 @@ export default async function ProblemsPage({ searchParams }: { searchParams: Pro
                     </div>
                   </td>
                   <td className="px-4 py-3 text-xs text-muted-foreground">{p.companies.slice(0, 2).join(", ")}</td>
-                  <td className="px-4 py-3 text-right tabular-nums">{p.acceptance ? `${p.acceptance}%` : "—"}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{p.acceptance ? `${p.acceptance}%` : "-"}</td>
                   <td className="px-4 py-3 text-right"><DifficultyBadge difficulty={p.difficulty} /></td>
                 </tr>
               ))}

@@ -43,7 +43,7 @@ export default async function Moderation() {
         <section aria-labelledby="com"><h2 id="com" className="mb-2 font-semibold">Recent comments</h2>
           <ul className="glass divide-y divide-border">{comments.map((c) => (
             <li key={c.id} className="flex items-start gap-3 p-3 text-sm">
-              <div className="min-w-0 flex-1"><p className="line-clamp-2">{c.body}</p><p className="text-xs text-muted-foreground">{c.user.name} on {c.article ? <Link className="underline" href={`/tutorials/${c.article.slug}`}>{c.article.title}</Link> : c.problem ? <Link className="underline" href={`/problems/${c.problem.slug}`}>{c.problem.title}</Link> : "—"} · {timeAgo(c.createdAt)}</p></div>
+              <div className="min-w-0 flex-1"><p className="line-clamp-2">{c.body}</p><p className="text-xs text-muted-foreground">{c.user.name} on {c.article ? <Link className="underline" href={`/tutorials/${c.article.slug}`}>{c.article.title}</Link> : c.problem ? <Link className="underline" href={`/problems/${c.problem.slug}`}>{c.problem.title}</Link> : "-"} · {timeAgo(c.createdAt)}</p></div>
               <ActionButton size="xs" variant={c.hidden ? "outline" : "ghost"} action={toggleHidden.bind(null, { type: "COMMENT", id: c.id, hidden: !c.hidden })} success={c.hidden ? "Unhidden" : "Hidden"}>{c.hidden ? "Unhide" : "Hide"}</ActionButton>
             </li>))}
           </ul>

@@ -82,7 +82,7 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
       setResult(r.data);
       setPhase("done");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      if (auto) toast.info("Time's up — your test was submitted automatically.");
+      if (auto) toast.info("Time's up, your test was submitted automatically.");
       if (r.data.xp?.awarded) celebrate({ xp: r.data.xp.amount, leveledUp: r.data.xp.leveledUp, level: r.data.xp.level, badges: r.data.xp.newBadges, streak: r.data.xp.streak });
     },
     [answers, celebrate, quiz.id, startedAt, storageKey],
@@ -143,7 +143,7 @@ export function QuizPlayer({ quiz, signedIn }: { quiz: PlayerQuiz; signedIn: boo
           {quiz.negativeMarking ? (
             <li className="flex gap-3"><MinusCircle className="size-5 shrink-0 text-danger" /> Negative marking: each wrong answer deducts {quiz.negativeMark * 100}% of the question&apos;s marks. Skipping costs nothing.</li>
           ) : (
-            <li className="flex gap-3"><CheckCircle2 className="size-5 shrink-0 text-success" /> No negative marking — attempt everything.</li>
+            <li className="flex gap-3"><CheckCircle2 className="size-5 shrink-0 text-success" /> No negative marking, attempt everything.</li>
           )}
           <li className="flex gap-3"><Bookmark className="size-5 shrink-0 text-warning" /> Mark questions for review and jump around using the question palette.</li>
           <li className="flex gap-3"><Trophy className="size-5 shrink-0 text-brand" /> Score 60% or more to earn XP. {signedIn ? "Your attempts are saved to your dashboard." : "Sign in to save attempts and earn XP."}</li>
@@ -290,9 +290,9 @@ function ResultView({ quiz, result, answers, onRetry }: { quiz: PlayerQuiz; resu
           </div>
         </div>
         <div>
-          <h2 id="res-h" className="font-heading text-2xl font-bold">{pct >= 80 ? "Outstanding! 🎉" : pct >= 60 ? "Passed — nice work!" : "Keep practising 💪"}</h2>
+          <h2 id="res-h" className="font-heading text-2xl font-bold">{pct >= 80 ? "Outstanding!" : pct >= 60 ? "Passed, nice work!" : "Keep practising"}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            {result.stats.attempts > 1 ? `You scored higher than ${result.stats.percentile}% of other attempts (${result.stats.attempts - 1}). Average score: ${result.stats.avgScore}/${result.max}.` : "You're the first to take this test — nice!"}
+            {result.stats.attempts > 1 ? `You scored higher than ${result.stats.percentile}% of other attempts (${result.stats.attempts - 1}). Average score: ${result.stats.avgScore}/${result.max}.` : "You're the first to take this test, nice!"}
           </p>
           <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
             {[
@@ -349,7 +349,7 @@ function ResultView({ quiz, result, answers, onRetry }: { quiz: PlayerQuiz; resu
               </li>
             );
           })}
-          {!shown.length ? <li className="text-sm text-muted-foreground">Nothing to show for this filter. 🎯</li> : null}
+          {!shown.length ? <li className="text-sm text-muted-foreground">Nothing to show for this filter.</li> : null}
         </ol>
       </section>
     </div>

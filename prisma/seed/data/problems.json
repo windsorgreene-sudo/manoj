@@ -85,7 +85,7 @@
   "outputFormat": "The words of `s` in reverse order, joined by single spaces.",
   "constraints": "- 1 \u2264 |s| \u2264 10^4\n- `s` contains English letters, digits and spaces\n- There is at least one word",
   "hints": [
-   "Split the string on whitespace \u2014 most languages collapse repeated spaces for you.",
+   "Split the string on whitespace, most languages collapse repeated spaces for you.",
    "Reverse the list of words and join with a single space."
   ],
   "editorial": "Split on whitespace, reverse, join. In-place variant: reverse the whole string, then reverse each word. **Time** O(n).",
@@ -152,7 +152,7 @@
   "outputFormat": "`true` if `s` is valid, otherwise `false`.",
   "constraints": "- 1 \u2264 |s| \u2264 10^4",
   "hints": [
-   "The most recent unmatched opening bracket must be closed first \u2014 which data structure gives you 'most recent'?",
+   "The most recent unmatched opening bracket must be closed first, which data structure gives you 'most recent'?",
    "Push opening brackets on a stack; on a closing bracket, the top must match."
   ],
   "editorial": "Use a stack. Push every opener; for a closer, pop and compare. The string is valid iff every comparison matches and the stack ends empty. **Time** O(n).",
@@ -174,7 +174,7 @@
    {
     "input": "(]",
     "expected": "false",
-    "explanation": "`(` is closed by `]` \u2014 invalid."
+    "explanation": "`(` is closed by `]`, invalid."
    }
   ],
   "hidden": [
@@ -221,7 +221,7 @@
   ],
   "statement": "Given an integer array `nums`, find the contiguous subarray (containing at least one number) with the largest sum and print that sum.",
   "inputFormat": "Line 1: `n`\nLine 2: `n` integers",
-  "outputFormat": "A single integer \u2014 the maximum subarray sum.",
+  "outputFormat": "A single integer, the maximum subarray sum.",
   "constraints": "- 1 \u2264 n \u2264 10^5\n- -10^4 \u2264 nums[i] \u2264 10^4",
   "hints": [
    "If the running sum becomes negative, would it ever help to keep it?",
@@ -425,7 +425,7 @@
   "constraints": "- 1 \u2264 n \u2264 45",
   "hints": [
    "To stand on step n you arrived from step n\u22121 or step n\u22122.",
-   "ways(n) = ways(n\u22121) + ways(n\u22122) \u2014 looks familiar?"
+   "ways(n) = ways(n\u22121) + ways(n\u22122), looks familiar?"
   ],
   "editorial": "This is the Fibonacci recurrence. Iterate with two variables. **Time** O(n), **Space** O(1).",
   "starterCode": {
@@ -489,7 +489,7 @@
   ],
   "statement": "Given a string `s`, find the length of the longest substring without repeating characters.",
   "inputFormat": "A single line `s` (lowercase letters and digits).",
-  "outputFormat": "An integer \u2014 the maximum length.",
+  "outputFormat": "An integer, the maximum length.",
   "constraints": "- 1 \u2264 |s| \u2264 5\u00b710^4",
   "hints": [
    "Use a sliding window [l, r] that always contains unique characters.",
@@ -578,7 +578,7 @@
    {
     "input": "4 5\n11110\n11010\n11000\n00000",
     "expected": "1",
-    "explanation": "All land is connected \u2014 1 island."
+    "explanation": "All land is connected: 1 island."
    },
    {
     "input": "4 5\n11000\n11000\n00100\n00011",
@@ -763,7 +763,7 @@
   "constraints": "- 1 \u2264 k \u2264 n \u2264 10^5",
   "hints": [
    "Sorting works in O(n log n). Can you avoid sorting everything?",
-   "Keep a min-heap of size k \u2014 its top is the answer."
+   "Keep a min-heap of size k, its top is the answer."
   ],
   "editorial": "Maintain a min-heap with the k largest seen elements; pop when size exceeds k. **Time** O(n log k). Quickselect gives expected O(n).",
   "starterCode": {
@@ -950,15 +950,15 @@
    "Amazon",
    "Zoho"
   ],
-  "statement": "Given an array `nums` of size `n`, print the majority element \u2014 the element that appears **more than \u230an/2\u230b** times. It is guaranteed to exist.",
+  "statement": "Given an array `nums` of size `n`, print the majority element, the element that appears **more than \u230an/2\u230b** times. It is guaranteed to exist.",
   "inputFormat": "Line 1: `n`\nLine 2: `n` integers",
   "outputFormat": "The majority element.",
   "constraints": "- 1 \u2264 n \u2264 5\u00b710^4",
   "hints": [
    "A hash map of counts works in O(n) space.",
-   "Boyer\u2013Moore voting finds it in O(1) space: pair off different elements."
+   "Boyer-Moore voting finds it in O(1) space: pair off different elements."
   ],
-  "editorial": "**Boyer\u2013Moore voting**: keep a candidate and a counter; increment on match, decrement otherwise, replace candidate when counter hits 0. **Time** O(n), **Space** O(1).",
+  "editorial": "**Boyer-Moore voting**: keep a candidate and a counter; increment on match, decrement otherwise, replace candidate when counter hits 0. **Time** O(n), **Space** O(1).",
   "starterCode": {
    "PYTHON": "import sys\n\ndef main():\n    data = sys.stdin.read().split(\"\\n\")\n    # Input: Line 1: n | Line 2: n integers\n    # Write your solution here and print the answer\n    pass\n\nif __name__ == \"__main__\":\n    main()\n",
    "JAVASCRIPT": "const lines = require(\"fs\").readFileSync(0, \"utf8\").split(\"\\n\");\n// Input: Line 1: n | Line 2: n integers\n\nfunction solve(lines) {\n  // Write your solution here and return the answer\n  return \"\";\n}\n\nconsole.log(solve(lines));\n",
@@ -1148,7 +1148,7 @@
   "constraints": "- 1 \u2264 n \u2264 2\u00b710^4\n- 0 \u2264 height[i] \u2264 10^5",
   "hints": [
    "Water above bar i = min(maxLeft, maxRight) \u2212 height[i].",
-   "Two pointers: always move the side with the smaller max \u2014 it bounds the water."
+   "Two pointers: always move the side with the smaller max, it bounds the water."
   ],
   "editorial": "Keep `l, r, leftMax, rightMax`. If `leftMax < rightMax`, water at `l` is `leftMax - h[l]`; move `l`. Otherwise do the same on the right. **Time** O(n), **Space** O(1).",
   "starterCode": {
@@ -1215,7 +1215,7 @@
   "outputFormat": "The median formatted with one decimal place (e.g. `2.5`).",
   "constraints": "- 1 \u2264 n, m \u2264 1000\n- -10^6 \u2264 A[i], B[i] \u2264 10^6",
   "hints": [
-   "Merging is O(n + m) \u2014 acceptable here, but can you binary-search a partition?",
+   "Merging is O(n + m), acceptable here, but can you binary-search a partition?",
    "Partition both arrays so that the left halves together hold (n+m+1)/2 elements and maxLeft \u2264 minRight."
   ],
   "editorial": "Binary search on the cut in the smaller array; the cut in the other is determined. When `A[i-1] \u2264 B[j]` and `B[j-1] \u2264 A[i]` the median comes from the four boundary values. **Time** O(log min(n, m)).",
@@ -1277,7 +1277,7 @@
    "Amazon"
   ],
   "statement": "Given two strings `word1` and `word2`, print the minimum number of operations (insert, delete, replace a character) required to convert `word1` into `word2`.",
-  "inputFormat": "Line 1: `word1`\nLine 2: `word2`\n(Either may be empty \u2014 an empty line.)",
+  "inputFormat": "Line 1: `word1`\nLine 2: `word2`\n(Either may be empty, an empty line.)",
   "outputFormat": "The edit distance.",
   "constraints": "- 0 \u2264 |word1|, |word2| \u2264 500\n- Lowercase English letters",
   "hints": [
@@ -1286,12 +1286,12 @@
   ],
   "editorial": "Classic Levenshtein DP with an (n+1)\u00d7(m+1) table; roll it to two rows for O(m) space. **Time** O(n\u00b7m).",
   "starterCode": {
-   "PYTHON": "import sys\n\ndef main():\n    data = sys.stdin.read().split(\"\\n\")\n    # Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\n    # Write your solution here and print the answer\n    pass\n\nif __name__ == \"__main__\":\n    main()\n",
-   "JAVASCRIPT": "const lines = require(\"fs\").readFileSync(0, \"utf8\").split(\"\\n\");\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\n\nfunction solve(lines) {\n  // Write your solution here and return the answer\n  return \"\";\n}\n\nconsole.log(solve(lines));\n",
-   "CPP": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Write your solution here\n    return 0;\n}\n",
-   "C": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\nint main(void) {\n    // Write your solution here\n    return 0;\n}\n",
-   "JAVA": "import java.util.*;\nimport java.io.*;\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\npublic class Main {\n    public static void main(String[] args) throws IOException {\n        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n        // Write your solution here\n    }\n}\n",
-   "GO": "package main\n\nimport (\n\t\"bufio\"\n\t\"fmt\"\n\t\"os\"\n)\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty \u2014 an empty line.)\nfunc main() {\n\treader := bufio.NewReader(os.Stdin)\n\t_ = reader\n\t// Write your solution here\n\tfmt.Print(\"\")\n}\n"
+   "PYTHON": "import sys\n\ndef main():\n    data = sys.stdin.read().split(\"\\n\")\n    # Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\n    # Write your solution here and print the answer\n    pass\n\nif __name__ == \"__main__\":\n    main()\n",
+   "JAVASCRIPT": "const lines = require(\"fs\").readFileSync(0, \"utf8\").split(\"\\n\");\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\n\nfunction solve(lines) {\n  // Write your solution here and return the answer\n  return \"\";\n}\n\nconsole.log(solve(lines));\n",
+   "CPP": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Write your solution here\n    return 0;\n}\n",
+   "C": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\nint main(void) {\n    // Write your solution here\n    return 0;\n}\n",
+   "JAVA": "import java.util.*;\nimport java.io.*;\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\npublic class Main {\n    public static void main(String[] args) throws IOException {\n        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n        // Write your solution here\n    }\n}\n",
+   "GO": "package main\n\nimport (\n\t\"bufio\"\n\t\"fmt\"\n\t\"os\"\n)\n\n// Input: Line 1: word1 | Line 2: word2 | (Either may be empty, an empty line.)\nfunc main() {\n\treader := bufio.NewReader(os.Stdin)\n\t_ = reader\n\t// Write your solution here\n\tfmt.Print(\"\")\n}\n"
   },
   "solutionPython": "import sys\n\n\ndef edit_distance(inp):\n    parts = inp.split(\"\\n\")\n    a, b = parts[0].strip(), (parts[1].strip() if len(parts) > 1 else \"\")\n    prev = list(range(len(b) + 1))\n    for i in range(1, len(a) + 1):\n        cur = [i] + [0] * len(b)\n        for j in range(1, len(b) + 1):\n            cur[j] = prev[j - 1] if a[i - 1] == b[j - 1] else 1 + min(prev[j - 1], prev[j], cur[j - 1])\n        prev = cur\n    return str(prev[len(b)])\n\n\nprint(edit_distance(sys.stdin.read().rstrip(\"\\n\")))\n",
   "samples": [
@@ -1803,7 +1803,7 @@
   "constraints": "- 1 \u2264 a, b \u2264 10^9",
   "hints": [
    "Euclid: gcd(a, b) = gcd(b, a mod b).",
-   "lcm(a, b) = a / gcd(a, b) \u00d7 b \u2014 divide first to avoid overflow."
+   "lcm(a, b) = a / gcd(a, b) \u00d7 b, divide first to avoid overflow."
   ],
   "editorial": "Use the **Euclidean algorithm** in O(log min(a, b)) and derive the LCM with `a / g * b` (64-bit).",
   "starterCode": {
@@ -1865,7 +1865,7 @@
    "Microsoft",
    "LinkedIn"
   ],
-  "statement": "A binary tree is given in **LeetCode level-order format** (`null` marks a missing child; children of `null` nodes are not listed). Print the values level by level \u2014 one level per line, values separated by spaces.",
+  "statement": "A binary tree is given in **LeetCode level-order format** (`null` marks a missing child; children of `null` nodes are not listed). Print the values level by level, one level per line, values separated by spaces.",
   "inputFormat": "Line 1: `n` (number of tokens)\nLine 2: `n` tokens (integers or `null`)",
   "outputFormat": "One line per level.",
   "constraints": "- 1 \u2264 n \u2264 10^4\n- The first token is never `null`",

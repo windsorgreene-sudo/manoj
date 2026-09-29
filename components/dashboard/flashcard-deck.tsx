@@ -36,7 +36,7 @@ export function FlashcardDeck({ cards, upcoming }: { cards: Card[]; upcoming: { 
     const r = await generateFlashcards();
     setBusy(false);
     if (!r.ok) return toast.error(r.error);
-    toast.success(r.data.created ? `Created ${r.data.created} new cards from your bookmarks` : "No new cards — bookmark more tutorials first");
+    toast.success(r.data.created ? `Created ${r.data.created} new cards from your bookmarks` : "No new cards, bookmark more tutorials first");
     router.refresh();
   };
   const grade = async (g: number) => {
@@ -83,7 +83,7 @@ export function FlashcardDeck({ cards, upcoming }: { cards: Card[]; upcoming: { 
             {card.sourceSlug ? <p className="text-xs text-muted-foreground">From <Link href={`/tutorials/${card.sourceSlug}`} className="underline">this tutorial</Link></p> : null}
           </>
         ) : (
-          <EmptyState title="All caught up! 🎉" description="No cards are due. Generate new cards from your bookmarks or add your own." />
+          <EmptyState title="All caught up!" description="No cards are due. Generate new cards from your bookmarks or add your own." />
         )}
       </div>
       <aside className="space-y-4">

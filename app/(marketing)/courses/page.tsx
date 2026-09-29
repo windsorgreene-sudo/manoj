@@ -9,7 +9,7 @@ import { getCatalog, getCatalogFacets, type CatalogFilters as Filters } from "@/
 
 export const metadata: Metadata = {
   title: "Courses",
-  description: "Structured courses in DSA, Python, JavaScript, Web Development, DBMS and Operating Systems — all completely free.",
+  description: "Structured courses in DSA, Python, JavaScript, Web Development, DBMS and Operating Systems, all completely free.",
   alternates: { canonical: "/courses" },
 };
 
@@ -19,7 +19,6 @@ export default async function CoursesPage({ searchParams }: { searchParams: Prom
   return (
     <div className="container-cv py-12 md:py-16">
       <header className="mb-8 max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Course catalog</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Find your next course</h1>
         <p className="mt-3 text-muted-foreground">Every course mixes tutorials, runnable examples, practice problems and quizzes.</p>
       </header>

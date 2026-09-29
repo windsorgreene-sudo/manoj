@@ -78,7 +78,7 @@ export function EnrollCard({ courseId, slug, firstLesson }: { courseId: string; 
           <div className="flex items-center gap-4">
             <ProgressRing pct={data.progressPct} />
             <div>
-              <p className="font-semibold">{data.progressPct === 100 ? "Completed 🎓" : "Your progress"}</p>
+              <p className="font-semibold">{data.progressPct === 100 ? "Completed" : "Your progress"}</p>
               <p className="text-sm text-muted-foreground">{data.completed.length} lessons done</p>
             </div>
           </div>

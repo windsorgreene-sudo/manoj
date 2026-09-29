@@ -21,7 +21,7 @@ export function RegisterButton({ contestId, slug, registered, phase, signedIn }:
     start(async () => {
       const res = await setContestRegistration({ contestId, register });
       if (!res.ok) return void toast.error(res.error);
-      toast.success(register ? "You're registered — good luck!" : "Registration cancelled");
+      toast.success(register ? "You're registered, good luck!" : "Registration cancelled");
       router.refresh();
     });
   if (registered)

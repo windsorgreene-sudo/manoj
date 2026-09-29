@@ -1,4 +1,4 @@
-# CodeVerse — Build Progress
+# CodeVerse: Build Progress
 
 > Resume rule: "Continue from docs/progress.md" → start at the first unchecked item.
 
@@ -6,7 +6,7 @@
 - [x] Steering files (.kiro/steering: product, tech, design-system, quality-bar, structure)
 - [x] docs/progress.md
 
-## Phase 1 — Foundation
+## Phase 1: Foundation
 - [x] git init / branch
 - [x] Next.js + TypeScript (strict) + Tailwind + shadcn/ui
 - [x] Design tokens (CSS variables), fonts (Space Grotesk / Inter / JetBrains Mono), dark/light theme
@@ -18,7 +18,7 @@
 - [x] .env.example and README
 - [x] Lint + type-check + build green; commit "Phase 1: Foundation"
 
-## Phase 2 — 3D Landing & Marketing
+## Phase 2-3D Landing & Marketing
 - [x] 3D "Knowledge Core" hero (crystal planet, orbiting tech logos, particle field, bloom, chromatic aberration)
 - [x] SplitText headline + typewriter code snippet
 - [x] Scroll storytelling: pinned 4 chapters (Learn → Practice → Compete → Get Hired)
@@ -29,7 +29,7 @@
 - [x] 3D 404 (astronaut) and 500 pages
 - [x] Lint + type-check + build green; commit "Phase 2: 3D Landing & Marketing"
 
-## Phase 3 — Learn
+## Phase 3: Learn
 - [x] Course detail (syllabus accordion, preview lessons, reviews, enroll, progress)
 - [x] Tutorial reader: 3 columns, topic tree, MDX + Shiki, TOC scroll-spy
 - [x] Code tabs, copy, "Try it Yourself" lazy editor
@@ -40,7 +40,7 @@
 - [x] Ctrl+K command palette search (Postgres full-text fallback)
 - [x] Lint + type-check + build green; commit "Phase 3: Learn"
 
-## Phase 4 — Practice
+## Phase 4: Practice
 - [x] Problems list (filters, tags, acceptance, status, Pick Random)
 - [x] Problem workspace (split panes, tabs, Monaco, console, Run/Submit, verdicts)
 - [x] Playground (stdin, save & share)
@@ -50,7 +50,7 @@
 - [x] 3D Data Structure Lab
 - [x] Lint + type-check + build green; commit "Phase 4: Practice"
 
-## Phase 5 — Student Panel
+## Phase 5: Student Panel
 > Note: AI Tutor side panel + gamification engine (`lib/gamification.ts`) were built early in Phase 3.
 - [x] Overview (greeting, XP/level, streak + freeze, POTD countdown, continue learning, contests)
 - [x] Stats (donut, radar, languages, weekly time, heatmap)
@@ -64,7 +64,7 @@
 - [x] Public profile /u/[username] with follow
 - [x] Lint + type-check + build green; commit "Phase 5: Student Panel"
 
-## Phase 6 — Admin Panel
+## Phase 6: Admin Panel
 - [x] Layout (collapsible sidebar, top bar) + server-side role checks everywhere
 - [x] Overview KPIs, charts, activity feed
 - [x] CMS: courses/modules/lessons (DnD), articles (MDX editor, workflow, revisions, SEO), problems, quizzes, sheets, roadmaps
@@ -79,12 +79,12 @@
 - [x] Audit log
 - [x] Lint + type-check + build green; commit "Phase 6: Admin Panel"
 
-## Phase 7 — Contests, Payments & Launch
+## Phase 7: Contests, Payments & Launch
 - [x] Contests (list, registration, realtime/polling leaderboard, 3D podium, ratings)
 - [x] Quizzes & mock tests (timer, negative marking, analysis)
 - [x] Certificates (PDF + QR verification page)
 - [x] Doubts forum
-- [x] ~~Pro subscriptions~~ — removed: the platform is 100% free (no plans, payments or paywalls)
+- [x] ~~Pro subscriptions~~, removed: the platform is 100% free (no plans, payments or paywalls)
 - [x] Hindi translation (next-intl)
 - [x] SEO: sitemap, robots, OG images, JSON-LD
 - [x] Final performance + accessibility pass

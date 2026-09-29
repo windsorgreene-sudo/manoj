@@ -80,7 +80,7 @@ export function CatalogFilters({ topics, languages }: { topics: string[]; langua
             <SelectItem value="popular">Most popular</SelectItem>
             <SelectItem value="rating">Highest rated</SelectItem>
             <SelectItem value="newest">Newest</SelectItem>
-            <SelectItem value="title">A–Z</SelectItem>
+            <SelectItem value="title">A-Z</SelectItem>
           </SelectContent>
         </Select>
       </div>

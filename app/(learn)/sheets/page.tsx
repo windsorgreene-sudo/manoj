@@ -12,7 +12,6 @@ export default async function SheetsPage() {
   return (
     <div className="container-cv py-12 md:py-16">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">DSA sheets</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Follow a proven problem list</h1>
         <p className="mt-3 text-muted-foreground">Topic-wise and company-wise sheets. Your progress updates automatically when you get Accepted.</p>
       </header>

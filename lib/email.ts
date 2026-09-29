@@ -10,7 +10,7 @@ const FROM = process.env.EMAIL_FROM ?? "CodeVerse <onboarding@resend.dev>";
 export async function sendEmail(mail: Mail) {
   if (!integrations.resend()) {
     console.info(
-      `\n📧 [email:console-fallback] To: ${mail.to}\n   Subject: ${mail.subject}\n   ${mail.text ?? mail.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}\n`,
+      `\n[email:console-fallback] To: ${mail.to}\n   Subject: ${mail.subject}\n   ${mail.text ?? mail.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}\n`,
     );
     return { ok: true as const, fallback: true };
   }

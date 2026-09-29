@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader, StatusBadge } from "@/components/admin/ui";
 import { UserControls } from "@/components/admin/user-controls";
+import { UserTools } from "@/components/admin/community-forms";
 import { VerdictText } from "@/components/practice/verdict";
 import { db } from "@/lib/db";
 import { formatDate, timeAgo } from "@/lib/utils";
@@ -20,6 +21,8 @@ export default async function AdminUser({ params }: { params: Promise<{ id: stri
     },
   });
   if (!u) notFound();
+  const [allBadges, ownedBadges] = await Promise.all([db.badge.findMany({ orderBy: { name: "asc" }, select: { id: true, slug: true, name: true } }), db.userBadge.findMany({ where: { userId: u.id }, select: { badgeId: true } })]);
+  const owned = new Set(ownedBadges.map((b) => b.badgeId));
   const logs = await db.auditLog.findMany({ where: { OR: [{ actorId: u.id }, { entityId: u.email }] }, orderBy: { createdAt: "desc" }, take: 10, include: { actor: { select: { name: true } } } });
   return (
     <>
@@ -32,7 +35,7 @@ export default async function AdminUser({ params }: { params: Promise<{ id: stri
             ))}
           </div>
           <section className="glass p-5" aria-labelledby="subs"><h2 id="subs" className="mb-2 font-semibold">Recent submissions</h2>
-            <ul className="divide-y divide-border text-sm">{u.submissions.map((s) => <li key={s.id} className="flex gap-3 py-2"><VerdictText verdict={s.verdict} /><span className="flex-1">{s.problem?.title ?? "—"}</span><span className="text-xs text-muted-foreground">{timeAgo(s.createdAt)}</span></li>)}</ul>
+            <ul className="divide-y divide-border text-sm">{u.submissions.map((s) => <li key={s.id} className="flex gap-3 py-2"><VerdictText verdict={s.verdict} /><span className="flex-1">{s.problem?.title ?? "-"}</span><span className="text-xs text-muted-foreground">{timeAgo(s.createdAt)}</span></li>)}</ul>
           </section>
           <section className="glass p-5" aria-labelledby="enr"><h2 id="enr" className="mb-2 font-semibold">Enrollments</h2>
             <ul className="space-y-1 text-sm">{u.enrollments.map((e) => <li key={e.id} className="flex justify-between"><span>{e.course.title}</span><span className="text-muted-foreground">{e.progressPct}%</span></li>)}</ul>
@@ -47,9 +50,10 @@ export default async function AdminUser({ params }: { params: Promise<{ id: stri
             {u.banned ? <p className="text-muted-foreground">Reason: {u.banReason} {u.banExpires ? `· until ${formatDate(u.banExpires)}` : "· permanent"}</p> : null}
             <p>Email verified: {u.emailVerified ? "yes" : "no"}</p>
             <p>Comments {u._count.comments} · Doubts {u._count.doubts} · Articles {u._count.articles}</p>
-            <p>College: {u.profile?.college ?? "—"}</p>
+            <p>College: {u.profile?.college ?? "-"}</p>
           </div>
           <UserControls userId={u.id} role={u.role} banned={u.banned} />
+          <UserTools userId={u.id} emailVerified={u.emailVerified} badges={allBadges.map((b) => ({ slug: b.slug, name: b.name, owned: owned.has(b.id) }))} />
         </aside>
       </div>
     </>

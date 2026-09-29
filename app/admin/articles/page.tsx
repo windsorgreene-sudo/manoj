@@ -40,7 +40,7 @@ export default async function AdminArticles({ searchParams }: { searchParams: Pr
           {rows.map((a) => (
             <tr key={a.id} className={trCls}>
               <td className={tdCls}><Link href={`/admin/articles/${a.id}`} className="font-medium hover:text-cyan">{a.title}</Link>{a.isBlog ? <span className="ml-2 text-[10px] text-muted-foreground">BLOG</span> : null}</td>
-              <td className={`${tdCls} text-muted-foreground`}>{a.category?.name ?? "—"}</td>
+              <td className={`${tdCls} text-muted-foreground`}>{a.category?.name ?? "-"}</td>
               <td className={`${tdCls} text-muted-foreground`}>{a.author.name}</td>
               <td className={tdCls}><StatusBadge status={a.status} /></td>
               <td className={`${tdCls} tabular-nums`}>{a.views.toLocaleString("en-IN")}</td>

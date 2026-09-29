@@ -19,7 +19,7 @@ export default async function MyArticlesPage() {
         <Button asChild className="rounded-xl"><Link href="/dashboard/articles/new"><Plus /> New article</Link></Button>
       </div>
       {articles.length === 0 ? (
-        <EmptyState title="No articles yet" description="Share what you know — your first tutorial could help thousands." action={<Button asChild className="rounded-xl"><Link href="/dashboard/articles/new">Start writing</Link></Button>} />
+        <EmptyState title="No articles yet" description="Share what you know, your first tutorial could help thousands." action={<Button asChild className="rounded-xl"><Link href="/dashboard/articles/new">Start writing</Link></Button>} />
       ) : (
         <ul className="glass divide-y divide-border">
           {articles.map((a) => (

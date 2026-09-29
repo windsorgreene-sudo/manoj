@@ -11,7 +11,7 @@ export default async function MediaPage({ searchParams }: { searchParams: Promis
     <>
       <PageHeader title="Media library" description="Uploads go to Cloudinary when configured, otherwise public/uploads." />
       <SearchForm base="/admin/media" params={sp} placeholder="Search by filename…" />
-      <MediaLibrary items={items.map((m) => ({ id: m.id, url: m.url, filename: m.filename, mimeType: m.mimeType, sizeBytes: m.sizeBytes, uploader: m.uploader?.name ?? "—", createdAt: m.createdAt.toISOString() }))} />
+      <MediaLibrary items={items.map((m) => ({ id: m.id, url: m.url, filename: m.filename, mimeType: m.mimeType, sizeBytes: m.sizeBytes, uploader: m.uploader?.name ?? "-", createdAt: m.createdAt.toISOString() }))} />
     </>
   );
 }

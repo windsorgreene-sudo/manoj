@@ -38,7 +38,7 @@ export function StatusBadge({ status }: { status: string }) {
     REFUNDED: "bg-warning/15 text-warning",
     CANCELLED: "bg-warning/15 text-warning",
     EXPIRED: "bg-surface-2 text-muted-foreground",
-    PAST_DUE: "bg-danger/15 text-danger",
+    HIDDEN: "bg-warning/15 text-warning",
   };
   return <span className={cn("inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold", cls[status] ?? "bg-surface-2 text-muted-foreground")}>{status.replace(/_/g, " ")}</span>;
 }

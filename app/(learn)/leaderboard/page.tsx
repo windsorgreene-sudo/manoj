@@ -9,7 +9,6 @@ export default async function PublicLeaderboardPage() {
   const rows = await getLeaderboard("global", null, 100);
   return (
     <div className="container-cv max-w-4xl py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Leaderboard</p>
       <h1 className="mt-2 mb-8 font-heading text-4xl font-bold">Top learners</h1>
       <LeaderboardTable rows={rows} meId={null} />
     </div>

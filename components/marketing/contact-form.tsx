@@ -23,7 +23,7 @@ export function ContactForm() {
     if (res.ok) {
       toast.success("Thanks! We'll get back to you within 2 working days.");
       reset();
-    } else toast.error(res.status === 429 ? "Too many messages — try again later." : "Could not send your message.");
+    } else toast.error(res.status === 429 ? "Too many messages, try again later." : "Could not send your message.");
   };
 
   return (

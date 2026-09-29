@@ -44,7 +44,7 @@ export async function markNotificationsRead(ids?: string[]) {
 // ───────── Profile & settings ─────────
 const profileSchema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(60),
-  username: z.string().trim().toLowerCase().regex(/^[a-z0-9_]{3,20}$/, "3–20 characters: letters, numbers, underscore"),
+  username: z.string().trim().toLowerCase().regex(/^[a-z0-9_]{3,20}$/, "3-20 characters: letters, numbers, underscore"),
   bio: z.string().max(280).optional().default(""),
   college: z.string().max(100).optional().default(""),
   location: z.string().max(80).optional().default(""),
@@ -135,7 +135,7 @@ export async function generateFlashcards() {
       const a = b.article;
       if (!a) continue;
       for (const q of a.quizzes.flatMap((z) => z.questions)) {
-        cards.push({ front: q.prompt, back: `${q.correct.map((c) => q.options[c]).join(", ")} — ${q.explanation}`, sourceSlug: a.slug });
+        cards.push({ front: q.prompt, back: `${q.correct.map((c) => q.options[c]).join(", ")}, ${q.explanation}`, sourceSlug: a.slug });
       }
       // One "explain" card per section heading
       const headings = [...a.content.matchAll(/^##\s+(.+)$/gm)].map((m) => m[1].replace(/[`*]/g, "")).slice(0, 3);
@@ -148,7 +148,7 @@ export async function generateFlashcards() {
   });
 }
 
-/** SM-2: grade 0–5. <3 resets repetitions; interval grows by the ease factor. */
+/** SM-2: grade 0-5. <3 resets repetitions; interval grows by the ease factor. */
 export async function reviewFlashcard(input: { id: string; grade: number }) {
   return run(async () => {
     const user = await assertUser();

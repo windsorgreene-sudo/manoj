@@ -10,7 +10,7 @@ import { cn, timeAgo } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Doubts Forum",
-  description: "Ask coding questions, answer others and get unstuck — DSA, languages, CS fundamentals and more.",
+  description: "Ask coding questions, answer others and get unstuck: DSA, languages, CS fundamentals and more.",
   alternates: { canonical: "/doubts" },
 };
 
@@ -53,7 +53,6 @@ export default async function DoubtsPage({ searchParams }: { searchParams: SP })
     <div className="container-cv py-12 md:py-16">
       <header className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Community</p>
           <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Doubts forum</h1>
           <p className="mt-3 text-muted-foreground">Stuck? Ask the community. Help others and earn the Helping Hand badge when your answer is accepted.</p>
         </div>
@@ -116,7 +115,7 @@ export default async function DoubtsPage({ searchParams }: { searchParams: SP })
               ))}
             </ul>
           ) : (
-            <EmptyState className="mt-8" title={q || tag ? "No doubts match" : "No doubts yet"} description={q || tag ? "Try different keywords — or ask it yourself!" : "Be the first to ask."} action={<Button asChild className="rounded-xl"><Link href="/doubts/ask">Ask a doubt</Link></Button>} />
+            <EmptyState className="mt-8" title={q || tag ? "No doubts match" : "No doubts yet"} description={q || tag ? "Try different keywords, or ask it yourself!" : "Be the first to ask."} action={<Button asChild className="rounded-xl"><Link href="/doubts/ask">Ask a doubt</Link></Button>} />
           )}
 
           {pages > 1 ? (

@@ -122,7 +122,7 @@ export default async function DoubtPage({ params }: Props) {
             })}
           </ul>
         ) : (
-          <p className="glass mt-4 p-6 text-center text-sm text-muted-foreground">No answers yet — be the first to help!</p>
+          <p className="glass mt-4 p-6 text-center text-sm text-muted-foreground">No answers yet, be the first to help!</p>
         )}
       </section>
 

@@ -8,7 +8,7 @@ export const webArticles: SeedArticle[] = [
     title: "Semantic HTML and Accessibility",
     category: "web-development",
     difficulty: "EASY",
-    excerpt: "Use the right HTML elements for structure, SEO and screen readers — landmarks, headings, forms and alt text.",
+    excerpt: "Use the right HTML elements for structure, SEO and screen readers, landmarks, headings, forms and alt text.",
     tags: ["html", "accessibility", "seo"],
     content: `## Why semantics matter
 
@@ -71,7 +71,7 @@ Every \`<img>\` needs \`alt\`. Describe the content (\`alt="Bar chart of solved 
     difficulty: "MEDIUM",
     excerpt: "Know when to use one-dimensional Flexbox vs two-dimensional Grid, with responsive layout recipes.",
     tags: ["css", "flexbox", "grid", "responsive"],
-    content: `## Flexbox — one dimension
+    content: `## Flexbox, one dimension
 
 Flexbox lays items out along **one axis** (row or column). Perfect for navbars, toolbars and centring.
 
@@ -90,7 +90,7 @@ ${fence}css
 }
 ${fence}
 
-## Grid — two dimensions
+## Grid, two dimensions
 
 Grid controls **rows and columns** at once. Perfect for page layouts and card galleries.
 
@@ -111,7 +111,7 @@ ${fence}css
 }
 ${fence}
 
-\`repeat(auto-fill, minmax(260px, 1fr))\` creates as many 260px+ columns as fit — a responsive gallery with **zero** media queries.
+\`repeat(auto-fill, minmax(260px, 1fr))\` creates as many 260px+ columns as fit, a responsive gallery with **zero** media queries.
 
 ## Choosing
 
@@ -133,7 +133,7 @@ ${fence}
     title: "How HTTP Works: Requests, Responses and Status Codes",
     category: "web-development",
     difficulty: "EASY",
-    excerpt: "What happens when you type a URL — DNS, TCP/TLS, HTTP methods, headers, status codes and caching.",
+    excerpt: "What happens when you type a URL: DNS, TCP/TLS, HTTP methods, headers, status codes and caching.",
     tags: ["http", "networking", "web"],
     content: `## From URL to page
 
@@ -163,10 +163,10 @@ ${fence}
 
 ## Status codes
 
-- **2xx success** — 200 OK, 201 Created, 204 No Content
-- **3xx redirect** — 301 Moved Permanently, 304 Not Modified
-- **4xx client error** — 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests
-- **5xx server error** — 500 Internal Server Error, 503 Service Unavailable
+- **2xx success**: 200 OK, 201 Created, 204 No Content
+- **3xx redirect**: 301 Moved Permanently, 304 Not Modified
+- **4xx client error**: 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests
+- **5xx server error**: 500 Internal Server Error, 503 Service Unavailable
 
 ## Caching headers
 
@@ -187,7 +187,7 @@ ${fence}
     tags: ["rest", "api", "fetch", "backend"],
     content: `## REST in one paragraph
 
-REST models your domain as **resources** identified by URLs and manipulated with standard HTTP methods. Responses are usually JSON and the server is **stateless** — every request carries what it needs (e.g. an auth token).
+REST models your domain as **resources** identified by URLs and manipulated with standard HTTP methods. Responses are usually JSON and the server is **stateless**, every request carries what it needs (e.g. an auth token).
 
 ## Good endpoint design
 
@@ -237,10 +237,10 @@ async function createNote(text) {
 }
 ${fence}
 
-<Callout type="warning">\`fetch\` only rejects on network failure — a 404 or 500 still resolves. Always check \`res.ok\`.</Callout>`,
+<Callout type="warning">\`fetch\` only rejects on network failure, a 404 or 500 still resolves. Always check \`res.ok\`.</Callout>`,
     quiz: [
       { q: "The correct status for a successful creation is…", options: ["200", "201", "204", "302"], answer: 1, explanation: "201 Created." },
-      { q: "Does fetch reject on HTTP 500?", options: ["Yes", "No — check res.ok", "Only in Node", "Only with await"], answer: 1, explanation: "Only network errors reject." },
+      { q: "Does fetch reject on HTTP 500?", options: ["Yes", "No, check res.ok", "Only in Node", "Only with await"], answer: 1, explanation: "Only network errors reject." },
     ],
   },
 ];
@@ -279,20 +279,20 @@ ${fence}
 
 ## Keys
 
-- **Super key** — any set of columns that uniquely identifies a row.
-- **Candidate key** — a *minimal* super key.
-- **Primary key** — the chosen candidate key (unique, not null).
-- **Foreign key** — references a primary key in another table, enforcing **referential integrity**.
+- **Super key**, any set of columns that uniquely identifies a row.
+- **Candidate key**, a *minimal* super key.
+- **Primary key**, the chosen candidate key (unique, not null).
+- **Foreign key**, references a primary key in another table, enforcing **referential integrity**.
 
 ## Three-level architecture
 
-1. **External** — views for different users.
-2. **Conceptual** — the logical schema (tables, relationships).
-3. **Internal** — physical storage (files, indexes).
+1. **External**, views for different users.
+2. **Conceptual**, the logical schema (tables, relationships).
+3. **Internal**, physical storage (files, indexes).
 
 This separation gives **data independence**: you can add an index without changing application queries.
 
-<Callout type="tip">Interview favourite: "What is the difference between a primary key and a unique key?" — a table has one primary key (never null); it can have many unique keys (which may allow null).</Callout>`,
+<Callout type="tip">Interview favourite: "What is the difference between a primary key and a unique key?", a table has one primary key (never null); it can have many unique keys (which may allow null).</Callout>`,
     quiz: [
       { q: "A minimal super key is called a…", options: ["Foreign key", "Candidate key", "Composite key", "Surrogate key"], answer: 1, explanation: "Remove any column and it's no longer unique." },
       { q: "Foreign keys enforce…", options: ["Entity integrity", "Referential integrity", "Normal forms", "Indexing"], answer: 1, explanation: "References must point to existing rows." },
@@ -314,7 +314,7 @@ ${fence}sql
 -- 3 Kabir                      30 OS                    (2, 10, 77)
 ${fence}
 
-## INNER JOIN — only matching rows
+## INNER JOIN, only matching rows
 
 ${fence}sql
 SELECT s.name, c.title, e.score
@@ -324,7 +324,7 @@ JOIN courses  c ON c.id = e.course_id;
 -- Kabir does not appear: he has no enrollments
 ${fence}
 
-## LEFT JOIN — keep everything from the left
+## LEFT JOIN, keep everything from the left
 
 ${fence}sql
 SELECT s.name, COUNT(e.course_id) AS courses_taken
@@ -357,7 +357,7 @@ ${fence}
 
 \`WHERE\` filters rows **before** grouping; \`HAVING\` filters groups **after** aggregation.
 
-<Callout type="tip">Find students with no enrollments: \`LEFT JOIN … WHERE e.student_id IS NULL\` — the "anti-join" pattern.</Callout>`,
+<Callout type="tip">Find students with no enrollments: \`LEFT JOIN … WHERE e.student_id IS NULL\`, the "anti-join" pattern.</Callout>`,
     quiz: [
       { q: "Which join returns all rows from the left table?", options: ["INNER", "LEFT", "CROSS", "SELF"], answer: 1, explanation: "Unmatched right columns become NULL." },
       { q: "HAVING filters…", options: ["Rows before grouping", "Groups after aggregation", "Columns", "Indexes"], answer: 1, explanation: "WHERE is for rows, HAVING for groups." },
@@ -380,13 +380,13 @@ Consider \`orders(order_id, customer, customer_city, product, price)\`. If a cus
 
 ## Normal forms
 
-**1NF** — every column holds **atomic** values; no repeating groups (no comma-separated lists in a cell).
+**1NF**, every column holds **atomic** values; no repeating groups (no comma-separated lists in a cell).
 
-**2NF** — 1NF and no **partial dependency**: every non-key attribute depends on the *whole* composite key, not part of it.
+**2NF**: 1NF and no **partial dependency**: every non-key attribute depends on the *whole* composite key, not part of it.
 
-**3NF** — 2NF and no **transitive dependency**: non-key attributes depend only on the key (not on other non-key attributes).
+**3NF**: 2NF and no **transitive dependency**: non-key attributes depend only on the key (not on other non-key attributes).
 
-**BCNF** — for every dependency \`X → Y\`, X is a super key. A stricter 3NF.
+**BCNF**, for every dependency \`X → Y\`, X is a super key. A stricter 3NF.
 
 ## Decomposing our example
 
@@ -401,7 +401,7 @@ Each fact is now stored **once**.
 
 ## When to denormalise
 
-Read-heavy analytics sometimes duplicate data deliberately to avoid expensive joins — but do it consciously, with a plan to keep copies in sync.
+Read-heavy analytics sometimes duplicate data deliberately to avoid expensive joins, but do it consciously, with a plan to keep copies in sync.
 
 <Callout type="info">A decomposition must be **lossless** (joining the parts gives back exactly the original) and ideally **dependency-preserving**.</Callout>`,
     quiz: [
@@ -429,10 +429,10 @@ ${fence}
 
 ## ACID
 
-- **Atomicity** — all or nothing (implemented with undo logs).
-- **Consistency** — constraints hold before and after.
-- **Isolation** — concurrent transactions don't see each other's partial work.
-- **Durability** — once committed, it survives crashes (write-ahead logging).
+- **Atomicity**, all or nothing (implemented with undo logs).
+- **Consistency**, constraints hold before and after.
+- **Isolation**, concurrent transactions don't see each other's partial work.
+- **Durability**, once committed, it survives crashes (write-ahead logging).
 
 ## Concurrency anomalies
 
@@ -448,11 +448,11 @@ ${fence}
 | Level | Dirty | Non-repeatable | Phantom |
 |---|---|---|---|
 | Read Uncommitted | possible | possible | possible |
-| Read Committed | — | possible | possible |
-| Repeatable Read | — | — | possible |
-| Serializable | — | — | — |
+| Read Committed |, | possible | possible |
+| Repeatable Read |, |, | possible |
+| Serializable |, |, |, |
 
-PostgreSQL defaults to **Read Committed** and implements isolation with **MVCC** — readers never block writers because each transaction sees a snapshot.
+PostgreSQL defaults to **Read Committed** and implements isolation with **MVCC**, readers never block writers because each transaction sees a snapshot.
 
 ## Preventing lost updates
 
@@ -480,11 +480,11 @@ ${fence}
     tags: ["dbms", "indexing", "performance", "b-tree"],
     content: `## Why indexes?
 
-Without an index, \`WHERE email = 'x'\` scans every row — O(n). An index is a separate sorted structure mapping key → row location, turning lookups into **O(log n)**.
+Without an index, \`WHERE email = 'x'\` scans every row: O(n). An index is a separate sorted structure mapping key → row location, turning lookups into **O(log n)**.
 
 ## B+ trees
 
-Databases use **B+ trees** because disks read whole pages (e.g. 8 KB). Each node holds hundreds of keys, so the tree is very **shallow** — a billion rows need only 3–4 levels.
+Databases use **B+ trees** because disks read whole pages (e.g. 8 KB). Each node holds hundreds of keys, so the tree is very **shallow**, a billion rows need only 3-4 levels.
 
 - Internal nodes store keys only, for routing.
 - **Leaves** store keys + row pointers and are **linked**, so range scans (\`BETWEEN\`, \`ORDER BY\`) are a sequential walk.
@@ -503,7 +503,7 @@ ${fence}
 
 ## Composite indexes and the leftmost prefix rule
 
-An index on \`(a, b, c)\` can serve filters on \`a\`, \`(a, b)\` or \`(a, b, c)\` — but **not** on \`b\` alone. Put the most selective equality columns first and range columns last.
+An index on \`(a, b, c)\` can serve filters on \`a\`, \`(a, b)\` or \`(a, b, c)\`, but **not** on \`b\` alone. Put the most selective equality columns first and range columns last.
 
 ## Costs
 
@@ -573,9 +573,9 @@ ${fence}
 
 ## Context switching
 
-Switching the CPU from one process to another means saving and restoring the PCB and often flushing the TLB — pure overhead. Thread switches within a process are cheaper because the address space stays the same.
+Switching the CPU from one process to another means saving and restoring the PCB and often flushing the TLB, pure overhead. Thread switches within a process are cheaper because the address space stays the same.
 
-<Callout type="info">In CPython the GIL lets only one thread execute Python bytecode at a time — use \`multiprocessing\` for CPU-bound work and threads/async for I/O-bound work.</Callout>`,
+<Callout type="info">In CPython the GIL lets only one thread execute Python bytecode at a time, use \`multiprocessing\` for CPU-bound work and threads/async for I/O-bound work.</Callout>`,
     quiz: [
       { q: "Threads of the same process share…", options: ["Stack", "Registers", "Heap", "Program counter"], answer: 2, explanation: "Each thread has its own stack and registers." },
       { q: "Which data structure stores process metadata?", options: ["TLB", "PCB", "Page table", "Inode"], answer: 1, explanation: "The Process Control Block." },
@@ -586,7 +586,7 @@ Switching the CPU from one process to another means saving and restoring the PCB
     title: "CPU Scheduling Algorithms",
     category: "operating-systems",
     difficulty: "MEDIUM",
-    excerpt: "FCFS, SJF, SRTF, Priority and Round Robin — with Gantt charts, waiting time and turnaround calculations.",
+    excerpt: "FCFS, SJF, SRTF, Priority and Round Robin, with Gantt charts, waiting time and turnaround calculations.",
     tags: ["os", "scheduling"],
     content: `## Metrics
 
@@ -612,7 +612,7 @@ At t=0 only P1 exists, so it runs to 8. Then P3 (2) → 10, P2 (4) → 14. Waiti
 
 ## SRTF (preemptive SJF)
 
-P1 runs 0–1, P2 preempts (4 < 7) and runs 1–2, P3 preempts (2 < 3) and runs 2–4, P2 finishes 4–7, P1 finishes 7–14. Waiting: 6, 2, 0 → **average 2.67**.
+P1 runs 0-1, P2 preempts (4 < 7) and runs 1-2, P3 preempts (2 < 3) and runs 2-4, P2 finishes 4-7, P1 finishes 7-14. Waiting: 6, 2, 0 → **average 2.67**.
 
 ## Round Robin
 
@@ -652,21 +652,21 @@ ${fence}
     tags: ["os", "deadlock", "concurrency"],
     content: `## What is a deadlock?
 
-A set of processes is deadlocked when each waits for a resource held by another process in the set — nobody can proceed.
+A set of processes is deadlocked when each waits for a resource held by another process in the set, nobody can proceed.
 
 ## The four Coffman conditions (all must hold)
 
-1. **Mutual exclusion** — a resource can be held by only one process.
-2. **Hold and wait** — a process holds resources while waiting for others.
-3. **No preemption** — resources can't be forcibly taken away.
-4. **Circular wait** — a cycle P1 → P2 → … → P1 of waits.
+1. **Mutual exclusion**, a resource can be held by only one process.
+2. **Hold and wait**, a process holds resources while waiting for others.
+3. **No preemption**, resources can't be forcibly taken away.
+4. **Circular wait**, a cycle P1 → P2 → … → P1 of waits.
 
 ## Handling strategies
 
-- **Prevention** — break a condition. The most practical: impose a **global lock ordering** so circular wait is impossible.
-- **Avoidance** — grant a request only if the system stays in a *safe state* (Banker's algorithm).
-- **Detection & recovery** — let it happen, find cycles in the wait-for graph, kill or roll back a victim.
-- **Ignore it** — the "ostrich algorithm" used by most desktop OSes.
+- **Prevention**, break a condition. The most practical: impose a **global lock ordering** so circular wait is impossible.
+- **Avoidance**, grant a request only if the system stays in a *safe state* (Banker's algorithm).
+- **Detection & recovery**, let it happen, find cycles in the wait-for graph, kill or roll back a victim.
+- **Ignore it**, the "ostrich algorithm" used by most desktop OSes.
 
 ## Lock ordering in code
 
@@ -764,21 +764,21 @@ export const blogArticles: SeedArticle[] = [
     difficulty: "EASY",
     excerpt: "A 12-week plan covering DSA patterns, system design basics, mock interviews and the AI-era expectations of recruiters.",
     tags: ["career", "interviews"],
-    content: `## Weeks 1–4: Foundations
+    content: `## Weeks 1-4: Foundations
 
-Pick **one language** and get fluent with its standard library. Cover arrays, strings, hashing, two pointers, sliding window and binary search. Solve 3–4 problems daily; for each, write the complexity before coding.
+Pick **one language** and get fluent with its standard library. Cover arrays, strings, hashing, two pointers, sliding window and binary search. Solve 3-4 problems daily; for each, write the complexity before coding.
 
-## Weeks 5–8: Core patterns
+## Weeks 5-8: Core patterns
 
-Linked lists, stacks/queues, trees, graphs (BFS/DFS, Dijkstra, topological sort) and dynamic programming. Use the **CodeVerse DSA Sheet** and aim for understanding over volume — re-solve problems you got wrong after 3 days, then after a week.
+Linked lists, stacks/queues, trees, graphs (BFS/DFS, Dijkstra, topological sort) and dynamic programming. Use the **CodeVerse DSA Sheet** and aim for understanding over volume, re-solve problems you got wrong after 3 days, then after a week.
 
-## Weeks 9–10: Contests and speed
+## Weeks 9-10: Contests and speed
 
 Join weekly contests. Timed pressure exposes gaps that untimed practice hides. Review editorials for every problem you couldn't solve.
 
-## Weeks 11–12: Mock interviews and projects
+## Weeks 11-12: Mock interviews and projects
 
-Practise **thinking aloud**: clarify the problem, state a brute force, optimise, then code. Prepare two projects you can discuss deeply — trade-offs, failures, metrics.
+Practise **thinking aloud**: clarify the problem, state a brute force, optimise, then code. Prepare two projects you can discuss deeply, trade-offs, failures, metrics.
 
 ## What changed in 2026
 
@@ -799,11 +799,11 @@ When you press **Submit**, your code is validated, rate-limited and sent to a **
 
 ## Verdicts
 
-- **Accepted** — every test's output matches (ignoring trailing whitespace).
-- **Wrong Answer** — output differs on at least one test.
-- **Time Limit Exceeded** — the CPU limit was hit.
-- **Runtime Error** — non-zero exit, segfault or uncaught exception.
-- **Compilation Error** — the compiler rejected the code.
+- **Accepted**, every test's output matches (ignoring trailing whitespace).
+- **Wrong Answer**, output differs on at least one test.
+- **Time Limit Exceeded**, the CPU limit was hit.
+- **Runtime Error**, non-zero exit, segfault or uncaught exception.
+- **Compilation Error**, the compiler rejected the code.
 
 We stop at the first failing hidden test, and report runtime and memory as the maximum across tests.
 
@@ -828,13 +828,13 @@ Most students we met had a tutorial site open in one tab, a problem site in anot
 
 ## Our principles
 
-1. **Learn by doing** — every code block has a *Try it Yourself* button.
-2. **Hints, not spoilers** — our AI tutor nudges you toward the answer instead of handing it over.
-3. **Progress you can see** — streaks, XP, heatmaps and certificates make consistency visible.
-4. **Fast everywhere** — tutorials and problems load quickly even on budget phones and 4G.
+1. **Learn by doing**, every code block has a *Try it Yourself* button.
+2. **Hints, not spoilers**, our AI tutor nudges you toward the answer instead of handing it over.
+3. **Progress you can see**, streaks, XP, heatmaps and certificates make consistency visible.
+4. **Fast everywhere**, tutorials and problems load quickly even on budget phones and 4G.
 
 ## What's next
 
-Company-specific mock interviews, peer code review and more languages. Tell us what you want on the Contact page — we read everything.`,
+Company-specific mock interviews, peer code review and more languages. Tell us what you want on the Contact page, we read everything.`,
   },
 ];

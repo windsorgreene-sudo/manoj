@@ -16,7 +16,7 @@ export const courses: SeedCourse[] = [
   {
     slug: "data-structures-and-algorithms",
     title: "Data Structures & Algorithms",
-    subtitle: "From Big-O to Dijkstra — the complete interview-ready DSA course.",
+    subtitle: "From Big-O to Dijkstra, the complete interview-ready DSA course.",
     description:
       "Master the patterns top companies test. Each lesson pairs an in-depth tutorial with hand-picked problems you solve in the browser IDE, so theory turns into muscle memory. Finish with graph algorithms and dynamic programming.",
     topic: "DSA",
@@ -71,9 +71,9 @@ export const courses: SeedCourse[] = [
   {
     slug: "python-programming",
     title: "Python Programming Masterclass",
-    subtitle: "Write clean, idiomatic Python — from basics to generators and OOP.",
+    subtitle: "Write clean, idiomatic Python, from basics to generators and OOP.",
     description:
-      "Start from zero and become productive in Python. Learn the built-in data structures, functions and decorators, object-oriented design and lazy evaluation — all with runnable examples.",
+      "Start from zero and become productive in Python. Learn the built-in data structures, functions and decorators, object-oriented design and lazy evaluation, all with runnable examples.",
     topic: "Python",
     level: "BEGINNER",
     color: "#06B6D4",
@@ -103,7 +103,7 @@ export const courses: SeedCourse[] = [
   {
     slug: "modern-javascript",
     title: "Modern JavaScript",
-    subtitle: "Closures, promises and the event loop — understand JS for real.",
+    subtitle: "Closures, promises and the event loop, understand JS for real.",
     description:
       "Go beyond syntax. Understand how JavaScript actually executes, write asynchronous code with confidence and use the modern array toolkit that every React and Node developer relies on.",
     topic: "JavaScript",
@@ -133,7 +133,7 @@ export const courses: SeedCourse[] = [
   {
     slug: "full-stack-web-development",
     title: "Full-Stack Web Development",
-    subtitle: "HTML, CSS, HTTP and REST APIs — build and ship real web apps.",
+    subtitle: "HTML, CSS, HTTP and REST APIs, build and ship real web apps.",
     description:
       "Learn how the web works end to end: accessible semantic markup, responsive layouts with Flexbox and Grid, the HTTP protocol and designing REST APIs. Includes capstone projects to build your portfolio.",
     topic: "Web Development",
@@ -191,7 +191,7 @@ export const courses: SeedCourse[] = [
   {
     slug: "operating-systems",
     title: "Operating Systems",
-    subtitle: "Processes, scheduling, deadlocks and memory — the OS concepts every engineer needs.",
+    subtitle: "Processes, scheduling, deadlocks and memory, the OS concepts every engineer needs.",
     description:
       "A practical tour of operating-system internals with simulations you can run: processes vs threads, CPU scheduling, deadlock handling and virtual memory with paging.",
     topic: "Operating Systems",

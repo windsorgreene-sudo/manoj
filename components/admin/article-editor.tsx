@@ -135,7 +135,7 @@ export function ArticleEditor({
             <p className="text-sm font-semibold">Taxonomy</p>
             <div className="space-y-1.5"><Label htmlFor="a-cat">Category</Label>
               <select id="a-cat" className={cn(selectCls, "w-full")} value={a.categoryId ?? ""} onChange={(e) => set("categoryId", e.target.value || null)}>
-                <option value="">— none —</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                <option value="">none , </option>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
             <div className="space-y-1.5"><Label htmlFor="a-tags">Tags (comma separated)</Label><Input id="a-tags" value={tagsText} onChange={(e) => setTagsText(e.target.value)} className="rounded-xl" /></div>
@@ -155,7 +155,7 @@ export function ArticleEditor({
                 {revisions.map((r) => (
                   <li key={r.id} className="flex items-center gap-2 text-xs">
                     <span className="rounded bg-surface-2 px-1.5 font-mono">v{r.version}</span>
-                    <span className="min-w-0 flex-1 truncate" title={r.message ?? ""}>{r.message ?? "—"} · {r.author} · {formatDate(r.createdAt, { dateStyle: "short", timeStyle: "short" })}</span>
+                    <span className="min-w-0 flex-1 truncate" title={r.message ?? ""}>{r.message ?? "-"} · {r.author} · {formatDate(r.createdAt, { dateStyle: "short", timeStyle: "short" })}</span>
                     <Button size="xs" variant="ghost" onClick={async () => { if (!window.confirm(`Restore version ${r.version}? A new version will be created.`)) return; const res = await restoreRevision(r.id); if (res.ok) { toast.success("Restored"); router.refresh(); } else toast.error(res.error); }}>Restore</Button>
                   </li>
                 ))}

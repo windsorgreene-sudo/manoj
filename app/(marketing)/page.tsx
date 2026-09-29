@@ -8,8 +8,6 @@ import {
   NewsletterCta,
   FreeSection,
   StatsSection,
-  TechMarquee,
-  TestimonialsSection,
 } from "@/components/marketing/sections";
 import { getFeaturedCourses, getPlatformStats } from "@/lib/queries/courses";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -28,16 +26,13 @@ export default async function HomePage() {
           name: "CodeVerse",
           url: appUrl(),
           logo: `${appUrl()}/icon.svg`,
-          sameAs: ["https://github.com", "https://x.com", "https://linkedin.com"],
         }}
       />
       <StoryExperience hero={<Hero learners={formatNumber(stats.learners)} />} />
       <StatsSection stats={stats} />
-      <TechMarquee />
       <FeaturesSection />
       <CourseCarousel courses={courses} />
       <LearningPathsSection />
-      <TestimonialsSection />
       <FreeSection />
       <FaqSection />
       <NewsletterCta />

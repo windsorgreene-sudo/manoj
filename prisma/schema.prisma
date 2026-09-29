@@ -1,4 +1,4 @@
-// CodeVerse — full data model
+// CodeVerse: full data model
 // Better Auth tables: User, Session, Account, Verification
 
 generator client {
@@ -1045,4 +1045,31 @@ model PageView {
 
   @@index([path, createdAt])
   @@index([createdAt])
+}
+
+enum MessageStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+/// Messages from the public contact form (admin → Inbox)
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    MessageStatus @default(NEW)
+  createdAt DateTime      @default(now())
+
+  @@index([status, createdAt])
+}
+
+/// Weekly digest subscribers (admin → Inbox → Subscribers)
+model NewsletterSubscriber {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  unsubscribedAt DateTime?
+  createdAt      DateTime  @default(now())
 }

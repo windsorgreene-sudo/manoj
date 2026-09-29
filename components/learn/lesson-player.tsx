@@ -63,7 +63,7 @@ export function MarkComplete({ lessonId, initial }: { lessonId: string; initial:
     setDone(!done);
     if (r.data.justCompleted) {
       celebrate({ accepted: true, xp: r.data.xp?.amount, leveledUp: r.data.xp?.leveledUp, level: r.data.xp?.level, badges: r.data.xp?.newBadges });
-      toast.success("Course completed! Your certificate is ready 🎓");
+      toast.success("Course completed! Your certificate is ready");
     } else if (!done) toast.success(`Lesson complete · ${r.data.pct}% of course`);
     router.refresh();
   };

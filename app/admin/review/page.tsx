@@ -21,7 +21,7 @@ export default async function ReviewQueue() {
         <h2 id="art" className="font-semibold">Articles awaiting review ({articles.length})</h2>
         {articles.length ? articles.map((a) => (
           <ReviewCard key={a.id} id={a.id} title={a.title} meta={`${a.author.name} · ${a.category?.name ?? "Uncategorised"} · submitted ${formatDate(a.updatedAt)}`} excerpt={a.excerpt} editHref={`/admin/articles/${a.id}`} />
-        )) : <EmptyState title="Inbox zero 🎉" description="No articles are waiting for review." />}
+        )) : <EmptyState title="Inbox zero" description="No articles are waiting for review." />}
       </section>
       <section className="mt-10 space-y-3" aria-labelledby="apps">
         <h2 id="apps" className="font-semibold">Contributor applications ({apps.length})</h2>
@@ -32,7 +32,7 @@ export default async function ReviewQueue() {
             {a.portfolio ? <p className="text-sm"><strong>Portfolio:</strong> <Link href={a.portfolio} target="_blank" rel="noopener noreferrer nofollow" className="text-cyan underline">{a.portfolio}</Link></p> : null}
             <details className="text-sm"><summary className="cursor-pointer text-muted-foreground">Writing sample</summary><pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap rounded-xl bg-surface-2 p-3 text-xs">{a.sample}</pre></details>
             <div className="flex gap-2">
-              <ActionButton size="sm" className="rounded-xl" action={decideApplication.bind(null, { id: a.id, approve: true })} success="Approved — user is now a contributor">Approve</ActionButton>
+              <ActionButton size="sm" className="rounded-xl" action={decideApplication.bind(null, { id: a.id, approve: true })} success="Approved, user is now a contributor">Approve</ActionButton>
               <ActionButton size="sm" variant="outline" className="rounded-xl" action={decideApplication.bind(null, { id: a.id, approve: false })} confirm="Reject this application?" success="Rejected">Reject</ActionButton>
             </div>
           </article>

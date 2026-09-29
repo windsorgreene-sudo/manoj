@@ -25,7 +25,7 @@ export default async function CertificatesPage() {
     <div className="space-y-8">
       <header>
         <h1 className="font-heading text-3xl font-bold">Certificates</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Every certificate has a unique ID and a QR code that links to a public verification page — add them to LinkedIn or your résumé.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Every certificate has a unique ID and a QR code that links to a public verification page, add them to LinkedIn or your résumé.</p>
       </header>
       {certs.length ? (
         <ul className="grid gap-5 md:grid-cols-2">

@@ -23,7 +23,7 @@ export function useCelebrate() {
   return (c: Celebration | null | undefined) => {
     if (!c) return;
     if (c.accepted || c.leveledUp || (c.badges && c.badges.length)) void confetti(Boolean(c.leveledUp || c.badges?.length));
-    if (c.xp && !c.leveledUp) toast.success(`+${c.xp} XP`, { description: c.streak ? `🔥 ${c.streak}-day streak` : undefined, icon: <Sparkles className="size-4 text-warning" /> });
+    if (c.xp && !c.leveledUp) toast.success(`+${c.xp} XP`, { description: c.streak ? `${c.streak}-day streak` : undefined, icon: <Sparkles className="size-4 text-warning" /> });
     if (c.leveledUp || (c.badges && c.badges.length)) celebrate(c);
   };
 }

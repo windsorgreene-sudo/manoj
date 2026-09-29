@@ -19,7 +19,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
       <p className="font-mono text-sm text-danger">Error 500</p>
       <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Our servers hit a runtime error</h1>
       <p className="mx-auto mt-4 max-w-md text-muted-foreground">
-        Something broke on our side — not yours. Our team has been notified.
+        Something broke on our side, not yours. Our team has been notified.
         {error.digest ? <span className="mt-2 block font-mono text-xs">Reference: {error.digest}</span> : null}
       </p>
       <div className="mt-8 flex gap-3">

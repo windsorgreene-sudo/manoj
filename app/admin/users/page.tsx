@@ -39,7 +39,7 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
               <td className={tdCls}>{u.banned ? <StatusBadge status="BANNED" /> : <span className="text-xs">{u.role}</span>}</td>
               <td className={`${tdCls} tabular-nums`}>{u.profile?.xp ?? 0}</td>
               <td className={`${tdCls} text-muted-foreground`}>{formatDate(u.createdAt)}</td>
-              <td className={`${tdCls} text-muted-foreground`}>{u.lastActiveAt ? timeAgo(u.lastActiveAt) : "—"}</td>
+              <td className={`${tdCls} text-muted-foreground`}>{u.lastActiveAt ? timeAgo(u.lastActiveAt) : "-"}</td>
             </tr>
           ))}
         </tbody>

@@ -17,7 +17,6 @@ export default async function TutorialsPage() {
   return (
     <div className="container-cv py-12 md:py-16">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Tutorials</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Learn with runnable examples</h1>
         <p className="mt-3 text-muted-foreground">Every tutorial has code in multiple languages, a “Try it Yourself” editor and a quick check at the end.</p>
       </header>

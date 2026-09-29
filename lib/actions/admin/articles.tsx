@@ -118,7 +118,7 @@ export async function reviewArticle(input: { id: string; decision: "approve" | "
       data: {
         userId: a.authorId,
         type: "REVIEW",
-        title: d.decision === "approve" ? `“${a.title}” is published! 🎉` : d.decision === "changes" ? `Changes requested on “${a.title}”` : `“${a.title}” was not accepted`,
+        title: d.decision === "approve" ? `“${a.title}” is published!` : d.decision === "changes" ? `Changes requested on “${a.title}”` : `“${a.title}” was not accepted`,
         body: d.note ?? "Thanks for contributing to CodeVerse.",
         link: d.decision === "approve" ? `/tutorials/${a.slug}` : `/dashboard/articles/${a.id}`,
       },
@@ -129,7 +129,7 @@ export async function reviewArticle(input: { id: string; decision: "approve" | "
   });
 }
 
-/** Live MDX preview — returns a rendered React tree from the server. */
+/** Live MDX preview, returns a rendered React tree from the server. */
 export async function previewMdx(content: string) {
   const r = await adminAction(async () => z.string().max(200_000).parse(content), "CONTRIBUTOR");
   if (!r.ok) return null;

@@ -38,7 +38,7 @@ export function LeaderboardTable({ rows, meId }: { rows: Row[]; meId: string | n
                   {r.user.id === meId ? <span className="rounded bg-brand px-1.5 text-[10px] text-white">You</span> : null}
                 </div>
               </td>
-              <td className="px-4 py-3 text-muted-foreground">{r.college ?? "—"}</td>
+              <td className="px-4 py-3 text-muted-foreground">{r.college ?? "-"}</td>
               <td className="px-4 py-3 text-right tabular-nums">{r.level}</td>
               <td className="px-4 py-3 text-right tabular-nums">{r.xp.toLocaleString("en-IN")}</td>
               <td className="px-4 py-3 text-right tabular-nums">{r.contestRating}</td>

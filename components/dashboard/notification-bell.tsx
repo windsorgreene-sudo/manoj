@@ -53,7 +53,7 @@ export function NotificationBell() {
               <div className="shimmer h-10 rounded-lg" />
             </li>
           ) : data.items.length === 0 ? (
-            <li className="p-6 text-center text-sm text-muted-foreground">You&apos;re all caught up ✨</li>
+            <li className="p-6 text-center text-sm text-muted-foreground">You&apos;re all caught up</li>
           ) : (
             data.items.map((n) => (
               <li key={n.id} className={cn("border-b border-border/60 last:border-0", !n.read && "bg-brand/5")}>

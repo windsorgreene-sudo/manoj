@@ -1,8 +1,8 @@
 # CodeVerse
 
-**Learn · Practice · Compete · Get hired.** A premium coding-education platform that combines in-depth tutorials (GeeksforGeeks), a browser IDE with a judge (LeetCode) and structured courses (Coursera) — with immersive 3D, cinematic scroll animations and a full student + admin panel.
+**Learn · Practice · Compete · Get hired.** A premium coding-education platform that combines in-depth tutorials (GeeksforGeeks), a browser IDE with a judge (LeetCode) and structured courses (Coursera), with immersive 3D, cinematic scroll animations and a full student + admin panel.
 
-**100% free — no plans, no paywalls.** **Features:** courses & lesson player · MDX tutorials with runnable code · 30 judged DSA problems in 6 languages · playground, visualizers & 3D DS lab · DSA sheets & roadmaps · rated contests (ICPC scoring, live/frozen leaderboard, Elo ratings, 3D podium) · timed quizzes & mock tests with negative marking · doubts forum · verifiable PDF certificates with QR · AI tutor · gamification (XP, levels, streaks, badges) · English + हिन्दी UI · full admin CMS.
+**100% free, no plans, no paywalls.** **Features:** courses & lesson player · MDX tutorials with runnable code · 30 judged DSA problems in 6 languages · playground, visualizers & 3D DS lab · DSA sheets & roadmaps · rated contests (ICPC scoring, live/frozen leaderboard, Elo ratings, 3D podium) · timed quizzes & mock tests with negative marking · doubts forum · verifiable PDF certificates with QR · AI tutor · gamification (XP, levels, streaks, badges) · English + हिन्दी UI · full admin panel (content CMS, users with XP/badge tools, doubts, certificates, contact inbox and newsletter subscribers, contests with recompute/finalize/disqualify, moderation, analytics, audit log).
 
 Built with Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 · shadcn/ui · Prisma 7 + PostgreSQL · Better Auth · three.js / R3F · GSAP · Motion · Monaco · Judge0.
 
@@ -90,12 +90,12 @@ npm run problems:build   # regenerates prisma/seed/data/problems.json
 
 CodeVerse runs code through [Judge0 CE](https://github.com/judge0/judge0) for **C, C++, Java, Python, JavaScript and Go**.
 
-### Development — RapidAPI
+### Development: RapidAPI
 
 1. Subscribe (free tier) to **Judge0 CE** on RapidAPI: https://rapidapi.com/judge0-official/api/judge0-ce
 2. Copy your `X-RapidAPI-Key` into `JUDGE0_RAPIDAPI_KEY`.
 
-### Production — self-hosted (Docker)
+### Production, self-hosted (Docker)
 
 ```bash
 wget https://github.com/judge0/judge0/releases/download/v1.13.1/judge0-v1.13.1.zip
@@ -115,7 +115,7 @@ app/(marketing)   landing, catalog, about, contact, blog, legal
 app/(learn)       courses, tutorials, problems, playground, visualizers, sheets, roadmaps, lab, quizzes, contests, doubts
 app/(auth)        login, signup, forgot/reset password, verify email
 app/dashboard     student panel (protected)
-app/admin         admin panel (ADMIN only — proxy + server checks)
+app/admin         admin panel (ADMIN only, proxy + server checks)
 app/api           route handlers
 components/       ui · three · motion · editor · dashboard · admin · layout
 lib/              db, auth, session/rbac, judge0, search, email, rate-limit, validators
@@ -138,24 +138,24 @@ prisma/           schema, migrations, seed + seed data
 
 ## Deploying to Vercel
 
-1. **Database** — create a Neon project (see above) and copy the **pooled** connection string. Optionally create a Neon branch per Vercel preview.
+1. **Database**, create a Neon project (see above) and copy the **pooled** connection string. Optionally create a Neon branch per Vercel preview.
 2. **Import** the GitHub repo at https://vercel.com/new. Preset: **Next.js**; keep the default build command (`npm run build` runs `prisma generate`), install command `npm install`, Node 20+.
 3. **Environment variables** (Project → Settings → Environment Variables, Production + Preview):
-   - Required: `DATABASE_URL` and `BETTER_AUTH_SECRET`. `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` are optional on Vercel — when unset the app uses Vercel's production domain automatically, and preview deployments are trusted for login. Set them once you add a custom domain.
+   - Required: `DATABASE_URL` and `BETTER_AUTH_SECRET`. `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` are optional on Vercel, when unset the app uses Vercel's production domain automatically, and preview deployments are trusted for login. Set them once you add a custom domain.
    - Functions are pinned to `iad1` in `vercel.json` (closest to a Neon `us-east` database). Change it if your database lives elsewhere, e.g. `bom1` for Neon Mumbai.
    - Strongly recommended on Vercel: `CLOUDINARY_URL` (the filesystem is read-only/ephemeral, so the `public/uploads` fallback won't persist) and `RESEND_API_KEY` (console-logged emails aren't visible to users).
-   - Optional: Judge0, OpenAI, Pusher, Meilisearch, Google/GitHub OAuth — each feature falls back gracefully when its keys are missing.
+   - Optional: Judge0, OpenAI, Pusher, Meilisearch, Google/GitHub OAuth, each feature falls back gracefully when its keys are missing.
 4. **Migrate** the production database once (and after every schema change):
    ```bash
    DATABASE_URL="<neon-url>" npx prisma migrate deploy
-   DATABASE_URL="<neon-url>" npm run db:seed   # optional demo content — it RESETS data
+   DATABASE_URL="<neon-url>" npm run db:seed   # optional demo content, it RESETS data
    ```
 5. **Deploy**, then point integrations at the production domain:
    - OAuth callbacks: `{APP_URL}/api/auth/callback/google` and `/github`.
    - Judge0: use a self-hosted instance (`JUDGE0_URL` + `JUDGE0_AUTH_TOKEN`) for real traffic; RapidAPI's free tier is rate-limited.
-6. **Custom domain** — add it under Project → Domains, then update `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` and redeploy (the sitemap, OG images and certificate QR codes use `NEXT_PUBLIC_APP_URL`).
+6. **Custom domain**, add it under Project → Domains, then update `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` and redeploy (the sitemap, OG images and certificate QR codes use `NEXT_PUBLIC_APP_URL`).
 
 Notes:
-- Contest ratings are applied lazily the first time anyone opens a contest after it ends; scheduled articles are published when listing pages are visited — no cron required.
+- Contest ratings are applied lazily the first time anyone opens a contest after it ends; scheduled articles are published when listing pages are visited, no cron required.
 - The rate limiter is in-memory per instance; for multi-region traffic swap `lib/rate-limit.ts` for Upstash Redis (same signature).
 - Without Pusher, leaderboards poll every 15 s and notifications every 30 s.

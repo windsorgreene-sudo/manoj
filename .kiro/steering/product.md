@@ -2,7 +2,7 @@
 inclusion: always
 ---
 
-# CodeVerse — Product
+# CodeVerse: Product
 
 ## 1. Product
 "CodeVerse" is a premium, production-ready learning platform (GeeksforGeeks + LeetCode + Coursera combined) where students LEARN from tutorials, PRACTICE by writing and running code in the browser, COMPETE in contests and TRACK their progress. It must feel like a top-tier 2026 product: immersive 3D, cinematic scroll animations, smooth micro-interactions and a clean, professional UI.
@@ -24,7 +24,7 @@ Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
   - Right: Monaco editor (language switch, theme, font size, reset, auto-save) + console with custom input
   - Run (sample tests) and Submit (hidden tests) → verdict (Accepted / Wrong Answer / TLE / Runtime Error / Compilation Error), per-test results, runtime and memory
 - Playground: multi-language online compiler with stdin; save and share snippets via link
-- Visualizers: sorting, binary search, linked list, stack/queue, BST, BFS/DFS, Dijkstra — play / pause / step / speed controls with pseudocode line highlighting
+- Visualizers: sorting, binary search, linked list, stack/queue, BST, BFS/DFS, Dijkstra, play / pause / step / speed controls with pseudocode line highlighting
 - DSA Sheets: curated topic-wise and company-wise problem sheets with progress tracking
 - Roadmaps: interactive node-graph roadmaps (DSA, Web Dev, AI/ML); every node links to content
 - Quizzes & mock tests: timer, optional negative marking, detailed result analysis

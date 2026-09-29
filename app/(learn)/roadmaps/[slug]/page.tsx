@@ -19,7 +19,6 @@ export default async function RoadmapPage({ params }: { params: Promise<{ slug: 
   if (!r || !r.isPublished) notFound();
   return (
     <div className="container-cv py-10">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Roadmap</p>
       <h1 className="mt-2 font-heading text-4xl font-bold">{r.title}</h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">{r.description}</p>
       <RoadmapGraph slug={r.slug} nodes={r.nodes as RoadmapNode[]} edges={r.edges as [string, string][]} />

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 
 /**
  * Lightweight page enter transition (used from template.tsx files).
- * Only opacity + transform are animated — both are GPU-composited, so it stays at 60fps
+ * Only opacity + transform are animated, both are GPU-composited, so it stays at 60fps
  * even on pages with glass/backdrop-blur and 3D canvases (filter: blur was too expensive).
  */
 export function PageTransition({ children }: { children: ReactNode }) {

@@ -18,13 +18,13 @@ export function AchievementsView({ badges }: { badges: B[] }) {
   return (
     <div className="space-y-6">
       <div className="glass relative h-[460px] overflow-hidden">
-        <SceneGate className="absolute inset-0" fallback={<div className="grid h-full place-items-center text-sm text-muted-foreground">3D badges are disabled on this device — see the list below.</div>}>
+        <SceneGate className="absolute inset-0" fallback={<div className="grid h-full place-items-center text-sm text-muted-foreground">3D badges are disabled on this device, see the list below.</div>}>
           {(visible) => <BadgeCoins badges={badges} visible={visible} onActive={setActive} />}
         </SceneGate>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4 text-center" aria-live="polite">
           {current ? (
             <p className="text-sm">
-              <strong>{current.name}</strong> — {current.description} {current.earned ? `· +${current.xpReward} XP` : "· locked"}
+              <strong>{current.name}</strong>, {current.description} {current.earned ? `· +${current.xpReward} XP` : "· locked"}
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">Hover a badge to spin it · {earned}/{badges.length} unlocked</p>

@@ -22,6 +22,9 @@ import {
   Search,
   Settings,
   ShieldAlert,
+  MessageCircleQuestion,
+  Award,
+  Inbox,
   Trophy,
   Users,
 } from "lucide-react";
@@ -55,7 +58,10 @@ const GROUPS: { title: string; items: { href: string; label: string; Icon: typeo
     items: [
       { href: "/admin/review", label: "Review queue", Icon: ClipboardCheck },
       { href: "/admin/users", label: "Users", Icon: Users },
+      { href: "/admin/doubts", label: "Doubts", Icon: MessageCircleQuestion },
       { href: "/admin/moderation", label: "Moderation", Icon: ShieldAlert },
+      { href: "/admin/certificates", label: "Certificates", Icon: Award },
+      { href: "/admin/inbox", label: "Inbox", Icon: Inbox },
       { href: "/admin/announcements", label: "Announcements", Icon: Megaphone },
     ],
   },

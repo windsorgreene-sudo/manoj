@@ -3,14 +3,13 @@ import Link from "next/link";
 import { Map } from "lucide-react";
 import { db } from "@/lib/db";
 
-export const metadata: Metadata = { title: "Roadmaps", description: "Interactive roadmaps for DSA, Web Development and AI/ML — every step links to a tutorial or problem.", alternates: { canonical: "/roadmaps" } };
+export const metadata: Metadata = { title: "Roadmaps", description: "Interactive roadmaps for DSA, Web Development and AI/ML, every step links to a tutorial or problem.", alternates: { canonical: "/roadmaps" } };
 export const revalidate = 3600;
 
 export default async function RoadmapsPage() {
   const maps = await db.roadmap.findMany({ where: { isPublished: true }, orderBy: { createdAt: "asc" } });
   return (
     <div className="container-cv py-12 md:py-16">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Roadmaps</p>
       <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Know exactly what to learn next</h1>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {maps.map((m) => (

@@ -47,7 +47,7 @@ export function LoginForm({ next, google, github }: { next: string; google: bool
     if (!unverified) return;
     const { error: err } = await authClient.sendVerificationEmail({ email: unverified, callbackURL: "/verify-email" });
     if (err) toast.error(err.message ?? "Could not resend");
-    else toast.success("Verification email sent — check your inbox.");
+    else toast.success("Verification email sent, check your inbox.");
   };
 
   return (

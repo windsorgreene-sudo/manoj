@@ -16,7 +16,6 @@ export default async function BlogPage() {
   return (
     <div className="container-cv py-16">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Blog</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Notes from the CodeVerse team</h1>
       </header>
       {posts.length ? (

@@ -112,7 +112,7 @@ export function sortFrames(input: number[], algo: SortAlgo): Frame<SortState>[] 
     };
     rec(0, n - 1);
   }
-  push(-1, "Sorted! ✅", { sorted: a.map((_, i) => i) });
+  push(-1, "Sorted!", { sorted: a.map((_, i) => i) });
   return frames;
 }
 
@@ -129,7 +129,7 @@ export function binarySearchFrames(arr: number[], target: number): Frame<BsState
     const mid = Math.floor((lo + hi) / 2);
     f.push({ state: { arr, lo, hi, mid, found: -1 }, line: 2, note: `mid = ${mid}, a[mid] = ${arr[mid]}` });
     if (arr[mid] === target) {
-      f.push({ state: { arr, lo, hi, mid, found: mid }, line: 3, note: `Found ${target} at index ${mid} 🎯` });
+      f.push({ state: { arr, lo, hi, mid, found: mid }, line: 3, note: `Found ${target} at index ${mid}` });
       return f;
     }
     if (arr[mid] < target) {
@@ -159,7 +159,7 @@ export function linkedListFrames(): Frame<LlState>[] {
   f.push({ state: { nodes: [...nodes], highlight: nodes.length - 1 }, line: 1, note: "insertTail(40)" });
   f.push({ state: { nodes: [...nodes], highlight: 2 }, line: 2, note: "delete(20): find it" });
   nodes = nodes.filter((x) => x !== 20);
-  f.push({ state: { nodes: [...nodes], highlight: 1 }, line: 2, note: "prev.next = cur.next — 20 unlinked" });
+  f.push({ state: { nodes: [...nodes], highlight: 1 }, line: 2, note: "prev.next = cur.next: 20 unlinked" });
   f.push({ state: { nodes: [...nodes], highlight: -1, prev: -1, cur: 0, reversedUpTo: -1 }, line: 3, note: "reverse(): prev = null, cur = head" });
   for (let i = 0; i < nodes.length; i++) {
     f.push({ state: { nodes: [...nodes], highlight: i, prev: i - 1, cur: i, reversedUpTo: i - 1 }, line: 4, note: `Point ${nodes[i]}.next back to ${i ? nodes[i - 1] : "null"}` });
@@ -171,7 +171,7 @@ export function linkedListFrames(): Frame<LlState>[] {
 
 // ───────── Stack & queue ─────────
 export type SqState = { stack: number[]; queue: number[]; op: string; active: "stack" | "queue" | null };
-export const SQ_CODE = ["stack.push(x)  — add on top", "stack.pop()    — remove from top (LIFO)", "queue.enqueue(x) — add at back", "queue.dequeue()  — remove from front (FIFO)"];
+export const SQ_CODE = ["stack.push(x), add on top", "stack.pop(), remove from top (LIFO)", "queue.enqueue(x), add at back", "queue.dequeue(), remove from front (FIFO)"];
 
 export function stackQueueFrames(): Frame<SqState>[] {
   const f: Frame<SqState>[] = [];
@@ -183,13 +183,13 @@ export function stackQueueFrames(): Frame<SqState>[] {
     if (op === "push") s.push(x as number);
     if (op === "pop") {
       const v = s.pop();
-      f.push({ state: { stack: [...s], queue: [...q], op: `pop() → ${v}`, active: "stack" }, line: 1, note: `Stack pops ${v} — the LAST pushed` });
+      f.push({ state: { stack: [...s], queue: [...q], op: `pop() → ${v}`, active: "stack" }, line: 1, note: `Stack pops ${v}, the LAST pushed` });
       continue;
     }
     if (op === "enqueue") q.push(x as number);
     if (op === "dequeue") {
       const v = q.shift();
-      f.push({ state: { stack: [...s], queue: [...q], op: `dequeue() → ${v}`, active: "queue" }, line: 3, note: `Queue removes ${v} — the FIRST enqueued` });
+      f.push({ state: { stack: [...s], queue: [...q], op: `dequeue() → ${v}`, active: "queue" }, line: 3, note: `Queue removes ${v}, the FIRST enqueued` });
       continue;
     }
     f.push({ state: { stack: [...s], queue: [...q], op: `${op}(${x})`, active: op === "push" ? "stack" : "queue" }, line: op === "push" ? 0 : 2, note: `${op}(${x})` });
@@ -370,7 +370,7 @@ export function dijkstraFrames(s = 0): Frame<GraphState>[] {
       continue;
     }
     done.add(u);
-    f.push({ state: { visited: [...done], frontier: pq.map((p) => p[1]), current: u, edge: null, order: [...done], dist: [...dist] }, line: 2, note: `Pop ${u} with distance ${d} — now final` });
+    f.push({ state: { visited: [...done], frontier: pq.map((p) => p[1]), current: u, edge: null, order: [...done], dist: [...dist] }, line: 2, note: `Pop ${u} with distance ${d}, now final` });
     for (const { v, w } of a.get(u) ?? []) {
       if (done.has(v)) continue;
       const nd = d + w;
@@ -387,7 +387,7 @@ export function dijkstraFrames(s = 0): Frame<GraphState>[] {
     }
     pq = pq.filter((p) => !done.has(p[1]));
   }
-  f.push({ state: { visited: [...done], frontier: [], current: null, edge: null, order: [...done], dist: [...dist] }, line: -1, note: "All shortest distances found ✅" });
+  f.push({ state: { visited: [...done], frontier: [], current: null, edge: null, order: [...done], dist: [...dist] }, line: -1, note: "All shortest distances found" });
   return f;
 }
 
@@ -396,7 +396,7 @@ export const VISUALIZERS = [
   { slug: "binary-search", title: "Binary Search", description: "Watch the search space halve every step.", tag: "Searching" },
   { slug: "linked-list", title: "Linked List", description: "Insert at head/tail, delete and reverse pointer by pointer.", tag: "Lists" },
   { slug: "stack-queue", title: "Stack & Queue", description: "LIFO vs FIFO with the same sequence of operations.", tag: "Linear" },
-  { slug: "bst", title: "Binary Search Tree", description: "Insert keys and search — see the path taken.", tag: "Trees" },
+  { slug: "bst", title: "Binary Search Tree", description: "Insert keys and search, see the path taken.", tag: "Trees" },
   { slug: "bfs-dfs", title: "BFS & DFS", description: "Explore a graph level by level or depth first.", tag: "Graphs" },
   { slug: "dijkstra", title: "Dijkstra's Algorithm", description: "Relax edges and finalise shortest distances.", tag: "Graphs" },
 ] as const;

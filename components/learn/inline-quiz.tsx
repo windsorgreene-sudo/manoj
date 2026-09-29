@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 type Q = { id: string; prompt: string; options: string[] };
 type Graded = { score: number; max: number; perQuestion: { id: string; correct: number[]; ok: boolean; explanation: string }[] };
 
-/** Knowledge check at the end of an article — graded on the server. */
+/** Knowledge check at the end of an article, graded on the server. */
 export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q[] }) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [result, setResult] = useState<Graded | null>(null);
@@ -30,7 +30,7 @@ export function InlineQuiz({ quizId, questions }: { quizId: string; questions: Q
   return (
     <section aria-labelledby="quiz-title" className="glass mt-12 p-6">
       <h2 id="quiz-title" className="font-heading text-xl font-bold">
-        Quick check ✅
+        Quick check 
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">Answer {questions.length} questions to lock in what you learned.</p>
       <ol className="mt-6 space-y-6">

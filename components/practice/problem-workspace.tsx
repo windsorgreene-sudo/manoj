@@ -167,11 +167,11 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
           if (json.result.verdict === "ACCEPTED") {
             const x = json.result.xp;
             celebrate({ accepted: true, xp: x?.awarded ? x.amount : undefined, streak: x?.streak, leveledUp: x?.leveledUp, level: x?.level, badges: x?.newBadges });
-            if (!x?.awarded) toast.success("Accepted! 🎉");
+            if (!x?.awarded) toast.success("Accepted!");
           }
         }
       } catch {
-        setOut({ kind: "error", message: "Network error — check your connection." });
+        setOut({ kind: "error", message: "Network error, check your connection." });
       }
     },
     [code, contestId, customInput, customOn, language, problem.slug, qc, celebrate],
@@ -246,7 +246,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
         </TabsContent>
 
         <TabsContent value="hints" className="space-y-3 p-5">
-          <p className="text-sm text-muted-foreground">Unlock hints one at a time — try to solve it after each one.</p>
+          <p className="text-sm text-muted-foreground">Unlock hints one at a time, try to solve it after each one.</p>
           {problem.hints.map((h, i) => (
             <div key={i} className={cn("rounded-xl border p-4 text-sm", i < hintsShown ? "border-warning/40 bg-warning/5" : "border-border")}>
               <p className="mb-1 flex items-center gap-2 font-semibold">
@@ -491,7 +491,7 @@ function ConsoleResult({ state }: { state: ConsoleState }) {
               {r.expected !== undefined ? <Block label="Expected" text={r.expected} /> : null}
             </>
           ) : (
-            <p className="font-sans text-muted-foreground">Hidden test case — input not shown.</p>
+            <p className="font-sans text-muted-foreground">Hidden test case, input not shown.</p>
           )}
           {r.stderr ? <Block label="Stderr" text={r.stderr} danger /> : null}
         </div>
@@ -567,7 +567,7 @@ function SubmissionsList({ data, loading, error, retry }: { data?: SubsResponse;
             <button type="button" onClick={() => { setView(s); setDiffWith(list[i + 1] ?? null); }} className="flex w-full items-center gap-3 rounded-xl border border-border p-3 text-left text-sm hover:bg-accent">
               <VerdictText verdict={s.verdict} />
               <span className="text-xs text-muted-foreground">{LANGUAGE_META[s.language]?.label}</span>
-              <span className="text-xs text-muted-foreground">{s.runtimeMs ?? "–"} ms</span>
+              <span className="text-xs text-muted-foreground">{s.runtimeMs ?? "-"} ms</span>
               <span className="ml-auto text-xs text-muted-foreground">{timeAgo(s.createdAt)}</span>
               <ChevronDown className="size-4 -rotate-90 text-muted-foreground" />
             </button>

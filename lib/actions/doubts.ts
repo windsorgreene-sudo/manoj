@@ -26,12 +26,12 @@ async function guard<T>(fn: () => Promise<T>): Promise<Result<T>> {
 }
 
 function limit(key: string, spec: { limit: number; windowMs: number } = limits.write) {
-  if (!rateLimit(key, spec.limit, spec.windowMs).success) throw new Error("USER:Slow down a little — try again in a moment.");
+  if (!rateLimit(key, spec.limit, spec.windowMs).success) throw new Error("USER:Slow down a little, try again in a moment.");
 }
 
 const askSchema = z.object({
   title: z.string().trim().min(12, "Make the title a little more descriptive (12+ characters).").max(160),
-  body: z.string().trim().min(20, "Add some detail — what did you try? (20+ characters)").max(10_000),
+  body: z.string().trim().min(20, "Add some detail, what did you try? (20+ characters)").max(10_000),
   tags: z.array(z.string().trim().min(1).max(30)).min(1, "Add at least one tag.").max(5, "Up to 5 tags."),
 });
 
@@ -99,7 +99,7 @@ export async function acceptAnswer(input: { doubtId: string; answerId: string | 
       if (!ans || ans.doubtId !== doubt.id) throw new Error("USER:Answer not found.");
       await db.doubt.update({ where: { id: doubt.id }, data: { acceptedAnswerId: d.answerId } });
       if (ans.userId !== doubt.userId) {
-        await db.notification.create({ data: { userId: ans.userId, type: "ACHIEVEMENT", title: "Your answer was accepted ✅", body: doubt.title.slice(0, 120), link: `/doubts/${doubt.id}#answer-${d.answerId}` } });
+        await db.notification.create({ data: { userId: ans.userId, type: "ACHIEVEMENT", title: "Your answer was accepted", body: doubt.title.slice(0, 120), link: `/doubts/${doubt.id}#answer-${d.answerId}` } });
         await checkBadges(ans.userId);
       }
     } else await db.doubt.update({ where: { id: doubt.id }, data: { acceptedAnswerId: null } });

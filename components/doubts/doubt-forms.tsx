@@ -41,7 +41,7 @@ export function AskDoubtForm({ suggestedTags }: { suggestedTags: string[] }) {
       if (r.unauth) return void router.push("/login?next=/doubts/ask");
       return setError(r.error);
     }
-    toast.success("Your doubt is live — you'll be notified of answers.");
+    toast.success("Your doubt is live, you'll be notified of answers.");
     router.push(`/doubts/${r.data.id}`);
   };
 
@@ -56,14 +56,14 @@ export function AskDoubtForm({ suggestedTags }: { suggestedTags: string[] }) {
       <div className="space-y-1.5">
         <Label htmlFor="d-title">Title</Label>
         <Input id="d-title" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={160} placeholder="e.g. Why does my BFS visit nodes twice?" required />
-        <p className="text-xs text-muted-foreground">Be specific — imagine asking a friend.</p>
+        <p className="text-xs text-muted-foreground">Be specific, imagine asking a friend.</p>
       </div>
       <div className="space-y-1.5">
         <Label htmlFor="d-body">Details</Label>
         <Textarea id="d-body" value={body} onChange={(e) => setBody(e.target.value)} rows={10} maxLength={10_000} placeholder={"What are you trying to do? What did you try? Paste code inside ``` fences."} required className="font-mono text-sm" />
       </div>
       <div className="space-y-1.5">
-        <Label htmlFor="d-tags">Tags <span className="font-normal text-muted-foreground">(up to 5 — press Enter)</span></Label>
+        <Label htmlFor="d-tags">Tags <span className="font-normal text-muted-foreground">(up to 5, press Enter)</span></Label>
         <div className="flex flex-wrap items-center gap-2 rounded-xl border border-input px-2 py-1.5 focus-within:ring-2 focus-within:ring-ring">
           {tags.map((t) => (
             <span key={t} className="inline-flex items-center gap-1 rounded-lg bg-brand/15 px-2 py-0.5 text-sm text-brand">
@@ -105,7 +105,7 @@ export function AnswerForm({ doubtId, signedIn }: { doubtId: string; signedIn: b
         setBusy(false);
         if (!r.ok) return void toast.error(r.error);
         setBody("");
-        toast.success("Answer posted — thanks for helping!");
+        toast.success("Answer posted, thanks for helping!");
         router.refresh();
       }}
     >
@@ -131,7 +131,7 @@ export function AcceptButton({ doubtId, answerId, accepted }: { doubtId: string;
         const r = await acceptAnswer({ doubtId, answerId: accepted ? null : answerId });
         setBusy(false);
         if (!r.ok) return void toast.error(r.error);
-        toast.success(accepted ? "Answer un-accepted" : "Answer accepted ✅");
+        toast.success(accepted ? "Answer un-accepted" : "Answer accepted");
         router.refresh();
       }}
     >
@@ -154,7 +154,7 @@ export function ReportButton({ target, id, signedIn }: { target: "DOUBT" | "ANSW
         const r = await reportPost({ target, id, reason });
         if (!r.ok) return void toast.error(r.error);
         setDone(true);
-        toast.success("Thanks — our moderators will take a look.");
+        toast.success("Thanks, our moderators will take a look.");
       }}
     >
       <Flag className="size-3" /> {done ? "Reported" : "Report"}

@@ -53,7 +53,6 @@ export default async function ContestsPage() {
     <div className="container-cv py-12 md:py-16">
       <header className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Compete</p>
           <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">Contests</h1>
           <p className="mt-3 text-muted-foreground">Rated weekly and monthly rounds. ICPC-style scoring with a 5-minute penalty per wrong attempt, live standings and Elo ratings.</p>
         </div>
@@ -103,7 +102,7 @@ export default async function ContestsPage() {
             ))}
           </div>
         ) : (
-          <EmptyState className="mt-4" title="No upcoming contests" description="New rounds are announced every week — check back soon." />
+          <EmptyState className="mt-4" title="No upcoming contests" description="New rounds are announced every week, check back soon." />
         )}
       </section>
 
@@ -128,7 +127,7 @@ export default async function ContestsPage() {
                     <td className="px-4 py-3"><Link href={`/contests/${c.slug}`} className="font-medium hover:text-cyan">{c.title}</Link></td>
                     <td className="px-4 py-3 text-muted-foreground">{formatDate(c.startsAt)}</td>
                     <td className="px-4 py-3 text-right tabular-nums">{c._count.participants}</td>
-                    <td className="px-4 py-3">{c.participants[0]?.user.name ?? "—"}</td>
+                    <td className="px-4 py-3">{c.participants[0]?.user.name ?? "-"}</td>
                     <td className="px-4 py-3 text-right">{mine.has(c.id) ? <span className="rounded bg-brand/20 px-2 py-0.5 text-xs">Participated</span> : null}</td>
                   </tr>
                 ))}

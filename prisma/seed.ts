@@ -108,11 +108,11 @@ async function createUser(opts: { name: string; email: string; password: string;
 }
 
 async function main() {
-  console.log("🌱 Resetting database…");
+  console.log("Resetting database…");
   await reset();
 
   // ── Users ──────────────────────────────────────────────
-  console.log("👤 Users");
+  console.log("Users");
   const admin = await createUser({ name: "Priya Verma", email: "admin@codeverse.dev", password: "Admin@123", role: "ADMIN", username: "priya", createdAt: daysAgo(400) });
   const contributor = await createUser({
     name: "Rahul Khanna",
@@ -145,7 +145,7 @@ async function main() {
   const demo = studentUsers[0];
 
   // ── Taxonomy ───────────────────────────────────────────
-  console.log("🏷️  Categories & tags");
+  console.log(" Categories & tags");
   const categoryIds = new Map<string, string>();
   for (const c of categories) {
     const created = await db.category.create({ data: { ...c, description: `${c.name} tutorials and guides.` } });
@@ -153,7 +153,7 @@ async function main() {
   }
 
   // ── Articles (+ inline quizzes + revisions) ────────────
-  console.log("📝 Articles");
+  console.log("Articles");
   const allArticles: SeedArticle[] = [...dsaArticles, ...pythonArticles, ...jsArticles, ...webArticles, ...dbmsArticles, ...osArticles, ...blogArticles];
   const articleIds = new Map<string, string>();
   const tagIds = new Map<string, string>();
@@ -191,7 +191,7 @@ async function main() {
       await db.quiz.create({
         data: {
           slug: `${a.slug}-quiz`,
-          title: `${a.title} — Quick Check`,
+          title: `${a.title}: Quick Check`,
           description: `Test your understanding of ${a.title}.`,
           topic: a.category,
           durationMins: 5,
@@ -210,7 +210,7 @@ async function main() {
       title: "Union-Find (Disjoint Set Union)",
       excerpt: "Track connected components with near-constant-time union and find operations.",
       content:
-        "## What is DSU?\n\nA Disjoint Set Union maintains a partition of elements into sets, supporting **find(x)** (which set is x in?) and **union(a, b)**.\n\n## Path compression + union by rank\n\nTogether these make each operation run in amortised **O(α(n))** — effectively constant.\n\n```python\nparent = list(range(10))\n\ndef find(x):\n    while parent[x] != x:\n        parent[x] = parent[parent[x]]\n        x = parent[x]\n    return x\n\ndef union(a, b):\n    parent[find(a)] = find(b)\n\nunion(1, 2); union(2, 3)\nprint(find(1) == find(3))  # True\n```\n\nDSU powers Kruskal's MST, cycle detection in undirected graphs and dynamic connectivity.",
+        "## What is DSU?\n\nA Disjoint Set Union maintains a partition of elements into sets, supporting **find(x)** (which set is x in?) and **union(a, b)**.\n\n## Path compression + union by rank\n\nTogether these make each operation run in amortised **O(α(n))**, effectively constant.\n\n```python\nparent = list(range(10))\n\ndef find(x):\n    while parent[x] != x:\n        parent[x] = parent[parent[x]]\n        x = parent[x]\n    return x\n\ndef union(a, b):\n    parent[find(a)] = find(b)\n\nunion(1, 2); union(2, 3)\nprint(find(1) == find(3))  # True\n```\n\nDSU powers Kruskal's MST, cycle detection in undirected graphs and dynamic connectivity.",
       difficulty: "MEDIUM",
       status: "IN_REVIEW",
       authorId: contributor.id,
@@ -222,7 +222,7 @@ async function main() {
   console.log(`   ${allArticles.length} published + 1 in review (${draft.slug})`);
 
   // ── Problems ───────────────────────────────────────────
-  console.log("🧩 Problems");
+  console.log("Problems");
   const problemIds = new Map<string, { id: string; difficulty: Difficulty }>();
   for (const p of problems) {
     const created = await db.problem.create({
@@ -260,7 +260,7 @@ async function main() {
     { slug: "dsa-fundamentals-mock-test", title: "DSA Fundamentals Mock Test", description: "30-question timed test covering complexity, arrays, searching, sorting, trees, graphs and DP. Negative marking applies.", topic: "DSA", questions: bank(["dsa"]), mins: 30, negative: true, mock: true },
     { slug: "python-essentials-quiz", title: "Python Essentials Quiz", description: "Types, collections, functions, OOP and generators.", topic: "Python", questions: bank(["python"]), mins: 10, negative: false, mock: false },
     { slug: "javascript-quiz", title: "JavaScript Deep-Dive Quiz", description: "Scope, closures, async and the event loop.", topic: "JavaScript", questions: bank(["javascript"]), mins: 10, negative: false, mock: false },
-    { slug: "dbms-mock-test", title: "DBMS Placement Mock Test", description: "Keys, joins, normalization, transactions and indexing — placement-style with negative marking.", topic: "DBMS", questions: bank(["dbms"]), mins: 15, negative: true, mock: true },
+    { slug: "dbms-mock-test", title: "DBMS Placement Mock Test", description: "Keys, joins, normalization, transactions and indexing, placement-style with negative marking.", topic: "DBMS", questions: bank(["dbms"]), mins: 15, negative: true, mock: true },
     { slug: "operating-systems-quiz", title: "Operating Systems Quiz", description: "Processes, scheduling, deadlocks and memory management.", topic: "Operating Systems", questions: bank(["operating-systems", "web-development"]).slice(0, 12), mins: 12, negative: false, mock: false },
   ];
   const quizIds = new Map<string, string>();
@@ -281,7 +281,7 @@ async function main() {
   }
 
   // ── Courses ────────────────────────────────────────────
-  console.log("🎓 Courses");
+  console.log("Courses");
   const courseIds = new Map<string, string>();
   const lessonIdsByCourse = new Map<string, string[]>();
   for (const c of courses) {
@@ -327,7 +327,7 @@ async function main() {
   }
 
   // ── Sheets ─────────────────────────────────────────────
-  console.log("📋 Sheets");
+  console.log("Sheets");
   const sheetDefs = [
     {
       slug: "top-interview-30",
@@ -381,12 +381,12 @@ async function main() {
   }
 
   // ── Badges ─────────────────────────────────────────────
-  console.log("🏅 Badges");
+  console.log("Badges");
   const badgeIds = new Map<string, string>();
   for (const b of badges) badgeIds.set(b.slug, (await db.badge.create({ data: { ...b, criteria: b.criteria } })).id);
 
   // ── Activity: submissions, XP, streaks, enrollments ────
-  console.log("📈 Activity");
+  console.log("Activity");
   const langs: Language[] = ["PYTHON", "CPP", "JAVA", "JAVASCRIPT", "GO", "C"];
   const xpFor = { EASY: 10, MEDIUM: 20, HARD: 40 } as const;
   const allUsers = [demo, ...studentUsers.slice(1)];
@@ -497,7 +497,7 @@ async function main() {
       { userId: demo.id, front: "Time complexity of heap-based Dijkstra?", back: "O((V + E) log V)", sourceSlug: "dijkstra-shortest-path", dueAt: daysAgo(0) },
       { userId: demo.id, front: "Two properties that make DP applicable?", back: "Optimal substructure and overlapping subproblems.", sourceSlug: "dynamic-programming-introduction", dueAt: daysAgo(1) },
       { userId: demo.id, front: "lower_bound(x) returns…", back: "The first index i with a[i] ≥ x.", sourceSlug: "binary-search-guide", dueAt: daysAgo(0) },
-      { userId: demo.id, front: "Why is the variable sliding window O(n)?", back: "Both pointers only move forward — each index enters and leaves once.", sourceSlug: "sliding-window-technique", dueAt: new Date(now + 2 * DAY), intervalDays: 3, repetitions: 2 },
+      { userId: demo.id, front: "Why is the variable sliding window O(n)?", back: "Both pointers only move forward, each index enters and leaves once.", sourceSlug: "sliding-window-technique", dueAt: new Date(now + 2 * DAY), intervalDays: 3, repetitions: 2 },
       { userId: demo.id, front: "Which isolation level prevents phantom reads?", back: "Serializable.", sourceSlug: "transactions-and-acid", dueAt: new Date(now + DAY), intervalDays: 1, repetitions: 1 },
     ],
   });
@@ -537,11 +537,11 @@ async function main() {
   await db.comment.create({ data: { userId: studentUsers[4].id, target: "PROBLEM", problemId: problemIds.get("two-sum")?.id, body: "Tip: store the index BEFORE checking to avoid pairing an element with itself… actually check first, then store!", score: 5, createdAt: daysAgo(4) } });
 
   // ── Doubts forum ───────────────────────────────────────
-  console.log("💬 Doubts");
+  console.log("Doubts");
   const doubtTags = ["dp", "graphs", "python", "javascript", "sql"];
   for (const t of doubtTags) if (!tagIds.has(t)) tagIds.set(t, (await db.tag.create({ data: { slug: t, name: t } })).id);
   const doubts = [
-    { title: "How do I identify that a problem needs Dynamic Programming?", body: "I can solve DP problems after seeing the solution, but I never recognise them myself. Any mental checklist?", tags: ["dp"], by: 2, answers: [{ by: -1, body: "Ask: (1) Am I asked for a count/min/max over choices? (2) Does a brute-force recursion recompute the same arguments? If both are yes, memoise that recursion — that's DP. Start from the recursion, not the table.", accepted: true }, { by: 6, body: "Also look at constraints: n ≤ 5000 often hints at O(n²) DP." }] },
+    { title: "How do I identify that a problem needs Dynamic Programming?", body: "I can solve DP problems after seeing the solution, but I never recognise them myself. Any mental checklist?", tags: ["dp"], by: 2, answers: [{ by: -1, body: "Ask: (1) Am I asked for a count/min/max over choices? (2) Does a brute-force recursion recompute the same arguments? If both are yes, memoise that recursion, that's DP. Start from the recursion, not the table.", accepted: true }, { by: 6, body: "Also look at constraints: n ≤ 5000 often hints at O(n²) DP." }] },
     { title: "BFS vs DFS for shortest path in an unweighted grid?", body: "My DFS solution gives wrong answers for shortest path in a maze. Why does BFS work but DFS doesn't?", tags: ["graphs"], by: 4, answers: [{ by: 0, body: "DFS finds *a* path, not the shortest. BFS explores by distance layers, so the first time you reach a cell is via a shortest path.", accepted: true }] },
     { title: "Python TLE on 10^5 input even with O(n log n)", body: "My Python solution times out while the same C++ passes. I'm using input() in a loop.", tags: ["python"], by: 7, answers: [{ by: 1, body: "Read everything once: `data = sys.stdin.buffer.read().split()`. input() per line is very slow for 10^5 lines.", accepted: true }] },
     { title: "Why does [] == false evaluate to true in JavaScript?", body: "This broke my if-condition. Can someone explain the coercion steps?", tags: ["javascript"], by: 9, answers: [{ by: -2, body: "`false` → 0, `[]` → '' → 0, so 0 == 0. Use === to avoid coercion entirely." }] },
@@ -567,7 +567,7 @@ async function main() {
   }
 
   // ── Contests (past, live, upcoming) ────────────────────
-  console.log("🏆 Contests");
+  console.log("Contests");
   const contestDefs = [
     { slug: "codeverse-weekly-41", title: "CodeVerse Weekly #41", start: now - 7 * DAY, dur: 2, problems: ["two-sum", "merge-intervals", "coin-change", "trapping-rain-water"], ended: true },
     { slug: "codeverse-weekly-42", title: "CodeVerse Weekly #42", start: now - 30 * 60_000, dur: 2, problems: ["valid-anagram", "kth-largest-element-in-an-array", "number-of-islands", "edit-distance"], ended: false },
@@ -626,7 +626,7 @@ async function main() {
   // ── Notifications ──────────────────────────────────────
   await db.notification.createMany({
     data: [
-      { userId: demo.id, type: "CONTEST", title: "Weekly #42 has started", body: "The contest is live — good luck!", link: "/contests/codeverse-weekly-42" },
+      { userId: demo.id, type: "CONTEST", title: "Weekly #42 has started", body: "The contest is live, good luck!", link: "/contests/codeverse-weekly-42" },
       { userId: demo.id, type: "ACHIEVEMENT", title: "Badge unlocked: Polyglot", body: "You got Accepted in 3 languages.", link: "/dashboard/achievements", read: true },
       { userId: demo.id, type: "COMMENT", title: "Rahul replied to your comment", body: "on Dijkstra's Shortest Path Algorithm", link: "/tutorials/dijkstra-shortest-path" },
       { userId: demo.id, type: "FOLLOW", title: "Ishita Rao followed you", body: "Check out their profile.", link: "/u/ishitarao" },
@@ -653,7 +653,7 @@ async function main() {
     ],
   });
 
-  console.log("✅ Seed complete");
+  console.log("Seed complete");
   console.log("   Admin:   admin@codeverse.dev / Admin@123");
   console.log("   Student: student@codeverse.dev / Student@123");
   console.log("   Contributor: contributor@codeverse.dev / Contributor@123");

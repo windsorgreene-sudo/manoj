@@ -62,6 +62,6 @@ export async function runViaApi(body: { language: string; code: string; stdin?: 
     if (!res.ok || !json.result) return { kind: "error", message: json.error ?? "Something went wrong", missingKey: json.code === "JUDGE0_MISSING" };
     return { kind: "result", ...json.result };
   } catch {
-    return { kind: "error", message: "Network error — check your connection." };
+    return { kind: "error", message: "Network error, check your connection." };
   }
 }

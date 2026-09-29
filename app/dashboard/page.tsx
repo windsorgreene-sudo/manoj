@@ -28,7 +28,7 @@ export default async function DashboardPage() {
             <AvatarFallback className="bg-brand/20 text-lg font-bold">{user.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}</AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
-            <h1 className="font-heading text-2xl font-bold md:text-3xl">{greeting()}, {user.name.split(" ")[0]} 👋</h1>
+            <h1 className="font-heading text-2xl font-bold md:text-3xl">{greeting()}, {user.name.split(" ")[0]}</h1>
             <p className="text-sm text-muted-foreground">Contest rating {o.rating} · {stats.solved} problems solved · {o.unread} unread notifications</p>
             <div className="mt-4 max-w-xl"><XpBar level={o.progress.level} current={o.progress.current} needed={o.progress.needed} pct={o.progress.pct} xp={o.xp} /></div>
           </div>

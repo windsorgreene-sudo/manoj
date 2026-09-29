@@ -13,6 +13,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { SortableList } from "@/components/admin/sortable";
 import { selectCls } from "@/components/admin/ui";
 import { RoadmapGraph, type RoadmapNode } from "@/components/practice/roadmap-graph";
+import { ActionButton } from "@/components/admin/action-button";
+import { disqualifyParticipant, finalizeContestNow, recomputeContest } from "@/lib/actions/admin/community";
 import { saveContest, saveQuiz, saveRoadmap, saveSheet, setContestFrozen, type ContestInput, type QuizInput, type RoadmapInput, type SheetInput } from "@/lib/actions/admin/catalog";
 import { cn, slugify } from "@/lib/utils";
 
@@ -184,8 +186,8 @@ export function RoadmapEditor({ initial }: { initial: RoadmapInput }) {
 }
 
 // ───────── Contest ─────────
-type Standing = { rank: number; name: string; score: number; solved: number; penaltyMins: number };
-export function ContestEditor({ initial, problemSlugs, standings, frozen }: { initial: ContestInput; problemSlugs: string[]; standings: Standing[]; frozen: boolean }) {
+type Standing = { rank: number; userId: string; name: string; score: number; solved: number; penaltyMins: number };
+export function ContestEditor({ initial, problemSlugs, standings, frozen, contestId, ended, ratingsApplied }: { initial: ContestInput; problemSlugs: string[]; standings: Standing[]; frozen: boolean; contestId: string | null; ended: boolean; ratingsApplied: boolean }) {
   const router = useRouter();
   const [c, setC] = useState(initial);
   const { saving, run } = useSaver("/admin/contests", !initial.id);
@@ -230,12 +232,19 @@ export function ContestEditor({ initial, problemSlugs, standings, frozen }: { in
       <Button variant="outline" className="mt-2 rounded-xl" onClick={() => setC({ ...c, problems: [...c.problems, { problemSlug: "", points: 100 * (c.problems.length + 1) }] })}><Plus /> Add problem</Button>
       {initial.id ? (
         <section className="mt-8" aria-labelledby="standings">
+          {contestId ? (
+            <div className="mb-3 flex flex-wrap gap-2">
+              <ActionButton size="sm" variant="outline" className="rounded-xl" action={() => recomputeContest(contestId)} success="Scores recomputed from submissions">Recompute scores</ActionButton>
+              {ended && !ratingsApplied ? <ActionButton size="sm" className="rounded-xl" action={() => finalizeContestNow(contestId)} confirm="Apply final ranks and rating changes now? This can only be done once." success="Contest finalized">Finalize and apply ratings</ActionButton> : null}
+              {ratingsApplied ? <span className="self-center text-xs text-success">Ratings applied</span> : null}
+            </div>
+          ) : null}
           <h2 id="standings" className="mb-2 font-semibold">Live standings {frozen ? <span className="ml-2 text-xs text-cyan">(frozen for participants)</span> : null}</h2>
           {standings.length ? (
             <div className="glass relative overflow-x-auto">
               <table className="w-full text-sm"><caption className="sr-only">Standings</caption>
-                <thead><tr className="border-b border-border text-left text-xs uppercase text-muted-foreground"><th scope="col" className="px-4 py-2">#</th><th scope="col" className="px-4 py-2">User</th><th scope="col" className="px-4 py-2">Score</th><th scope="col" className="px-4 py-2">Solved</th><th scope="col" className="px-4 py-2">Penalty</th></tr></thead>
-                <tbody>{standings.map((s) => <tr key={s.rank + s.name} className="border-b border-border/60 last:border-0"><td className="px-4 py-2">{s.rank}</td><td className="px-4 py-2">{s.name}</td><td className="px-4 py-2 tabular-nums">{s.score}</td><td className="px-4 py-2">{s.solved}</td><td className="px-4 py-2">{s.penaltyMins}m</td></tr>)}</tbody>
+                <thead><tr className="border-b border-border text-left text-xs uppercase text-muted-foreground"><th scope="col" className="px-4 py-2">#</th><th scope="col" className="px-4 py-2">User</th><th scope="col" className="px-4 py-2">Score</th><th scope="col" className="px-4 py-2">Solved</th><th scope="col" className="px-4 py-2">Penalty</th><th scope="col" className="px-4 py-2"><span className="sr-only">Actions</span></th></tr></thead>
+                <tbody>{standings.map((s) => <tr key={s.rank + s.name} className="border-b border-border/60 last:border-0"><td className="px-4 py-2">{s.rank}</td><td className="px-4 py-2">{s.name}</td><td className="px-4 py-2 tabular-nums">{s.score}</td><td className="px-4 py-2">{s.solved}</td><td className="px-4 py-2">{s.penaltyMins}m</td><td className="px-4 py-2 text-right">{contestId && !ratingsApplied ? <ActionButton size="xs" variant="ghost" className="text-danger" action={() => disqualifyParticipant({ contestId, userId: s.userId })} confirm={`Disqualify ${s.name}? They are removed from the standings and notified.`} success="Participant removed">Disqualify</ActionButton> : null}</td></tr>)}</tbody>
               </table>
             </div>
           ) : <p className="text-sm text-muted-foreground">No participants yet.</p>}

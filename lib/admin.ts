@@ -21,7 +21,7 @@ export async function audit(actor: SessionUser, action: string, entity: string, 
 
 /**
  * Wraps every admin server action: server-side role check → run → uniform result.
- * (Defence in depth — the proxy also blocks non-admins from /admin.)
+ * (Defence in depth, the proxy also blocks non-admins from /admin.)
  */
 export async function adminAction<T>(fn: (admin: SessionUser) => Promise<T>, role: AppRole = "ADMIN"): Promise<AdminResult<T>> {
   try {

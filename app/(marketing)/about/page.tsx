@@ -10,7 +10,7 @@ export const revalidate = 3600;
 
 const VALUES = [
   { Icon: Target, title: "Learn by doing", body: "Every concept is one click away from running code." },
-  { Icon: Heart, title: "Hints, not spoilers", body: "We protect the 'aha' moment — that's where learning happens." },
+  { Icon: Heart, title: "Hints, not spoilers", body: "We protect the 'aha' moment, that's where learning happens." },
   { Icon: Users, title: "Built for Bharat", body: "Fast on budget phones, priced for students, available in Hindi." },
   { Icon: Rocket, title: "Craft matters", body: "A learning tool should feel as good as the products you'll build." },
 ];
@@ -27,7 +27,6 @@ export default async function AboutPage() {
   return (
     <div className="container-cv py-16">
       <section className="mx-auto max-w-3xl text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">About us</p>
         <h1 className="mt-3 font-heading text-4xl font-bold md:text-6xl">
           We&apos;re building the <span className="text-gradient">coding universe</span> we wished we had.
         </h1>

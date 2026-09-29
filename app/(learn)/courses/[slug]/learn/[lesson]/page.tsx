@@ -55,7 +55,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         ) : (
           <>
             <div className="mt-4 flex flex-wrap items-center gap-2 border-y border-border py-2">
-              {enrollment ? <MarkComplete lessonId={current.id} initial={done.some((d) => d.lessonId === current.id)} /> : <span className="text-sm text-muted-foreground">Free preview — <Link className="underline" href={`/courses/${slug}`}>enroll</Link> to track progress.</span>}
+              {enrollment ? <MarkComplete lessonId={current.id} initial={done.some((d) => d.lessonId === current.id)} /> : <span className="text-sm text-muted-foreground">Free preview, <Link className="underline" href={`/courses/${slug}`}>enroll</Link> to track progress.</span>}
               <span className="ml-auto" />
               <TutorLauncher title={current.title} kind="lesson" content={lesson?.article?.content.slice(0, 6000)} />
             </div>

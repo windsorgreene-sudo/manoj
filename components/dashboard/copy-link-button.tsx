@@ -19,7 +19,7 @@ export function CopyLinkButton({ url, label = "Copy link" }: { url: string; labe
           toast.success("Link copied");
           window.setTimeout(() => setDone(false), 2000);
         } catch {
-          toast.error("Couldn't copy — select the link manually.");
+          toast.error("Couldn't copy, select the link manually.");
         }
       }}
     >

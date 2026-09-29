@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
-import { GithubIcon as Github, LinkedinIcon as Linkedin, XIcon as Twitter, YoutubeIcon as Youtube } from "@/components/ui/brand-icons";
 import { Logo } from "@/components/layout/logo";
 import { footerNav } from "@/components/layout/nav-links";
 import { NewsletterForm } from "@/components/layout/newsletter-form";
@@ -21,25 +20,6 @@ export function Footer() {
             {t("tagline")}
           </p>
           <NewsletterForm />
-          <div className="flex gap-2">
-            {[
-              { href: "https://github.com", label: "GitHub", Icon: Github },
-              { href: "https://x.com", label: "X (Twitter)", Icon: Twitter },
-              { href: "https://linkedin.com", label: "LinkedIn", Icon: Linkedin },
-              { href: "https://youtube.com", label: "YouTube", Icon: Youtube },
-            ].map(({ href, label, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="grid size-10 place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:border-brand hover:text-foreground"
-              >
-                <Icon className="size-4" />
-              </a>
-            ))}
-          </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {footerNav.map((group) => (

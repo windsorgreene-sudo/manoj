@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: "Algorithm Visualizers", description:
 export default function VisualizersPage() {
   return (
     <div className="container-cv py-12 md:py-16">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">Visualizers</p>
       <h1 className="mt-3 font-heading text-4xl font-bold md:text-5xl">See algorithms think</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">Play, pause, step and change speed while the pseudocode highlights the line being executed.</p>
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

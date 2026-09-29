@@ -17,7 +17,7 @@ export default async function AdminOverview() {
   const now = nowMs();
   const today = new Date(new Date().setUTCHours(0, 0, 0, 0));
   const since30 = new Date(now - 30 * DAY);
-  const [totalUsers, dau, newSignups, subsToday, users30, subs30, audits, recentUsers, recentSubs, pendingReview, openReports] = await Promise.all([
+  const [totalUsers, dau, newSignups, subsToday, users30, subs30, audits, recentUsers, recentSubs, pendingReview, openReports, newMessages, unanswered] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { lastActiveAt: { gte: new Date(now - DAY) } } }),
     db.user.count({ where: { createdAt: { gte: new Date(now - 7 * DAY) } } }),
@@ -29,6 +29,8 @@ export default async function AdminOverview() {
     db.submission.findMany({ orderBy: { createdAt: "desc" }, take: 5, select: { verdict: true, createdAt: true, user: { select: { name: true } }, problem: { select: { title: true } } } }),
     db.article.count({ where: { status: "IN_REVIEW" } }),
     db.report.count({ where: { status: "OPEN" } }),
+    db.contactMessage.count({ where: { status: "NEW" } }),
+    db.doubt.count({ where: { hidden: false, answers: { none: {} } } }),
   ]);
 
   const series = Array.from({ length: 30 }, (_, i) => {
@@ -60,10 +62,12 @@ export default async function AdminOverview() {
   return (
     <div className="space-y-6">
       <PageHeader title="Overview" description="Platform health at a glance." />
-      {pendingReview || openReports ? (
+      {pendingReview || openReports || newMessages || unanswered ? (
         <div className="flex flex-wrap gap-2 text-sm">
-          {pendingReview ? <Link href="/admin/review" className="rounded-xl bg-cyan/15 px-3 py-1.5 text-cyan">{pendingReview} article(s) awaiting review →</Link> : null}
-          {openReports ? <Link href="/admin/moderation" className="rounded-xl bg-warning/15 px-3 py-1.5 text-warning">{openReports} open report(s) →</Link> : null}
+          {pendingReview ? <Link href="/admin/review" className="rounded-xl bg-cyan/15 px-3 py-1.5 text-cyan">{pendingReview} article(s) awaiting review</Link> : null}
+          {openReports ? <Link href="/admin/moderation" className="rounded-xl bg-warning/15 px-3 py-1.5 text-warning">{openReports} open report(s)</Link> : null}
+          {newMessages ? <Link href="/admin/inbox" className="rounded-xl bg-brand/15 px-3 py-1.5 text-brand-soft">{newMessages} new message(s)</Link> : null}
+          {unanswered ? <Link href="/admin/doubts?filter=unanswered" className="rounded-xl bg-accent px-3 py-1.5">{unanswered} unanswered doubt(s)</Link> : null}
         </div>
       ) : null}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">

@@ -94,7 +94,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             <h2 id="reviews" className="font-heading text-2xl font-bold">Ratings & reviews</h2>
             <div className="mt-4 grid gap-6 md:grid-cols-[200px_1fr]">
               <div className="glass p-5 text-center">
-                <p className="font-heading text-5xl font-bold">{course.rating || "–"}</p>
+                <p className="font-heading text-5xl font-bold">{course.rating || "-"}</p>
                 <p className="text-sm text-muted-foreground">{course.reviewCount} reviews</p>
                 <ul className="mt-4 space-y-1">
                   {course.distribution.map((d) => (
@@ -124,7 +124,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                     </figure>
                   ))
                 ) : (
-                  <p className="text-sm text-muted-foreground">No reviews yet — enroll and be the first.</p>
+                  <p className="text-sm text-muted-foreground">No reviews yet, enroll and be the first.</p>
                 )}
               </div>
             </div>

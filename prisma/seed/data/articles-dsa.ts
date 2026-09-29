@@ -89,7 +89,7 @@ Quick sort is \`O(n log n)\` on average but \`O(n²)\` in the worst case (alread
     tags: ["arrays", "prefix-sum", "fundamentals"],
     content: `## What is an array?
 
-An array stores elements of the same type in **contiguous memory**. Because every element has the same size, the address of \`a[i]\` is simply \`base + i × size\` — that's why random access is **O(1)**.
+An array stores elements of the same type in **contiguous memory**. Because every element has the same size, the address of \`a[i]\` is simply \`base + i × size\`, that's why random access is **O(1)**.
 
 ## Core operations
 
@@ -98,7 +98,7 @@ An array stores elements of the same type in **contiguous memory**. Because ever
 | Access \`a[i]\` | O(1) |
 | Update \`a[i] = x\` | O(1) |
 | Insert/delete at end (dynamic array) | O(1) amortised |
-| Insert/delete in the middle | O(n) — elements must shift |
+| Insert/delete in the middle | O(n), elements must shift |
 | Search unsorted | O(n) |
 
 ## Prefix sums
@@ -149,7 +149,7 @@ ${fence}
 
 ## Dynamic arrays
 
-\`vector\` in C++, \`ArrayList\` in Java, \`list\` in Python and JS arrays grow automatically. When capacity runs out they allocate a buffer about **twice as large** and copy — each append is still O(1) *amortised*.
+\`vector\` in C++, \`ArrayList\` in Java, \`list\` in Python and JS arrays grow automatically. When capacity runs out they allocate a buffer about **twice as large** and copy, each append is still O(1) *amortised*.
 
 <Callout type="warning">Off-by-one errors are the #1 array bug. Decide early whether your ranges are inclusive \`[l, r]\` or half-open \`[l, r)\` and stick to it.</Callout>`,
     quiz: [
@@ -168,7 +168,7 @@ ${fence}
 
 Many array problems ask about **pairs**. Checking every pair is O(n²). If the array is sorted (or has some monotonic property), two indices can sweep it in a single O(n) pass.
 
-## Pattern 1 — opposite ends
+## Pattern 1, opposite ends
 
 Find a pair with sum equal to \`target\` in a sorted array: start with \`l = 0\`, \`r = n - 1\`. If the sum is too small, move \`l\` right; if too big, move \`r\` left.
 
@@ -229,9 +229,9 @@ ${fence}
 
 </CodeTabs>
 
-**Why it works:** if \`a[l] + a[r] < target\`, then \`a[l]\` paired with any element left of \`r\` is even smaller — so \`a[l]\` can never be part of the answer and we safely discard it.
+**Why it works:** if \`a[l] + a[r] < target\`, then \`a[l]\` paired with any element left of \`r\` is even smaller, so \`a[l]\` can never be part of the answer and we safely discard it.
 
-## Pattern 2 — same direction (fast & slow)
+## Pattern 2, same direction (fast & slow)
 
 A *read* pointer scans every element while a *write* pointer marks where the next kept element goes. This removes duplicates or moves zeroes in-place in O(n) time and O(1) space. The same idea on linked lists (slow moves 1, fast moves 2) finds the middle node or detects a cycle.
 
@@ -325,7 +325,7 @@ def longest_unique(s):
 print(longest_unique("abcabcbb"))  # 3
 ${fence}
 
-<Callout type="info">For window **maximum/minimum** you need a *monotonic deque* — see **Sliding Window Maximum**.</Callout>`,
+<Callout type="info">For window **maximum/minimum** you need a *monotonic deque*, see **Sliding Window Maximum**.</Callout>`,
     quiz: [
       { q: "Sliding window applies to…", options: ["Any subsequence", "Contiguous subarrays", "Only sorted arrays", "Trees"], answer: 1, explanation: "Windows are contiguous by definition." },
       { q: "Why is the variable window O(n) despite a nested loop?", options: ["It isn't", "Each index enters and leaves once", "Hashing", "Sorting first"], answer: 1, explanation: "Both pointers only move forward: at most 2n moves." },
@@ -405,9 +405,9 @@ ${fence}
 
 ## Binary search on the answer
 
-If a predicate \`ok(x)\` is **monotonic** (false, false, …, true, true), you can binary-search the smallest \`x\` where it becomes true — even when there's no array at all. Examples: minimum ship capacity to deliver packages in D days, smallest divisor under a threshold, Koko eating bananas.
+If a predicate \`ok(x)\` is **monotonic** (false, false, …, true, true), you can binary-search the smallest \`x\` where it becomes true, even when there's no array at all. Examples: minimum ship capacity to deliver packages in D days, smallest divisor under a threshold, Koko eating bananas.
 
-<Callout type="warning">Write \`mid = lo + (hi - lo) / 2\` in C++/Java — \`(lo + hi) / 2\` can overflow for large indices.</Callout>`,
+<Callout type="warning">Write \`mid = lo + (hi - lo) / 2\` in C++/Java, \`(lo + hi) / 2\` can overflow for large indices.</Callout>`,
     quiz: [
       { q: "lower_bound(x) returns the first index with…", options: ["a[i] > x", "a[i] ≥ x", "a[i] == x", "a[i] < x"], answer: 1, explanation: "upper_bound uses strict >." },
       { q: "'Binary search on the answer' requires the predicate to be…", options: ["Linear", "Monotonic", "Convex", "Constant"], answer: 1, explanation: "false…false true…true lets us halve the search space." },
@@ -429,7 +429,7 @@ A recursive function solves a problem by solving **smaller instances of the same
 
 ## Example: generating all subsets
 
-Each element is either *in* or *out* — two choices per element, so \`2ⁿ\` subsets.
+Each element is either *in* or *out*, two choices per element, so \`2ⁿ\` subsets.
 
 <CodeTabs>
 
@@ -499,7 +499,7 @@ solve(state):
             undo(choice)
 \`\`\`
 
-**Pruning** — rejecting invalid partial states early — is what makes backtracking fast in practice. In N-Queens we never place a queen on an attacked square, cutting the search tree dramatically.
+**Pruning**, rejecting invalid partial states early, is what makes backtracking fast in practice. In N-Queens we never place a queen on an attacked square, cutting the search tree dramatically.
 
 <Callout type="tip">Recursion depth equals stack usage. Python's default limit is ~1000 frames; use \`sys.setrecursionlimit\` or convert to iteration for deep inputs.</Callout>`,
     quiz: [
@@ -512,7 +512,7 @@ solve(state):
     title: "Sorting Algorithms Explained",
     category: "dsa",
     difficulty: "MEDIUM",
-    excerpt: "Compare bubble, insertion, merge and quick sort — how they work, their complexity, and when stability matters.",
+    excerpt: "Compare bubble, insertion, merge and quick sort, how they work, their complexity, and when stability matters.",
     tags: ["sorting", "merge-sort", "quick-sort"],
     content: `## Overview
 
@@ -524,7 +524,7 @@ solve(state):
 | Quick sort | O(n log n) | O(n log n) | O(n²) | O(log n) | No |
 | Heap sort | O(n log n) | O(n log n) | O(n log n) | O(1) | No |
 
-A sort is **stable** if equal elements keep their original relative order — important when sorting records by multiple keys.
+A sort is **stable** if equal elements keep their original relative order, important when sorting records by multiple keys.
 
 ## Merge sort
 
@@ -603,7 +603,7 @@ Pick a **pivot**, partition so smaller elements go left and larger go right, the
     tags: ["linked-list", "pointers"],
     content: `## Structure
 
-A linked list is a chain of **nodes**; each node stores a value and a pointer to the next node. Unlike arrays, nodes are scattered in memory, so access by index is O(n) — but insertion/deletion at a known node is O(1).
+A linked list is a chain of **nodes**; each node stores a value and a pointer to the next node. Unlike arrays, nodes are scattered in memory, so access by index is O(n), but insertion/deletion at a known node is O(1).
 
 ## Reversing a list in-place
 
@@ -691,11 +691,11 @@ Each node also keeps a \`prev\` pointer, allowing O(1) deletion given only the n
     difficulty: "EASY",
     excerpt: "LIFO vs FIFO, implementing both with arrays and linked lists, plus classic applications like bracket matching and BFS.",
     tags: ["stack", "queue", "deque"],
-    content: `## Stack — Last In, First Out
+    content: `## Stack: Last In, First Out
 
 Think of a pile of plates: you \`push\` on top and \`pop\` from the top. Both are O(1). Stacks power function calls, undo, expression evaluation and bracket matching.
 
-## Queue — First In, First Out
+## Queue: First In, First Out
 
 A line at a ticket counter: \`enqueue\` at the back, \`dequeue\` from the front, both O(1). Queues power BFS, task scheduling and buffering.
 
@@ -761,10 +761,10 @@ ${fence}
 
 A **deque** supports O(1) push/pop at both ends. Keeping it *monotonic* (always increasing or decreasing) solves "next greater element" and "sliding window maximum" in O(n).
 
-<Callout type="warning">In Python, never use \`list.pop(0)\` as a queue — it's O(n). Use \`collections.deque\`.</Callout>`,
+<Callout type="warning">In Python, never use \`list.pop(0)\` as a queue, it's O(n). Use \`collections.deque\`.</Callout>`,
     quiz: [
       { q: "Which structure does BFS use?", options: ["Stack", "Queue", "Heap", "Tree"], answer: 1, explanation: "FIFO order explores level by level." },
-      { q: "Undo functionality is naturally modelled by a…", options: ["Queue", "Stack", "Graph", "Hash map"], answer: 1, explanation: "The most recent action is undone first — LIFO." },
+      { q: "Undo functionality is naturally modelled by a…", options: ["Queue", "Stack", "Graph", "Hash map"], answer: 1, explanation: "The most recent action is undone first: LIFO." },
     ],
   },
   {
@@ -849,14 +849,14 @@ A **binary tree** is a hierarchy where each node has at most two children. The t
 
 ## Traversals
 
-- **Preorder** (root, left, right) — copy a tree.
-- **Inorder** (left, root, right) — gives a BST in sorted order.
-- **Postorder** (left, right, root) — delete a tree / evaluate expressions.
-- **Level order** (BFS) — level by level using a queue.
+- **Preorder** (root, left, right), copy a tree.
+- **Inorder** (left, root, right), gives a BST in sorted order.
+- **Postorder** (left, right, root), delete a tree / evaluate expressions.
+- **Level order** (BFS), level by level using a queue.
 
 ## The BST property
 
-For every node, all keys in the left subtree are **smaller** and all keys in the right subtree are **larger**. Search, insert and delete walk one path: **O(h)** — O(log n) for balanced trees, O(n) for a degenerate "linked list" tree.
+For every node, all keys in the left subtree are **smaller** and all keys in the right subtree are **larger**. Search, insert and delete walk one path: **O(h)**: O(log n) for balanced trees, O(n) for a degenerate "linked list" tree.
 
 <CodeTabs>
 
@@ -936,7 +936,7 @@ ${fence}
     tags: ["graphs", "bfs", "dfs"],
     content: `## Representing a graph
 
-A graph has **vertices** and **edges**. The adjacency **list** (\`adj[u]\` = neighbours of \`u\`) uses O(V + E) memory and is the default choice. An adjacency **matrix** uses O(V²) but answers "is there an edge u–v?" in O(1).
+A graph has **vertices** and **edges**. The adjacency **list** (\`adj[u]\` = neighbours of \`u\`) uses O(V + E) memory and is the default choice. An adjacency **matrix** uses O(V²) but answers "is there an edge u-v?" in O(1).
 
 ## Breadth-first search
 
@@ -1023,8 +1023,8 @@ Both BFS and DFS run in **O(V + E)**.
     tags: ["dynamic-programming", "memoization"],
     content: `## When is DP applicable?
 
-1. **Optimal substructure** — the optimal answer is built from optimal answers to subproblems.
-2. **Overlapping subproblems** — the same subproblems are solved again and again.
+1. **Optimal substructure**, the optimal answer is built from optimal answers to subproblems.
+2. **Overlapping subproblems**, the same subproblems are solved again and again.
 
 Naive Fibonacci recomputes \`fib(n-2)\` exponentially many times. Storing results turns O(2ⁿ) into O(n).
 
@@ -1078,8 +1078,8 @@ ${fence}
 
 ## A recipe for DP problems
 
-1. **Define the state** — what does \`dp[i]\` (or \`dp[i][j]\`) mean in words?
-2. **Write the transition** — how does a state depend on smaller states?
+1. **Define the state**, what does \`dp[i]\` (or \`dp[i][j]\`) mean in words?
+2. **Write the transition**, how does a state depend on smaller states?
 3. **Set base cases.**
 4. **Choose the order** of computation so dependencies are ready.
 5. **Extract the answer** and optimise space if only the last row is needed.
@@ -1107,7 +1107,7 @@ Given a weighted graph with **non-negative** edge weights and a source \`s\`, fi
 
 ## The greedy insight
 
-Always expand the unvisited vertex with the **smallest tentative distance**. Because weights are non-negative, no later path can make that vertex any closer — its distance is final.
+Always expand the unvisited vertex with the **smallest tentative distance**. Because weights are non-negative, no later path can make that vertex any closer, its distance is final.
 
 <CodeTabs>
 
@@ -1165,7 +1165,7 @@ static long[] dijkstra(List<List<int[]>> adj, int s) {
 ${fence}
 
 ${fence}javascript
-// Simple O(V^2) version — fine for small graphs
+// Simple O(V^2) version, fine for small graphs
 function dijkstra(adj, s) {
   const n = adj.length, dist = Array(n).fill(Infinity), done = Array(n).fill(false);
   dist[s] = 0;
@@ -1187,7 +1187,7 @@ ${fence}
 
 With a binary heap: **O((V + E) log V)**. The array-based version is O(V²), which is actually better for very dense graphs.
 
-<Callout type="warning">Dijkstra fails with **negative** edges. Use Bellman–Ford (O(VE)) instead, which also detects negative cycles.</Callout>`,
+<Callout type="warning">Dijkstra fails with **negative** edges. Use Bellman-Ford (O(VE)) instead, which also detects negative cycles.</Callout>`,
     quiz: [
       { q: "Dijkstra requires edge weights to be…", options: ["Integers", "Non-negative", "Distinct", "Less than V"], answer: 1, explanation: "Negative edges break the greedy argument." },
       { q: "Heap-based Dijkstra runs in…", options: ["O(V + E)", "O((V + E) log V)", "O(VE)", "O(V³)"], answer: 1, explanation: "Each relaxation may push into the heap." },

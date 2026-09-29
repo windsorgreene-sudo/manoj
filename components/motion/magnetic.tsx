@@ -4,7 +4,7 @@ import { useRef, type ReactNode, type PointerEvent } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useIsDesktopPointer } from "@/hooks/use-media-query";
 
-/** Magnetic hover wrapper — pulls its child toward the pointer (desktop only). */
+/** Magnetic hover wrapper, pulls its child toward the pointer (desktop only). */
 export function Magnetic({ children, strength = 0.35, className }: { children: ReactNode; strength?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const desktop = useIsDesktopPointer();

@@ -3,7 +3,7 @@ export function winAnsi(s: string) {
   return s
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'")
-    .replace(/[—–]/g, "-")
+    .replace(/[, -]/g, "-")
     .replace(/…/g, "...")
     .replace(/[→]/g, "->")
     .replace(/[≤]/g, "<=")

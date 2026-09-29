@@ -27,7 +27,7 @@ async function guard<T>(fn: () => Promise<T>): Promise<Result<T>> {
 }
 
 function limit(key: string, spec: { limit: number; windowMs: number } = limits.write) {
-  if (!rateLimit(key, spec.limit, spec.windowMs).success) throw new Error("RATE:Slow down a little — try again in a moment.");
+  if (!rateLimit(key, spec.limit, spec.windowMs).success) throw new Error("RATE:Slow down a little, try again in a moment.");
 }
 
 // ───────── Article state ─────────
@@ -149,7 +149,7 @@ export async function gradeQuiz(input: { quizId: string; answers: Record<string,
     // Time can't exceed the allowed duration (+30s grace for network latency).
     const timeTakenS = Math.min(data.timeTakenS ?? 0, quiz.durationMins * 60 + 30);
     if (user) {
-      if (!rateLimit(`quiz:${user.id}`, limits.write.limit, limits.write.windowMs).success) throw new Error("RATE:Slow down a little — try again in a moment.");
+      if (!rateLimit(`quiz:${user.id}`, limits.write.limit, limits.write.windowMs).success) throw new Error("RATE:Slow down a little, try again in a moment.");
       await db.quizAttempt.create({
         data: { userId: user.id, quizId: quiz.id, answers: data.answers, score, maxScore: max, correct, wrong, skipped, timeTakenS },
       });
@@ -271,7 +271,7 @@ export async function setLessonComplete(input: { lessonId: string; completed: bo
       xp = await awardXp(user.id, "COURSE_COMPLETED", XP_RULES.COURSE_COMPLETED, courseId);
       const cert = await issueCertificate(user.id, courseId);
       await db.notification.create({
-        data: { userId: user.id, type: "ACHIEVEMENT", title: `You completed ${lesson.module.course.title}! 🎓`, body: `Your certificate ${cert.code} is ready to download.`, link: "/dashboard/certificates" },
+        data: { userId: user.id, type: "ACHIEVEMENT", title: `You completed ${lesson.module.course.title}!`, body: `Your certificate ${cert.code} is ready to download.`, link: "/dashboard/certificates" },
       });
     }
     revalidatePath(`/courses/${lesson.module.course.slug}`);

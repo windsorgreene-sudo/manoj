@@ -56,7 +56,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Verify your CodeVerse email",
-        html: emailLayout("Welcome to CodeVerse 🚀", "Confirm your email to start learning, practicing and competing.", {
+        html: emailLayout("Welcome to CodeVerse", "Confirm your email to start learning, practicing and competing.", {
           label: "Verify email",
           url,
         }),

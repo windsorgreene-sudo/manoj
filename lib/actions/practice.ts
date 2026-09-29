@@ -24,7 +24,7 @@ export async function saveSnippet(input: z.input<typeof snippetSchema>) {
   const data = snippetSchema.safeParse(input);
   if (!data.success) return { ok: false as const, error: data.error.issues[0]?.message ?? "Invalid snippet" };
   const user = await getCurrentUser();
-  if (!rateLimit(`snip:${user?.id ?? "anon"}`, 10, 60_000).success) return { ok: false as const, error: "Too many snippets — slow down." };
+  if (!rateLimit(`snip:${user?.id ?? "anon"}`, 10, 60_000).success) return { ok: false as const, error: "Too many snippets, slow down." };
   const s = await db.snippet.create({ data: { ...data.data, shareId: shareId(), userId: user?.id } });
   return { ok: true as const, shareId: s.shareId };
 }

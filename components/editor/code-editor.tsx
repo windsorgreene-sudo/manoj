@@ -15,7 +15,7 @@ type Props = {
   ariaLabel?: string;
 };
 
-/** Monaco wrapper — always loaded via next/dynamic from interactive surfaces only. */
+/** Monaco wrapper, always loaded via next/dynamic from interactive surfaces only. */
 export function CodeEditor({ language, value, onChange, height = "100%", onRun, readOnly, ariaLabel = "Code editor" }: Props) {
   const theme = usePrefsStore((s) => s.editorTheme);
   const fontSize = usePrefsStore((s) => s.fontSize);

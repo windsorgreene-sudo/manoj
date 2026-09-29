@@ -80,7 +80,7 @@ export function ResetPasswordForm({ token, invalid }: { token: string | null; in
       setError(err.message ?? "Could not reset password");
       return;
     }
-    toast.success("Password updated — please log in.");
+    toast.success("Password updated, please log in.");
     router.push("/login");
   };
 
@@ -88,7 +88,7 @@ export function ResetPasswordForm({ token, invalid }: { token: string | null; in
     <div className="space-y-6">
       <div className="space-y-2">
         <h1 className="font-heading text-3xl font-bold">Choose a new password</h1>
-        <p className="text-muted-foreground">Make it strong — at least 8 characters with a number and an uppercase letter.</p>
+        <p className="text-muted-foreground">Make it strong, at least 8 characters with a number and an uppercase letter.</p>
       </div>
       {error ? (
         <Alert variant="destructive" className="rounded-xl">

@@ -27,7 +27,7 @@ function RankCell({ rank }: { rank: number }) {
 }
 
 function Delta({ before, after }: { before: number | null; after: number | null }) {
-  if (before === null || after === null) return <span className="text-muted-foreground">—</span>;
+  if (before === null || after === null) return <span className="text-muted-foreground">-</span>;
   const d = after - before;
   return (
     <span className="tabular-nums">

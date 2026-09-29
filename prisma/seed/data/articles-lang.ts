@@ -31,7 +31,7 @@ s = "code"      # str (immutable)
 print(type(x), 2 ** 100)
 ${fence}
 
-Python integers never overflow — \`2 ** 100\` just works — which is handy for problems with huge answers.
+Python integers never overflow, \`2 ** 100\` just works, which is handy for problems with huge answers.
 
 ## Core built-in types
 
@@ -112,7 +112,7 @@ ${fence}
 | index / get | O(1) | O(1) avg |
 | append / add | O(1) | O(1) avg |
 | \`x in c\` | **O(n)** | **O(1)** avg |
-| insert at front | O(n) | — |
+| insert at front | O(n) |, |
 
 <Callout type="warning">\`x in my_list\` inside a loop is a hidden O(n²). Convert to a \`set\` first.</Callout>`,
     quiz: [
@@ -149,7 +149,7 @@ def total(*args, **kwargs):
 total(1, 2, 3, unit="ms")
 ${fence}
 
-<Callout type="warning">Never use a mutable default like \`def f(x, acc=[])\` — the same list is shared across calls. Use \`acc=None\` and create it inside.</Callout>
+<Callout type="warning">Never use a mutable default like \`def f(x, acc=[])\`, the same list is shared across calls. Use \`acc=None\` and create it inside.</Callout>
 
 ## Lambdas and higher-order functions
 
@@ -184,7 +184,7 @@ def slow_sum(n):
 slow_sum(1_000_000)
 ${fence}
 
-\`functools.lru_cache\` is a built-in decorator that memoises a function — instant dynamic programming.`,
+\`functools.lru_cache\` is a built-in decorator that memoises a function, instant dynamic programming.`,
     quiz: [
       { q: "Parameters after a bare * are…", options: ["Optional", "Keyword-only", "Positional-only", "Variadic"], answer: 1, explanation: "They must be passed by name." },
       { q: "What does a decorator return?", options: ["A class", "A new function", "None", "A generator"], answer: 1, explanation: "It wraps and returns a callable." },
@@ -195,7 +195,7 @@ ${fence}
     title: "Object-Oriented Programming in Python",
     category: "python",
     difficulty: "MEDIUM",
-    excerpt: "Classes, __init__, inheritance, dunder methods and dataclasses — with a practical bank-account example.",
+    excerpt: "Classes, __init__, inheritance, dunder methods and dataclasses, with a practical bank-account example.",
     tags: ["python", "oop", "classes"],
     content: `## Classes and objects
 
@@ -238,10 +238,10 @@ ${fence}
 
 ## The four pillars
 
-1. **Encapsulation** — hide internal state behind methods (\`_balance\`).
-2. **Abstraction** — expose *what* an object does, not *how*.
-3. **Inheritance** — reuse behaviour from a parent class.
-4. **Polymorphism** — the same method name behaves differently per class.
+1. **Encapsulation**, hide internal state behind methods (\`_balance\`).
+2. **Abstraction**, expose *what* an object does, not *how*.
+3. **Inheritance**, reuse behaviour from a parent class.
+4. **Polymorphism**, the same method name behaves differently per class.
 
 ## Dataclasses
 
@@ -282,7 +282,7 @@ ${fence}
 
 ## Generators
 
-A generator produces values **lazily** — one at a time, on demand — so it uses O(1) memory regardless of length.
+A generator produces values **lazily**, one at a time, on demand, so it uses O(1) memory regardless of length.
 
 ${fence}python
 def fibonacci():
@@ -334,7 +334,7 @@ ${fence}javascript
 const PI = 3.14159;   // cannot be reassigned
 let count = 0;        // block-scoped, reassignable
 count += 1;
-// var is function-scoped and hoisted — avoid it in modern code
+// var is function-scoped and hoisted, avoid it in modern code
 console.log(PI, count);
 ${fence}
 
@@ -342,7 +342,7 @@ Use \`const\` by default and \`let\` only when you need to reassign.
 
 ## Types
 
-JavaScript has 7 **primitive** types — \`string\`, \`number\`, \`bigint\`, \`boolean\`, \`undefined\`, \`null\`, \`symbol\` — and **objects** (including arrays and functions).
+JavaScript has 7 **primitive** types, \`string\`, \`number\`, \`bigint\`, \`boolean\`, \`undefined\`, \`null\`, \`symbol\`, and **objects** (including arrays and functions).
 
 ${fence}javascript
 console.log(typeof 42, typeof "hi", typeof null, typeof [], typeof (() => {}));
@@ -424,7 +424,7 @@ ${fence}
 
 ## The \`this\` keyword
 
-For regular functions, \`this\` depends on **how the function is called**. Arrow functions don't have their own \`this\`; they capture it lexically — perfect for callbacks inside methods.
+For regular functions, \`this\` depends on **how the function is called**. Arrow functions don't have their own \`this\`; they capture it lexically, perfect for callbacks inside methods.
 
 <Callout type="warning">The classic loop bug: with \`var i\` all callbacks see the final value. With \`let i\` each iteration gets a fresh binding.</Callout>`,
     quiz: [
@@ -458,7 +458,7 @@ ${fence}
 
 ## async / await
 
-\`await\` pauses an \`async\` function until the promise settles — asynchronous code that reads top-to-bottom.
+\`await\` pauses an \`async\` function until the promise settles, asynchronous code that reads top-to-bottom.
 
 ${fence}javascript
 async function loadProfile(username) {
@@ -543,7 +543,7 @@ ${fence}
 
 ## Immutable helpers (ES2023)
 
-\`toSorted\`, \`toReversed\`, \`toSpliced\` and \`with(index, value)\` return **new arrays** — ideal for React state updates.
+\`toSorted\`, \`toReversed\`, \`toSpliced\` and \`with(index, value)\` return **new arrays**, ideal for React state updates.
 
 | Mutating | Non-mutating |
 |---|---|
@@ -552,7 +552,7 @@ ${fence}
 | \`splice\` | \`toSpliced\` |
 | \`a[i] = x\` | \`a.with(i, x)\` |
 
-<Callout type="tip">\`Object.groupBy(items, fn)\` groups an array into an object by key — no more hand-written reduce for grouping.</Callout>`,
+<Callout type="tip">\`Object.groupBy(items, fn)\` groups an array into an object by key, no more hand-written reduce for grouping.</Callout>`,
     quiz: [
       { q: "[10, 9, 1].sort() returns…", options: ["[1, 9, 10]", "[1, 10, 9]", "[10, 9, 1]", "Error"], answer: 1, explanation: "Default sort compares strings." },
       { q: "Which method returns a single accumulated value?", options: ["map", "filter", "reduce", "find"], answer: 2, explanation: "reduce folds the array." },
@@ -563,14 +563,14 @@ ${fence}
     title: "The JavaScript Event Loop Explained",
     category: "javascript",
     difficulty: "HARD",
-    excerpt: "Call stack, Web APIs, the task queue and the microtask queue — predict the output of any async snippet.",
+    excerpt: "Call stack, Web APIs, the task queue and the microtask queue, predict the output of any async snippet.",
     tags: ["javascript", "event-loop", "async"],
     content: `## The moving parts
 
-1. **Call stack** — where synchronous code runs, one frame at a time.
-2. **Web APIs / runtime** — timers, network, DOM events run outside the stack.
-3. **Macrotask queue** — callbacks from \`setTimeout\`, I/O, UI events.
-4. **Microtask queue** — promise callbacks (\`then\`, \`await\` continuations) and \`queueMicrotask\`.
+1. **Call stack**, where synchronous code runs, one frame at a time.
+2. **Web APIs / runtime**, timers, network, DOM events run outside the stack.
+3. **Macrotask queue**, callbacks from \`setTimeout\`, I/O, UI events.
+4. **Microtask queue**, promise callbacks (\`then\`, \`await\` continuations) and \`queueMicrotask\`.
 
 ## The rule
 
@@ -606,7 +606,7 @@ ${fence}
 
 ## Why it matters
 
-- A long synchronous loop **blocks** rendering and input — split heavy work with \`setTimeout\`, \`requestIdleCallback\` or a Web Worker.
+- A long synchronous loop **blocks** rendering and input, split heavy work with \`setTimeout\`, \`requestIdleCallback\` or a Web Worker.
 - An infinite chain of microtasks can starve the macrotask queue and freeze the page.
 
 <Callout type="info">Node.js adds \`process.nextTick\` (runs before other microtasks) and \`setImmediate\` (a macrotask in the "check" phase).</Callout>`,

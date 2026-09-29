@@ -90,7 +90,7 @@ export function ArticleActions({ articleId, title, slug }: { articleId: string; 
   return (
     <div className="flex flex-wrap items-center gap-1" aria-label="Article actions">
       <Button variant="ghost" size="sm" className="rounded-xl" onClick={like} aria-pressed={Boolean(state?.liked)} aria-label="Like">
-        <Heart className={cn(state?.liked && "fill-danger text-danger")} /> {state?.likes ?? "–"}
+        <Heart className={cn(state?.liked && "fill-danger text-danger")} /> {state?.likes ?? "-"}
       </Button>
       <Button variant="ghost" size="sm" className="rounded-xl" onClick={bookmark} aria-pressed={Boolean(state?.bookmarked)}>
         <Bookmark className={cn(state?.bookmarked && "fill-cyan text-cyan")} /> {state?.bookmarked ? "Saved" : "Save"}

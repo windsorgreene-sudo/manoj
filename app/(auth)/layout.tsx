@@ -8,7 +8,7 @@ const perks = [
   "600+ in-depth tutorials with runnable code",
   "Browser IDE for C, C++, Java, Python, JS & Go",
   "Weekly rated contests with live leaderboards",
-  "AI tutor that hints — never spoils",
+  "AI tutor that hints, never spoils",
 ];
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <Logo />
           <div className="max-w-md space-y-6">
             <h2 className="font-heading text-4xl font-bold leading-tight">
-              Your coding universe, <span className="text-gradient">one login away.</span>
+              Pick up where you left off.
             </h2>
             <ul className="space-y-3">
               {perks.map((p) => (
@@ -31,10 +31,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               ))}
             </ul>
           </div>
-          <blockquote className="glass max-w-md p-6 text-sm">
-            “The problem workspace feels like LeetCode, the tutorials like GfG — but everything in one place. I cracked my Amazon SDE-1 interview in 4 months.”
-            <footer className="mt-3 text-xs text-muted-foreground">— Ananya Iyer, SDE-1 at Amazon</footer>
-          </blockquote>
         </div>
       </aside>
       <main id="main" className="relative flex flex-col">
