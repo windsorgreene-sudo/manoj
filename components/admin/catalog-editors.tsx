@@ -68,8 +68,8 @@ export function QuizEditor({ initial }: { initial: QuizInput }) {
         <TextField id="q-dur" label="Duration (minutes)" type="number" value={q.durationMins} onChange={(v) => setQ({ ...q, durationMins: Number(v) })} />
         <TextField id="q-neg" label="Negative mark (fraction of marks)" type="number" value={q.negativeMark} onChange={(v) => setQ({ ...q, negativeMark: Number(v) })} />
         <div className="flex flex-wrap items-center gap-4 pt-6 text-sm">
-          {(["negativeMarking", "isMockTest", "isPro", "isPublished"] as const).map((k) => (
-            <label key={k} className="flex items-center gap-2"><Switch checked={q[k]} onCheckedChange={(v) => setQ({ ...q, [k]: v })} aria-label={k} /> {k === "negativeMarking" ? "Negative marking" : k === "isMockTest" ? "Mock test" : k === "isPro" ? "Pro" : "Published"}</label>
+          {(["negativeMarking", "isMockTest", "isPublished"] as const).map((k) => (
+            <label key={k} className="flex items-center gap-2"><Switch checked={q[k]} onCheckedChange={(v) => setQ({ ...q, [k]: v })} aria-label={k} /> {k === "negativeMarking" ? "Negative marking" : k === "isMockTest" ? "Mock test" : "Published"}</label>
           ))}
         </div>
       </section>

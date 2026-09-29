@@ -33,7 +33,7 @@ export async function listProblems(f: ProblemFilters, userId: string | null) {
       orderBy: { number: "asc" },
       skip: (page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
-      select: { id: true, number: true, slug: true, title: true, difficulty: true, topics: true, companies: true, isPremium: true, totalSubmissions: true, totalAccepted: true },
+      select: { id: true, number: true, slug: true, title: true, difficulty: true, topics: true, companies: true, totalSubmissions: true, totalAccepted: true },
     }),
   ]);
   // Acceptance from real submissions (seeded history + live counters)
@@ -81,7 +81,7 @@ export const getProblemForWorkspace = cache(async (slug: string) => {
       starterCode: true,
       timeLimitMs: true,
       memoryLimitMb: true,
-      isPremium: true,
+     
       testCases: { where: { isSample: true }, orderBy: { order: "asc" }, select: { id: true, input: true, expected: true, explanation: true } },
       _count: { select: { testCases: true } },
     },

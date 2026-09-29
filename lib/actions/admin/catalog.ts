@@ -27,7 +27,6 @@ const quizSchema = z.object({
   negativeMarking: z.boolean(),
   negativeMark: z.number().min(0).max(1),
   isMockTest: z.boolean(),
-  isPro: z.boolean(),
   isPublished: z.boolean(),
   questions: z.array(questionSchema).min(1).max(200),
 });

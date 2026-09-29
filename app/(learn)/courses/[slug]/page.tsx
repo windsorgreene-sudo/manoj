@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BookOpen, CheckCircle2, Clock, Crown, Globe, Star, Users } from "lucide-react";
+import { BookOpen, CheckCircle2, Clock, Globe, Star, Users } from "lucide-react";
 import { EnrollCard, ReviewForm, Syllabus } from "@/components/learn/course-enroll";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
 import { db } from "@/lib/db";
@@ -39,8 +39,8 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
             provider: { "@type": "Organization", name: "CodeVerse", sameAs: appUrl() },
             educationalLevel: LEVEL[course.level],
             inLanguage: "en",
-            isAccessibleForFree: !course.isPro,
-            offers: { "@type": "Offer", price: course.isPro ? course.priceInr : 0, priceCurrency: "INR", category: course.isPro ? "Paid" : "Free" },
+            isAccessibleForFree: true,
+            offers: { "@type": "Offer", price: 0, priceCurrency: "INR", category: "Free" },
             hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: `PT${Math.round(course.durationMins / 60)}H` },
             ...(course.reviewCount ? { aggregateRating: { "@type": "AggregateRating", ratingValue: course.rating, reviewCount: course.reviewCount } } : {}),
           },
@@ -60,11 +60,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           <div className="mt-4 max-w-3xl">
             <div className="flex flex-wrap gap-2">
               <span className="rounded-lg bg-surface-2 px-2.5 py-1 text-xs">{LEVEL[course.level]}</span>
-              {course.isPro ? (
-                <span className="flex items-center gap-1 rounded-lg bg-warning px-2.5 py-1 text-xs font-semibold text-black"><Crown className="size-3" /> Pro</span>
-              ) : (
-                <span className="rounded-lg bg-success px-2.5 py-1 text-xs font-semibold text-black">Free</span>
-              )}
+              <span className="rounded-lg bg-success px-2.5 py-1 text-xs font-semibold text-black">Free</span>
             </div>
             <h1 className="mt-4 font-heading text-4xl font-bold md:text-5xl">{course.title}</h1>
             <p className="mt-3 text-lg text-muted-foreground">{course.subtitle}</p>
@@ -92,7 +88,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           </section>
           <section aria-labelledby="syllabus">
             <h2 id="syllabus" className="mb-4 font-heading text-2xl font-bold">Syllabus</h2>
-            <Syllabus courseId={course.id} slug={course.slug} isPro={course.isPro} modules={course.modules} />
+            <Syllabus courseId={course.id} slug={course.slug} modules={course.modules} />
           </section>
           <section aria-labelledby="reviews">
             <h2 id="reviews" className="font-heading text-2xl font-bold">Ratings & reviews</h2>
@@ -136,7 +132,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         </div>
         <aside>
           <div className="sticky top-20">
-            <EnrollCard courseId={course.id} slug={course.slug} isPro={course.isPro} priceInr={course.priceInr} firstLesson={first} />
+            <EnrollCard courseId={course.id} slug={course.slug} firstLesson={first} />
           </div>
         </aside>
       </div>

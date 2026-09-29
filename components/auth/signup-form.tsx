@@ -50,7 +50,7 @@ export function SignupForm({ next, google, github }: { next: string; google: boo
         <motion.div key="form" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} className="space-y-6">
           <div className="space-y-2">
             <h1 className="font-heading text-3xl font-bold">Create your account</h1>
-            <p className="text-muted-foreground">Free forever. Upgrade to Pro any time.</p>
+            <p className="text-muted-foreground">100% free. No credit card, ever.</p>
           </div>
           <SocialButtons google={google} github={github} next={next} />
           {error ? (

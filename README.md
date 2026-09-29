@@ -2,7 +2,7 @@
 
 **Learn · Practice · Compete · Get hired.** A premium coding-education platform that combines in-depth tutorials (GeeksforGeeks), a browser IDE with a judge (LeetCode) and structured courses (Coursera) — with immersive 3D, cinematic scroll animations and a full student + admin panel.
 
-**Features:** courses & lesson player · MDX tutorials with runnable code · 30 judged DSA problems in 6 languages · playground, visualizers & 3D DS lab · DSA sheets & roadmaps · rated contests (ICPC scoring, live/frozen leaderboard, Elo ratings, 3D podium) · timed quizzes & mock tests with negative marking · doubts forum · verifiable PDF certificates with QR · AI tutor · gamification (XP, levels, streaks, badges) · Pro subscriptions via Razorpay · English + हिन्दी UI · full admin CMS.
+**100% free — no plans, no paywalls.** **Features:** courses & lesson player · MDX tutorials with runnable code · 30 judged DSA problems in 6 languages · playground, visualizers & 3D DS lab · DSA sheets & roadmaps · rated contests (ICPC scoring, live/frozen leaderboard, Elo ratings, 3D podium) · timed quizzes & mock tests with negative marking · doubts forum · verifiable PDF certificates with QR · AI tutor · gamification (XP, levels, streaks, badges) · English + हिन्दी UI · full admin CMS.
 
 Built with Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 · shadcn/ui · Prisma 7 + PostgreSQL · Better Auth · three.js / R3F · GSAP · Motion · Monaco · Judge0.
 
@@ -62,7 +62,6 @@ Only `DATABASE_URL` and `BETTER_AUTH_SECRET` are required. Everything else is op
 | `MEILISEARCH_HOST/API_KEY` | Search | Meilisearch Cloud / Docker | Postgres full-text search |
 | `PUSHER_*`, `NEXT_PUBLIC_PUSHER_*` | Realtime leaderboard & notifications | [pusher.com](https://dashboard.pusher.com) | Polling every few seconds |
 | `CLOUDINARY_URL` | Media uploads | [cloudinary.com](https://console.cloudinary.com) | Files saved to `public/uploads` |
-| `RAZORPAY_*` | Pro subscriptions | [Razorpay dashboard](https://dashboard.razorpay.com/app/keys) (Test Mode) | Mock checkout |
 
 OAuth callback URLs: `{APP_URL}/api/auth/callback/google` and `{APP_URL}/api/auth/callback/github`.
 
@@ -112,7 +111,7 @@ Then set `JUDGE0_URL=https://judge0.your-domain.com` and `JUDGE0_AUTH_TOKEN=<AUT
 ## Project structure
 
 ```
-app/(marketing)   landing, catalog, pricing, about, contact, blog, legal
+app/(marketing)   landing, catalog, about, contact, blog, legal
 app/(learn)       courses, tutorials, problems, playground, visualizers, sheets, roadmaps, lab, quizzes, contests, doubts
 app/(auth)        login, signup, forgot/reset password, verify email
 app/dashboard     student panel (protected)
@@ -145,7 +144,7 @@ prisma/           schema, migrations, seed + seed data
    - Required: `DATABASE_URL` and `BETTER_AUTH_SECRET`. `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` are optional on Vercel — when unset the app uses Vercel's production domain automatically, and preview deployments are trusted for login. Set them once you add a custom domain.
    - Functions are pinned to `iad1` in `vercel.json` (closest to a Neon `us-east` database). Change it if your database lives elsewhere, e.g. `bom1` for Neon Mumbai.
    - Strongly recommended on Vercel: `CLOUDINARY_URL` (the filesystem is read-only/ephemeral, so the `public/uploads` fallback won't persist) and `RESEND_API_KEY` (console-logged emails aren't visible to users).
-   - Optional: Judge0, OpenAI, Pusher, Meilisearch, Razorpay, Google/GitHub OAuth — each feature falls back gracefully when its keys are missing.
+   - Optional: Judge0, OpenAI, Pusher, Meilisearch, Google/GitHub OAuth — each feature falls back gracefully when its keys are missing.
 4. **Migrate** the production database once (and after every schema change):
    ```bash
    DATABASE_URL="<neon-url>" npx prisma migrate deploy
@@ -153,7 +152,6 @@ prisma/           schema, migrations, seed + seed data
    ```
 5. **Deploy**, then point integrations at the production domain:
    - OAuth callbacks: `{APP_URL}/api/auth/callback/google` and `/github`.
-   - Razorpay → Settings → Webhooks: URL `{APP_URL}/api/payments/webhook`, events `payment.captured`, `order.paid`, `payment.failed`, `refund.processed`; set the same secret as `RAZORPAY_WEBHOOK_SECRET`.
    - Judge0: use a self-hosted instance (`JUDGE0_URL` + `JUDGE0_AUTH_TOKEN`) for real traffic; RapidAPI's free tier is rate-limited.
 6. **Custom domain** — add it under Project → Domains, then update `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` and redeploy (the sitemap, OG images and certificate QR codes use `NEXT_PUBLIC_APP_URL`).
 

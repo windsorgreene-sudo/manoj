@@ -6,8 +6,6 @@ export type SeedCourse = {
   description: string;
   topic: string;
   level: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
-  isPro: boolean;
-  priceInr: number;
   color: string;
   featured: boolean;
   outcomes: string[];
@@ -23,8 +21,6 @@ export const courses: SeedCourse[] = [
       "Master the patterns top companies test. Each lesson pairs an in-depth tutorial with hand-picked problems you solve in the browser IDE, so theory turns into muscle memory. Finish with graph algorithms and dynamic programming.",
     topic: "DSA",
     level: "INTERMEDIATE",
-    isPro: false,
-    priceInr: 0,
     color: "#7C3AED",
     featured: true,
     outcomes: ["Analyse time & space complexity", "Apply two pointers, sliding window and binary search", "Implement trees, graphs and shortest paths", "Solve DP problems with a repeatable recipe"],
@@ -80,8 +76,6 @@ export const courses: SeedCourse[] = [
       "Start from zero and become productive in Python. Learn the built-in data structures, functions and decorators, object-oriented design and lazy evaluation — all with runnable examples.",
     topic: "Python",
     level: "BEGINNER",
-    isPro: false,
-    priceInr: 0,
     color: "#06B6D4",
     featured: true,
     outcomes: ["Write idiomatic Python", "Use lists, dicts and sets efficiently", "Build classes and dataclasses", "Process data lazily with generators"],
@@ -114,8 +108,6 @@ export const courses: SeedCourse[] = [
       "Go beyond syntax. Understand how JavaScript actually executes, write asynchronous code with confidence and use the modern array toolkit that every React and Node developer relies on.",
     topic: "JavaScript",
     level: "INTERMEDIATE",
-    isPro: false,
-    priceInr: 0,
     color: "#F59E0B",
     featured: true,
     outcomes: ["Master scope and closures", "Write async code with async/await", "Predict event-loop ordering", "Use functional array methods"],
@@ -143,11 +135,9 @@ export const courses: SeedCourse[] = [
     title: "Full-Stack Web Development",
     subtitle: "HTML, CSS, HTTP and REST APIs — build and ship real web apps.",
     description:
-      "Learn how the web works end to end: accessible semantic markup, responsive layouts with Flexbox and Grid, the HTTP protocol and designing REST APIs. The Pro edition includes capstone projects and code reviews.",
+      "Learn how the web works end to end: accessible semantic markup, responsive layouts with Flexbox and Grid, the HTTP protocol and designing REST APIs. Includes capstone projects to build your portfolio.",
     topic: "Web Development",
     level: "BEGINNER",
-    isPro: true,
-    priceInr: 1999,
     color: "#84CC16",
     featured: true,
     outcomes: ["Write accessible, semantic HTML", "Build responsive layouts", "Understand HTTP deeply", "Design and consume REST APIs"],
@@ -176,8 +166,6 @@ export const courses: SeedCourse[] = [
       "Everything about relational databases that interviews and production systems demand: the relational model, SQL joins, normal forms, ACID transactions and B+ tree indexes.",
     topic: "DBMS",
     level: "INTERMEDIATE",
-    isPro: true,
-    priceInr: 1499,
     color: "#EF4444",
     featured: false,
     outcomes: ["Design normalised schemas", "Write complex SQL joins", "Reason about isolation levels", "Speed up queries with indexes"],
@@ -208,8 +196,6 @@ export const courses: SeedCourse[] = [
       "A practical tour of operating-system internals with simulations you can run: processes vs threads, CPU scheduling, deadlock handling and virtual memory with paging.",
     topic: "Operating Systems",
     level: "ADVANCED",
-    isPro: false,
-    priceInr: 0,
     color: "#A78BFA",
     featured: false,
     outcomes: ["Explain processes and threads", "Compute scheduling metrics", "Prevent and detect deadlocks", "Understand paging and page replacement"],

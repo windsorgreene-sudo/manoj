@@ -7,11 +7,11 @@ const DAY = 86_400_000;
 const utcDay = (d = new Date()) => new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
 
 export const getProblemOfTheDay = cache(async () => {
-  const count = await db.problem.count({ where: { status: "PUBLISHED", isPremium: false } });
+  const count = await db.problem.count({ where: { status: "PUBLISHED" } });
   if (!count) return null;
   const dayIndex = Math.floor(utcDay().getTime() / DAY);
   const [p] = await db.problem.findMany({
-    where: { status: "PUBLISHED", isPremium: false },
+    where: { status: "PUBLISHED" },
     orderBy: { number: "asc" },
     skip: (dayIndex * 7) % count,
     take: 1,

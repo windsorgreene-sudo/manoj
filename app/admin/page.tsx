@@ -1,12 +1,12 @@
 import { nowMs } from "@/lib/utils";
 import Link from "next/link";
-import { Activity, IndianRupee, Send, UserPlus, Users } from "lucide-react";
+import { Activity, Send, UserPlus, Users } from "lucide-react";
 import { PageHeader } from "@/components/admin/ui";
 import { TrendChart } from "@/components/admin/charts";
 import { CountUp } from "@/components/motion/count-up";
 import { db } from "@/lib/db";
 import { publishDueArticles } from "@/lib/admin";
-import { formatInr, timeAgo } from "@/lib/utils";
+import { timeAgo } from "@/lib/utils";
 
 export const metadata = { title: "Overview" };
 
@@ -17,12 +17,11 @@ export default async function AdminOverview() {
   const now = nowMs();
   const today = new Date(new Date().setUTCHours(0, 0, 0, 0));
   const since30 = new Date(now - 30 * DAY);
-  const [totalUsers, dau, newSignups, subsToday, revenue, users30, subs30, audits, recentUsers, recentSubs, pendingReview, openReports] = await Promise.all([
+  const [totalUsers, dau, newSignups, subsToday, users30, subs30, audits, recentUsers, recentSubs, pendingReview, openReports] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { lastActiveAt: { gte: new Date(now - DAY) } } }),
     db.user.count({ where: { createdAt: { gte: new Date(now - 7 * DAY) } } }),
     db.submission.count({ where: { createdAt: { gte: today } } }),
-    db.payment.aggregate({ where: { status: "PAID", createdAt: { gte: since30 } }, _sum: { amountInr: true } }),
     db.user.findMany({ where: { createdAt: { gte: since30 } }, select: { createdAt: true } }),
     db.submission.findMany({ where: { createdAt: { gte: since30 } }, select: { createdAt: true, verdict: true } }),
     db.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 8, include: { actor: { select: { name: true } } } }),
@@ -48,7 +47,6 @@ export default async function AdminOverview() {
     { label: "Daily active users", value: dau, Icon: Activity, href: "/admin/analytics" },
     { label: "New signups (7d)", value: newSignups, Icon: UserPlus, href: "/admin/users?sort=createdAt&dir=desc" },
     { label: "Submissions today", value: subsToday, Icon: Send, href: "/admin/analytics" },
-    { label: "Revenue (30d)", value: revenue._sum.amountInr ?? 0, Icon: IndianRupee, href: "/admin/monetization", money: true },
   ];
 
   const feed = [
@@ -72,7 +70,7 @@ export default async function AdminOverview() {
         {kpis.map((k) => (
           <Link key={k.label} href={k.href} className="glass hover-glow p-5">
             <p className="flex items-center gap-2 text-sm text-muted-foreground"><k.Icon className="size-4 text-cyan" /> {k.label}</p>
-            <p className="mt-2 font-heading text-3xl font-bold">{k.money ? formatInr(k.value) : <CountUp value={k.value} />}</p>
+            <p className="mt-2 font-heading text-3xl font-bold"><CountUp value={k.value} /></p>
           </Link>
         ))}
       </div>

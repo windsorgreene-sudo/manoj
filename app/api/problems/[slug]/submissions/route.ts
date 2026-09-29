@@ -17,5 +17,5 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
     }),
     db.bookmark.findUnique({ where: { userId_problemId: { userId: user.id, problemId: problem.id } } }),
   ]);
-  return NextResponse.json({ signedIn: true, isPro: user.isPro || user.role !== "STUDENT", submissions, solved: submissions.some((s) => s.verdict === "ACCEPTED"), bookmarked: Boolean(bookmark) });
+  return NextResponse.json({ signedIn: true, submissions, solved: submissions.some((s) => s.verdict === "ACCEPTED"), bookmarked: Boolean(bookmark) });
 }

@@ -11,7 +11,6 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Account data</strong> — name, email, password hash, avatar and profile details you add (college, bio, links).</li>
         <li><strong>Learning activity</strong> — lessons completed, code you submit, quiz attempts, contest participation, notes and bookmarks.</li>
-        <li><strong>Payment data</strong> — handled by Razorpay; we store only the order ID, amount and status, never card numbers.</li>
         <li><strong>Usage data</strong> — pages visited, device type and approximate country, used in aggregate to improve the product.</li>
       </ul>
       <h2>How we use it</h2>

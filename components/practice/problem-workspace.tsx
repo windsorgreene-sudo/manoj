@@ -12,7 +12,6 @@ import {
   CheckCircle2,
   ChevronDown,
   Cloud,
-  Crown,
   KeyRound,
   Lightbulb,
   Loader2,
@@ -63,7 +62,6 @@ export type WorkspaceProblem = {
   companies: string[];
   hints: string[];
   starterCode: Record<string, string>;
-  isPremium: boolean;
   samples: { id: string; input: string; expected: string }[];
   totalTests: number;
   timeLimitMs: number;
@@ -83,10 +81,10 @@ type JudgeOut = {
   firstSolve?: boolean;
   xp?: { amount: number; awarded: boolean; leveledUp: boolean; level: number; streak: number; newBadges: { slug: string; name: string; icon: string; color: string }[] } | null;
 };
-type ConsoleState = { kind: "idle" } | { kind: "running"; mode: "run" | "submit" } | { kind: "error"; message: string; missingKey?: boolean; upgrade?: boolean } | { kind: "result"; mode: "run" | "submit"; data: JudgeOut };
+type ConsoleState = { kind: "idle" } | { kind: "running"; mode: "run" | "submit" } | { kind: "error"; message: string; missingKey?: boolean } | { kind: "result"; mode: "run" | "submit"; data: JudgeOut };
 
 type Sub = { id: string; verdict: string; language: LanguageKey; runtimeMs: number | null; memoryKb: number | null; passed: number; total: number; createdAt: string; code: string };
-type SubsResponse = { signedIn: boolean; isPro?: boolean; submissions: Sub[]; solved: boolean; bookmarked?: boolean };
+type SubsResponse = { signedIn: boolean; submissions: Sub[]; solved: boolean; bookmarked?: boolean };
 
 const storageKey = (slug: string, lang: string) => `cv-code:${slug}:${lang}`;
 
@@ -160,7 +158,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
         });
         const json = (await res.json()) as { result?: JudgeOut; error?: string; code?: string };
         if (!res.ok || !json.result) {
-          setOut({ kind: "error", message: json.error ?? "Something went wrong", missingKey: json.code === "JUDGE0_MISSING", upgrade: json.code === "UPGRADE" });
+          setOut({ kind: "error", message: json.error ?? "Something went wrong", missingKey: json.code === "JUDGE0_MISSING" });
           return;
         }
         setOut({ kind: "result", mode, data: json.result });
@@ -225,11 +223,6 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
             <DifficultyBadge difficulty={problem.difficulty} />
-            {problem.isPremium ? (
-              <span className="flex items-center gap-1 rounded-md bg-warning/15 px-2 py-0.5 font-semibold text-warning">
-                <Crown className="size-3" /> Pro
-              </span>
-            ) : null}
             {problem.topics.map((t) => (
               <Link key={t} href={`/problems?topic=${encodeURIComponent(t)}`} className="rounded-md bg-surface-2 px-2 py-0.5 text-muted-foreground hover:text-foreground">
                 {t}
@@ -456,11 +449,6 @@ function ConsoleResult({ state }: { state: ConsoleState }) {
     ) : (
       <p className="text-sm text-danger" role="alert">
         {state.message}{" "}
-        {state.upgrade ? (
-          <Link href="/pricing" className="underline">
-            Upgrade
-          </Link>
-        ) : null}
       </p>
     );
   const d = state.data;

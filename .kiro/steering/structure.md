@@ -7,7 +7,7 @@ inclusion: always
 ## Folder structure (from section 9)
 ```
 app/
-  (marketing)/   landing, catalog, pricing, about, contact, blog, legal, write-for-us
+  (marketing)/   landing, catalog, about, contact, blog, legal, write-for-us
   (learn)/       courses/[slug], tutorials/[...slug], problems, playground, visualizers, sheets, roadmaps, lab, quizzes, contests, doubts
   (auth)/        login, signup, forgot-password, reset-password, verify-email
   dashboard/     student panel (protected)

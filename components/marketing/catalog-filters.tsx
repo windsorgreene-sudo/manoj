@@ -43,16 +43,8 @@ export function CatalogFilters({ topics, languages }: { topics: string[]; langua
       ],
     },
     { key: "language", label: "Language", options: languages.map((l) => ({ value: l, label: l })) },
-    {
-      key: "price",
-      label: "Price",
-      options: [
-        { value: "free", label: "Free" },
-        { value: "pro", label: "Pro" },
-      ],
-    },
   ];
-  const active = ["q", "topic", "level", "language", "price", "sort"].some((k) => params.get(k));
+  const active = ["q", "topic", "level", "language", "sort"].some((k) => params.get(k));
 
   return (
     <div className="glass flex flex-col gap-3 p-4 lg:flex-row lg:items-center" role="search" aria-label="Filter courses">

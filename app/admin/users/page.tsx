@@ -21,7 +21,7 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
   const page = Math.max(1, Number(sp.page) || 1);
   const [total, rows] = await Promise.all([
     db.user.count({ where }),
-    db.user.findMany({ where, orderBy, skip: (page - 1) * SIZE, take: SIZE, select: { id: true, name: true, email: true, role: true, banned: true, isPro: true, createdAt: true, lastActiveAt: true, profile: { select: { xp: true } } } }),
+    db.user.findMany({ where, orderBy, skip: (page - 1) * SIZE, take: SIZE, select: { id: true, name: true, email: true, role: true, banned: true, createdAt: true, lastActiveAt: true, profile: { select: { xp: true } } } }),
   ]);
   const base = "/admin/users";
   return (
@@ -34,7 +34,7 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
         <tbody>
           {rows.map((u) => (
             <tr key={u.id} className={trCls}>
-              <td className={tdCls}><Link href={`/admin/users/${u.id}`} className="font-medium hover:text-cyan">{u.name}</Link>{u.isPro ? <span className="ml-2 text-[10px] text-warning">PRO</span> : null}</td>
+              <td className={tdCls}><Link href={`/admin/users/${u.id}`} className="font-medium hover:text-cyan">{u.name}</Link></td>
               <td className={`${tdCls} text-muted-foreground`}>{u.email}</td>
               <td className={tdCls}>{u.banned ? <StatusBadge status="BANNED" /> : <span className="text-xs">{u.role}</span>}</td>
               <td className={`${tdCls} tabular-nums`}>{u.profile?.xp ?? 0}</td>

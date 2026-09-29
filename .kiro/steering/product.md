@@ -9,8 +9,8 @@ inclusion: always
 Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
 
 ## 5. Public Pages
-- Landing: 3D hero, features, popular courses, learning paths, testimonials, stats, pricing (Free vs Pro: premium courses, unlimited AI tutor, mock tests), FAQ, newsletter footer
-- Course catalog: filters (topic, level, language, free/pro), sorting, search
+- Landing: 3D hero, features, popular courses, learning paths, testimonials, stats, "everything is free" section, FAQ, newsletter footer
+- Course catalog: filters (topic, level, language), sorting, search
 - Course detail: syllabus accordion, free preview lessons, ratings & reviews, enroll button
 - Tutorial / Article page (GeeksforGeeks style):
   - 3 columns: collapsible topic tree | MDX article | table of contents with scroll-spy
@@ -61,7 +61,9 @@ Roles: STUDENT, CONTRIBUTOR (writes articles), ADMIN.
 - Moderation: reported content, comments and doubts queue
 - Media library: upload, search, delete
 - Analytics: most-read articles, hardest problems, course drop-off funnel, retention cohorts, device & country breakdown
-- Monetization: plans, subscriptions, coupons, payment history
 - Announcements: site-wide banner, in-app and email notifications
 - Settings: branding, feature flags, maintenance mode
 - Audit log of every admin action
+
+## Business model
+- CodeVerse is 100% free. Never add paid plans, "Pro" badges, paywalls, prices, checkout or "Upgrade" CTAs.

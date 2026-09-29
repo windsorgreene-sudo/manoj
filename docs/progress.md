@@ -23,9 +23,9 @@
 - [x] SplitText headline + typewriter code snippet
 - [x] Scroll storytelling: pinned 4 chapters (Learn → Practice → Compete → Get Hired)
 - [x] Count-up stats, 3D tilt course cards, horizontal carousel, logo marquee
-- [x] Features, popular courses, learning paths, testimonials, pricing, FAQ, newsletter footer
+- [x] Features, popular courses, learning paths, testimonials, "everything is free" section, FAQ, newsletter footer
 - [x] Course catalog (filters, sorting, search)
-- [x] Pricing, About, Contact, Blog, Privacy, Terms, Write for Us
+- [x] About, Contact, Blog, Privacy, Terms, Write for Us
 - [x] 3D 404 (astronaut) and 500 pages
 - [x] Lint + type-check + build green; commit "Phase 2: 3D Landing & Marketing"
 
@@ -77,7 +77,6 @@
 - [x] Announcements
 - [x] Settings (branding, feature flags, maintenance)
 - [x] Audit log
-- Note: monetization pages (plans, coupons, payments) ship with Phase 7 payments.
 - [x] Lint + type-check + build green; commit "Phase 6: Admin Panel"
 
 ## Phase 7 — Contests, Payments & Launch
@@ -85,7 +84,7 @@
 - [x] Quizzes & mock tests (timer, negative marking, analysis)
 - [x] Certificates (PDF + QR verification page)
 - [x] Doubts forum
-- [x] Pro subscriptions (Razorpay / mock checkout) + admin monetization
+- [x] ~~Pro subscriptions~~ — removed: the platform is 100% free (no plans, payments or paywalls)
 - [x] Hindi translation (next-intl)
 - [x] SEO: sitemap, robots, OG images, JSON-LD
 - [x] Final performance + accessibility pass
@@ -102,7 +101,6 @@
 | `PUSHER_*` | `lib/realtime.ts` publish() no-ops; leaderboards/notifications poll | `lib/realtime.ts` |
 | `CLOUDINARY_*` | Uploads (avatars, media) saved to `public/uploads` | `lib/uploads.ts` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
-| `RAZORPAY_*` | Mock checkout dialog (simulate success/failure); webhook returns 503 | `lib/payments.ts`, `components/payments/checkout-form.tsx` |
 
 Notes:
 - Next.js 16 renamed `middleware.ts` → `proxy.ts`; route protection lives in `proxy.ts` + `lib/session.ts` server guards.

@@ -24,7 +24,6 @@ const problemSchema = z.object({
   starterCode: z.record(z.enum(LANGUAGES), z.string().max(20_000)),
   timeLimitMs: z.number().int().min(250).max(15_000),
   memoryLimitMb: z.number().int().min(16).max(512),
-  isPremium: z.boolean(),
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),
   testCases: z.array(testSchema).min(1, "Add at least one test case").max(200),
 });

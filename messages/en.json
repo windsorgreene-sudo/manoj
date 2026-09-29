@@ -4,7 +4,6 @@
     "tutorials": "Tutorials",
     "problems": "Problems",
     "contests": "Contests",
-    "pricing": "Pricing",
     "practice": "Practice",
     "playground": "Playground",
     "playgroundDesc": "Online compiler for 6 languages",
@@ -66,7 +65,6 @@
     "achievements": "Achievements",
     "leaderboards": "Leaderboards",
     "certificates": "Certificates",
-    "billing": "Billing",
     "notifications": "Notifications",
     "settings": "Settings",
     "articles": "My Articles"

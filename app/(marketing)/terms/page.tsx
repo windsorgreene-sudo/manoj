@@ -19,8 +19,8 @@ export default function TermsPage() {
       <p>You keep ownership of code, notes, comments and articles you create. You grant CodeVerse a licence to host and display content you choose to make public (comments, answers, published articles).</p>
       <h2>4. Contributors</h2>
       <p>Approved contributors grant CodeVerse a non-exclusive licence to publish their articles. Articles are reviewed before publication and may be edited for clarity.</p>
-      <h2>5. Pro subscriptions</h2>
-      <p>Pro renews automatically until cancelled. You can cancel anytime from Settings; access continues until the end of the paid period. First-time subscribers may request a full refund within 7 days.</p>
+      <h2>5. Free service</h2>
+      <p>CodeVerse is free to use. We don&apos;t sell plans or charge for any feature. Features may change as the platform evolves.</p>
       <h2>6. Certificates</h2>
       <p>Certificates confirm course completion on CodeVerse. They can be revoked if obtained through academic dishonesty.</p>
       <h2>7. Disclaimers</h2>

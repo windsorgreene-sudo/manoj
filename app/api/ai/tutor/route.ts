@@ -17,10 +17,6 @@ export async function POST(req: NextRequest) {
   if (!rateLimit(`ai:${user.id}`, limits.ai.limit, limits.ai.windowMs).success) {
     return NextResponse.json({ error: "You're sending messages too quickly. Wait a minute." }, { status: 429 });
   }
-  const unlimited = user.isPro || user.role !== "STUDENT";
-  if (!unlimited && !rateLimit(`ai-day:${user.id}`, 5, 86_400_000).success) {
-    return NextResponse.json({ error: "You've used your 5 free tutor messages today. Upgrade to Pro for unlimited help.", code: "UPGRADE" }, { status: 429 });
-  }
 
   const parsed = tutorSchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid request" }, { status: 400 });

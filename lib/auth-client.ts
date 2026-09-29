@@ -8,7 +8,6 @@ export const authClient = createAuthClient({
       user: {
         role: { type: "string", input: false },
         username: { type: "string", required: false, input: false },
-        isPro: { type: "boolean", input: false },
         banned: { type: "boolean", input: false },
       },
     }),

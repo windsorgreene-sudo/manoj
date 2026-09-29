@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { BookOpen, Clock, Crown, Star, Users } from "lucide-react";
+import { BookOpen, Clock, Star, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { CourseCardData } from "@/lib/queries/courses";
-import { cn, formatInr } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const LEVEL_LABEL = { BEGINNER: "Beginner", INTERMEDIATE: "Intermediate", ADVANCED: "Advanced" } as const;
 
@@ -19,13 +19,7 @@ export function CourseCard({ course, className }: { course: CourseCardData; clas
           <Badge variant="secondary" className="rounded-lg bg-black/30 text-white backdrop-blur">
             {course.topic}
           </Badge>
-          {course.isPro ? (
-            <Badge className="rounded-lg bg-warning text-black">
-              <Crown className="size-3" /> Pro
-            </Badge>
-          ) : (
-            <Badge className="rounded-lg bg-success text-black">Free</Badge>
-          )}
+          <Badge className="rounded-lg bg-success text-black">Free</Badge>
         </div>
         <p className="absolute bottom-4 left-5 font-heading text-2xl font-bold text-white drop-shadow">{course.title}</p>
       </div>
@@ -47,7 +41,7 @@ export function CourseCard({ course, className }: { course: CourseCardData; clas
         </div>
         <div className="flex items-center justify-between border-t border-border pt-4 text-sm">
           <span className="text-muted-foreground">{LEVEL_LABEL[course.level]}</span>
-          <span className="font-semibold">{course.isPro ? formatInr(course.priceInr) : "Free"}</span>
+          <span className="font-semibold">Free</span>
         </div>
       </div>
     </Link>

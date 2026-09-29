@@ -16,8 +16,6 @@ const courseSchema = z.object({
   topic: z.string().trim().min(2).max(60),
   level: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]),
   language: z.string().trim().min(2).max(40),
-  isPro: z.boolean(),
-  priceInr: z.number().int().min(0).max(100_000),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   featured: z.boolean(),
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),

@@ -59,7 +59,7 @@ export function TutorPanel() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [hintLevel, setHintLevel] = useState(1);
-  const [error, setError] = useState<{ text: string; upgrade?: boolean; login?: boolean } | null>(null);
+  const [error, setError] = useState<{ text: string; login?: boolean } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   // New context → fresh conversation (state reset during render, React-recommended pattern).
@@ -90,7 +90,7 @@ export function TutorPanel() {
       });
       if (!res.ok || !res.body) {
         const j = (await res.json().catch(() => ({}))) as { error?: string; code?: string };
-        setError({ text: j.error ?? "The tutor is unavailable right now.", upgrade: j.code === "UPGRADE", login: res.status === 401 });
+        setError({ text: j.error ?? "The tutor is unavailable right now.", login: res.status === 401 });
         setMsgs(history);
         return;
       }
@@ -160,11 +160,7 @@ export function TutorPanel() {
           {error ? (
             <div className="rounded-xl border border-warning/40 bg-warning/10 p-3 text-sm" role="alert">
               {error.text}{" "}
-              {error.upgrade ? (
-                <Link href="/pricing" className="font-semibold underline">
-                  Upgrade
-                </Link>
-              ) : error.login ? (
+              {error.login ? (
                 <Link href="/login" className="font-semibold underline">
                   Log in
                 </Link>

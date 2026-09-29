@@ -90,7 +90,6 @@ export function ProblemEditor({ initial }: { initial: ProblemInput }) {
           <div className="space-y-1.5"><Label htmlFor="p-comp">Company tags</Label><Input id="p-comp" value={companies} onChange={(e) => setCompanies(e.target.value)} className="rounded-xl" /></div>
           <div className="space-y-1.5"><Label htmlFor="p-tl">Time limit (ms)</Label><Input id="p-tl" type="number" value={p.timeLimitMs} onChange={(e) => setP({ ...p, timeLimitMs: Number(e.target.value) })} className="rounded-xl" /></div>
           <div className="space-y-1.5"><Label htmlFor="p-ml">Memory limit (MB)</Label><Input id="p-ml" type="number" value={p.memoryLimitMb} onChange={(e) => setP({ ...p, memoryLimitMb: Number(e.target.value) })} className="rounded-xl" /></div>
-          <label className="flex items-center gap-2 text-sm"><Switch checked={p.isPremium} onCheckedChange={(v) => setP({ ...p, isPremium: v })} aria-label="Pro problem" /> Pro-only problem</label>
         </TabsContent>
         <TabsContent value="code" className="glass mt-3 p-5">
           <Tabs defaultValue="PYTHON">

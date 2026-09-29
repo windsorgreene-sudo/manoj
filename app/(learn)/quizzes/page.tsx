@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Clock, Crown, FileQuestion, MinusCircle, Timer } from "lucide-react";
+import { Clock, FileQuestion, MinusCircle, Timer } from "lucide-react";
 import { db } from "@/lib/db";
 import { EmptyState } from "@/components/ui/empty-state";
 import { cn } from "@/lib/utils";
@@ -70,7 +70,6 @@ export default async function QuizzesPage({ searchParams }: { searchParams: SP }
             <Link key={q.id} href={`/quizzes/${q.slug}`} className="glass gradient-border hover-glow flex flex-col p-6">
               <div className="flex items-center gap-2">
                 <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", q.isMockTest ? "bg-warning/15 text-warning" : "bg-cyan/15 text-cyan")}>{q.isMockTest ? "Mock test" : q.articleId ? "Tutorial check" : "Quiz"}</span>
-                {q.isPro ? <span className="inline-flex items-center gap-1 rounded-full bg-brand/20 px-2.5 py-0.5 text-xs font-semibold text-brand"><Crown className="size-3" /> Pro</span> : null}
                 <span className="ml-auto text-xs text-muted-foreground">{q.topic}</span>
               </div>
               <h2 className="mt-4 text-lg font-semibold">{q.title}</h2>

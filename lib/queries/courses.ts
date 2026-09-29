@@ -9,8 +9,6 @@ export const courseCardSelect = {
   subtitle: true,
   topic: true,
   level: true,
-  isPro: true,
-  priceInr: true,
   color: true,
   durationMins: true,
   language: true,
@@ -27,8 +25,6 @@ export type CourseCardData = {
   subtitle: string;
   topic: string;
   level: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
-  isPro: boolean;
-  priceInr: number;
   color: string;
   durationMins: number;
   language: string;
@@ -50,8 +46,6 @@ export async function withRatings(rows: Row[]): Promise<CourseCardData[]> {
     subtitle: r.subtitle,
     topic: r.topic,
     level: r.level,
-    isPro: r.isPro,
-    priceInr: r.priceInr,
     color: r.color,
     durationMins: r.durationMins,
     language: r.language,
@@ -67,7 +61,7 @@ export async function getFeaturedCourses() {
   return withRatings(rows);
 }
 
-export type CatalogFilters = { q?: string; topic?: string; level?: string; language?: string; price?: string; sort?: string };
+export type CatalogFilters = { q?: string; topic?: string; level?: string; language?: string; sort?: string };
 
 export async function getCatalog(f: CatalogFilters) {
   const where: Prisma.CourseWhereInput = { status: "PUBLISHED" };
@@ -75,8 +69,6 @@ export async function getCatalog(f: CatalogFilters) {
   if (f.topic) where.topic = f.topic;
   if (f.level && ["BEGINNER", "INTERMEDIATE", "ADVANCED"].includes(f.level)) where.level = f.level as Row["level"];
   if (f.language) where.language = f.language;
-  if (f.price === "free") where.isPro = false;
-  if (f.price === "pro") where.isPro = true;
   const orderBy: Prisma.CourseOrderByWithRelationInput[] =
     f.sort === "newest"
       ? [{ createdAt: "desc" }]

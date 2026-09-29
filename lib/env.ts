@@ -9,7 +9,6 @@ export const integrations = {
   cloudinary: () => Boolean(process.env.CLOUDINARY_URL || (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET)),
   judge0: () => Boolean(process.env.JUDGE0_URL || process.env.JUDGE0_RAPIDAPI_KEY),
   ai: () => Boolean(process.env.OPENAI_API_KEY),
-  razorpay: () => Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET),
 } as const;
 
 export type IntegrationName = keyof typeof integrations;

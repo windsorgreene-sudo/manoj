@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { CheckCircle2, Crown, Loader2, Lock, PlayCircle, Star } from "lucide-react";
+import { CheckCircle2, Loader2, Lock, PlayCircle, Star } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { enrollInCourse, getCourseUserState, submitReview } from "@/lib/actions/learn";
-import { cn, formatInr } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 type Lesson = { id: string; slug: string; title: string; type: "ARTICLE" | "VIDEO" | "PROBLEM" | "QUIZ"; durationMins: number; isPreview: boolean };
 type Mod = { id: string; title: string; lessons: Lesson[] };
@@ -52,7 +52,7 @@ function ProgressRing({ pct, size = 56 }: { pct: number; size?: number }) {
 }
 export { ProgressRing };
 
-export function EnrollCard({ courseId, slug, isPro, priceInr, firstLesson }: { courseId: string; slug: string; isPro: boolean; priceInr: number; firstLesson: string }) {
+export function EnrollCard({ courseId, slug, firstLesson }: { courseId: string; slug: string; firstLesson: string }) {
   const { data, isLoading } = useCourseState(courseId);
   const qc = useQueryClient();
   const router = useRouter();
@@ -70,10 +70,9 @@ export function EnrollCard({ courseId, slug, isPro, priceInr, firstLesson }: { c
   };
 
   if (isLoading) return <div className="shimmer h-40 rounded-2xl" />;
-  const locked = isPro && !data?.isPro;
   return (
     <div className="glass space-y-4 p-6">
-      <p className="font-heading text-3xl font-bold">{isPro ? formatInr(priceInr) : "Free"}</p>
+      <p className="font-heading text-3xl font-bold">Free</p>
       {data?.enrolled ? (
         <>
           <div className="flex items-center gap-4">
@@ -89,15 +88,6 @@ export function EnrollCard({ courseId, slug, isPro, priceInr, firstLesson }: { c
             </Link>
           </Button>
         </>
-      ) : locked && data?.signedIn ? (
-        <>
-          <p className="text-sm text-muted-foreground">This course is part of CodeVerse Pro. Preview lessons are free.</p>
-          <Button asChild className="h-11 w-full rounded-xl bg-warning text-black hover:bg-warning/90">
-            <Link href="/pricing">
-              <Crown /> Upgrade to Pro
-            </Link>
-          </Button>
-        </>
       ) : (
         <Button onClick={enroll} disabled={busy} className="h-11 w-full rounded-xl">
           {busy ? <Loader2 className="animate-spin" /> : null} {data?.signedIn ? "Enroll now" : "Log in to enroll"}
@@ -107,10 +97,10 @@ export function EnrollCard({ courseId, slug, isPro, priceInr, firstLesson }: { c
   );
 }
 
-export function Syllabus({ courseId, slug, modules, isPro }: { courseId: string; slug: string; modules: Mod[]; isPro: boolean }) {
+export function Syllabus({ courseId, slug, modules }: { courseId: string; slug: string; modules: Mod[] }) {
   const { data } = useCourseState(courseId);
   const done = new Set(data?.completed ?? []);
-  const canOpen = (l: Lesson) => l.isPreview || (data?.enrolled && (!isPro || data.isPro));
+  const canOpen = (l: Lesson) => l.isPreview || Boolean(data?.enrolled);
   return (
     <Accordion type="multiple" defaultValue={[modules[0]?.id]} className="glass px-5">
       {modules.map((m, mi) => (

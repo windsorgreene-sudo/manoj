@@ -6,7 +6,7 @@ import {
   FeaturesSection,
   LearningPathsSection,
   NewsletterCta,
-  PricingSection,
+  FreeSection,
   StatsSection,
   TechMarquee,
   TestimonialsSection,
@@ -38,7 +38,7 @@ export default async function HomePage() {
       <CourseCarousel courses={courses} />
       <LearningPathsSection />
       <TestimonialsSection />
-      <PricingSection compact />
+      <FreeSection />
       <FaqSection />
       <NewsletterCta />
     </>

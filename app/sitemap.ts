@@ -4,7 +4,7 @@ import { appUrl } from "@/lib/utils";
 
 export const revalidate = 3600;
 
-const STATIC = ["", "/courses", "/tutorials", "/problems", "/contests", "/quizzes", "/doubts", "/sheets", "/roadmaps", "/visualizers", "/lab", "/playground", "/leaderboard", "/pricing", "/about", "/contact", "/blog", "/write-for-us", "/privacy", "/terms", "/verify"];
+const STATIC = ["", "/courses", "/tutorials", "/problems", "/contests", "/quizzes", "/doubts", "/sheets", "/roadmaps", "/visualizers", "/lab", "/playground", "/leaderboard", "/about", "/contact", "/blog", "/write-for-us", "/privacy", "/terms", "/verify"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = appUrl();

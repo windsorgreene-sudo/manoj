@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Crown, FileQuestion, History, Lock, Timer } from "lucide-react";
+import { ArrowLeft, FileQuestion, History, Timer } from "lucide-react";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { QuizPlayer } from "@/components/quizzes/quiz-player";
 import { JsonLd, breadcrumbLd } from "@/components/seo/json-ld";
-import { Button } from "@/components/ui/button";
+
 import { appUrl, formatDate } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -27,7 +27,6 @@ export default async function QuizPage({ params }: Props) {
     }),
   ]);
   if (!quiz || !quiz.isPublished) notFound();
-  const locked = quiz.isPro && !(user?.isPro || user?.role === "ADMIN");
   const history = user ? await db.quizAttempt.findMany({ where: { userId: user.id, quizId: quiz.id }, orderBy: { createdAt: "desc" }, take: 5, select: { id: true, score: true, maxScore: true, createdAt: true, timeTakenS: true } }) : [];
   const maxMarks = quiz.questions.reduce((s, q) => s + q.marks, 0);
 
@@ -44,7 +43,6 @@ export default async function QuizPage({ params }: Props) {
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{quiz.isMockTest ? "Mock test" : "Quiz"} · {quiz.topic}</p>
         <h1 className="mt-3 flex flex-wrap items-center gap-3 font-heading text-3xl font-bold md:text-4xl">
           {quiz.title}
-          {quiz.isPro ? <span className="inline-flex items-center gap-1 rounded-full bg-brand/20 px-3 py-1 text-sm font-semibold text-brand"><Crown className="size-4" /> Pro</span> : null}
         </h1>
         <p className="mt-3 text-muted-foreground">{quiz.description}</p>
         <p className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
@@ -57,15 +55,6 @@ export default async function QuizPage({ params }: Props) {
       <div className="mt-10">
         {quiz.questions.length === 0 ? (
           <p className="glass p-8 text-center text-muted-foreground">This test has no questions yet.</p>
-        ) : locked ? (
-          <div className="glass gradient-border mx-auto max-w-xl p-8 text-center">
-            <Lock className="mx-auto size-10 text-brand" />
-            <h2 className="mt-4 font-heading text-2xl font-bold">This mock test is part of Pro</h2>
-            <p className="mt-2 text-muted-foreground">Unlock every mock test with detailed analysis, premium problems, unlimited AI tutor and verified certificates.</p>
-            <Button asChild size="lg" className="mt-6 rounded-xl">
-              <Link href={user ? "/checkout/pro-monthly" : `/signup?next=${encodeURIComponent("/checkout/pro-monthly")}`}><Crown /> Upgrade to Pro</Link>
-            </Button>
-          </div>
         ) : (
           <QuizPlayer
             signedIn={Boolean(user)}

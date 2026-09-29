@@ -9,7 +9,7 @@ import { getCatalog, getCatalogFacets, type CatalogFilters as Filters } from "@/
 
 export const metadata: Metadata = {
   title: "Courses",
-  description: "Structured courses in DSA, Python, JavaScript, Web Development, DBMS and Operating Systems — free and Pro.",
+  description: "Structured courses in DSA, Python, JavaScript, Web Development, DBMS and Operating Systems — all completely free.",
   alternates: { canonical: "/courses" },
 };
 

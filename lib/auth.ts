@@ -69,7 +69,6 @@ export const auth = betterAuth({
     additionalFields: {
       role: { type: "string", defaultValue: "STUDENT", input: false },
       username: { type: "string", required: false, input: false },
-      isPro: { type: "boolean", defaultValue: false, input: false },
       banned: { type: "boolean", defaultValue: false, input: false },
     },
   },

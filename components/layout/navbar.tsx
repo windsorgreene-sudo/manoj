@@ -33,7 +33,6 @@ export function Navbar() {
         image: session.user.image ?? null,
         role: (session.user.role as SessionUser["role"]) ?? "STUDENT",
         username: session.user.username ?? null,
-        isPro: Boolean(session.user.isPro),
       }
     : null;
   const [scrolled, setScrolled] = useState(false);

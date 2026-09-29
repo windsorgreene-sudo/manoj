@@ -80,10 +80,8 @@ export function CourseEditor({ course, modules: initialModules, refs }: { course
         <div className="space-y-1.5"><Label htmlFor="c-level">Level</Label><select id="c-level" className={cn(selectCls, "w-full")} value={c.level} onChange={(e) => setC({ ...c, level: e.target.value as CourseInput["level"] })}><option>BEGINNER</option><option>INTERMEDIATE</option><option>ADVANCED</option></select></div>
         {f("language", "Language")}
         <div className="space-y-1.5"><Label htmlFor="c-status">Status</Label><select id="c-status" className={cn(selectCls, "w-full")} value={c.status} onChange={(e) => setC({ ...c, status: e.target.value as CourseInput["status"] })}><option>DRAFT</option><option>PUBLISHED</option><option>ARCHIVED</option></select></div>
-        {f("priceInr", "Price (₹)", "number")}
         <div className="space-y-1.5"><Label htmlFor="c-color">Accent colour</Label><Input id="c-color" type="color" value={c.color} onChange={(e) => setC({ ...c, color: e.target.value })} className="h-9 rounded-xl p-1" /></div>
         <div className="flex items-center gap-6 pt-6">
-          <label className="flex items-center gap-2 text-sm"><Switch checked={c.isPro} onCheckedChange={(v) => setC({ ...c, isPro: v })} aria-label="Pro course" /> Pro</label>
           <label className="flex items-center gap-2 text-sm"><Switch checked={c.featured} onCheckedChange={(v) => setC({ ...c, featured: v })} aria-label="Featured" /> Featured</label>
         </div>
         <div className="space-y-1.5 md:col-span-3"><Label htmlFor="c-out">Outcomes (one per line)</Label><Textarea id="c-out" rows={4} value={outcomes} onChange={(e) => setOutcomes(e.target.value)} className="rounded-xl" /></div>

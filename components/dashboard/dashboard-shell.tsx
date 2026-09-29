@@ -21,7 +21,6 @@ import {
   PenLine,
   Settings,
   Trophy,
-  CreditCard,
 } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
@@ -44,7 +43,6 @@ const NAV = [
   { href: "/dashboard/achievements", key: "achievements", label: "Achievements", Icon: Award },
   { href: "/dashboard/leaderboard", key: "leaderboards", label: "Leaderboards", Icon: Trophy },
   { href: "/dashboard/certificates", key: "certificates", label: "Certificates", Icon: FileBadge },
-  { href: "/dashboard/billing", key: "billing", label: "Billing", Icon: CreditCard },
   { href: "/dashboard/notifications", key: "notifications", label: "Notifications", Icon: Bell },
   { href: "/dashboard/settings", key: "settings", label: "Settings", Icon: Settings },
 ];

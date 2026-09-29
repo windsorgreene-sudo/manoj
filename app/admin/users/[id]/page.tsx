@@ -16,7 +16,6 @@ export default async function AdminUser({ params }: { params: Promise<{ id: stri
       profile: true, streak: true,
       submissions: { orderBy: { createdAt: "desc" }, take: 10, include: { problem: { select: { title: true, slug: true } } } },
       enrollments: { include: { course: { select: { title: true } } } },
-      payments: { orderBy: { createdAt: "desc" }, take: 5 },
       _count: { select: { submissions: true, comments: true, doubts: true, articles: true, reports: true } },
     },
   });
@@ -47,12 +46,10 @@ export default async function AdminUser({ params }: { params: Promise<{ id: stri
             <p className="flex items-center gap-2">Status: {u.banned ? <StatusBadge status="BANNED" /> : <StatusBadge status="ACTIVE" />}</p>
             {u.banned ? <p className="text-muted-foreground">Reason: {u.banReason} {u.banExpires ? `· until ${formatDate(u.banExpires)}` : "· permanent"}</p> : null}
             <p>Email verified: {u.emailVerified ? "yes" : "no"}</p>
-            <p>Pro: {u.isPro ? "yes" : "no"}</p>
             <p>Comments {u._count.comments} · Doubts {u._count.doubts} · Articles {u._count.articles}</p>
             <p>College: {u.profile?.college ?? "—"}</p>
           </div>
           <UserControls userId={u.id} role={u.role} banned={u.banned} />
-          <div className="glass p-5 text-sm"><p className="mb-2 font-semibold">Payments</p>{u.payments.length ? u.payments.map((p) => <p key={p.id} className="flex justify-between"><span>₹{p.amountInr}</span><StatusBadge status={p.status} /></p>) : <p className="text-muted-foreground">None</p>}</div>
         </aside>
       </div>
     </>

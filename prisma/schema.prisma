@@ -127,26 +127,6 @@ enum ReportTarget {
   USER
 }
 
-enum SubscriptionStatus {
-  ACTIVE
-  CANCELLED
-  EXPIRED
-  PAST_DUE
-}
-
-enum PaymentStatus {
-  CREATED
-  PAID
-  FAILED
-  REFUNDED
-}
-
-enum BillingInterval {
-  MONTHLY
-  YEARLY
-  LIFETIME
-}
-
 enum BadgeTier {
   BRONZE
   SILVER
@@ -186,7 +166,6 @@ model User {
   banned        Boolean   @default(false)
   banReason     String?
   banExpires    DateTime?
-  isPro         Boolean   @default(false)
   lastActiveAt  DateTime?
 
   sessions  Session[]
@@ -214,8 +193,6 @@ model User {
   certificates      Certificate[]
   notifications     Notification[]
   reports           Report[]             @relation("Reporter")
-  subscriptions     Subscription[]
-  payments          Payment[]
   quizAttempts      QuizAttempt[]
   contestEntries    ContestParticipant[]
   auditLogs         AuditLog[]
@@ -333,8 +310,6 @@ model Course {
   topic        String
   level        Level        @default(BEGINNER)
   language     String       @default("English")
-  isPro        Boolean      @default(false)
-  priceInr     Int          @default(0)
   thumbnail    String?
   color        String       @default("#7C3AED")
   durationMins Int          @default(0)
@@ -548,7 +523,6 @@ model Problem {
   solutionCode  Json?
   timeLimitMs   Int        @default(2000)
   memoryLimitMb Int        @default(256)
-  isPremium     Boolean    @default(false)
   status        ContentStatus @default(PUBLISHED)
   totalSubmissions Int     @default(0)
   totalAccepted    Int     @default(0)
@@ -667,7 +641,6 @@ model Quiz {
   negativeMarking Boolean    @default(false)
   negativeMark    Float      @default(0.25)
   isMockTest      Boolean    @default(false)
-  isPro           Boolean    @default(false)
   isPublished     Boolean    @default(true)
   articleId       String?
   article         Article?   @relation(fields: [articleId], references: [id], onDelete: SetNull)
@@ -1003,66 +976,6 @@ model Notification {
 }
 
 // ───────────────────────────── Monetization ─────────────────────────────
-
-model Plan {
-  id            String          @id @default(cuid())
-  slug          String          @unique
-  name          String
-  description   String
-  priceInr      Int
-  interval      BillingInterval @default(MONTHLY)
-  features      String[]
-  isActive      Boolean         @default(true)
-  razorpayPlanId String?
-  subscriptions Subscription[]
-  createdAt     DateTime        @default(now())
-}
-
-model Subscription {
-  id               String             @id @default(cuid())
-  userId           String
-  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  planId           String
-  plan             Plan               @relation(fields: [planId], references: [id], onDelete: Restrict)
-  status           SubscriptionStatus @default(ACTIVE)
-  currentPeriodEnd DateTime
-  cancelledAt      DateTime?
-  payments         Payment[]
-  createdAt        DateTime           @default(now())
-
-  @@index([userId, status])
-}
-
-model Payment {
-  id                String        @id @default(cuid())
-  userId            String
-  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subscriptionId    String?
-  subscription      Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
-  couponId          String?
-  coupon            Coupon?       @relation(fields: [couponId], references: [id], onDelete: SetNull)
-  amountInr         Int
-  currency          String        @default("INR")
-  status            PaymentStatus @default(CREATED)
-  provider          String        @default("mock")
-  providerOrderId   String?       @unique
-  providerPaymentId String?
-  createdAt         DateTime      @default(now())
-
-  @@index([status, createdAt])
-}
-
-model Coupon {
-  id          String    @id @default(cuid())
-  code        String    @unique
-  percentOff  Int
-  maxUses     Int?
-  usedCount   Int       @default(0)
-  expiresAt   DateTime?
-  isActive    Boolean   @default(true)
-  payments    Payment[]
-  createdAt   DateTime  @default(now())
-}
 
 // ───────────────────────────── Platform ─────────────────────────────
 

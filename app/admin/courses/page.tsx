@@ -5,7 +5,6 @@ import { PageHeader, StatusBadge, Table, tdCls, thCls, trCls } from "@/component
 import { ActionButton } from "@/components/admin/action-button";
 import { deleteCourse } from "@/lib/actions/admin/courses";
 import { db } from "@/lib/db";
-import { formatInr } from "@/lib/utils";
 
 export const metadata = { title: "Courses" };
 
@@ -23,7 +22,7 @@ export default async function AdminCourses() {
               <td className={`${tdCls} text-muted-foreground`}>{c.topic}</td>
               <td className={tdCls}>{c._count.modules}</td>
               <td className={tdCls}>{c._count.enrollments}</td>
-              <td className={tdCls}>{c.isPro ? formatInr(c.priceInr) : "Free"}</td>
+              <td className={tdCls}>Free</td>
               <td className={tdCls}><StatusBadge status={c.status} /></td>
               <td className={`${tdCls} text-right`}><ActionButton size="xs" variant="ghost" className="text-danger" action={deleteCourse.bind(null, c.id)} confirm={`Delete “${c.title}”? Enrollments and progress will be removed.`} success="Course deleted">Delete</ActionButton></td>
             </tr>

@@ -9,7 +9,6 @@ import {
   ChevronsLeft,
   ClipboardCheck,
   Code2,
-  CreditCard,
   FileText,
   Flag,
   Gauge,
@@ -63,7 +62,6 @@ const GROUPS: { title: string; items: { href: string; label: string; Icon: typeo
   {
     title: "Platform",
     items: [
-      { href: "/admin/monetization", label: "Monetization", Icon: CreditCard },
       { href: "/admin/settings", label: "Settings", Icon: Settings },
       { href: "/admin/audit", label: "Audit log", Icon: History },
     ],

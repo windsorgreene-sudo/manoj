@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bot, Braces, ChartSpline, Check, Flame, Map, Medal, Sparkles, Trophy, Wand2, X } from "lucide-react";
+import { Bot, Braces, ChartSpline, Check, Flame, Map, Medal, Sparkles, Trophy, Wand2 } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -143,60 +143,34 @@ export function TestimonialsSection() {
   );
 }
 
-const COMPARE: { feature: string; free: boolean | string; pro: boolean | string }[] = [
-  { feature: "Free courses & all tutorials", free: true, pro: true },
-  { feature: "Practice problems & playground", free: true, pro: true },
-  { feature: "Weekly rated contests", free: true, pro: true },
-  { feature: "Premium courses (Web Dev, DBMS)", free: false, pro: true },
-  { feature: "AI tutor messages", free: "5 / day", pro: "Unlimited" },
-  { feature: "Mock tests with analysis", free: false, pro: true },
-  { feature: "Premium problems & editorials", free: false, pro: true },
-  { feature: "Verified certificates", free: false, pro: true },
+const FREE_FEATURES = [
+  "Every course, tutorial and roadmap",
+  "All practice problems with editorials",
+  "Browser IDE for 6 languages",
+  "Weekly rated contests",
+  "Quizzes & mock tests with analysis",
+  "Unlimited AI tutor",
+  "Verifiable certificates",
+  "Doubts forum & leaderboards",
 ];
 
-export function PricingSection({ compact = false }: { compact?: boolean }) {
+/** Landing section: everything on CodeVerse is free — no plans, no paywalls. */
+export function FreeSection() {
   return (
-    <section className="container-cv relative z-10 py-24" id="pricing">
-      <SectionHeading kicker="Pricing" title="Start free. Go Pro when you're ready." subtitle="Student-friendly pricing in INR. Cancel anytime." />
-      <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-        <div className="glass flex flex-col p-8">
-          <h3 className="text-xl font-semibold">Free</h3>
-          <p className="mt-1 text-sm text-muted-foreground">For getting started</p>
-          <p className="mt-6 font-heading text-5xl font-bold">₹0</p>
-          <ul className="mt-6 flex-1 space-y-3 text-sm">
-            {COMPARE.map((c) => (
-              <li key={c.feature} className="flex items-center gap-2">
-                {c.free ? <Check className="size-4 text-success" /> : <X className="size-4 text-muted-foreground/50" />}
-                <span className={c.free ? "" : "text-muted-foreground/70"}>
-                  {c.feature}
-                  {typeof c.free === "string" ? ` · ${c.free}` : ""}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild variant="outline" className="mt-8 h-11 rounded-xl">
-            <Link href="/signup">Create free account</Link>
-          </Button>
-        </div>
-        <div className="glass gradient-border relative flex flex-col p-8 shadow-[0_0_60px_-20px_rgba(124,58,237,0.8)]">
-          <span className="absolute -top-3 right-6 rounded-full bg-gradient-to-r from-brand to-cyan px-3 py-1 text-xs font-semibold text-white">Most popular</span>
-          <h3 className="text-xl font-semibold">Pro</h3>
-          <p className="mt-1 text-sm text-muted-foreground">For serious interview prep</p>
-          <p className="mt-6 font-heading text-5xl font-bold">
-            ₹499<span className="text-base font-normal text-muted-foreground">/month</span>
-          </p>
-          <p className="text-xs text-muted-foreground">or ₹4,999/year — 2 months free</p>
-          <ul className="mt-6 flex-1 space-y-3 text-sm">
-            {COMPARE.map((c) => (
-              <li key={c.feature} className="flex items-center gap-2">
-                <Check className="size-4 text-success" />
-                {c.feature}
-                {typeof c.pro === "string" ? ` · ${c.pro}` : ""}
-              </li>
-            ))}
-          </ul>
-          <Button asChild className="mt-8 h-11 rounded-xl bg-brand hover:bg-brand/90">
-            <Link href="/pricing#plans">{compact ? "See plans" : "Upgrade to Pro"}</Link>
+    <section className="container-cv relative z-10 py-24" id="free">
+      <SectionHeading kicker="100% free" title="Everything is free. Forever." subtitle="No plans, no paywalls, no credit card. Just sign up and start learning." />
+      <div className="glass gradient-border mx-auto mt-12 max-w-3xl p-8 md:p-10">
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {FREE_FEATURES.map((f) => (
+            <li key={f} className="flex items-center gap-3">
+              <span className="grid size-6 shrink-0 place-items-center rounded-full bg-success/15"><Check className="size-4 text-success" /></span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 text-center">
+          <Button asChild size="lg" className="h-12 rounded-xl bg-brand px-8 hover:bg-brand/90">
+            <Link href="/signup">Create your free account</Link>
           </Button>
         </div>
       </div>
@@ -205,12 +179,12 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
 }
 
 const FAQS = [
-  { q: "Is CodeVerse really free?", a: "Yes. All tutorials, free courses, practice problems, the playground and weekly contests are free forever. Pro unlocks premium courses, unlimited AI tutor, mock tests and certificates." },
+  { q: "Is CodeVerse really free?", a: "Yes — 100%. Every course, tutorial, problem, contest, mock test, the AI tutor and certificates are free. There are no paid plans." },
   { q: "Which programming languages can I use?", a: "C, C++, Java, Python, JavaScript and Go — in the problem workspace, the playground and every 'Try it Yourself' editor." },
   { q: "How does the AI tutor avoid giving away answers?", a: "It is instructed to give progressive hints: first a nudge, then the approach, then pseudocode. It only shows a full solution if you explicitly ask for one." },
   { q: "Are the certificates verifiable?", a: "Every certificate has a unique code and a QR code linking to a public verification page anyone can check." },
   { q: "Can I use CodeVerse in Hindi?", a: "Yes. Switch the interface language to हिन्दी from the footer or settings, and ask the AI tutor to explain in Hindi." },
-  { q: "Do you offer refunds?", a: "Pro subscriptions can be cancelled anytime. If you're unhappy within 7 days of your first payment, contact us for a full refund." },
+  { q: "Do I need a credit card?", a: "No. Sign up with email, Google or GitHub — nothing to pay, ever." },
 ];
 
 export function FaqSection() {

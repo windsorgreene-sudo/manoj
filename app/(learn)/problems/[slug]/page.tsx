@@ -50,7 +50,6 @@ export default async function ProblemPage({ params }: { params: Promise<{ slug: 
             companies: p.companies,
             hints: p.hints,
             starterCode: p.starterCode as Record<string, string>,
-            isPremium: p.isPremium,
             samples: p.testCases.map((t) => ({ id: t.id, input: t.input, expected: t.expected })),
             totalTests: p._count.testCases,
             timeLimitMs: p.timeLimitMs,

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { CheckCircle2, CircleDashed, Crown, Shuffle } from "lucide-react";
+import { CheckCircle2, CircleDashed, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { DifficultyBadge } from "@/components/learn/difficulty-badge";
@@ -72,7 +72,7 @@ export default async function ProblemsPage({ searchParams }: { searchParams: Pro
                     <Link href={`/problems/${p.slug}`} className="font-medium hover:text-cyan">
                       {p.number}. {p.title}
                     </Link>
-                    {p.isPremium ? <Crown className="ml-2 inline size-3.5 text-warning" aria-label="Pro" /> : null}
+                   
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">

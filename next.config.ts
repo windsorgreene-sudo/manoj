@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts", "motion", "@react-three/drei"],
   },
+  // Old paid-plan URLs → home (everything is free now).
+  async redirects() {
+    return ["/pricing", "/checkout/:path*", "/dashboard/billing", "/admin/monetization"].map((source) => ({ source, destination: source.startsWith("/admin") ? "/admin" : source.startsWith("/dashboard") ? "/dashboard" : "/", permanent: true }));
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

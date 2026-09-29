@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono, Noto_Sans_Devanagari, Space_Grotesk } from "next
 import { Providers } from "@/components/providers";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { CustomCursor } from "@/components/motion/custom-cursor";
+import { NavigationProgress } from "@/components/motion/navigation-progress";
+import { Suspense } from "react";
 import { appUrl } from "@/lib/utils";
 import "./globals.css";
 
@@ -49,6 +51,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <Providers>
           <SmoothScroll>{children}</SmoothScroll>
           <CustomCursor />

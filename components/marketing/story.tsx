@@ -5,7 +5,6 @@ import { useRef, useState, type ReactNode } from "react";
 import { BookOpen, Briefcase, Code2, Trophy } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP } from "@/components/motion/gsap";
 import { HeroScene } from "@/components/three/hero-scene";
-import { LenisScrollTriggerSync } from "@/components/motion/lenis-sync";
 import { storyProgress } from "@/lib/stores/story";
 import { cn } from "@/lib/utils";
 
@@ -84,7 +83,6 @@ export function StoryExperience({ hero }: { hero: ReactNode }) {
 
   return (
     <div ref={root} className="relative">
-      <LenisScrollTriggerSync />
       {/* Sticky 3D canvas behind hero + story; pauses automatically once scrolled past */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <div className="sticky top-0 h-dvh">

@@ -123,10 +123,6 @@ export async function gradeQuiz(input: { quizId: string; answers: Record<string,
     const data = z.object({ quizId: id, answers: z.record(z.string(), z.array(z.number().int().min(0).max(10)).max(10)), timeTakenS: z.number().int().min(0).max(36_000).optional() }).parse(input);
     const quiz = await db.quiz.findUnique({ where: { id: data.quizId }, include: { questions: { orderBy: { order: "asc" } } } });
     if (!quiz || !quiz.isPublished) throw new Error("Quiz not found");
-    if (quiz.isPro) {
-      const viewer = await assertUser();
-      if (!viewer.isPro && viewer.role !== "ADMIN") throw new AuthError("This mock test is part of CodeVerse Pro.", 403);
-    }
     let score = 0,
       max = 0,
       correct = 0,
@@ -238,9 +234,8 @@ export async function enrollInCourse(courseId: string) {
   return guard(async () => {
     const user = await assertUser();
     id.parse(courseId);
-    const course = await db.course.findUnique({ where: { id: courseId }, select: { isPro: true, slug: true } });
+    const course = await db.course.findUnique({ where: { id: courseId }, select: { slug: true } });
     if (!course) throw new Error("Course not found");
-    if (course.isPro && !user.isPro && user.role !== "ADMIN") throw new AuthError("This is a Pro course. Upgrade to enroll.", 403);
     await db.enrollment.upsert({ where: { userId_courseId: { userId: user.id, courseId } }, update: {}, create: { userId: user.id, courseId } });
     revalidatePath(`/courses/${course.slug}`);
     return { slug: course.slug };
@@ -302,7 +297,7 @@ export async function submitReview(input: { courseId: string; rating: number; bo
 
 export async function getCourseUserState(courseId: string) {
   const user = await getCurrentUser();
-  if (!user) return { signedIn: false, enrolled: false, isPro: false, completed: [] as string[], progressPct: 0, lastLessonId: null as string | null, reviewed: false };
+  if (!user) return { signedIn: false, enrolled: false, completed: [] as string[], progressPct: 0, lastLessonId: null as string | null, reviewed: false };
   const [enrollment, progress, review] = await Promise.all([
     db.enrollment.findUnique({ where: { userId_courseId: { userId: user.id, courseId } } }),
     db.progress.findMany({ where: { userId: user.id, completed: true, lesson: { module: { courseId } } }, select: { lessonId: true } }),
@@ -311,7 +306,6 @@ export async function getCourseUserState(courseId: string) {
   return {
     signedIn: true,
     enrolled: Boolean(enrollment),
-    isPro: user.isPro || user.role === "ADMIN",
     completed: progress.map((p) => p.lessonId),
     progressPct: enrollment?.progressPct ?? 0,
     lastLessonId: enrollment?.lastLessonId ?? null,

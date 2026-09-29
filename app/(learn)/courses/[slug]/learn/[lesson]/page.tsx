@@ -23,8 +23,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   const current = flat[idx];
   const user = await getCurrentUser();
   const enrollment = user ? await db.enrollment.findUnique({ where: { userId_courseId: { userId: user.id, courseId: course.id } } }) : null;
-  const proOk = !course.isPro || Boolean(user && (user.isPro || user.role === "ADMIN"));
-  const allowed = current.isPreview || (enrollment && proOk);
+  const allowed = current.isPreview || Boolean(enrollment);
   if (!allowed && !user) redirect(`/login?next=/courses/${slug}/learn/${lessonSlug}`);
 
   const lesson = allowed
@@ -50,8 +49,8 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
         {!allowed ? (
           <div className="glass mt-8 flex flex-col items-center gap-3 p-10 text-center">
             <Lock className="size-10 text-muted-foreground" />
-            <p className="font-semibold">{course.isPro && !proOk ? "This lesson is part of CodeVerse Pro" : "Enroll to unlock this lesson"}</p>
-            <Button asChild className="rounded-xl"><Link href={course.isPro && !proOk ? "/pricing" : `/courses/${slug}`}>{course.isPro && !proOk ? "Upgrade to Pro" : "Go to course page"}</Link></Button>
+            <p className="font-semibold">Enroll (free) to unlock this lesson</p>
+            <Button asChild className="rounded-xl"><Link href={`/courses/${slug}`}>Go to course page</Link></Button>
           </div>
         ) : (
           <>

@@ -62,10 +62,6 @@ async function reset() {
   await db.$transaction([
     db.auditLog.deleteMany(),
     db.pageView.deleteMany(),
-    db.payment.deleteMany(),
-    db.subscription.deleteMany(),
-    db.coupon.deleteMany(),
-    db.plan.deleteMany(),
     db.announcement.deleteMany(),
     db.featureFlag.deleteMany(),
     db.media.deleteMany(),
@@ -246,7 +242,6 @@ async function main() {
         starterCode: p.starterCode,
         solutionCode: { PYTHON: p.solutionPython },
         timeLimitMs: p.difficulty === "HARD" ? 3000 : 2000,
-        isPremium: p.number % 10 === 0,
         testCases: {
           create: [
             ...p.samples.map((t, order) => ({ input: t.input, expected: t.expected, explanation: t.explanation, isSample: true, order })),
@@ -261,12 +256,12 @@ async function main() {
   // ── Quizzes (5 standalone, built from the article question bank) ──
   console.log("❓ Quizzes");
   const bank = (cats: SeedArticle["category"][]) => allArticles.filter((a) => cats.includes(a.category)).flatMap((a) => a.quiz ?? []);
-  const quizDefs: { slug: string; title: string; description: string; topic: string; questions: SeedQuizQ[]; mins: number; negative: boolean; mock: boolean; pro: boolean }[] = [
-    { slug: "dsa-fundamentals-mock-test", title: "DSA Fundamentals Mock Test", description: "30-question timed test covering complexity, arrays, searching, sorting, trees, graphs and DP. Negative marking applies.", topic: "DSA", questions: bank(["dsa"]), mins: 30, negative: true, mock: true, pro: false },
-    { slug: "python-essentials-quiz", title: "Python Essentials Quiz", description: "Types, collections, functions, OOP and generators.", topic: "Python", questions: bank(["python"]), mins: 10, negative: false, mock: false, pro: false },
-    { slug: "javascript-quiz", title: "JavaScript Deep-Dive Quiz", description: "Scope, closures, async and the event loop.", topic: "JavaScript", questions: bank(["javascript"]), mins: 10, negative: false, mock: false, pro: false },
-    { slug: "dbms-mock-test", title: "DBMS Placement Mock Test", description: "Keys, joins, normalization, transactions and indexing — placement-style with negative marking.", topic: "DBMS", questions: bank(["dbms"]), mins: 15, negative: true, mock: true, pro: true },
-    { slug: "operating-systems-quiz", title: "Operating Systems Quiz", description: "Processes, scheduling, deadlocks and memory management.", topic: "Operating Systems", questions: bank(["operating-systems", "web-development"]).slice(0, 12), mins: 12, negative: false, mock: false, pro: false },
+  const quizDefs: { slug: string; title: string; description: string; topic: string; questions: SeedQuizQ[]; mins: number; negative: boolean; mock: boolean }[] = [
+    { slug: "dsa-fundamentals-mock-test", title: "DSA Fundamentals Mock Test", description: "30-question timed test covering complexity, arrays, searching, sorting, trees, graphs and DP. Negative marking applies.", topic: "DSA", questions: bank(["dsa"]), mins: 30, negative: true, mock: true },
+    { slug: "python-essentials-quiz", title: "Python Essentials Quiz", description: "Types, collections, functions, OOP and generators.", topic: "Python", questions: bank(["python"]), mins: 10, negative: false, mock: false },
+    { slug: "javascript-quiz", title: "JavaScript Deep-Dive Quiz", description: "Scope, closures, async and the event loop.", topic: "JavaScript", questions: bank(["javascript"]), mins: 10, negative: false, mock: false },
+    { slug: "dbms-mock-test", title: "DBMS Placement Mock Test", description: "Keys, joins, normalization, transactions and indexing — placement-style with negative marking.", topic: "DBMS", questions: bank(["dbms"]), mins: 15, negative: true, mock: true },
+    { slug: "operating-systems-quiz", title: "Operating Systems Quiz", description: "Processes, scheduling, deadlocks and memory management.", topic: "Operating Systems", questions: bank(["operating-systems", "web-development"]).slice(0, 12), mins: 12, negative: false, mock: false },
   ];
   const quizIds = new Map<string, string>();
   for (const q of quizDefs) {
@@ -279,7 +274,6 @@ async function main() {
         durationMins: q.mins,
         negativeMarking: q.negative,
         isMockTest: q.mock,
-        isPro: q.pro,
         questions: { create: q.questions.map((x, order) => ({ prompt: x.q, options: x.options, correct: [x.answer], explanation: x.explanation, order, marks: q.mock ? 2 : 1 })) },
       },
     });
@@ -299,8 +293,6 @@ async function main() {
         description: c.description,
         topic: c.topic,
         level: c.level,
-        isPro: c.isPro,
-        priceInr: c.priceInr,
         color: c.color,
         featured: c.featured,
         outcomes: c.outcomes,
@@ -616,24 +608,6 @@ async function main() {
       if (c.ended && rank < 3) await db.userBadge.create({ data: { userId: r.u.id, badgeId: badgeIds.get("podium") as string } }).catch(() => undefined);
     }
   }
-
-  // ── Monetization ───────────────────────────────────────
-  console.log("💳 Plans & payments");
-  const free = await db.plan.create({ data: { slug: "free", name: "Free", description: "Everything you need to start.", priceInr: 0, interval: "LIFETIME", features: ["All free courses & tutorials", "500+ practice problems", "Weekly contests", "5 AI tutor messages / day"] } });
-  const proMonthly = await db.plan.create({ data: { slug: "pro-monthly", name: "Pro Monthly", description: "Unlock everything, billed monthly.", priceInr: 499, interval: "MONTHLY", features: ["All premium courses", "Unlimited AI tutor", "Mock tests with analysis", "Premium problems & editorials", "Verified certificates"] } });
-  const proYearly = await db.plan.create({ data: { slug: "pro-yearly", name: "Pro Yearly", description: "Best value — 2 months free.", priceInr: 4999, interval: "YEARLY", features: ["Everything in Pro Monthly", "2 months free", "Priority doubt resolution", "Resume review session"] } });
-  void free;
-  const coupon = await db.coupon.create({ data: { code: "LAUNCH50", percentOff: 50, maxUses: 500, usedCount: 37, expiresAt: new Date(now + 60 * DAY) } });
-  await db.coupon.create({ data: { code: "STUDENT20", percentOff: 20, usedCount: 112 } });
-  for (const [i, u] of studentUsers.slice(1, 5).entries()) {
-    const plan = i % 2 ? proYearly : proMonthly;
-    const sub = await db.subscription.create({ data: { userId: u.id, planId: plan.id, status: "ACTIVE", currentPeriodEnd: new Date(now + (plan.interval === "YEARLY" ? 300 : 20) * DAY), createdAt: daysAgo(10 + i * 9) } });
-    await db.payment.create({
-      data: { userId: u.id, subscriptionId: sub.id, amountInr: i === 0 ? Math.round(plan.priceInr / 2) : plan.priceInr, couponId: i === 0 ? coupon.id : null, status: "PAID", provider: "mock", providerOrderId: `order_seed_${i}`, providerPaymentId: `pay_seed_${i}`, createdAt: daysAgo(10 + i * 9) },
-    });
-    await db.user.update({ where: { id: u.id }, data: { isPro: true } });
-  }
-  await db.payment.create({ data: { userId: studentUsers[6].id, amountInr: 499, status: "FAILED", provider: "mock", providerOrderId: "order_seed_failed", createdAt: daysAgo(2) } });
 
   // ── Platform config ────────────────────────────────────
   await db.featureFlag.createMany({

@@ -5,7 +5,7 @@ export const primaryNav: NavItem[] = [
   { href: "/tutorials", label: "Tutorials", key: "tutorials" },
   { href: "/problems", label: "Problems", key: "problems" },
   { href: "/contests", label: "Contests", key: "contests" },
-  { href: "/pricing", label: "Pricing", key: "pricing" },
+  { href: "/doubts", label: "Doubts Forum", key: "doubts" },
 ];
 
 export const practiceNav: NavItem[] = [
@@ -56,7 +56,6 @@ export const footerNav: { title: string; key: string; items: NavItem[] }[] = [
       { href: "/about", label: "About", key: "about" },
       { href: "/contact", label: "Contact", key: "contact" },
       { href: "/write-for-us", label: "Write for Us", key: "writeForUs" },
-      { href: "/pricing", label: "Pricing", key: "pricing" },
     ],
   },
 ];

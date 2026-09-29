@@ -14,7 +14,6 @@ export type SessionUser = {
   image: string | null;
   role: AppRole;
   username: string | null;
-  isPro: boolean;
 };
 
 const ROLE_RANK: Record<AppRole, number> = { STUDENT: 0, CONTRIBUTOR: 1, ADMIN: 2 };
@@ -31,7 +30,7 @@ export const getCurrentUser = cache(async (): Promise<SessionUser | null> => {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) return null;
-    const u = session.user as typeof session.user & { role?: string; username?: string | null; isPro?: boolean };
+    const u = session.user as typeof session.user & { role?: string; username?: string | null };
     return {
       id: u.id,
       name: u.name,
@@ -39,7 +38,6 @@ export const getCurrentUser = cache(async (): Promise<SessionUser | null> => {
       image: u.image ?? null,
       role: (u.role as AppRole) ?? "STUDENT",
       username: u.username ?? null,
-      isPro: Boolean(u.isPro),
     };
   } catch {
     return null;
