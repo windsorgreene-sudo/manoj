@@ -55,7 +55,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         <div aria-hidden className="absolute inset-0" style={{ background: `radial-gradient(ellipse at top left, ${course.color}40, transparent 60%)` }} />
         <div className="container-cv relative py-12 md:py-16">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
-            <Link href="/courses" className="hover:text-foreground">Courses</Link> / {course.topic}
+            <Link href="/courses" className="inline-block py-1 hover:text-foreground">Courses</Link> / {course.topic}
           </nav>
           <div className="mt-4 max-w-3xl">
             <div className="flex flex-wrap gap-2">

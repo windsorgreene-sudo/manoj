@@ -33,12 +33,12 @@ export function StatsSection({ stats }: { stats: { learners: number; problems: n
 }
 
 const FEATURES = [
-  { Icon: Braces, title: "Code in the browser", body: "Write and run C, C++, Java, Python, JavaScript or Go. Your code is saved as you type, and submissions are checked against hidden tests." },
-  { Icon: Bot, title: "A tutor that gives hints", body: "Stuck? Ask for a nudge first. It only shows a full answer if you ask for one. Works in English and Hindi." },
-  { Icon: Trophy, title: "Weekly contests", body: "Timed rounds with a live leaderboard and a rating that goes up or down with every contest." },
-  { Icon: Wand2, title: "See algorithms move", body: "Step through sorting, binary search, BFS, DFS and Dijkstra one line at a time." },
-  { Icon: Flame, title: "Build a habit", body: "Daily streaks, XP and badges. Miss a day and a streak freeze has your back." },
-  { Icon: ChartSpline, title: "Know where you stand", body: "Topics you are strong in, topics to revisit, and a heatmap of everything you solved." },
+  { Icon: Braces, title: "Code in the browser", href: "/playground", body: "Write and run C, C++, Java, Python, JavaScript or Go. Your code is saved as you type, and submissions are checked against hidden tests." },
+  { Icon: Bot, title: "A tutor that gives hints", href: "/tutorials", body: "Stuck? Ask for a nudge first. It only shows a full answer if you ask for one. Works in English and Hindi." },
+  { Icon: Trophy, title: "Weekly contests", href: "/contests", body: "Timed rounds with a live leaderboard and a rating that goes up or down with every contest." },
+  { Icon: Wand2, title: "See algorithms move", href: "/visualizers", body: "Step through sorting, binary search, BFS, DFS and Dijkstra one line at a time." },
+  { Icon: Flame, title: "Build a habit", href: "/dashboard", body: "Daily streaks, XP and badges. Miss a day and a streak freeze has your back." },
+  { Icon: ChartSpline, title: "Know where you stand", href: "/dashboard/stats", body: "Topics you are strong in, topics to revisit, and a heatmap of everything you solved." },
 ];
 
 export function FeaturesSection() {
@@ -48,13 +48,14 @@ export function FeaturesSection() {
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f, i) => (
           <Reveal key={f.title} delay={i * 0.06}>
-            <div className="glass gradient-border hover-glow h-full p-6">
+            <Link href={f.href} className="glass gradient-border hover-glow group flex h-full flex-col p-6">
               <div className="mb-4 grid size-12 place-items-center rounded-2xl bg-brand/15 text-brand-soft">
                 <f.Icon className="size-6" />
               </div>
               <h3 className="text-lg font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            </div>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+              <span className="mt-4 text-sm font-medium text-brand-soft group-hover:underline">Try it</span>
+            </Link>
           </Reveal>
         ))}
       </div>

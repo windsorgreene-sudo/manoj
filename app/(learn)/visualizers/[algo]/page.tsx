@@ -21,7 +21,7 @@ export default async function VisualizerPage({ params }: { params: Promise<{ alg
   if (!v) notFound();
   return (
     <div className="container-cv py-10">
-      <Link href="/visualizers" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All visualizers</Link>
+      <Link href="/visualizers" className="inline-flex items-center gap-1 py-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All visualizers</Link>
       <h1 className="mt-4 font-heading text-3xl font-bold md:text-4xl">{v.title}</h1>
       <p className="mt-2 mb-6 text-muted-foreground">{v.description}</p>
       <Visualizer slug={v.slug as VisualizerSlug} />

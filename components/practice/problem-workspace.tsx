@@ -224,7 +224,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
             <DifficultyBadge difficulty={problem.difficulty} />
             {problem.topics.map((t) => (
-              <Link key={t} href={`/problems?topic=${encodeURIComponent(t)}`} className="rounded-md bg-surface-2 px-2 py-0.5 text-muted-foreground hover:text-foreground">
+              <Link key={t} href={`/problems?topic=${encodeURIComponent(t)}`} className="rounded-md bg-surface-2 px-2 py-1 text-muted-foreground hover:text-foreground">
                 {t}
               </Link>
             ))}
@@ -234,7 +234,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
             <summary className="cursor-pointer font-medium">Companies</summary>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {problem.companies.map((c) => (
-                <Link key={c} href={`/problems?company=${encodeURIComponent(c)}`} className="rounded-md bg-surface-2 px-2 py-0.5 text-xs">
+                <Link key={c} href={`/problems?company=${encodeURIComponent(c)}`} className="rounded-md bg-surface-2 px-2 py-1 text-xs">
                   {c}
                 </Link>
               ))}
@@ -361,7 +361,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
       <div className="min-h-0 flex-1 overflow-y-auto p-3" data-lenis-prevent>
         <TabsContent value="testcase" className="space-y-3">
           <div className="flex items-center gap-2">
-            <Switch id="custom-input" checked={customOn} onCheckedChange={setCustomOn} />
+            <Switch id="custom-input" aria-label="Use custom input" checked={customOn} onCheckedChange={setCustomOn} />
             <Label htmlFor="custom-input" className="text-xs">
               Use custom input
             </Label>

@@ -38,7 +38,7 @@ export default async function QuizPage({ params }: Props) {
           { "@context": "https://schema.org", "@type": "Quiz", name: quiz.title, description: quiz.description, about: quiz.topic, educationalLevel: "Beginner to Intermediate", timeRequired: `PT${quiz.durationMins}M` },
         ]}
       />
-      <Link href="/quizzes" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All tests</Link>
+      <Link href="/quizzes" className="inline-flex items-center gap-1 py-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All tests</Link>
       <header className="mt-4 max-w-3xl">
         <h1 className="mt-3 flex flex-wrap items-center gap-3 font-heading text-3xl font-bold md:text-4xl">
           {quiz.title}

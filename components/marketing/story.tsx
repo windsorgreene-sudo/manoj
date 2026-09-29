@@ -115,7 +115,7 @@ export function StoryExperience({ hero }: { hero: ReactNode }) {
                   <c.Icon className="size-9" /> {c.title}
                 </h2>
                 <p className="mt-4 max-w-md text-lg text-muted-foreground">{c.body}</p>
-                <Link href={c.href} tabIndex={active === i ? 0 : -1} className="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-foreground underline-offset-4 hover:underline">
+                <Link href={c.href} tabIndex={active === i ? 0 : -1} className="mt-6 inline-flex w-fit items-center gap-1 py-2 text-sm font-semibold text-foreground underline-offset-4 hover:underline">
                   {c.cta} →
                 </Link>
               </article>

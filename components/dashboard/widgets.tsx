@@ -79,7 +79,9 @@ export function PotdCard({ potd }: { potd: { slug: string; title: string; diffic
         <Target className="size-4 text-cyan" /> Problem of the Day
       </p>
       <h3 className="mt-2 text-lg font-semibold">
-        {potd.number}. {potd.title}
+        <Link href={`/problems/${potd.slug}`} className="hover:text-cyan">
+          {potd.number}. {potd.title}
+        </Link>
       </h3>
       <div className="mt-2 flex flex-wrap items-center gap-2">
         <DifficultyBadge difficulty={potd.difficulty} />

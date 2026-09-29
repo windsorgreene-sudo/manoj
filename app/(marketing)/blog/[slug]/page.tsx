@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ]),
         ]}
       />
-      <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+      <Link href="/blog" className="inline-flex items-center gap-1 py-2 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" /> All posts
       </Link>
       <h1 className="mt-6 font-heading text-4xl font-bold md:text-5xl">{post.title}</h1>

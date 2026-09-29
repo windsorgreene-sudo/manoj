@@ -44,7 +44,7 @@ export default async function DashboardPage() {
         <section className="glass p-5" aria-labelledby="solved-h">
           <div className="mb-4 flex items-center justify-between">
             <h2 id="solved-h" className="font-semibold">Solved problems</h2>
-            <Link href="/dashboard/stats" className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">All stats <ArrowRight className="size-3" /></Link>
+            <Link href="/dashboard/stats" className="flex items-center gap-1 py-1.5 text-xs text-muted-foreground hover:text-foreground">All stats <ArrowRight className="size-3" /></Link>
           </div>
           <DifficultyDonut data={stats.byDifficulty} totals={stats.totals} />
         </section>

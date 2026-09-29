@@ -28,7 +28,7 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {group.items.map((item) => (
                   <li key={item.href + item.label}>
-                    <Link href={item.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                    <Link href={item.href} className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-foreground">
                       {item.key ? tn(item.key) : item.label}
                     </Link>
                   </li>
@@ -43,16 +43,16 @@ export function Footer() {
           <p>{t("rights", { year: new Date().getFullYear() })}</p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <LanguageSwitcher />
-            <Link href="/privacy" className="hover:text-foreground">
+            <Link href="/privacy" className="inline-block py-1.5 hover:text-foreground">
               {t("privacy")}
             </Link>
-            <Link href="/terms" className="hover:text-foreground">
+            <Link href="/terms" className="inline-block py-1.5 hover:text-foreground">
               {t("terms")}
             </Link>
-            <Link href="/verify" className="hover:text-foreground">
+            <Link href="/verify" className="inline-block py-1.5 hover:text-foreground">
               {t("verify")}
             </Link>
-            <Link href="/contact" className="hover:text-foreground">
+            <Link href="/contact" className="inline-block py-1.5 hover:text-foreground">
               {tn("contact")}
             </Link>
           </div>

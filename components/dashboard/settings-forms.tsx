@@ -166,7 +166,7 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
               <Label htmlFor={`n-${k}`}>{label}</Label>
               <p className="text-xs text-muted-foreground">{desc}</p>
             </div>
-            <Switch id={`n-${k}`} checked={prefs[k]} onCheckedChange={(v) => savePrefs({ ...prefs, [k]: v })} />
+            <Switch id={`n-${k}`} aria-label={label} checked={prefs[k]} onCheckedChange={(v) => savePrefs({ ...prefs, [k]: v })} />
           </div>
         ))}
       </Section>

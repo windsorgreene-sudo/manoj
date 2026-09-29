@@ -85,7 +85,7 @@ export function LoginForm({ next, google, github }: { next: string; google: bool
             {...register("password")}
           />
           <div className="text-right">
-            <Link href="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground">
+            <Link href="/forgot-password" className="inline-block py-1 text-xs text-muted-foreground hover:text-foreground">
               Forgot password?
             </Link>
           </div>

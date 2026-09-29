@@ -79,7 +79,7 @@ export default async function DoubtPage({ params }: Props) {
           },
         ]}
       />
-      <Link href="/doubts" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> Doubts forum</Link>
+      <Link href="/doubts" className="inline-flex items-center gap-1 py-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> Doubts forum</Link>
 
       <article className="mt-4 flex gap-4" aria-labelledby="doubt-title">
         <VoteControl target="DOUBT" id={doubt.id} score={doubt.score} myVote={myVote.get(doubt.id) ?? 0} signedIn={Boolean(user)} />

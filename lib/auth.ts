@@ -82,6 +82,8 @@ export const auth = betterAuth({
     window: 60,
     max: 100,
     customRules: {
+      // Reading the session is harmless and happens on every page view; never throttle it.
+      "/get-session": false,
       "/sign-in/email": { window: 60, max: 5 },
       "/sign-up/email": { window: 60, max: 3 },
       "/request-password-reset": { window: 300, max: 3 },

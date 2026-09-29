@@ -48,7 +48,7 @@ export function SiteStatus() {
     <div role="region" aria-label="Announcement" className={cn("relative z-[55] flex items-center justify-center gap-2 px-10 py-2 text-center text-sm", b.variant === "warning" ? "bg-warning text-black" : b.variant === "success" ? "bg-success text-black" : "bg-gradient-to-r from-brand to-cyan text-white")}>
       <Megaphone className="size-4 shrink-0" aria-hidden />
       <span><strong>{b.title}</strong> <span className="hidden sm:inline"> · {b.body}</span></span>
-      {b.link ? <Link href={b.link} className="font-semibold underline underline-offset-2">Open</Link> : null}
+      {b.link ? <Link href={b.link} className="inline-block px-1 py-1 font-semibold underline underline-offset-2">Open</Link> : null}
       <button type="button" aria-label="Dismiss announcement" className="absolute right-3 rounded p-1 hover:bg-black/10" onClick={() => { window.localStorage.setItem("cv-banner-dismissed", b.id); setDismissed(b.id); }}>
         <X className="size-4" />
       </button>

@@ -59,7 +59,7 @@ export default async function ContestPage({ params }: Props) {
           },
         ]}
       />
-      <Link href="/contests" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All contests</Link>
+      <Link href="/contests" className="inline-flex items-center gap-1 py-2 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" /> All contests</Link>
 
       <header className="mt-4 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div className="max-w-2xl">
