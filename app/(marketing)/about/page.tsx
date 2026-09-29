@@ -64,7 +64,7 @@ export default async function AboutPage() {
       </section>
       <section className="mt-24 text-center">
         <h2 className="font-heading text-3xl font-bold">Want to teach thousands of learners?</h2>
-        <p className="mt-2 text-muted-foreground">We pay contributors for high-quality tutorials.</p>
+        <p className="mt-2 text-muted-foreground">Your name goes on every tutorial you publish.</p>
         <Button asChild className="mt-6 rounded-xl">
           <Link href="/write-for-us">Write for us</Link>
         </Button>

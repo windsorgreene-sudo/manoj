@@ -129,7 +129,7 @@ const FAQS = [
   { q: "Which programming languages can I use?", a: "C, C++, Java, Python, JavaScript and Go, in the problem workspace, the playground and every 'Try it Yourself' editor." },
   { q: "How does the AI tutor avoid giving away answers?", a: "It is instructed to give progressive hints: first a nudge, then the approach, then pseudocode. It only shows a full solution if you explicitly ask for one." },
   { q: "Are the certificates verifiable?", a: "Every certificate has a unique code and a QR code linking to a public verification page anyone can check." },
-  { q: "Can I use Kodshala in Hindi?", a: "Yes. Switch the interface language to हिन्दी from the footer or settings, and ask the AI tutor to explain in Hindi." },
+  { q: "Can I use Kodshala in Hindi?", a: "Yes. Switch the interface language to हिन्दी or Hinglish from the footer or settings, and ask the AI tutor to explain in Hindi or Hinglish." },
   { q: "Do I need a credit card?", a: "No. Sign up with email, Google or GitHub, nothing to pay, ever." },
 ];
 
@@ -156,7 +156,8 @@ export function NewsletterCta() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.35),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.25),transparent_50%)]" />
         <div className="relative">
           <h2 className="font-heading text-3xl font-bold md:text-5xl">
-            Your next offer starts with <span className="text-gradient">one problem a day.</span>
+            <span data-no-translate className="hinglish-hide">Your next offer starts with <span className="text-gradient">one problem a day.</span></span>
+            <span data-no-translate className="hinglish-show">Roz ek problem, aur agla <span className="text-gradient">offer aapka.</span></span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Get the weekly digest: the best new tutorials, the week&apos;s hardest problem and upcoming contests.</p>
           <div className="mt-8 flex justify-center">

@@ -31,8 +31,13 @@ export function Hero({ learners }: { learners: string }) {
     <section ref={root} className="relative z-10 flex min-h-dvh items-center pt-8 pb-24">
       <div className="container-cv grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
         <div>
-          <h1 className="hero-headline font-heading text-[2.6rem] leading-[1.05] font-bold opacity-0 sm:text-6xl lg:text-7xl">
-            Learn to code by actually <span className="text-gradient">writing code</span>.
+          <h1 data-no-translate className="hero-headline font-heading text-[2.6rem] leading-[1.05] font-bold opacity-0 sm:text-6xl lg:text-7xl">
+            <span className="hinglish-hide">
+              Learn to code by actually <span className="text-gradient">writing code</span>.
+            </span>
+            <span className="hinglish-show">
+              Coding seekhiye, asli <span className="text-gradient">code&nbsp;likhkar</span>.
+            </span>
           </h1>
           <p className="hero-fade mt-6 max-w-xl text-lg text-muted-foreground">
             Short tutorials, an editor that runs in your browser, practice problems with hidden tests and a contest every week. Free for everyone.

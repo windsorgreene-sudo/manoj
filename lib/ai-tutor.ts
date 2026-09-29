@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const tutorSchema = z.object({
   mode: z.enum(["explain", "hint", "review", "quiz", "chat"]),
-  language: z.enum(["en", "hi"]).default("en"),
+  language: z.enum(["en", "hi", "hinglish"]).default("en"),
   context: z
     .object({ title: z.string().max(200), kind: z.enum(["article", "problem", "lesson", "general"]), content: z.string().max(8000).optional() })
     .nullable()
@@ -18,7 +18,9 @@ export function buildInstructions(input: TutorInput) {
   const lang =
     input.language === "hi"
       ? "Respond in simple Hindi (Devanagari script), keeping technical terms like 'array', 'recursion', 'O(n)' in English."
-      : "Respond in clear, friendly English.";
+      : input.language === "hinglish"
+        ? "Respond in Hinglish: Hindi written in the Latin alphabet, the way Indian students text (e.g. 'Pehle array ko sort karo, phir two pointers lagao'). Keep technical terms in English."
+        : "Respond in clear, friendly English.";
   const ctx = input.context
     ? `The student is currently on the ${input.context.kind} "${input.context.title}".${input.context.content ? `\n\nReference material:\n"""\n${input.context.content}\n"""` : ""}`
     : "";

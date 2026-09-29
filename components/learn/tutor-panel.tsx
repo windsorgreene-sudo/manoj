@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/i18n/intl-provider";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Bot, Code2, HelpCircle, Lightbulb, ListChecks, Loader2, Send, Sparkles } from "lucide-react";
@@ -54,7 +55,8 @@ export function TutorPanel() {
   const setOpen = useUiStore((s) => s.setTutorOpen);
   const ctx = useUiStore((s) => s.tutorContext);
   const code = useTutorCodeStore((s) => s.code);
-  const [lang, setLang] = useState<"en" | "hi">("en");
+  const { locale } = useLocale();
+  const [lang, setLang] = useState<"en" | "hi" | "hinglish">(locale);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -131,7 +133,7 @@ export function TutorPanel() {
           </SheetTitle>
           <SheetDescription className="truncate">{ctx ? `Helping with: ${ctx.title}` : "Ask anything about programming."}</SheetDescription>
           <div className="flex gap-1 pt-1" role="radiogroup" aria-label="Tutor language">
-            {(["en", "hi"] as const).map((l) => (
+            {(["en", "hinglish", "hi"] as const).map((l) => (
               <button
                 key={l}
                 type="button"
@@ -140,7 +142,7 @@ export function TutorPanel() {
                 onClick={() => setLang(l)}
                 className={cn("rounded-lg px-2.5 py-1 text-xs font-medium", lang === l ? "bg-brand text-white" : "bg-surface-2 text-muted-foreground")}
               >
-                {l === "en" ? "English" : "हिन्दी"}
+                {l === "en" ? "English" : l === "hinglish" ? "Hinglish" : "हिन्दी"}
               </button>
             ))}
           </div>
@@ -153,7 +155,7 @@ export function TutorPanel() {
             </div>
           ) : null}
           {msgs.map((m, i) => (
-            <div key={i} className={cn("max-w-[92%] rounded-2xl px-4 py-3", m.role === "user" ? "ml-auto bg-brand text-white" : "glass")}>
+            <div key={i} data-no-translate className={cn("max-w-[92%] rounded-2xl px-4 py-3", m.role === "user" ? "ml-auto bg-brand text-white" : "glass")}>
               {m.role === "assistant" ? m.content ? <Markdown text={m.content} /> : <Loader2 className="size-4 animate-spin" aria-label="Thinking" /> : <p className="text-sm whitespace-pre-wrap">{m.content}</p>}
             </div>
           ))}

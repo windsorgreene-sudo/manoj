@@ -24,7 +24,7 @@ export default async function SettingsPage() {
           github: profile?.github ?? "",
           linkedin: profile?.linkedin ?? "",
           theme: (profile?.theme as "dark" | "light") ?? "dark",
-          locale: (profile?.locale as "en" | "hi") ?? "en",
+          locale: (profile?.locale as "en" | "hi" | "hinglish") ?? "en",
           preferredLang: profile?.preferredLang ?? "PYTHON",
           emailNotifications: profile?.emailNotifications ?? true,
           pushNotifications: profile?.pushNotifications ?? true,

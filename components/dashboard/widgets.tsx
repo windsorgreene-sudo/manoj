@@ -47,7 +47,7 @@ export function StreakCard({ current, longest, freezes, activeToday, atRisk }: {
         <Snowflake className="size-3.5" /> {freezes} streak freeze{freezes === 1 ? "" : "s"} available
       </p>
       <p className={cn("mt-auto pt-3 text-xs", activeToday ? "text-success" : atRisk ? "text-warning" : "text-muted-foreground")}>
-        {activeToday ? "✓ You've practised today" : atRisk ? "Solve or read something today to keep your streak!" : "Start a new streak today."}
+        {activeToday ? "You've practised today" : atRisk ? "Solve or read something today to keep your streak!" : "Start a new streak today."}
       </p>
     </div>
   );

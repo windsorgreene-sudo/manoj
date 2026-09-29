@@ -74,7 +74,7 @@ export async function updateProfile(input: ProfileInput) {
 
 const prefsSchema = z.object({
   theme: z.enum(["dark", "light"]),
-  locale: z.enum(["en", "hi"]),
+  locale: z.enum(["en", "hi", "hinglish"]),
   preferredLang: z.enum(["C", "CPP", "JAVA", "PYTHON", "JAVASCRIPT", "GO"]),
   emailNotifications: z.boolean(),
   pushNotifications: z.boolean(),

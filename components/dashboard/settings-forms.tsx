@@ -59,7 +59,7 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
     if (!r.ok) toast.error(r.error);
     else toast.success("Preferences saved");
     setTheme(next.theme);
-    setLocale(next.locale === "hi" ? "hi" : "en");
+    setLocale(next.locale);
   };
   const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,9 +138,9 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
           </div>
           <div className="space-y-1.5">
             <Label id="l-locale">Language</Label>
-            <Select value={prefs.locale} onValueChange={(v) => savePrefs({ ...prefs, locale: v as "en" | "hi" })}>
+            <Select value={prefs.locale} onValueChange={(v) => savePrefs({ ...prefs, locale: v as "en" | "hi" | "hinglish" })}>
               <SelectTrigger aria-labelledby="l-locale" className="rounded-xl"><SelectValue /></SelectTrigger>
-              <SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hi">हिन्दी</SelectItem></SelectContent>
+              <SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hinglish">Hinglish</SelectItem><SelectItem value="hi">हिन्दी</SelectItem></SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">

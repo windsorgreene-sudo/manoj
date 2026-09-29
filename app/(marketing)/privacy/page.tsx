@@ -16,13 +16,13 @@ export default function PrivacyPage() {
       <h2>How we use it</h2>
       <ul>
         <li>To provide the service: run your code, track progress, issue certificates and show leaderboards.</li>
-        <li>To send transactional emails (verification, password reset, receipts) and, only if you opt in, the weekly digest.</li>
+        <li>To send transactional emails (verification and password reset) and, only if you opt in, the weekly digest.</li>
         <li>To keep the platform safe: rate limiting, abuse prevention and fraud detection.</li>
       </ul>
       <h2>AI tutor</h2>
       <p>Messages you send to the AI tutor, along with the article or problem you are viewing, are sent to our AI provider to generate a response. They are not used to train third-party models.</p>
       <h2>Sharing</h2>
-      <p>We never sell personal data. We share data only with processors that help us run Kodshala (hosting, email, payments, code execution) under contracts that protect it, or when required by law.</p>
+      <p>We never sell personal data. We share data only with processors that help us run Kodshala (hosting, email and code execution) under contracts that protect it, or when required by law.</p>
       <h2>Public information</h2>
       <p>Your username, avatar, badges, solved counts, heatmap and contest rating appear on your public profile. Your email, notes and code are private.</p>
       <h2>Your rights</h2>
