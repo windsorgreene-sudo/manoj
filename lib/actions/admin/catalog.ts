@@ -177,6 +177,9 @@ export async function setContestFrozen(input: { id: string; frozen: boolean }) {
   return adminAction(async (actor) => {
     const d = z.object({ id, frozen: z.boolean() }).parse(input);
     const c = await db.contest.update({ where: { id: d.id }, data: { frozen: d.frozen, freezeAt: d.frozen ? new Date() : null } });
+    // Snapshot public standings at freeze time; clear the snapshot on unfreeze.
+    if (d.frozen) await db.$executeRaw`UPDATE "ContestParticipant" SET "frozenScore" = "score", "frozenPenalty" = "penaltyMins", "frozenSolved" = "solved" WHERE "contestId" = ${c.id}`;
+    else await db.contestParticipant.updateMany({ where: { contestId: c.id }, data: { frozenScore: null, frozenPenalty: null, frozenSolved: null } });
     await audit(actor, d.frozen ? "contest.freeze" : "contest.unfreeze", "Contest", c.slug);
     await publish(`contest-${c.slug}`, "leaderboard", { at: Date.now() });
     revalidatePath(`/contests/${c.slug}`);

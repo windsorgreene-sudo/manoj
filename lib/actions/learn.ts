@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { assertUser, AuthError, getCurrentUser } from "@/lib/session";
 import { awardXp, XP_RULES, type AwardResult } from "@/lib/gamification";
 import { rateLimit, limits } from "@/lib/rate-limit";
+import { issueCertificate } from "@/lib/certificates";
 
 export type Result<T = undefined> = { ok: true; data: T } | { ok: false; error: string; unauth?: boolean };
 
@@ -121,7 +122,11 @@ export async function gradeQuiz(input: { quizId: string; answers: Record<string,
   return guard(async () => {
     const data = z.object({ quizId: id, answers: z.record(z.string(), z.array(z.number().int().min(0).max(10)).max(10)), timeTakenS: z.number().int().min(0).max(36_000).optional() }).parse(input);
     const quiz = await db.quiz.findUnique({ where: { id: data.quizId }, include: { questions: { orderBy: { order: "asc" } } } });
-    if (!quiz) throw new Error("Quiz not found");
+    if (!quiz || !quiz.isPublished) throw new Error("Quiz not found");
+    if (quiz.isPro) {
+      const viewer = await assertUser();
+      if (!viewer.isPro && viewer.role !== "ADMIN") throw new AuthError("This mock test is part of CodeVerse Pro.", 403);
+    }
     let score = 0,
       max = 0,
       correct = 0,
@@ -141,17 +146,26 @@ export async function gradeQuiz(input: { quizId: string; answers: Record<string,
         wrong++;
         if (quiz.negativeMarking) score -= q.marks * quiz.negativeMark;
       }
-      return { id: q.id, correct: q.correct, ok, skipped: isSkipped, explanation: q.explanation };
+      return { id: q.id, correct: q.correct, ok, skipped: isSkipped, explanation: q.explanation, marks: q.marks };
     });
     const user = await getCurrentUser();
     let xp: AwardResult | null = null;
+    // Time can't exceed the allowed duration (+30s grace for network latency).
+    const timeTakenS = Math.min(data.timeTakenS ?? 0, quiz.durationMins * 60 + 30);
     if (user) {
+      if (!rateLimit(`quiz:${user.id}`, limits.write.limit, limits.write.windowMs).success) throw new Error("RATE:Slow down a little — try again in a moment.");
       await db.quizAttempt.create({
-        data: { userId: user.id, quizId: quiz.id, answers: data.answers, score, maxScore: max, correct, wrong, skipped, timeTakenS: data.timeTakenS ?? 0 },
+        data: { userId: user.id, quizId: quiz.id, answers: data.answers, score, maxScore: max, correct, wrong, skipped, timeTakenS },
       });
       if (max > 0 && score / max >= 0.6) xp = await awardXp(user.id, "QUIZ_PASSED", XP_RULES.QUIZ_PASSED, quiz.id);
     }
-    return { score: Math.round(score * 100) / 100, max, correct, wrong, skipped, perQuestion, xp };
+    const [agg, below] = await Promise.all([
+      db.quizAttempt.aggregate({ where: { quizId: quiz.id }, _avg: { score: true }, _count: { _all: true } }),
+      db.quizAttempt.count({ where: { quizId: quiz.id, score: { lt: score } } }),
+    ]);
+    const attempts = agg._count._all;
+    const stats = { attempts, avgScore: Math.round((agg._avg.score ?? 0) * 100) / 100, percentile: attempts > 1 ? Math.round((below / Math.max(1, attempts - (user ? 1 : 0))) * 100) : 100 };
+    return { score: Math.round(score * 100) / 100, max, correct, wrong, skipped, perQuestion, xp, stats, timeTakenS };
   });
 }
 
@@ -260,8 +274,9 @@ export async function setLessonComplete(input: { lessonId: string; completed: bo
     let xp: AwardResult | null = null;
     if (justCompleted) {
       xp = await awardXp(user.id, "COURSE_COMPLETED", XP_RULES.COURSE_COMPLETED, courseId);
+      const cert = await issueCertificate(user.id, courseId);
       await db.notification.create({
-        data: { userId: user.id, type: "ACHIEVEMENT", title: `You completed ${lesson.module.course.title}! 🎓`, body: "Your certificate is ready.", link: "/dashboard/certificates" },
+        data: { userId: user.id, type: "ACHIEVEMENT", title: `You completed ${lesson.module.course.title}! 🎓`, body: `Your certificate ${cert.code} is ready to download.`, link: "/dashboard/certificates" },
       });
     }
     revalidatePath(`/courses/${lesson.module.course.slug}`);

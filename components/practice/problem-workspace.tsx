@@ -93,6 +93,7 @@ const storageKey = (slug: string, lang: string) => `cv-code:${slug}:${lang}`;
 export function ProblemWorkspace({ problem, description }: { problem: WorkspaceProblem; description: ReactNode }) {
   const params = useSearchParams();
   const contestId = params.get("contest") ?? undefined;
+  const contestSlug = params.get("from")?.replace(/[^a-z0-9-]/g, "") || null;
   const qc = useQueryClient();
   const celebrate = useCelebrate();
   const isDesktop = useMediaQuery("(min-width: 1024px)", true);
@@ -395,7 +396,7 @@ export function ProblemWorkspace({ problem, description }: { problem: WorkspaceP
   const header = (
     <div className="flex items-center gap-2 border-b border-border px-3 py-2">
       <Button asChild variant="ghost" size="sm" className="rounded-lg">
-        <Link href={contestId ? "/contests" : "/problems"}>
+        <Link href={contestId ? (contestSlug ? `/contests/${contestSlug}` : "/contests") : "/problems"}>
           <ArrowLeft /> {contestId ? "Contest" : "Problems"}
         </Link>
       </Button>

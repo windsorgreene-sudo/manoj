@@ -9,7 +9,7 @@ type Row = { rank: number; xp: number; level: number; contestRating: number; col
 export function LeaderboardTable({ rows, meId }: { rows: Row[]; meId: string | null }) {
   if (!rows.length) return <EmptyState title="Nobody here yet" description="Follow friends or set your college in Settings to see this leaderboard." />;
   return (
-    <div className="glass overflow-x-auto">
+    <div className="glass relative overflow-x-auto">
       <table className="w-full min-w-[560px] text-sm">
         <caption className="sr-only">Leaderboard</caption>
         <thead>

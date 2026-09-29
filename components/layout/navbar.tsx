@@ -16,9 +16,14 @@ import { useUiStore } from "@/lib/stores/ui-store";
 import type { SessionUser } from "@/lib/session";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
+import type { NavItem } from "@/components/layout/nav-links";
 
 export function Navbar() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
+  const label = (i: NavItem) => (i.key ? t(i.key) : i.label);
+  const desc = (i: NavItem) => (i.key ? t(`${i.key}Desc`) : i.description);
   const { data: session, isPending } = useSession();
   const user: SessionUser | null = session
     ? {
@@ -62,22 +67,22 @@ export function Navbar() {
                   isActive(item.href) && "text-foreground",
                 )}
               >
-                {item.label}
+                {label(item)}
               </Link>
             </li>
           ))}
           <li>
             <Popover>
               <PopoverTrigger className="flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
-                Practice <ChevronDown className="size-4" />
+                {t("practice")} <ChevronDown className="size-4" />
               </PopoverTrigger>
               <PopoverContent className="glass w-[480px] p-2" align="start">
                 <ul className="grid grid-cols-2 gap-1">
                   {practiceNav.map((item) => (
                     <li key={item.href}>
                       <Link href={item.href} className="block rounded-xl p-3 transition-colors hover:bg-accent">
-                        <div className="text-sm font-semibold">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.description}</div>
+                        <div className="text-sm font-semibold">{label(item)}</div>
+                        <div className="text-xs text-muted-foreground">{desc(item)}</div>
                       </Link>
                     </li>
                   ))}
@@ -94,7 +99,7 @@ export function Navbar() {
                   isActive(item.href) && "text-foreground",
                 )}
               >
-                {item.label}
+                {label(item)}
               </Link>
             </li>
           ))}
@@ -105,10 +110,10 @@ export function Navbar() {
             type="button"
             onClick={() => openSearch(true)}
             className="hidden h-9 items-center gap-2 rounded-xl border border-border bg-surface/60 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground md:flex"
-            aria-label="Search (Ctrl+K)"
+            aria-label={t("searchLabel")}
           >
             <Search className="size-4" />
-            <span>Search…</span>
+            <span>{t("search")}</span>
             <kbd className="ml-4 rounded-md border border-border px-1.5 text-[10px]">Ctrl K</kbd>
           </button>
           <Button variant="ghost" size="icon" className="rounded-xl md:hidden" aria-label="Search" onClick={() => openSearch(true)}>
@@ -122,18 +127,18 @@ export function Navbar() {
           ) : (
             <div className="hidden items-center gap-2 sm:flex">
               <Button asChild variant="ghost" className="rounded-xl">
-                <Link href="/login">Log in</Link>
+                <Link href="/login">{t("login")}</Link>
               </Button>
               <Magnetic>
                 <Button asChild className="rounded-xl bg-brand shadow-[0_0_24px_-4px_rgba(124,58,237,0.7)] hover:bg-brand/90">
-                  <Link href="/signup">Start free</Link>
+                  <Link href="/signup">{t("startFree")}</Link>
                 </Button>
               </Magnetic>
             </div>
           )}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-xl lg:hidden" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="rounded-xl lg:hidden" aria-label={t("openMenu")}>
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
@@ -147,7 +152,7 @@ export function Navbar() {
                 {[...primaryNav, ...practiceNav].map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="block rounded-xl px-3 py-2.5 text-sm font-medium hover:bg-accent">
-                      {item.label}
+                      {label(item)}
                     </Link>
                   </li>
                 ))}
@@ -155,10 +160,10 @@ export function Navbar() {
               {!user ? (
                 <div className="mt-4 flex flex-col gap-2 px-4 pb-6">
                   <Button asChild variant="outline" className="rounded-xl">
-                    <Link href="/login">Log in</Link>
+                    <Link href="/login">{t("login")}</Link>
                   </Button>
                   <Button asChild className="rounded-xl">
-                    <Link href="/signup">Start free</Link>
+                    <Link href="/signup">{t("startFree")}</Link>
                   </Button>
                 </div>
               ) : null}

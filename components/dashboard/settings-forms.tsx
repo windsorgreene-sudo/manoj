@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/i18n/intl-provider";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useTheme } from "next-themes";
@@ -34,6 +35,7 @@ function Section({ title, description, children }: { title: string; description:
 export function SettingsForms({ user, profile, hasPassword }: { user: { name: string; email: string; image: string | null; username: string }; profile: P; hasPassword: boolean }) {
   const router = useRouter();
   const { setTheme } = useTheme();
+  const { setLocale } = useLocale();
   const fileRef = useRef<HTMLInputElement>(null);
   const [f, setF] = useState({ name: user.name, username: user.username, bio: profile.bio, college: profile.college, location: profile.location, website: profile.website, github: profile.github, linkedin: profile.linkedin });
   const [prefs, setPrefs] = useState<PrefsInput>({ theme: profile.theme, locale: profile.locale, preferredLang: profile.preferredLang, emailNotifications: profile.emailNotifications, pushNotifications: profile.pushNotifications, weeklyDigest: profile.weeklyDigest });
@@ -57,7 +59,7 @@ export function SettingsForms({ user, profile, hasPassword }: { user: { name: st
     if (!r.ok) toast.error(r.error);
     else toast.success("Preferences saved");
     setTheme(next.theme);
-    document.cookie = `NEXT_LOCALE=${next.locale}; path=/; max-age=31536000; samesite=lax`;
+    setLocale(next.locale === "hi" ? "hi" : "en");
   };
   const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -7,6 +7,7 @@ import { MotionConfig } from "motion/react";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CelebrationLayer } from "@/components/motion/celebration-layer";
+import { IntlProvider } from "@/components/i18n/intl-provider";
 
 export function Providers({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -18,6 +19,7 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
       <QueryClientProvider client={client}>
+        <IntlProvider>
         <MotionConfig reducedMotion="user">
           <TooltipProvider delayDuration={200}>
             {children}
@@ -25,6 +27,7 @@ export function Providers({ children }: { children: ReactNode }) {
             <Toaster richColors theme="dark" position="bottom-right" closeButton />
           </TooltipProvider>
         </MotionConfig>
+        </IntlProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

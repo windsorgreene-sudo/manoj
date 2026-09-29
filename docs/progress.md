@@ -81,16 +81,16 @@
 - [x] Lint + type-check + build green; commit "Phase 6: Admin Panel"
 
 ## Phase 7 — Contests, Payments & Launch
-- [ ] Contests (list, registration, realtime/polling leaderboard, 3D podium, ratings)
-- [ ] Quizzes & mock tests (timer, negative marking, analysis)
-- [ ] Certificates (PDF + QR verification page)
-- [ ] Doubts forum
-- [ ] Pro subscriptions (Razorpay / mock checkout) + admin monetization
-- [ ] Hindi translation (next-intl)
-- [ ] SEO: sitemap, robots, OG images, JSON-LD
-- [ ] Final performance + accessibility pass
-- [ ] Vercel deployment guide in README
-- [ ] Lint + type-check + build green; commit "Phase 7: Contests, Payments & Launch"
+- [x] Contests (list, registration, realtime/polling leaderboard, 3D podium, ratings)
+- [x] Quizzes & mock tests (timer, negative marking, analysis)
+- [x] Certificates (PDF + QR verification page)
+- [x] Doubts forum
+- [x] Pro subscriptions (Razorpay / mock checkout) + admin monetization
+- [x] Hindi translation (next-intl)
+- [x] SEO: sitemap, robots, OG images, JSON-LD
+- [x] Final performance + accessibility pass
+- [x] Vercel deployment guide in README
+- [x] Lint + type-check + build green; commit "Phase 7: Contests, Payments & Launch"
 
 ## Fallbacks in use (missing keys)
 | Missing key | Fallback in use | Where |
@@ -102,8 +102,11 @@
 | `PUSHER_*` | `lib/realtime.ts` publish() no-ops; leaderboards/notifications poll | `lib/realtime.ts` |
 | `CLOUDINARY_*` | Uploads (avatars, media) saved to `public/uploads` | `lib/uploads.ts` |
 | `MEILISEARCH_HOST` | Postgres full-text search (`websearch_to_tsquery` + ILIKE boost) | `lib/search.ts` |
+| `RAZORPAY_*` | Mock checkout dialog (simulate success/failure); webhook returns 503 | `lib/payments.ts`, `components/payments/checkout-form.tsx` |
 
 Notes:
 - Next.js 16 renamed `middleware.ts` → `proxy.ts`; route protection lives in `proxy.ts` + `lib/session.ts` server guards.
 - Prisma 7 uses `prisma.config.ts` + `@prisma/adapter-pg`; client generated to `lib/generated/prisma` (git-ignored, `postinstall` regenerates).
 - lucide-react v1 dropped brand icons → `components/ui/brand-icons.tsx`.
+- i18n uses next-intl client provider with a `NEXT_LOCALE` cookie (no locale routing) so pages stay static; UI chrome (nav, footer, menus, dashboard nav) is translated to Hindi. The AI tutor also answers in Hindi.
+- Contest finalization (ranks, Elo ratings ±150, XP, notifications) runs lazily on first view after a contest ends; freezing snapshots public standings.

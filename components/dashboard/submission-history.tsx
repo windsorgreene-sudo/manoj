@@ -46,7 +46,7 @@ export function SubmissionHistory({ subs }: { subs: Sub[] }) {
         </Select>
         <span className="text-sm text-muted-foreground">{list.length} submissions</span>
       </div>
-      <div className="glass overflow-x-auto">
+      <div className="glass relative overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
           <caption className="sr-only">Submissions</caption>
           <thead>

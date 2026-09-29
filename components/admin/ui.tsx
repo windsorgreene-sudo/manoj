@@ -34,6 +34,11 @@ export function StatusBadge({ status }: { status: string }) {
     FAILED: "bg-danger/15 text-danger",
     BANNED: "bg-danger/15 text-danger",
     ARCHIVED: "bg-surface-2 text-muted-foreground",
+    CREATED: "bg-cyan/15 text-cyan",
+    REFUNDED: "bg-warning/15 text-warning",
+    CANCELLED: "bg-warning/15 text-warning",
+    EXPIRED: "bg-surface-2 text-muted-foreground",
+    PAST_DUE: "bg-danger/15 text-danger",
   };
   return <span className={cn("inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold", cls[status] ?? "bg-surface-2 text-muted-foreground")}>{status.replace(/_/g, " ")}</span>;
 }
@@ -106,7 +111,7 @@ export const selectCls = "h-9 rounded-xl border border-input bg-background px-3 
 
 export function Table({ children, caption }: { children: ReactNode; caption: string }) {
   return (
-    <div className="glass overflow-x-auto">
+    <div className="glass relative overflow-x-auto">
       <table className="w-full min-w-[720px] text-sm">
         <caption className="sr-only">{caption}</caption>
         {children}

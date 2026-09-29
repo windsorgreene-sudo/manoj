@@ -2,6 +2,8 @@
 
 **Learn · Practice · Compete · Get hired.** A premium coding-education platform that combines in-depth tutorials (GeeksforGeeks), a browser IDE with a judge (LeetCode) and structured courses (Coursera) — with immersive 3D, cinematic scroll animations and a full student + admin panel.
 
+**Features:** courses & lesson player · MDX tutorials with runnable code · 30 judged DSA problems in 6 languages · playground, visualizers & 3D DS lab · DSA sheets & roadmaps · rated contests (ICPC scoring, live/frozen leaderboard, Elo ratings, 3D podium) · timed quizzes & mock tests with negative marking · doubts forum · verifiable PDF certificates with QR · AI tutor · gamification (XP, levels, streaks, badges) · Pro subscriptions via Razorpay · English + हिन्दी UI · full admin CMS.
+
 Built with Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS 4 · shadcn/ui · Prisma 7 + PostgreSQL · Better Auth · three.js / R3F · GSAP · Motion · Monaco · Judge0.
 
 ---
@@ -137,13 +139,24 @@ prisma/           schema, migrations, seed + seed data
 
 ## Deploying to Vercel
 
-1. Push the repo to GitHub and **Import** it at https://vercel.com/new.
-2. Framework preset: **Next.js** (build command `npm run build`, output auto-detected).
-3. Add environment variables (Project → Settings → Environment Variables): at minimum `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` set to your production URL (e.g. `https://codeverse.vercel.app`), plus any optional integrations.
-4. Apply migrations against the production database once (locally or in CI):
+1. **Database** — create a Neon project (see above) and copy the **pooled** connection string. Optionally create a Neon branch per Vercel preview.
+2. **Import** the GitHub repo at https://vercel.com/new. Preset: **Next.js**; keep the default build command (`npm run build` runs `prisma generate`), install command `npm install`, Node 20+.
+3. **Environment variables** (Project → Settings → Environment Variables, Production + Preview):
+   - Required: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` — both URLs set to your production origin, e.g. `https://codeverse.vercel.app`.
+   - Strongly recommended on Vercel: `CLOUDINARY_URL` (the filesystem is read-only/ephemeral, so the `public/uploads` fallback won't persist) and `RESEND_API_KEY` (console-logged emails aren't visible to users).
+   - Optional: Judge0, OpenAI, Pusher, Meilisearch, Razorpay, Google/GitHub OAuth — each feature falls back gracefully when its keys are missing.
+4. **Migrate** the production database once (and after every schema change):
    ```bash
-   DATABASE_URL="<neon-prod-url>" npx prisma migrate deploy
-   DATABASE_URL="<neon-prod-url>" npm run db:seed   # optional demo content
+   DATABASE_URL="<neon-url>" npx prisma migrate deploy
+   DATABASE_URL="<neon-url>" npm run db:seed   # optional demo content — it RESETS data
    ```
-5. Deploy. Update OAuth callback URLs and the Razorpay webhook (`{APP_URL}/api/payments/webhook`) to the production domain.
-6. Tip: use Neon's **pooled** connection string on Vercel, and enable Neon branching for preview deployments.
+5. **Deploy**, then point integrations at the production domain:
+   - OAuth callbacks: `{APP_URL}/api/auth/callback/google` and `/github`.
+   - Razorpay → Settings → Webhooks: URL `{APP_URL}/api/payments/webhook`, events `payment.captured`, `order.paid`, `payment.failed`, `refund.processed`; set the same secret as `RAZORPAY_WEBHOOK_SECRET`.
+   - Judge0: use a self-hosted instance (`JUDGE0_URL` + `JUDGE0_AUTH_TOKEN`) for real traffic; RapidAPI's free tier is rate-limited.
+6. **Custom domain** — add it under Project → Domains, then update `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` and redeploy (the sitemap, OG images and certificate QR codes use `NEXT_PUBLIC_APP_URL`).
+
+Notes:
+- Contest ratings are applied lazily the first time anyone opens a contest after it ends; scheduled articles are published when listing pages are visited — no cron required.
+- The rate limiter is in-memory per instance; for multi-region traffic swap `lib/rate-limit.ts` for Upstash Redis (same signature).
+- Without Pusher, leaderboards poll every 15 s and notifications every 30 s.

@@ -232,7 +232,7 @@ export function ContestEditor({ initial, problemSlugs, standings, frozen }: { in
         <section className="mt-8" aria-labelledby="standings">
           <h2 id="standings" className="mb-2 font-semibold">Live standings {frozen ? <span className="ml-2 text-xs text-cyan">(frozen for participants)</span> : null}</h2>
           {standings.length ? (
-            <div className="glass overflow-x-auto">
+            <div className="glass relative overflow-x-auto">
               <table className="w-full text-sm"><caption className="sr-only">Standings</caption>
                 <thead><tr className="border-b border-border text-left text-xs uppercase text-muted-foreground"><th scope="col" className="px-4 py-2">#</th><th scope="col" className="px-4 py-2">User</th><th scope="col" className="px-4 py-2">Score</th><th scope="col" className="px-4 py-2">Solved</th><th scope="col" className="px-4 py-2">Penalty</th></tr></thead>
                 <tbody>{standings.map((s) => <tr key={s.rank + s.name} className="border-b border-border/60 last:border-0"><td className="px-4 py-2">{s.rank}</td><td className="px-4 py-2">{s.name}</td><td className="px-4 py-2 tabular-nums">{s.score}</td><td className="px-4 py-2">{s.solved}</td><td className="px-4 py-2">{s.penaltyMins}m</td></tr>)}</tbody>

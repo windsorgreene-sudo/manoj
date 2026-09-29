@@ -753,6 +753,10 @@ model ContestParticipant {
   penaltyMins  Int      @default(0)
   solved       Int      @default(0)
   rank         Int?
+  /// Snapshot taken when the leaderboard is frozen (public standings until the contest ends)
+  frozenScore   Int?
+  frozenPenalty Int?
+  frozenSolved  Int?
   ratingBefore Int?
   ratingAfter  Int?
   registeredAt DateTime @default(now())

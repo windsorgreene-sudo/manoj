@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LayoutDashboard, LogOut, Settings, Shield, User as UserIcon, PenLine } from "lucide-react";
@@ -27,15 +28,16 @@ export function initials(name: string) {
 
 export function UserMenu({ user }: { user: SessionUser }) {
   const router = useRouter();
+  const t = useTranslations("userMenu");
   const logout = async () => {
     await authClient.signOut();
-    toast.success("Signed out");
+    toast.success(t("signedOut"));
     router.push("/");
     router.refresh();
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full focus-visible:ring-2 focus-visible:ring-cyan" aria-label="Open account menu">
+      <DropdownMenuTrigger className="rounded-full focus-visible:ring-2 focus-visible:ring-cyan" aria-label={t("open")}>
         <Avatar className="size-9 ring-2 ring-brand/40">
           {user.image ? <AvatarImage src={user.image} alt="" /> : null}
           <AvatarFallback className="bg-brand/20 text-sm font-semibold">{initials(user.name)}</AvatarFallback>
@@ -49,38 +51,38 @@ export function UserMenu({ user }: { user: SessionUser }) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/dashboard">
-            <LayoutDashboard /> Dashboard
+            <LayoutDashboard /> {t("dashboard")}
           </Link>
         </DropdownMenuItem>
         {user.username ? (
           <DropdownMenuItem asChild>
             <Link href={`/u/${user.username}`}>
-              <UserIcon /> Public profile
+              <UserIcon /> {t("profile")}
             </Link>
           </DropdownMenuItem>
         ) : null}
         <DropdownMenuItem asChild>
           <Link href="/dashboard/settings">
-            <Settings /> Settings
+            <Settings /> {t("settings")}
           </Link>
         </DropdownMenuItem>
         {user.role !== "STUDENT" ? (
           <DropdownMenuItem asChild>
             <Link href="/dashboard/articles">
-              <PenLine /> My articles
+              <PenLine /> {t("articles")}
             </Link>
           </DropdownMenuItem>
         ) : null}
         {user.role === "ADMIN" ? (
           <DropdownMenuItem asChild>
             <Link href="/admin">
-              <Shield /> Admin panel
+              <Shield /> {t("admin")}
             </Link>
           </DropdownMenuItem>
         ) : null}
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={logout}>
-          <LogOut /> Sign out
+          <LogOut /> {t("signOut")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
